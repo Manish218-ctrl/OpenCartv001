@@ -1,0 +1,234 @@
+package pageObjects;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.time.Duration;
+import java.util.List;
+import org.openqa.selenium.support.ui.Select;
+
+public class SpecialOffersPage {
+
+    WebDriver driver;
+    private WebDriverWait wait; // Made private for encapsulation
+
+    private static final Logger logger = LoggerFactory.getLogger(SpecialOffersPage.class);
+
+
+    // Constructor to initialize driver and WebDriverWait
+    public SpecialOffersPage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Initialize WebDriverWait
+        PageFactory.initElements(driver, this); // Initializes all @FindBy elements
+    }
+
+    // Locator for the page title or heading (change the XPath if necessary)
+    @FindBy(xpath = "/html/body/div[2]/div/div/h2")
+    private WebElement pageTitle;
+
+    // Method to get the page title text
+    public String getPageTitle() {
+        return pageTitle.getText();
+    }
+
+    // Locator for the 'Specials' footer link
+    @FindBy(linkText = "Specials")
+    private WebElement specialsFooterLink;
+
+    // Locator for the 'Compare this Product' icon
+    private By compareProductIcon = By.xpath("//div[@class='product-thumb']//button[contains(@onclick, 'compare.add')]");
+
+    // Locator for the success message after adding a product to the comparison
+    private By successMessageLocator = By.xpath("//div[contains(@class, 'alert-success')]");
+
+    // Locator for the 'Compare this Product' icon (Adjust based on actual UI)
+    @FindBy(xpath = "//button[@title='Compare this Product']")
+    private WebElement compareThisProductButton;
+
+    // Locator for success message
+    @FindBy(xpath = "//div[contains(@class, 'alert-success')]")
+    private WebElement successMessage;
+
+    // Locator for the success message text
+    private By successMessageText = By.xpath("//div[contains(@class, 'alert-success')]//text()");
+
+
+    // Method to click on the 'Specials' footer link
+    public void clickSpecialsLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(specialsFooterLink)).click();
+    }
+
+    // Method to check if the offer products are displayed
+    @FindBy(xpath = "//div[@class='product-thumb']")
+    private WebElement specialOfferItem;
+
+    public boolean areSpecialOffersDisplayed() {
+        return specialOfferItem.isDisplayed();
+    }
+
+    // Method to click on the first special offer item (optional)
+    public void clickFirstSpecialOffer() {
+        specialOfferItem.click();
+    }
+
+    // Locator for the offer products (adjust according to the actual HTML)
+    private By offerProductsLocator = By.cssSelector(".offer-product");
+
+    // Method to check if offer products are displayed
+    public boolean areOfferProductsDisplayed() {
+        try {
+            // Wait for the offer products to be visible on the page
+            List<WebElement> offerProducts = driver.findElements(offerProductsLocator);
+            return offerProducts.size() > 0 && offerProducts.get(0).isDisplayed();
+        } catch (Exception e) {
+            return false; // If any exception occurs (e.g., elements not found), return false
+        }
+    }
+
+    // Method to select Grid view option
+    public void selectGridView() {
+        WebElement gridViewOption = wait.until(ExpectedConditions.elementToBeClickable(By.id("grid-view")));
+        gridViewOption.click();
+    }
+
+    // Method to verify products are displayed in Grid view
+    @FindBy(xpath = "//div[@class='product-thumb']")
+    private WebElement productGrid;
+
+    public boolean areProductsInGridView() {
+        return productGrid.isDisplayed();  // Validate if product grid is visible
+    }
+
+    // Locator for 'ADD TO CART' button
+    @FindBy(xpath = "//button[contains(@onclick, 'cart.add')]")
+    private WebElement addToCartButton;
+
+    // Method to click the 'Add to Cart' button for the first product
+    public void clickAddToCart() {
+        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
+    }
+
+
+
+
+
+
+
+
+    @FindBy(linkText = "Product Compare") // Locator for Product Compare link
+    private WebElement productCompareLink;
+
+    // Method to click on the 'Product Compare' link
+    public void clickProductPage() {
+        wait.until(ExpectedConditions.elementToBeClickable(productCompareLink)).click();
+    }
+
+    @FindBy(id = "input-sort")  // Assuming the 'Sort By' dropdown has id "input-sort"
+    private WebElement sortByDropdown;
+
+
+    public void selectSortByOption(String option) {
+        Select sortBySelect = new Select(sortByDropdown);
+        sortBySelect.selectByVisibleText(option);
+    }
+
+    private By productTitlesLocator = By.xpath("//div[@class='product-thumb']//h4/a"); // Adjust this if necessary
+
+
+    public List<WebElement> getProductTitles() {
+        return driver.findElements(productTitlesLocator); // Assumes 'productTitlesLocator' is defined correctly
+    }
+
+
+    public boolean areProductsSorted(List<WebElement> products) {
+        // Assuming the products are sorted by name, we can compare the product names to check if they are in ascending order
+        String previousProductName = "";
+        for (WebElement product : products) {
+            String currentProductName = product.getText();
+            if (previousProductName.compareTo(currentProductName) > 0) {
+                return false;  // Products are not sorted in ascending order
+            }
+            previousProductName = currentProductName;
+        }
+        return true;  // Products are sorted
+    }
+
+    // Method to select 'List' view for products in Special Offers page
+    @FindBy(id = "list-view")
+    private WebElement listViewOption;
+
+    public void selectListView() {
+        wait.until(ExpectedConditions.elementToBeClickable(listViewOption)).click();
+    }
+
+    // Method to click the 'Compare this Product' icon for the first product in the list
+    public void clickFirstSpecialOfferCompare() {
+        WebElement compareButton = driver.findElement(compareProductIcon);
+        compareButton.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(successMessageLocator));  // Wait for success message
+    }
+
+
+
+    // Method to get the success message after adding a product to the comparison
+    public String getSuccessMessage() {
+        try {
+            // Wait until the success message is visible and then retrieve the text
+            WebElement message = wait.until(ExpectedConditions.visibilityOf(successMessage));
+            return message.getText().trim();
+        } catch (Exception e) {
+            return "";  // Return an empty string if no success message is found
+        }
+    }
+
+    public void clickFooterSpecialsLink() {
+        try {
+            WebElement specialsLink = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//footer//a[normalize-space()='Specials']")
+            ));
+            specialsLink.click();
+            logger.info("Clicked on 'Specials' footer link.");
+        } catch (Exception e) {
+            logger.error("Error while clicking 'Specials' footer link: " + e.getMessage());
+        }
+    }
+
+    public void selectProductForComparison(String productName) {
+        try {
+            // Find the product based on the name and click the "Compare this Product" icon next to it
+            WebElement productElement = driver.findElement(By.xpath("//div[contains(@class,'product-layout')]//h4/a[text()='" + productName + "']"));
+
+            // Locate the 'Compare this Product' button/icon
+            WebElement compareButton = productElement.findElement(By.xpath("..//following-sibling::div//button[@data-original-title='Compare this Product']"));
+
+            // Wait for the button to be clickable and click it
+            wait.until(ExpectedConditions.elementToBeClickable(compareButton)).click();
+
+            // Log success
+            logger.info("Selected product '" + productName + "' for comparison.");
+        } catch (Exception e) {
+            logger.error("Error while selecting product for comparison: " + e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

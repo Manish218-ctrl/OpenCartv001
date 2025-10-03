@@ -1,0 +1,265 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Suite1" thread-count="5" parallel="tests">
+
+    <listeners>
+        <listener class-name="utilities.ExtentManager" />
+    </listeners>
+
+    <test thread-count="5" name="chrometest">
+
+        <parameter name="os" value="Windows"/>
+        <parameter name="browser" value="chrome"/>
+       <!-- <parameter name="useRandomAddress" value="true"/>-->
+
+
+
+
+
+
+        <classes>
+
+
+
+
+          <!--  <class name="testCases.TC_002LoginTest" />
+             <class name="testCases.TC_002LoginTest" />
+            <class name="testCases.TC_003LoginDDT" />-->
+
+          <class name="testCases.TS_001_AccountRegistration.TC_RF_001_ValidateAccountRegistrationTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_002_ValidateRegisterAllFieldsTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_003_ValidateRegisterMandatoryFieldsTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_004_ValidateRegisterNewsletterYesTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_005_ValidateRegisterNewsletterNoTest" />
+          <!--  <class name="testCases.TS_001_AccountRegistration.TC_RF_006_NavigateValidateRegisterPageTestPageTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_007_ValidateRegisterPasswordMismatchTestatchTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_008_ValidateInvalidEmailRegistrationTesttionTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_009_ValidateMissingPasswordConfirmTestfirmTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_010_ValidateMissingPrivacyPolicyTestlicyTest" />-->
+         <!--   <class name="testCases.TS_002_LoginFunctionality.TC_LF_001_ValidateLoginTestest" />
+            <class name="testCases.TS_002_LoginFunctionality.TC_LF_002_ValidateInvalidLoginTestoginTest" />
+            <class name="testCases.TS_002_LoginFunctionality.TC_ValidateLF_Validate003_ValidateInvalidEmailValidPasswordTestidEmailValidPasswordTest" />
+            <class name="testCases.TS_002_LoginFunctionality.TC_LF_004_ValidateKeyboardLoginTestoginTest" />
+            <class name="testCases.TS_002_LoginFunctionality.TC_LF_005_ValidateLoginWithoutCredentialsTestialsTest" />
+            <class name="testCases.TS_002_LoginFunctionality.TC_LF_006_ValidateForgottenPasswordLinkTestLinkTest" />
+            <class name="testCases.TS_002_LoginFunctionality.TC_LF_006_ValidateForgottenPasswordLinkTestLinkTest" />
+            <class name="testCases.TS_002_LoginFunctionality.TC_LF_007_ValidateBackButtonLoginTestoginTest" />
+            <class name="testCases.TS_002_LoginFunctionality.TC_LF_008_ValidatePasswordCopyTestCopyTest" />
+            <class name="testCases.TS_002_LoginFunctionality.TC_ValidateLF_Validate009_ValidateUnsuccessfulLoginAttemptsTestcessfulLoginAttemptsTest" />
+            <class name="testCases.TS_002_LoginFunctionality.TC_LF_010_ValidateNavigationFromLoginPageTestPageTest" />
+            <class name="testCases.TS_002_LoginFunctionality.TC_LF_011_ValidateNavigateToLoginPageTestPageTest" />-->
+          <!-- <class name="testCases.TS_003_LogOutFunctionality.TC_LG_001_LogoutFunctionalityTestt" />
+            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_002_LogoutFunctionalityRightColumnTestt" />
+            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_003_SessionPersistenceTestt" />
+            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_004_LogoutOptionNotDisplayedBeforeLoginTestt" />
+            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_005_LogoutOptionNotDisplayedRightColumnTestt" />
+            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_006_ValidateLogoutFunctionalityTestFromDifferentBrowsersBrowsers" />
+            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_007_ValidateLogoutThenLoginTestoginTest" />
+            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_008_ValidateAccountValidateLogoutPageTestPageTest" />
+            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_009_ValidateUILayoutOfValidateLogoutAndValidateLogoutPageTestteLogoutPageTest" />
+            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_010_ValidateValidateLogoutNotDisplayedBeforeLoginTestoginTest" />
+            <class name="testCases.TS_005_SearchFunctionality.TC_SP_010_ValidateSearchExistingProductDataDrivenTestivenTest"/>-->
+          <!--  <class name="testCases.TS_005_SearchFunctionality.TC_SP_001_SearchExistingProductTestductTest" />
+            <class name="testCases.TS_005_SearchFunctionality.TC_SP_002_ValidateSearchNonExistingProductTestductTest" />
+            <class name="testCases.TS_005_SearchFunctionality.TC_SP_003_ValidateSearchWithoutProductNameTestNameTest" />
+            <class name="testCases.TS_005_SearchFunctionality.TC_SP_004_ValidateSearchProductAfterLoginTestoginTest" />
+            <class name="testCases.TS_005_SearchFunctionality.TC_SP_005_ValidateSearchMultipleProductsTestuctsTest" />
+            <class name="testCases.TS_005_SearchFunctionality.TC_SP_006_ValidateSearchSingleProductTestductTest" />
+            <class name="testCases.TS_005_SearchFunctionality.TC_SP_007_ValidateSearchUsingCriteriaFieldTestieldTest" />
+            <class name="testCases.TS_005_SearchFunctionality.TC_SP_008_ValidateSearchPlaceholderTestlderTest" />
+            <class name="testCases.TS_005_SearchFunctionality.TC_SP_009_NavigateToCompareFromValidateSearchteSearch" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_001_ValidateProductCompareTestpareTest" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_002_ValidateProductCompareFromListViewTestViewTest" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_003_ValidateProductCompareFromGridViewTestViewTest" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_004_ValidateProductCompareFromCategoryListViewTestViewTest" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_005_ValidateProductCompareFromCategoryGridViewTestViewTest" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_006_ValidateProductCompareFromRelatedValidateProductsTestdateProductsTest" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_007_ValidateProductCompareFromFeaturedTesturedTest" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_008_ValidateProductCompareNavigationFromSearchTestarchTest" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_009_ValidateProductCompareNavigationFromCategoryPageTestPageTest" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_010_ValidateProductCompareEmptyStateTesttateTest" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_011_ValidateProductCompareContinueButtonTestttonTest" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_014_ValidateProductCompareSuccessMessageTestsageTest" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_012_ValidateProductCompareAddToCartTestCartTest" />
+           <class name="testCases.TS_007_WishList.TC_WL_001_AddProductFromRelatedProductsToWishListt" />
+            <class name="testCases.TS_007_WishList.TC_WL_003_AddProductFromFeaturedSectionToWishListt" />
+            <class name="testCases.TS_007_WishList.TC_WL_004_AddProductFromCategoryPageToWishListt" />
+            <class name="testCases.TS_007_WishList.TC_WL_005_AddProductFromSearchResultsToWishListt" />
+            <class name="testCases.TS_007_WishList.TC_WL_006_ValidateNavigateToWishListFromSuccessMessagesMessage" />
+            <class name="testCases.TS_007_WishList.TC_WL_007_ValidateNavigateToWishListFromHeaderomHeader" />
+            <class name="testCases.TS_007_WishList.TC_WL_008_ValidateNavigateToWishListFromRightColumnhtColumn" />
+            <class name="testCases.TS_007_WishList.TC_WL_009_ValidateNavigateToWishListFromFooteromFooter" />
+            <class name="testCases.TS_007_WishList.TC_WL_010_ValidateRemoveProductFromWishListWishList" />
+           <class name="testCases.TS_008_ShoppingCart.TC_SC_001_ValidateNavigateToShoppingCartFromSuccessMsgccessMsg" />
+            <class name="testCases.TS_008_ShoppingCart.TC_SC_002_ValidateNavigateToShoppingCartFromHeaderomHeader" />
+            <class name="testCases.TS_008_ShoppingCart.TC_SC_003_ValidateNavigateToCartFromSiteMapmSiteMap" />
+            <class name="testCases.TS_008_ShoppingCart.TC_SC_004_ValidateViewCartFromCartBlockartBlock" />
+             <class name="testCases.TS_008_ShoppingCart.TC_SC_005_ValidateShoppingCartTest>
+          <class name="testCases.TS_009_RecurringPayments.TC_RCP_001_ValidateRecurringPaymentsNavigationvigation" />
+            <class name="testCases.TS_009_RecurringPayments.TC_RCP_002_VerifyRecurringPaymentsNavigationn" />
+            <class name="testCases.TS_009_RecurringPayments.TC_RCP_003_VerifyRecurringPaymentsContinueButtonn" />
+             <class name="testCases.TS_009_RecurringPayments.TC_RCP_004_ValidateRecurringPaymentsBreadcrumbTestrumbTest" />
+            <class name="testCases.TS_009_RecurringPayments.TC_RCP_005_ValidateRecurringPaymentsPageTestPageTest" />
+            <class name="testCases.TS_011_Currencies.TC_CR_001_ValidateCurrencySelectionEuroFunctionalityTest/>
+            <class name="testCases.TS_011_Currencies.TC_CR_002_ValidateCurrencySelectionPoundSterlingTest" />
+            <class name="testCases.TS_011_Currencies.TC_CR_003_ValidateCurrencySelectionUSDollarTestt" />
+           <class name="testCases.TS_012_HeaderMenuFooterOptions.TC_HMF_001_ValidatePhoneNumberForContactUsHeaderOptionTest" />
+            <class name="testCases.TS_012_HeaderMenuFooterOptions.TC_HMF_002_ValidateNavigationToProductDisplayPageTest" />
+             <class name="testCases.TS_012_HeaderMenuFooterOptions.TC_HMF_003_ValidateRemoveButtonInShoppingCartTest" />
+            <class name="testCases.TS_012_HeaderMenuFooterOptions.TC_HMF_005_ValidateAboutUsFooterLinkTest" />
+             <class name="testCases.TS_012_HeaderMenuFooterOptions.TC_HMF_006_ValidateDeliveryInformationFooterLinkTest" />
+             <class name="testCases.TS_012_HeaderMenuFooterOptions.TC_HMF_007_ValidatePrivacyPolicyFooterLinkTest" />
+             <class name="testCases.TS_012_HeaderMenuFooterOptions.TC_HMF_008_ValidateTermsConditionsFooterLinkTest" />
+             <class name="testCases.TS_012_HeaderMenuFooterOptions.TC_HMF_009_ValidateNumberOfProductsInBrandPageUsingShowFieldTest" />
+             <class name="testCases.TS_012_HeaderMenuFooterOptions.TC_HMF_010_ValidateBrandPageInListViewTest" />
+             <class name="testCases.TS_012_HeaderMenuFooterOptions.TC_HMF_011_ValidateBrandPageInGridViewTest" />
+             <class name="testCases.TS_012_HeaderMenuFooterOptions.TC_HMF_012_ValidateProductCompareLinkTest" />
+          <class name="testCases.TS_013_SpecialOffers.TC_SPO_001_ValidateSpecialOffersTest
+            <class name="testCases.TS_013_SpecialOffers.TC_SPO_002_ValidateSpecialOffersPageFromSiteMapNavigationTestigationTest           <class name="testCases.TS_013_SpecialOffers.TC_SPO_003_ValidateOfferProductsDisplayedTest>
+            <class name="testCases.TS_013_SpecialOffers.TC_SPO_004_ValidateSpecialOffersPageDisplayedProductsinListViewTestductsinListViewTest" />
+            <class name="testCases.TS_013_SpecialOffers.TC_SPO_005_ValidateSpecialOffersPageDisplayedProductsinGridViewView" />
+            <class name="testCases.TS_013_SpecialOffers.TC_SPO_006_ValidateSpecialOffersPageNavigationFromSpecialsTestSpecialsTest           <class name="testCases.TS_013_SpecialOffers.TC_SPO_007_ValidateSpecialOffersPageSortingTest           <class name="testCases.TS_013_SpecialOffers.TC_SPO_008_ValidateSpecialOffersPageFromWishListNavigationTestvigationTest           <class name="testCases.TS_013_SpecialOffers.TC_SPO_009_ValidateAddingProductForComparisonTest" />
+           <class name="testCases.TS_014_ContactUs.TC_CU_001_ValidateValidateContactUsPageNavigationTesttionTest/>
+            <class name="testCases.TS_014_ContactUs.TC_CU_002_ValidateValidateContactUsPageNavigationTesttionTest/>
+            <class name="testCases.TS_014_ContactUs.TC_CU_003_ValidateContactUsPageNavigationFromOrderSuccessTestcessTest" />
+            <class name="testCases.TS_014_ContactUs.TC_CU_004_ValidateContactUsPageValidationTesttionTest" />
+            <class name="testCases.TS_014_ContactUs.TC_CU_005_ValidateContactUsFormSubmissionTestsionTest" />
+            <class name="testCases.TS_014_ContactUs.TC_CU_006_ValidateContactUsInvalidEmailTestmailTest" />
+            <class name="testCases.TS_014_ContactUs.TC_CU_007_ValidateContactUsNoDetailsSubmittedTestttedTest" />
+            <class name="testCases.TS_014_ContactUs.TC_CU_008_ValidateContactUsPageValidationTesttionTest" />
+            <class name="testCases.TS_014_ContactUs.TC_CU_009_ValidateContactUsMandatoryFieldsTesteldsTest" />
+            <class name="testCases.TS_014_ContactUs.TC_CU_010_ValidateContactUsPageBreadcrumbValidationTesttionTest" />
+            <class name="testCases.TS_015_NewsLetter.TC_NLT_001_ValidateNewsletterSubscriptionPageNavigationTesttionTest" />
+            <class name="testCases.TS_015_NewsLetter.TC_NLT_002_ValidateNewsletterSubscriptionPageNavigationTesttionTest" />
+            <class name="testCases.TS_015_NewsLetter.TC_NLT_003_ValidateNewsletterPageNavigationFromRightColumnTestlumnTest" />
+            <class name="testCases.TS_015_NewsLetter.TC_NLT_004_ValidateNewsletterPageNavigationFromFooterTestoterTest" />
+            <class name="testCases.TS_015_NewsLetter.TC_NLT_005_ValidateNewsletterPageNavigationAfterLoginTestoginTest" />
+            <class name="testCases.TS_015_NewsLetter.TC_NLT_006_ValidateNewsletterBackButtonValidationTesttionTest" />
+            <class name="testCases.TS_015_NewsLetter.TC_NLT_007_ValidateNewsletterSubscriptionUpdateTestdateTest" />
+            <class name="testCases.TS_015_NewsLetter.TC_NLT_008_ValidateNewsletterSubscriptionValidationBreadCrumbTestrumbTest" />-->
+         <!--  <class name="testCases.TS_016_ReturnsPage.TC_PR_001_ValidateProductductReturnsPageNavigationValidationTestlidationTest" />
+            <class name="testCases.TS_016_ReturnsPage.TC_PR_002_ValidateSubmitValidateProductductForReturnuctForReturn" />
+            <class name="testCases.TS_016_ReturnsPage.TC_PR_003_ValidateProductductReturnsValidationTestlidationTest" />
+            <class name="testCases.TS_016_ReturnsPage.TC_PR_004_ValidateProductductReturnsPlaceholdersValidationTestlidationTest" />
+            <class name="testCases.TS_016_ReturnsPage.TC_PR_005_ValidateProductductReturnsBackButtonValidationTestlidationTest" />
+            <class name="testCases.TS_016_ReturnsPage.TC_PR_006_ValidateEmailFieldTest" />
+            <class name="testCases.TS_016_ReturnsPage.TC_PR_007_ValidateOrderDateFieldTest" />
+            <class name="testCases.TS_016_ReturnsPage.TC_PR_008_ValidateBreadcrumbTest" />
+            <class name="testCases.TS_016_ReturnsPage.TC_PR_009_ValidatePageURLTitleAndHeadingTest" />
+            <class name="testCases.TS_017_OrderInformation.TC_OI_001_ValidateOrderInformationTesttionTest" />
+            <class name="testCases.TS_017_OrderInformation.TC_OI_002_ValidateOrderInformationReorderTestrderTest" />
+            <class name="testCases.TS_017_OrderInformation.TC_OI_003_ValidateOrderInformationReturnTestturnTest" />
+            <class name="testCases.TS_017_OrderInformation.TC_OI_004_ValidateOrderInformationContinueTestinueTest" />
+            <class name="testCases.TS_017_OrderInformation.TC_OI_005_ValidateOrderInformationBreadcrumbValidationTesttionTest" />
+            <class name="testCases.TS_017_OrderInformation.TC_OI_006_ValidateOrderInformationPageValidationTesttionTest" />-->
+          <!-- <class name="testCases.TS_018_OrderHistory.TC_OH_001_ValidateOrderHistoryTesttoryTest       <class name="testCases.TS_018_OrderHistory.TC_OH_002_ValidateOrderHistoryPageTestPageTest      <class name="testCases.TS_018_OrderHistory.TC_OH_003_ValidateOrderHistoryPageRightColumnNavigationTesttionTest      <class name="testCases.TS_018_OrderHistory.TC_OH_004_ValidateOrderHistoryPageSiteMapNavigationTesttionTest"/>
+           <class name="testCases.TS_018_OrderHistory.TC_OH_005_VerifyValidateOrderHistoryNavigationBeforeLoginoreLogin"/>-->
+           <!-- <class name="testCases.TS_018_OrderHistory.TC_OH_006_AllValidateOrdersTestdersTest      <class name="testCases.TS_018_OrderHistory.TC_OH_007_ValidatingContinueButtononValidateOrderHistoryPagetoryPage"/>
+            <class name="testCases.TS_018_OrderHistory.TC_OH_008_ValidateValidateOrderInformationNavigationFromValidateOrderHistorydateOrderHistory"/>
+            <class name="testCases.TS_018_OrderHistory.TC_OH_009_ValidateValidateOrderHistoryBreadcrumbeadcrumb"/>
+            <class name="testCases.TS_018_OrderHistory.TC_OH_010_ValidateOrderHistoryPagetTtleTestTtleTest    <class name="testCases.TS_019_AddressBook.TC_AB_001_ValidateAddressBookNavigationTest"/>
+            <class name="testCases.TS_019_AddressBook.TC_AB_002_ValidateAddressBookRightColumnNavigationTesttionTest"/>
+            <class name="testCases.TS_019_AddressBook.TC_AB_003_ValidateAddressBookNavigationFooterLinkTest"/>
+            <class name="testCases.TS_019_AddressBook.TC_AB_004_ValidateAddressBookNavigationBeforeLoginTest"/>
+            <class name="testCases.TS_019_AddressBook.TC_AB_005_ValidateUpdateAddressInAddressBookressBook"/>
+            <class name="testCases.TS_019_AddressBook.TC_AB_006_ValidateDefaultAddressTest>
+            <class name="testCases.TS_019_AddressBook.TC_AB_007_ValidateNewBillingAddressAddedToAddressBookTestTest"/>
+            <class name="testCases.TS_020_MyAccountInformation.TC_MAI_001_ValidateMyAccountInformationTesttionTest"/>
+            <class name="testCases.TS_020_MyAccountInformation.TC_MAI_002_ValidateMyAccountInformationRightColumnNavigationTesttionTest"/>
+            <class name="testCases.TS_020_MyAccountInformation.TC_MAI_003_ValidateNavigateToMyAccountInformationFromSiteMapmSiteMap"/>
+            <class name="testCases.TS_020_MyAccountInformation.TC_MAI_004_ValidateUpdateAccountInformationTesttionTest"/>
+            <class name="testCases.TS_020_MyAccountInformation.TC_MAI_005_ValidateEmptyFieldsInMyAccountInfoTestTest"/>
+            <class name="testCases.TS_020_MyAccountInformation.TC_MAI_006_ValidatePlaceholdersInMyAccountInformationTestTest"/>
+            <class name="testCases.TS_020_MyAccountInformation.TC_MAI_007_ValidateBackButtonInMyAccountInformationPagege"/>
+            <class name="testCases.TS_020_MyAccountInformation.TC_MAI_008_ValidateInvalidEmailInMyAccountInformationPagege"/>
+            <class name="testCases.TS_020_MyAccountInformation.TC_MAI_009_ValidateMyAccountBreadcrumbTest"/>
+            <class name="testCases.TS_020_MyAccountInformation.TC_MAI_010_ValidateMyAccountInformationPageTest            <class name="testCases.TS_021_ProductDisplayPage.TC_PDP_001_ValidateProductDetailsDisplayeded"/>
+            <class name="testCases.TS_021_ProductDisplayPage.TC_PDP_002_ValidateProductAvailabilityStatusus"/>
+            <class name="testCases.TS_021_ProductDisplayPage.TC_PDP_003_ValidateProductPriceWithAndWithoutTaxTestst"/>
+            <class name="testCases.TS_021_ProductDisplayPage.TC_PDP_004_ValidateDefaultQuantityAndAddToCartTest"/>
+            <class name="testCases.TS_021_ProductDisplayPage.TC_PDP_005_ValidateNegativeZeroNullQuantityTestTest"/>
+            <class name="testCases.TS_021_ProductDisplayPage.TC_PDP_006_ValidateProductDescriptionTest"/>
+           <class name="testCases.TS_021_ProductDisplayPage.TC_PDP_007_ValidateProductSpecificationsTestTest"/>
+            <class name="testCases.TS_021_ProductDisplayPage.TC_PDP_008_ValidateSubmitProductReviewTestviewTest"/>
+            <class name="testCases.TS_021_ProductDisplayPage.TC_PDP_009_ValidateNoReviewsTest"/>
+            <class name="testCases.TS_021_ProductDisplayPage.TC_PDP_010_ValidateAddProductToWishListFromPDPTesttFromPDPTest"/>
+            <class name="testCases.TS_021_ProductDisplayPage.TC_PDP_011_ValidateProductDisplayPageTestTest"/>
+            <class name="testCases.TS_021_ProductDisplayPage.TC_PDP_012_ValidateProductDisplayPageOptionsTest"/>-->
+           <!-- <class name="testCases.TS_022_HomePage.TC_HP_001_ValidateNavigateFromCartToHomeTestHomeTest"/>
+            <class name="testCases.TS_022_HomePage.TC_HP_002_ValidateNavigateFromOrderSuccessToHomeTestHomeTest"/>
+            <class name="testCases.TS_022_HomePage.TC_HP_003_ValidateHomePageNavigationUsingLogoTestst"/>
+            <class name="testCases.TS_022_HomePage.TC_HP_004_ValidateValidateNavigateHomeFromEmptyCategoryTestgoryTest"/>
+            <class name="testCases.TS_022_HomePage.TC_HP_005_ValidateHeroImageSliderTest"/>
+            <class name="testCases.TS_022_HomePage.TC_HP_006_ValidateHomePageFeaturedProductsTestuctsTest"/>
+            <class name="testCases.TS_022_HomePage.TC_HP_007_ValidateHomeBreadcrumbNavigationon"/>
+           <class name="testCases.TS_022_HomePage.TC_HP_001_ValidateNavigateFromCartToHomeTestHomeTest"/>-->
+        <!--  <class name="testCases.TS_023_CheckOut.TC_CO_001_ValidateCheckoutWithEmptyCartTestst"/>
+            <class name="testCases.TS_023_CheckOut.TC_CO_003_ValidateCheckoutNavigationTest"/>
+            <class name="testCases.TS_023_CheckOut.TC_CO_004_ValidateCheckoutFromCartBlockTestst"/>
+            <class name="testCases.TS_023_CheckOut.TC_CO_005_ValidateCheckoutAsSignedInUserer"/>-->
+           <!-- <class name="testCases.TS_024_MyAccount.TC_MA_001_VerifyNavigationToMyAccountFromOrderSuccess"/>-->
+           <!-- <class name="testCases.TS_025_Downloads.TC_DL_001_ValidateNavigationToAccountDownloadsTestdsTest"/>
+            <class name="testCases.TS_025_Downloads.TC_DL_002_ValidateDownloadsNavigationTest"/>
+            <class name="testCases.TS_025_Downloads.TC_DL_003_ValidateDownloadsNavigationFromNavigationTest"/>
+            <class name="testCases.TS_025_Downloads.TC_DL_004_ValidateNavigationToDownloadsThroughSiteMapPageTest"/>
+            <class name="testCases.TS_025_Downloads.TC_DL_005__NavigateToAccountDownloadsBeforeLoginn"/>
+            <class name="testCases.TS_025_Downloads.TC_DL_006_ValidateDownloadsPageNoOrdersTest"/>
+            <class name="testCases.TS_025_Downloads.TC_DL_007_ValidateContinueButtonOnDownloadsPageTest"/>
+            <class name="testCases.TS_025_Downloads.TC_DL_008_ValidateDownloadsPageValidationTesttionTest"/>
+            <class name="testCases.TS_025_Downloads.TC_DL_009_ValidateAccountDownloadsBreadcrumbTestrumbTest"/>
+            <class name="testCases.TS_025_Downloads.TC_DL_010_ValidateAccountDownloadsPageValidationTesttionTest"/>
+          <class name="testCases.TS_026_RewardPoints.TC_RP_001_ValidateRewardPointsNavigationTest"/>
+            <class name="testCases.TS_026_RewardPoints.TC_RP_002_ValidateNavigationToRewardPointsFromRightColumnTestst"/>
+            <class name="testCases.TS_026_RewardPoints.TC_RP_003_ValidateRewardPointsNavigationBeforeLoginTest"/>
+            <class name="testCases.TS_026_RewardPoints.TC_RP_004_ValidateRewardPointsPageWithNoPointsTestTest"/>
+            <class name="testCases.TS_026_RewardPoints.TC_RP_005_ValidateContinueButtonOnRewardPointsPageTest"/>
+            <class name="testCases.TS_026_RewardPoints.TC_RP_006_ValidateRewardPointsAfterPurchaseTestst"/>
+            <class name="testCases.TS_026_RewardPoints.TC_RP_007_ValidateRewardPointsBreadcrumbTest"/>
+            <class name="testCases.TS_026_RewardPoints.TC_RP_008_ValidateRewardPointsTestst"/>
+           <class name="testCases.TS_027_Transaction.TC_TS_001_ValidateNavigateToYourTransactionsTestst"/>
+            <class name="testCases.TS_027_Transaction.TC_TS_002_ValidateNavigateToTransactionsPageFromMyAccountDropMenuTestst"/>
+            <class name="testCases.TS_027_Transaction.TC_TS_003_ValidateTransactionsNavigationUsingRightColumnTestst"/>
+            <class name="testCases.TS_027_Transaction.TC_TS_004_ValidateTransactionsNavigationBeforeLoginTestst"/>
+           <class name="testCases.TS_027_Transaction.TC_TS_005_ValidateTransactionsPageWithoutOrdersTestst"/>
+            <class name="testCases.TS_027_Transaction.TC_TS_006_ValidateContinueButtonTest"/>
+            <class name="testCases.TS_027_Transaction.TC_TS_007_ValidateTransactionsPageTest"/>
+            <class name="testCases.TS_027_Transaction.TC_TS_008_ValidateBreadcrumbTest>
+            <class name="testCases.TS_027_Transaction.TC_TS_009_ValidateTransactionsPageURLTitleHeadingTest"/>
+           <class name="testCases.TS_006_AddtoCart.TC_ATC_005_AddToCartDDT"/>
+            <class name="testCases.TS_006_AddtoCart.TC_ATC_005_ValidateAddToCartTest_DataDriventaDriven"/>
+            <class name="testCases.TS_006_AddtoCart.TC_ATC_006_VerifyValidateAddToCartFromCategoryPagegoryPage"/>
+            <class name="testCases.TS_006_AddtoCart.TC_ATC_003_ValidateAddToCartFromRelatedProductsProducts"/>
+            <class name="testCases.TS_006_AddtoCart.TC_ATC_004_ValidateAddProductToCartFromCategoryPagegoryPage"/>
+            <class name="testCases.TS_006_AddtoCart.TC_ATC_001_ValidateAddToCartTestCartTest"/>
+            <class name="testCases.TS_006_AddtoCart.TC_ATC_002_ValidateAddToCartFromWishListTestListTest"/>-->
+          <!--   <class name="testCases.TS_024_MyAccount.TC_MA_005_ValidateNavigateToMyAccountViaSiteMapTesteMapTest"/>
+               <class name="testCases.TS_024_MyAccount.TC_MA_004_ValidateNavigateToMyAccountViaRightColumnTestlumnTest"/>
+               <class name="testCases.TS_024_MyAccount.TC_MA_006_ValidateMyAccountBreadcrumbTest"/>
+               <class name="testCases.TS_024_MyAccount.TC_MA_002_ValidateMyAccountPageDetailsTestst"/>
+       <class name="testCases.TS_028_ChangePassword.TC_CP_001_ValidateChangePasswordPageNavigationValidationTesttionTest"/>
+            <class name="testCases.TS_028_ChangePassword.TC_CP_002_ValidateChangePasswordFromRightColumnNavigationTesttionTest"/>
+           <class name="testCases.TS_028_ChangePassword.TC_CP_003_ValidateChangePasswordFromSiteMapTesteMapTest"/>
+            <class name="testCases.TS_028_ChangePassword.TC_CP_004_ValidateChangePasswordTestwordTest"/>
+            <class name="testCases.TS_028_ChangePassword.TC_CP_005_ValidateValidateChangePasswordWithBlankFieldsnkFields"/>
+            <class name="testCases.TS_028_ChangePassword.TC_CP_006_ValidatePasswordMismatchTestTest"/>
+           <class name="testCases.TS_028_ChangePassword.TC_CP_007_ValidateChangePasswordMandatoryFieldsryFields"/>
+            <class name="testCases.TS_028_ChangePassword.TC_CP_008_ValidateChangePasswordHideTextHideText"/>
+            <class name="testCases.TS_028_ChangePassword.TC_CP_009_ValidateChangePasswordBackButtonckButton"/>
+            <class name="testCases.TS_028_ChangePassword.TC_CP_010_ValidateChangePasswordBreadcrumbeadcrumb"/>
+            <class name="testCases.TS_028_ChangePassword.TC_CP_011_ValidateChangePasswordPageDetailseDetails"/>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </classes>
+    </test>
+</suite>

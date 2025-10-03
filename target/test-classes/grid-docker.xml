@@ -1,0 +1,22 @@
+<suite name="Suite" thread-count="5">
+    <listeners>
+        <listener class-name="utilities.ExtentManager"/>
+    </listeners>
+    <test name="Linux-Chrome">
+        <parameter name="os" value="Linux"/>
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_001_ValidateAccountRegistrationTest"/>
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_002_ValidateRegisterAllFieldsTest"/>
+        </classes>
+    </test>
+    <test name="Linux-Firefox">
+        <parameter name="os" value="Linux"/>
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_001_ValidateAccountRegistrationTest"/>
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_002_ValidateRegisterAllFieldsTest"/>
+        </classes>
+    </test>
+</suite>
+        <!--  Suite  -->
