@@ -6,11 +6,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
 
-import static pageObjects.Homepage.logger;
+import static pageObjects.HomePage.logger;
 
 public class ProductDisplayPage extends BasePage {
 
@@ -27,30 +29,36 @@ public class ProductDisplayPage extends BasePage {
 
     // --- Locators ---
     @FindBy(xpath = "//button[@data-original-title='Compare this Product'] | //button[contains(@aria-label,'Compare')]")
-    private WebElement btnCompareProduct;
+    public WebElement btnCompareProduct;
 
     @FindBy(xpath = "//div[contains(@class,'alert-success')]")
-    private WebElement successMessage;
+    public WebElement successMessage;
 
     @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[contains(@href,'compare')]")
-    private WebElement linkProductComparison;
+    public WebElement linkProductComparison;
 
     @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[not(contains(@href,'compare'))]")
-    private WebElement linkProductNameInSuccessMessage;
+    public WebElement linkProductNameInSuccessMessage;
 
+   // public final By relatedProductCards = By.xpath("//h3[normalize-space()='Related Products']/following-sibling::div//div[contains(@class,'product-layout')]");
 
 
     @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[contains(text(),'shopping cart')]")
-    private WebElement linkShoppingCartInSuccessMessage;
+    public WebElement linkShoppingCartInSuccessMessage;
 
 
     @FindBy(xpath = "(//div[@class='product-thumb'])[1]//button[contains(@onclick,'wishlist.add')]")
-    private WebElement firstRelatedAddToWishListBtn;
+    public WebElement firstRelatedAddToWishListBtn;
+
+    @FindBy (xpath = "/html/body/div[2]/div/div/div[2]/div[1]/div/div[3]/button[1]")
+    public WebElement firstRelatedAddToCartBtn;
+
+
 
 
     // Link inside success message → "wish list!"
     @FindBy(xpath = "//a[text()='wish list']")
-    private WebElement linkWishList;
+    public WebElement linkWishList;
 
     public void clickWishListLink() {
         wait.until(ExpectedConditions.elementToBeClickable(linkWishList)).click();
@@ -103,13 +111,6 @@ public class ProductDisplayPage extends BasePage {
 
     // Add to wishlist button for first related product
     private By firstRelatedProductWishlistBtn = By.xpath("/html/body/div[2]/div/div/div[2]/div/div/div[3]/button[2]");
-
-// /html/body/div[2]/div/div/div[2]/div/div/div[3]/button[2]
-
-
-    // --- New Add to Cart Methods ---
-
-
 
 
 
@@ -296,65 +297,6 @@ public class ProductDisplayPage extends BasePage {
     @FindBy(xpath = "//table[@class='table table-bordered']//tr")
     private java.util.List<WebElement> bulkPriceRows;
 
-    /*
-     * Get the price for a specific bulk quantity
-     * @param quantity - number of products (10, 20, 30)
-     * @return price as String
-     */
-   /* public String getBulkPrice(int quantity) {
-        for (WebElement row : bulkPriceRows) {
-            String rowText = row.getText(); // Example: "10 Units $200"
-            if (rowText.contains(quantity + " Units")) {
-                return rowText.split("\\$")[1].trim(); // Return only price
-            }
-        }
-        return null; // Not found
-    }*/
-
-
-
-    //  Dummy method for PDP verification (already in your code probably)
-    public boolean isOnProductDisplayPage() {
-        return driver.getCurrentUrl().contains("product");
-    }
-
-    //  Fetch bulk price for a given quantity
-   /* public String getBulkPrice(int quantity) {
-        String xpath = "//ul[@class='list-unstyled']//li[contains(text(),'" + quantity + "')]";
-        WebElement priceElement = driver.findElement(By.xpath(xpath));
-        return priceElement.getText();
-    }*/
-
-    public String getBulkPrice(int quantity) {
-        for (WebElement row : bulkPriceRows) {
-            String rowText = row.getText();  // e.g. "10+ Units $100.00"
-            if (rowText.contains(String.valueOf(quantity))) {
-                return rowText;
-            }
-        }
-        throw new NoSuchElementException("No bulk price found for quantity: " + quantity);
-    }
-
-
-    public void clickProductFromSearchResults(String productName) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        try {
-            // Locate product by partial text to avoid whitespace issues
-            WebElement productLink = wait.until(
-                    ExpectedConditions.elementToBeClickable(
-                            By.xpath("//div[@class='caption']//a[contains(normalize-space(.),'" + productName + "')]")
-                    )
-            );
-            logger.info(" Found product in search results: " + productName);
-            productLink.click();
-            logger.info(" Clicked on product link: " + productName);
-        } catch (TimeoutException e) {
-            logger.error(" Could not find product in search results: " + productName, e);
-            throw e; // rethrow so test fails
-        }
-    }
-
 
     public void clickShoppingCartLinkInSuccessMessage() {
         By cartLinkLocator = By.xpath("/html/body/div[2]/div[1]/a[2]");
@@ -386,10 +328,6 @@ public class ProductDisplayPage extends BasePage {
     }
 
 
-
-
-
-
     // PDP title (h1)
     @FindBy(css = "#content h1")
     private WebElement pdpTitle;
@@ -400,14 +338,10 @@ public class ProductDisplayPage extends BasePage {
     // "shopping cart" link inside success alert
     private By shoppingCartLinkInAlert = By.xpath("//div[contains(@class,'alert-success')]//a[contains(.,'shopping cart')]");
 
-
-
     /** Get PDP header/title text */
     public String getPdpTitle() {
         return wait.until(ExpectedConditions.visibilityOf(pdpTitle)).getText().trim();
     }
-
-
 
 
     /** Wait for success message and return its full text */
@@ -444,83 +378,12 @@ public class ProductDisplayPage extends BasePage {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     // --- Related Products Section ---
-
-
-
 
 
     // Heading
     public By relatedProductsHeading = By.xpath("/html/body/div[2]/div/div/h3");
 
-    // Cards
-    public
-    By relatedProductCards = By.xpath("//h3[normalize-space()='Related Products']/following-sibling::div//div[contains(@class,'product-layout')]");
-
-
-
-   /* public boolean hasRelatedProducts() {
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(relatedProductsHeading));
-            List<WebElement> cards = wait.until(
-                    ExpectedConditions.numberOfElementsToBeMoreThan(relatedProductCards, 0)
-            );
-            return !cards.isEmpty();
-        } catch (TimeoutException e) {
-            return false;
-        }
-    }*/
-
-    public boolean hasRelatedProducts() {
-        try {
-            // Scroll to bottom or a known section near related products
-            ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,3500)");
-
-            // Wait for the section to appear
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement section = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[2]/div/div/h3")));
-
-            return section.isDisplayed();
-        } catch (TimeoutException | NoSuchElementException e) {
-            return false;
-        }
-    }
-
-
-    public String getRelatedProductName(int index) {
-        List<WebElement> cards = driver.findElements(relatedProductCards);
-        if (index >= cards.size()) {
-            throw new IllegalArgumentException("Invalid related product index: " + index);
-        }
-        return cards.get(index).findElement(By.cssSelector(".caption a")).getText().trim();
-    }
-
-    public void addRelatedProductToCartByIndex(int index) {
-        List<WebElement> cards = driver.findElements(relatedProductCards);
-        if (index >= cards.size()) {
-            throw new IllegalArgumentException("Invalid related product index: " + index);
-        }
-
-        WebElement productCard = cards.get(index);
-
-        // Scroll into view
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", productCard);
-
-        WebElement addBtn = productCard.findElement(By.xpath(".//button[contains(@onclick,'cart.add')]"));
-        wait.until(ExpectedConditions.elementToBeClickable(addBtn)).click();
-    }
 
 
     @FindBy(id = "button-cart")
@@ -530,16 +393,147 @@ public class ProductDisplayPage extends BasePage {
     private WebElement checkoutLink;
 
 
+    public void addRelatedProductToCartByIndex(int index) {
+        // Ensure products have loaded before finding them
+        if (!hasRelatedProducts()) {
+            throw new IllegalArgumentException("Invalid related product index: " + index +
+                    ". Related Products section did not load or is empty.");
+        }
+
+        List<WebElement> cards = driver.findElements(relatedProductCards);
+
+        if (index >= cards.size()) {
+            throw new IllegalArgumentException("Invalid related product index: " + index +
+                    ". Found only " + cards.size() + " products.");
+        }
+
+        WebElement productCard = cards.get(index);
+
+        // Scroll the specific card into view
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", productCard);
+
+        // Locate and click the Add to Cart button
+        WebElement addBtn = productCard.findElement(By.xpath(".//button[contains(@onclick,'cart.add')]"));
+        waitShort().until(ExpectedConditions.elementToBeClickable(addBtn)).click();
+    }
 
 
 
+    public String getRelatedProductName(int index) {
+        // Ensure products have loaded before finding them
+        if (!hasRelatedProducts()) {
+            throw new IllegalArgumentException("Invalid related product index: " + index +
+                    ". Related Products section did not load or is empty.");
+        }
+
+        // Find elements again (they should be attached now after the wait)
+        List<WebElement> cards = driver.findElements(relatedProductCards);
+
+        if (index >= cards.size()) {
+            throw new IllegalArgumentException("Invalid related product index: " + index +
+                    ". Found only " + cards.size() + " products.");
+        }
+
+        // Locate the name link within the specific card
+        return cards.get(index).findElement(By.cssSelector(".caption h4 a")).getText().trim();
+    }
 
 
 
+    // Locators
+    private final By mainProductName = By.xpath("//div[@id='content']//h1");
+    private final By bulkPriceTableLocator = By.xpath("//div[@id='product']//table[@class='table table-bordered']");
 
 
+    public boolean isOnProductDisplayPage() {
+        try {
+            return driver.findElement(mainProductName).isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
 
 
+    public boolean isBulkPriceTablePresent() {
+        try {
+            // Check if the table element is present and displayed
+            return driver.findElement(bulkPriceTableLocator).isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
 
+
+    public String getBulkPrice(int quantity) {
+
+        String xpath = bulkPriceTableLocator.toString().replace("By.xpath: ", "") +
+                "//tr/td[contains(text(), '" + quantity + "+')]/following-sibling::td[1]";
+
+
+        WebElement priceElement = driver.findElement(By.xpath(xpath));
+
+        if (priceElement != null) {
+        }
+
+        return priceElement.getText().trim();
+    }
+
+    public void clickProductFromSearchResults(String productName) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        By productLinkLocator = By.linkText(productName);
+
+        WebElement productLink = wait.until(ExpectedConditions.elementToBeClickable(productLinkLocator));
+
+        try {
+            productLink.click();
+        } catch (Exception e) {
+            // Fallback to JS click if standard click fails (due to potential overlay issues)
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", productLink);
+        }
+    }
+
+
+    // New locator for the static header element
+    public final By relatedProductsHeader = By.xpath("//h3[normalize-space()='Related Products']");
+    // Existing locator for the dynamic product cards
+    public final By relatedProductCards = By.xpath("//h3[normalize-space()='Related Products']/following-sibling::div//div[contains(@class,'product-layout')]");
+
+
+    public boolean hasRelatedProducts() {
+        try {
+            // 1. Find the static header element
+            WebElement header = driver.findElement(relatedProductsHeader);
+
+            // 2. Scroll the HEADER element into view, ensuring the entire section is visible
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", header);
+
+            // --- FIX: Use a dedicated longer wait (30 seconds) for the dynamic content ---
+            // This addresses the TimeoutException caused by slow asynchronous product loading.
+            WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+            // 3. Wait explicitly for at least ONE dynamic product card to appear
+            // This confirms the section loaded and populated.
+            longWait.until(
+                    ExpectedConditions.numberOfElementsToBeMoreThan(relatedProductCards, 0)
+            );
+
+            // Re-find and check if the list is not empty
+            List<WebElement> cards = this.driver.findElements(relatedProductCards);
+            return !cards.isEmpty();
+
+        } catch (TimeoutException | NoSuchElementException e) {
+            // Use logger.error or logger.info based on your standard, but warn is fine
+            logger.warn("Related Products section or products did not load.", e);
+            return false;
+        }
+    }
+
+    public void clickfirstRelatedAddToCartBtn(){
+        firstRelatedAddToCartBtn.click();
+    }
 
 }
+
+
+
+

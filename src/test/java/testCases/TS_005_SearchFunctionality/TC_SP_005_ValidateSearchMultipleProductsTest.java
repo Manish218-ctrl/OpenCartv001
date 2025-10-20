@@ -4,7 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.SearchPage; // Import the SearchPage
 import testBase.BaseClass;
 import java.util.List; // Import for List
@@ -16,16 +16,11 @@ import java.util.List; // Import for List
             logger.info("Starting TC_SP_005_ValidateSearchMultipleProductsTest: Validate searching with a search criteria resulting in multiple products.");
 
             try {
-                // 1. Open the Application URL in any supported browser (handled by BaseClass setup)
 
-                // Instantiate HomePage (if needed for initial navigation or common header elements)
-                Homepage hp = new Homepage(driver);
-
-                // Instantiate SearchPage to use its methods for search actions and validations
+                HomePage hp = new HomePage(driver);
                 SearchPage searchPage = new SearchPage(driver);
 
                 // 1. Enter the search criteria in the 'Search' text box field which can result in multiple products - <Refer Test Data>
-                // Assuming 'multiProductSearchKeyword' in config.properties, e.g., "Mac" or "Apple"
                 String searchKeyword = p.getProperty("multiProductSearchKeyword");
 
                 searchPage.enterSearchKeyword(searchKeyword);
@@ -35,10 +30,8 @@ import java.util.List; // Import for List
                 searchPage.clickSearchButton();
                 logger.info("Clicked search icon button.");
 
-                // Expected Result: 1. More than one products should be displayed in the search results page
                 // Get the list of product result cards
-                List<WebElement> productResults = searchPage.productResultCards; // Directly accessing the @FindBy list
-                // from SearchPage.
+                List<WebElement> productResults = searchPage.productResultCards;
 
                 Assert.assertTrue(productResults.size() > 1, "Less than two products are displayed for the search keyword '" + searchKeyword + "'. Actual count: " + productResults.size());
                 logger.info("Verified: More than one product (" + productResults.size() + ") is displayed in the search results for '" + searchKeyword + "'.");

@@ -10,7 +10,7 @@ import org.testng.Assert;
 
 import java.util.List;
 
-import static pageObjects.Homepage.logger;
+import static pageObjects.HomePage.logger;
 
 public class RegisterPage extends BasePage {
 

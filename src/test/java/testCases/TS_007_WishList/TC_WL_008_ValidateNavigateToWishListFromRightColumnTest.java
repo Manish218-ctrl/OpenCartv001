@@ -4,7 +4,7 @@ package testCases.TS_007_WishList;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.MyAccountPage;
 import pageObjects.WishListPage;
@@ -16,8 +16,7 @@ import testBase.BaseClass;
         public void test_NavigateToWishList_From_RightColumn() {
             logger.info("***** Starting TC_WL_008: Navigate to My Wish List from Right Column *****");
 
-            // 1) Opened app in BaseClass.setup(); Now login.
-            Homepage hp = new Homepage(driver);
+            HomePage hp = new HomePage(driver);
             hp.clickMyAccount();
             hp.clickLogin();
 
@@ -27,21 +26,19 @@ import testBase.BaseClass;
             lp.login(email, password);
             logger.info("Logged in successfully.");
 
-            // Verify we landed on My Account
             MyAccountPage my = new MyAccountPage(driver);
             Assert.assertTrue(my.isMyAccountPageExists(), "My Account page was not displayed after login.");
 
-            // 2) Click "Wish List" from the Right Column
+            //Click "Wish List" from the Right Column
             my.clickWishListFromMyAccount();
             logger.info("Clicked Right Column -> Wish List");
 
-            // 3) ER: User should be taken to My Wish List page
+            //ER: User should be taken to My Wish List page
             WishListPage wl = new WishListPage(driver);
 
-            // Preferred check (heading)
             boolean onWishList = wl.isOnWishListPage();
 
-            // Fallback validations for robustness (URL/title) if needed
+
             if (!onWishList) {
                 String title = driver.getTitle();
                 boolean titleOk = title != null && title.toLowerCase().contains("wish list");

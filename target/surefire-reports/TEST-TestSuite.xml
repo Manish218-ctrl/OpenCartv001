@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="TestSuite" time="26.814" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="TestSuite" time="55.023" tests="10" errors="0" skipped="0" failures="0">
   <properties>
-    <property name="java.specification.version" value="24"/>
+    <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="sun.awt.enableExtraMouseButtons" value="true"/>
@@ -12,11 +12,11 @@
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="user.timezone" value="Asia/Calcutta"/>
     <property name="os.name" value="Windows 11"/>
-    <property name="java.vm.specification.version" value="24"/>
-    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="java.vm.specification.version" value="21"/>
     <property name="user.country" value="US"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-24\bin"/>
-    <property name="sun.java.command" value="C:\Users\manis\AppData\Local\Temp\surefire10023950702238881815\surefirebooter-20250928112608100_3.jar C:\Users\manis\AppData\Local\Temp\surefire10023950702238881815 2025-09-28T11-26-07_894-jvmRun1 surefire-20250928112608100_1tmp surefire_0-20250928112608100_2tmp"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="C:\Users\manis\.jdks\graalvm-jdk-21.0.8\bin"/>
+    <property name="sun.java.command" value="C:\Users\manis\AppData\Local\Temp\surefire9811355651305165980\surefirebooter-20251009202935801_3.jar C:\Users\manis\AppData\Local\Temp\surefire9811355651305165980 2025-10-09T20-29-35_575-jvmRun1 surefire-20251009202935801_1tmp surefire_0-20251009202935801_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="Z:\OpenCartv001\target\test-classes;Z:\OpenCartv001\target\classes;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-java\4.20.0\selenium-java-4.20.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-api\4.20.0\selenium-api-4.20.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.20.0\selenium-chrome-driver-4.20.0.jar;C:\Users\manis\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.20.0\selenium-chromium-driver-4.20.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-json\4.20.0\selenium-json-4.20.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.20.0\selenium-manager-4.20.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v122\4.20.0\selenium-devtools-v122-4.20.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v123\4.20.0\selenium-devtools-v123-4.20.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v124\4.20.0\selenium-devtools-v124-4.20.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v85\4.20.0\selenium-devtools-v85-4.20.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.20.0\selenium-edge-driver-4.20.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.20.0\selenium-firefox-driver-4.20.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-http\4.20.0\selenium-http-4.20.0.jar;C:\Users\manis\.m2\repository\dev\failsafe\failsafe\3.3.2\failsafe-3.3.2.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.20.0\selenium-ie-driver-4.20.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.20.0\selenium-remote-driver-4.20.0.jar;C:\Users\manis\.m2\repository\com\google\guava\guava\33.1.0-jre\guava-33.1.0-jre.jar;C:\Users\manis\.m2\repository\com\google\guava\failureaccess\1.0.2\failureaccess-1.0.2.jar;C:\Users\manis\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\manis\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\manis\.m2\repository\org\checkerframework\checker-qual\3.42.0\checker-qual-3.42.0.jar;C:\Users\manis\.m2\repository\com\google\errorprone\error_prone_annotations\2.26.1\error_prone_annotations-2.26.1.jar;C:\Users\manis\.m2\repository\com\google\j2objc\j2objc-annotations\3.0.0\j2objc-annotations-3.0.0.jar;C:\Users\manis\.m2\repository\io\opentelemetry\semconv\opentelemetry-semconv\1.25.0-alpha\opentelemetry-semconv-1.25.0-alpha.jar;C:\Users\manis\.m2\repository\io\opentelemetry\opentelemetry-api\1.37.0\opentelemetry-api-1.37.0.jar;C:\Users\manis\.m2\repository\io\opentelemetry\opentelemetry-context\1.37.0\opentelemetry-context-1.37.0.jar;C:\Users\manis\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.37.0\opentelemetry-exporter-logging-1.37.0.jar;C:\Users\manis\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.37.0\opentelemetry-sdk-common-1.37.0.jar;C:\Users\manis\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.37.0\opentelemetry-sdk-extension-autoconfigure-spi-1.37.0.jar;C:\Users\manis\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.37.0\opentelemetry-sdk-extension-autoconfigure-1.37.0.jar;C:\Users\manis\.m2\repository\io\opentelemetry\opentelemetry-api-incubator\1.37.0-alpha\opentelemetry-api-incubator-1.37.0-alpha.jar;C:\Users\manis\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.37.0\opentelemetry-sdk-trace-1.37.0.jar;C:\Users\manis\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.37.0\opentelemetry-sdk-1.37.0.jar;C:\Users\manis\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.37.0\opentelemetry-sdk-metrics-1.37.0.jar;C:\Users\manis\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.37.0\opentelemetry-sdk-logs-1.37.0.jar;C:\Users\manis\.m2\repository\net\bytebuddy\byte-buddy\1.14.14\byte-buddy-1.14.14.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-os\4.20.0\selenium-os-4.20.0.jar;C:\Users\manis\.m2\repository\org\apache\commons\commons-exec\1.4.0\commons-exec-1.4.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.20.0\selenium-safari-driver-4.20.0.jar;C:\Users\manis\.m2\repository\org\seleniumhq\selenium\selenium-support\4.20.0\selenium-support-4.20.0.jar;C:\Users\manis\.m2\repository\org\testng\testng\7.8.0\testng-7.8.0.jar;C:\Users\manis\.m2\repository\org\slf4j\slf4j-api\1.7.36\slf4j-api-1.7.36.jar;C:\Users\manis\.m2\repository\com\beust\jcommander\1.82\jcommander-1.82.jar;C:\Users\manis\.m2\repository\org\webjars\jquery\3.6.1\jquery-3.6.1.jar;C:\Users\manis\.m2\repository\org\apache\commons\commons-lang3\3.18.0\commons-lang3-3.18.0.jar;C:\Users\manis\.m2\repository\commons-io\commons-io\2.14.0\commons-io-2.14.0.jar;C:\Users\manis\.m2\repository\org\apache\logging\log4j\log4j-api\2.22.0\log4j-api-2.22.0.jar;C:\Users\manis\.m2\repository\org\apache\logging\log4j\log4j-core\2.22.0\log4j-core-2.22.0.jar;C:\Users\manis\.m2\repository\com\aventstack\extentreports\5.1.1\extentreports-5.1.1.jar;C:\Users\manis\.m2\repository\io\reactivex\rxjava3\rxjava\3.1.6\rxjava-3.1.6.jar;C:\Users\manis\.m2\repository\org\reactivestreams\reactive-streams\1.0.4\reactive-streams-1.0.4.jar;C:\Users\manis\.m2\repository\org\freemarker\freemarker\2.3.32\freemarker-2.3.32.jar;C:\Users\manis\.m2\repository\org\projectlombok\lombok\1.18.26\lombok-1.18.26.jar;C:\Users\manis\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\manis\.m2\repository\org\apache\poi\poi\5.2.5\poi-5.2.5.jar;C:\Users\manis\.m2\repository\commons-codec\commons-codec\1.16.0\commons-codec-1.16.0.jar;C:\Users\manis\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;C:\Users\manis\.m2\repository\com\zaxxer\SparseBitSet\1.3\SparseBitSet-1.3.jar;C:\Users\manis\.m2\repository\org\apache\xmlbeans\xmlbeans\5.1.1\xmlbeans-5.1.1.jar;C:\Users\manis\.m2\repository\org\apache\commons\commons-collections4\4.4\commons-collections4-4.4.jar;C:\Users\manis\.m2\repository\org\apache\poi\poi-ooxml\5.2.5\poi-ooxml-5.2.5.jar;C:\Users\manis\.m2\repository\org\apache\poi\poi-ooxml-lite\5.2.5\poi-ooxml-lite-5.2.5.jar;C:\Users\manis\.m2\repository\org\apache\commons\commons-compress\1.25.0\commons-compress-1.25.0.jar;C:\Users\manis\.m2\repository\com\github\virtuald\curvesapi\1.08\curvesapi-1.08.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -24,17 +24,19 @@
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="java.version.date" value="2025-07-15"/>
-    <property name="java.home" value="C:\Program Files\Java\jdk-24"/>
+    <property name="java.home" value="C:\Users\manis\.jdks\graalvm-jdk-21.0.8"/>
     <property name="file.separator" value="\"/>
     <property name="basedir" value="Z:\OpenCartv001"/>
+    <property name="style.color" value="always"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="jdk.internal.vm.ci.enabled" value="true"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\manis\AppData\Local\Temp\surefire10023950702238881815\surefirebooter-20250928112608100_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\manis\AppData\Local\Temp\surefire9811355651305165980\surefirebooter-20251009202935801_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="24.0.2+12-54"/>
+    <property name="java.runtime.version" value="21.0.8+12-LTS-jvmci-23.1-b72"/>
     <property name="user.name" value="manis"/>
     <property name="stdout.encoding" value="Cp1252"/>
     <property name="path.separator" value=";"/>
@@ -42,83 +44,148 @@
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Oracle GraalVM 21.0.8+12.1"/>
+    <property name="maven.ext.class.path" value="C:\Users\manis\AppData\Local\Programs\IntelliJ IDEA Community Edition 2025.2\plugins\maven\lib\maven-event-listener.jar"/>
     <property name="localRepository" value="C:\Users\manis\.m2\repository"/>
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
     <property name="java.io.tmpdir" value="C:\Users\manis\AppData\Local\Temp\"/>
-    <property name="java.version" value="24.0.2"/>
+    <property name="idea.version" value="2025.2"/>
+    <property name="java.version" value="21.0.8"/>
     <property name="user.dir" value="Z:\OpenCartv001"/>
     <property name="os.arch" value="amd64"/>
+    <property name="jansi.passthrough" value="true"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="native.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-24\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Java\jdk-17\bin;C:\Program Files\Java\jdk-24\bin;C:\Program Files\dotnet\;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\apache-maven-3.9.11\bin;C:\Program Files\Git\cmd;C:\Users\manis\AppData\Local\Microsoft\WindowsApps;;."/>
+    <property name="java.library.path" value="C:\Users\manis\.jdks\graalvm-jdk-21.0.8\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Java\jdk-21\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Git\cmd;C:\Users\manis\apache-maven-3.9.11\bin;C:\Users\manis\AppData\Local\Microsoft\WindowsApps;;."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
     <property name="stderr.encoding" value="Cp1252"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="java.vm.version" value="24.0.2+12-54"/>
+    <property name="java.vm.version" value="21.0.8+12-LTS-jvmci-23.1-b72"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
-    <property name="java.class.version" value="68.0"/>
+    <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="verify_account_registration" classname="testCases.TS_001AccountRegistration.TC_RF_001_AccountRegistrationTest" time="3.142">
-    <system-out><![CDATA[2025-09-28 11:26:10 INFO  TC_RF_001_AccountRegistrationTest:15 - ***** Starting TC001_AccountRegistrationTest  ****
-2025-09-28 11:26:11 INFO  TC_RF_001_AccountRegistrationTest:21 - Clicked on MyAccount Link.. 
-2025-09-28 11:26:12 INFO  TC_RF_001_AccountRegistrationTest:24 - Clicked on Register Link.. 
-2025-09-28 11:26:12 INFO  TC_RF_001_AccountRegistrationTest:28 - Providing customer details...
-2025-09-28 11:26:13 INFO  TC_RF_001_AccountRegistrationTest:42 - Validating expected message..
-2025-09-28 11:26:13 INFO  TC_RF_001_AccountRegistrationTest:47 - Test passed
-2025-09-28 11:26:13 INFO  TC_RF_001_AccountRegistrationTest:56 - ***** Finished TC001_AccountRegistrationTest *****
+  <testcase name="verify_account_registration" classname="testCases.TS_001_AccountRegistration.TC_RF_001_ValidateAccountRegistrationTest" time="1.639">
+    <system-out><![CDATA[2025-10-09 20:29:42 INFO  TC_RF_001_ValidateAccountRegistrationTest:15 - ***** Starting TC001_AccountRegistrationTest  ****
+2025-10-09 20:29:42 INFO  TC_RF_001_ValidateAccountRegistrationTest:21 - Clicked on MyAccount Link.. 
+2025-10-09 20:29:42 INFO  TC_RF_001_ValidateAccountRegistrationTest:24 - Clicked on Register Link.. 
+2025-10-09 20:29:42 INFO  TC_RF_001_ValidateAccountRegistrationTest:28 - Providing customer details...
+2025-10-09 20:29:43 INFO  TC_RF_001_ValidateAccountRegistrationTest:42 - Validating expected message..
+2025-10-09 20:29:43 INFO  TC_RF_001_ValidateAccountRegistrationTest:47 - Test passed
+2025-10-09 20:29:43 INFO  TC_RF_001_ValidateAccountRegistrationTest:56 - ***** Finished TC001_AccountRegistrationTest *****
 ]]></system-out>
     <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-Sep 28, 2025 11:26:09 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 140
-Sep 28, 2025 11:26:09 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 140.0.7339.208. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Oct 09, 2025 8:29:38 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 141
+Oct 09, 2025 8:29:38 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 141.0.7390.55. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="verify_register_with_all_fields" classname="testCases.TS_001AccountRegistration.TC_RF_002_RegisterAllFieldsTest" time="2.233">
-    <system-out><![CDATA[2025-09-28 11:26:16 INFO  TC_RF_002_RegisterAllFieldsTest:17 - ***** Starting  TC_RF_002_RegisterAllFieldsTest *****
-2025-09-28 11:26:18 INFO  TC_RF_002_RegisterAllFieldsTest:49 - Test Passed: User registered successfully with all fields.
-2025-09-28 11:26:18 INFO  TC_RF_002_RegisterAllFieldsTest:56 - ***** Finished  TC_RF_002_RegisterAllFieldsTest *****
+  <testcase name="verify_register_with_all_fields" classname="testCases.TS_001_AccountRegistration.TC_RF_002_ValidateRegisterAllFieldsTest" time="1.667">
+    <system-out><![CDATA[2025-10-09 20:29:48 INFO  TC_RF_002_ValidateRegisterAllFieldsTest:17 - ***** Starting  TC_RF_002_ValidateRegisterAllFieldsTest *****
+2025-10-09 20:29:50 INFO  TC_RF_002_ValidateRegisterAllFieldsTest:49 - Test Passed: User registered successfully with all fields.
+2025-10-09 20:29:50 INFO  TC_RF_002_ValidateRegisterAllFieldsTest:56 - ***** Finished  TC_RF_002_ValidateRegisterAllFieldsTest *****
 ]]></system-out>
-    <system-err><![CDATA[Sep 28, 2025 11:26:14 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 140
-Sep 28, 2025 11:26:14 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 140.0.7339.208. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+    <system-err><![CDATA[Oct 09, 2025 8:29:47 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 141
+Oct 09, 2025 8:29:47 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 141.0.7390.55. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="verify_mandatory_field_warnings" classname="testCases.TS_001AccountRegistration.TC_RF_003_RegisterMandatoryFieldsValidationTest" time="1.297">
-    <system-out><![CDATA[2025-09-28 11:26:20 INFO  TC_RF_003_RegisterMandatoryFieldsValidationTest:15 - ***** Starting TC_RF_003_RegisterMandatoryFieldsValidationTest *****
-2025-09-28 11:26:21 INFO  TC_RF_003_RegisterMandatoryFieldsValidationTest:47 - Test Passed: All mandatory field warnings displayed correctly.
-2025-09-28 11:26:21 INFO  TC_RF_003_RegisterMandatoryFieldsValidationTest:54 - ***** Finished TC_RF_003_RegisterMandatoryFieldsValidationTest *****
+  <testcase name="verify_mandatory_field_warnings" classname="testCases.TS_001_AccountRegistration.TC_RF_003_ValidateRegisterMandatoryFieldsTest" time="0.884">
+    <system-out><![CDATA[2025-10-09 20:29:53 INFO  TC_RF_003_ValidateRegisterMandatoryFieldsTest:15 - ***** Starting TC_RF_003_ValidateRegisterMandatoryFieldsTest *****
+2025-10-09 20:29:54 INFO  TC_RF_003_ValidateRegisterMandatoryFieldsTest:47 - Test Passed: All mandatory field warnings displayed correctly.
+2025-10-09 20:29:54 INFO  TC_RF_003_ValidateRegisterMandatoryFieldsTest:54 - ***** Finished TC_RF_003_ValidateRegisterMandatoryFieldsTest *****
 ]]></system-out>
-    <system-err><![CDATA[Sep 28, 2025 11:26:19 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 140
-Sep 28, 2025 11:26:19 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 140.0.7339.208. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+    <system-err><![CDATA[Oct 09, 2025 8:29:52 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 141
+Oct 09, 2025 8:29:52 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 141.0.7390.55. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="verify_register_with_newsletter_yes" classname="testCases.TS_001AccountRegistration.TC_RF_004_RegisterNewsletterYesTest" time="2.77">
-    <system-out><![CDATA[2025-09-28 11:26:25 INFO  TC_RF_004_RegisterNewsletterYesTest:18 - ***** Starting TC_RF_004_RegisterNewsletterYesTest *****
-2025-09-28 11:26:28 INFO  TC_RF_004_RegisterNewsletterYesTest:58 - Test Passed: Newsletter 'Yes' option correctly retained after registration.
-2025-09-28 11:26:28 INFO  TC_RF_004_RegisterNewsletterYesTest:65 - ***** Finished TC_RF_004_RegisterNewsletterYesTest *****
+  <testcase name="verify_register_with_newsletter_yes" classname="testCases.TS_001_AccountRegistration.TC_RF_004_ValidateRegisterNewsletterYesTest" time="2.033">
+    <system-out><![CDATA[2025-10-09 20:29:55 INFO  TC_RF_004_ValidateRegisterNewsletterYesTest:18 - ***** Starting TC_RF_004_ValidateRegisterNewsletterYesTest *****
+2025-10-09 20:29:57 INFO  TC_RF_004_ValidateRegisterNewsletterYesTest:58 - Test Passed: Newsletter 'Yes' option correctly retained after registration.
+2025-10-09 20:29:57 INFO  TC_RF_004_ValidateRegisterNewsletterYesTest:65 - ***** Finished TC_RF_004_ValidateRegisterNewsletterYesTest *****
 ]]></system-out>
-    <system-err><![CDATA[Sep 28, 2025 11:26:22 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 140
-Sep 28, 2025 11:26:22 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 140.0.7339.208. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+    <system-err><![CDATA[Oct 09, 2025 8:29:55 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 141
+Oct 09, 2025 8:29:55 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 141.0.7390.55. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="verify_register_with_newsletter_no" classname="testCases.TS_001AccountRegistration.TC_RF_005_RegisterNewsletterNoTest" time="2.183">
-    <system-out><![CDATA[2025-09-28 11:26:30 INFO  TC_RF_005_RegisterNewsletterNoTest:17 - ***** Starting TC_RF_005_RegisterNewsletterNoTest *****
-2025-09-28 11:26:32 INFO  TC_RF_005_RegisterNewsletterNoTest:57 - Test Passed: Newsletter 'No' option correctly retained after registration.
-2025-09-28 11:26:32 INFO  TC_RF_005_RegisterNewsletterNoTest:64 - ***** Finished TC_RF_005_RegisterNewsletterNoTest *****
+  <testcase name="verify_register_with_newsletter_no" classname="testCases.TS_001_AccountRegistration.TC_RF_005_ValidateRegisterNewsletterNoTest" time="2.274">
+    <system-out><![CDATA[2025-10-09 20:29:59 INFO  TC_RF_005_ValidateRegisterNewsletterNoTest:17 - ***** Starting TC_RF_005_ValidateRegisterNewsletterNoTest *****
+2025-10-09 20:30:01 INFO  TC_RF_005_ValidateRegisterNewsletterNoTest:57 - Test Passed: Newsletter 'No' option correctly retained after registration.
+2025-10-09 20:30:01 INFO  TC_RF_005_ValidateRegisterNewsletterNoTest:64 - ***** Finished TC_RF_005_ValidateRegisterNewsletterNoTest *****
 ]]></system-out>
-    <system-err><![CDATA[Sep 28, 2025 11:26:29 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 140
-Sep 28, 2025 11:26:29 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 140.0.7339.208. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+    <system-err><![CDATA[Oct 09, 2025 8:29:58 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 141
+Oct 09, 2025 8:29:58 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 141.0.7390.55. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="verify_navigation_to_register_page" classname="testCases.TS_001_AccountRegistration.TC_RF_006_ValidateNavigateRegisterPageTest" time="5.776">
+    <system-out><![CDATA[2025-10-09 20:30:05 INFO  TC_RF_006_ValidateNavigateRegisterPageTest:15 - ***** Starting TC_RF_006_ValidateNavigateRegisterPageTest *****
+2025-10-09 20:30:11 INFO  TC_RF_006_ValidateNavigateRegisterPageTest:47 - Test Passed: All navigation paths to Register Account page validated.
+2025-10-09 20:30:11 INFO  TC_RF_006_ValidateNavigateRegisterPageTest:54 - ***** Finished TC_RF_006_ValidateNavigateRegisterPageTest *****
+]]></system-out>
+    <system-err><![CDATA[Oct 09, 2025 8:30:03 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 141
+Oct 09, 2025 8:30:03 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 141.0.7390.55. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="verify_password_mismatch_warning" classname="testCases.TS_001_AccountRegistration.TC_RF_007_ValidateRegisterPasswordMismatchTest" time="1.645">
+    <system-out><![CDATA[2025-10-09 20:30:13 INFO  TC_RF_007_ValidateRegisterPasswordMismatchTest:16 - ***** Starting TC_RF_007_ValidateRegisterPasswordMismatchTest *****
+2025-10-09 20:30:15 INFO  TC_RF_007_ValidateRegisterPasswordMismatchTest:45 - Test Passed: Password mismatch warning displayed as expected.
+2025-10-09 20:30:15 INFO  TC_RF_007_ValidateRegisterPasswordMismatchTest:52 - ***** Finished TC_RF_007_ValidateRegisterPasswordMismatchTest *****
+]]></system-out>
+    <system-err><![CDATA[Oct 09, 2025 8:30:12 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 141
+Oct 09, 2025 8:30:12 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 141.0.7390.55. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="verify_registration_with_invalid_emails" classname="testCases.TS_001_AccountRegistration.TC_RF_008_ValidateInvalidEmailRegistrationTest" time="5.763">
+    <system-out><![CDATA[2025-10-09 20:30:16 INFO  TC_RF_008_ValidateInvalidEmailRegistrationTest:15 - ***** Starting TC_RF_008_ValidateInvalidEmailRegistrationTest *****
+2025-10-09 20:30:18 INFO  TC_RF_008_ValidateInvalidEmailRegistrationTest:30 - Testing with invalid email: test@com
+2025-10-09 20:30:18 INFO  TC_RF_008_ValidateInvalidEmailRegistrationTest:45 - Warning for email 'test@com': E-Mail Address does not appear to be valid!
+2025-10-09 20:30:19 INFO  TC_RF_008_ValidateInvalidEmailRegistrationTest:30 - Testing with invalid email: testauto@com
+2025-10-09 20:30:19 INFO  TC_RF_008_ValidateInvalidEmailRegistrationTest:45 - Warning for email 'testauto@com': E-Mail Address does not appear to be valid!
+2025-10-09 20:30:20 INFO  TC_RF_008_ValidateInvalidEmailRegistrationTest:30 - Testing with invalid email: testauto@gmail-com
+2025-10-09 20:30:21 INFO  TC_RF_008_ValidateInvalidEmailRegistrationTest:45 - Warning for email 'testauto@gmail-com': E-Mail Address does not appear to be valid!
+2025-10-09 20:30:21 INFO  TC_RF_008_ValidateInvalidEmailRegistrationTest:30 - Testing with invalid email: testauto@gmailcom
+2025-10-09 20:30:22 INFO  TC_RF_008_ValidateInvalidEmailRegistrationTest:45 - Warning for email 'testauto@gmailcom': E-Mail Address does not appear to be valid!
+2025-10-09 20:30:22 INFO  TC_RF_008_ValidateInvalidEmailRegistrationTest:64 - ***** Finished TC_RF_008_ValidateInvalidEmailRegistrationTest *****
+]]></system-out>
+    <system-err><![CDATA[Oct 09, 2025 8:30:15 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 141
+Oct 09, 2025 8:30:15 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 141.0.7390.55. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="verify_register_without_password_confirm" classname="testCases.TS_001_AccountRegistration.TC_RF_009_ValidateMissingPasswordConfirmTest" time="1.174">
+    <system-out><![CDATA[2025-10-09 20:30:24 INFO  TC_RF_009_ValidateMissingPasswordConfirmTest:13 - ***** Starting TC_RF_009_ValidateMissingPasswordConfirmTest *****
+2025-10-09 20:30:25 INFO  TC_RF_009_ValidateMissingPasswordConfirmTest:40 - Actual Warning: Password confirmation does not match password!
+2025-10-09 20:30:25 INFO  TC_RF_009_ValidateMissingPasswordConfirmTest:49 - ***** Finished TC_RF_009_ValidateMissingPasswordConfirmTest *****
+]]></system-out>
+    <system-err><![CDATA[Oct 09, 2025 8:30:23 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 141
+Oct 09, 2025 8:30:23 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 141.0.7390.55. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="verify_registration_without_privacy_policy" classname="testCases.TS_001_AccountRegistration.TC_RF_010_ValidateMissingPrivacyPolicyTest" time="1.721">
+    <system-out><![CDATA[2025-10-09 20:30:27 INFO  TC_RF_010_ValidateMissingPrivacyPolicyTest:15 - ***** Starting TC_RF_010_ValidateMissingPrivacyPolicyTest *****
+2025-10-09 20:30:29 INFO  TC_RF_010_ValidateMissingPrivacyPolicyTest:51 - ***** Finished TC_RF_010_ValidateMissingPrivacyPolicyTest *****
+]]></system-out>
+    <system-err><![CDATA[Oct 09, 2025 8:30:26 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 141
+Oct 09, 2025 8:30:26 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 141.0.7390.55. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.20.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
 </testsuite>

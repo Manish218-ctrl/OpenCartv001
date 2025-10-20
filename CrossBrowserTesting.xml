@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.1.dtd" >
 
-<suite name="Suite" thread-count="5" parallel="tests">
+<suite name="Suite" thread-count="5" parallel="false">
 
     <listeners>
         <listener class-name="utilities.ExtentManager" />
@@ -15,6 +15,11 @@
             <class name="testCases.TS_001_AccountRegistration.TC_RF_003_ValidateRegisterMandatoryFieldsTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_004_ValidateRegisterNewsletterYesTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_005_ValidateRegisterNewsletterNoTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_006_ValidateNavigateRegisterPageTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_007_ValidateRegisterPasswordMismatchTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_008_ValidateInvalidEmailRegistrationTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_009_ValidateMissingPasswordConfirmTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_010_ValidateMissingPrivacyPolicyTest" />
         </classes>
     </test>
     <!-- Test -->
@@ -37,6 +42,11 @@
         <class name="testCases.TS_001_AccountRegistration.TC_RF_003_ValidateRegisterMandatoryFieldsTest" />
         <class name="testCases.TS_001_AccountRegistration.TC_RF_004_ValidateRegisterNewsletterYesTest" />
         <class name="testCases.TS_001_AccountRegistration.TC_RF_005_ValidateRegisterNewsletterNoTest" />
+        <class name="testCases.TS_001_AccountRegistration.TC_RF_006_ValidateNavigateRegisterPageTest" />
+        <class name="testCases.TS_001_AccountRegistration.TC_RF_007_ValidateRegisterPasswordMismatchTest" />
+        <class name="testCases.TS_001_AccountRegistration.TC_RF_008_ValidateInvalidEmailRegistrationTest" />
+        <class name="testCases.TS_001_AccountRegistration.TC_RF_009_ValidateMissingPasswordConfirmTest" />
+        <class name="testCases.TS_001_AccountRegistration.TC_RF_010_ValidateMissingPrivacyPolicyTest" />
     </classes>
     </test>
 

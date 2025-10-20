@@ -3,7 +3,7 @@ package testCases.TS_003_LogOutFunctionality;
 import org.openqa.selenium.Cookie;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.MyAccountPage;
 import testBase.BaseClass;
@@ -19,7 +19,7 @@ public class TC_LG_003_ValidateSessionPersistenceTest extends BaseClass {
 
         try {
             // Step 1: Login user
-            Homepage hp = new Homepage(driver);
+            HomePage hp = new HomePage(driver);
             hp.clickMyAccount();
             logger.info("Clicked on My Account dropdown.");
             hp.clickLogin();
@@ -34,7 +34,8 @@ public class TC_LG_003_ValidateSessionPersistenceTest extends BaseClass {
             logger.info("Clicked on Login button.");
 
             MyAccountPage macc = new MyAccountPage(driver);
-            Assert.assertTrue(macc.isMyAccountPageExists(), "My Account page not displayed after initial login.");
+            Assert.assertTrue(macc.isAt(), "Not on My Account page after login.");
+
             logger.info("User successfully logged in.");
 
             // Step 2: Save cookies before quitting
@@ -63,7 +64,7 @@ public class TC_LG_003_ValidateSessionPersistenceTest extends BaseClass {
             driver.navigate().refresh(); // refresh to apply cookies
 
             // Step 6: Verify session persistence
-            Homepage hpAfterReopen = new Homepage(driver);
+            HomePage hpAfterReopen = new HomePage(driver);
             hpAfterReopen.clickMyAccount();
 
             MyAccountPage maccAfterReopen = new MyAccountPage(driver);

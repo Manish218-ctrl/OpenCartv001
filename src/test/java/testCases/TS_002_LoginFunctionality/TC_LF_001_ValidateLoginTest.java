@@ -4,7 +4,7 @@ package testCases.TS_002_LoginFunctionality;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.MyAccountPage;
 import testBase.BaseClass;
@@ -16,8 +16,8 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_LF_001_ValidateLoginTest *****");
 
             try {
-                // Step 1: Open Homepage
-                Homepage hp = new Homepage(driver);
+                // Step 1: Open HomePage
+                HomePage hp = new HomePage(driver);
                 hp.clickMyAccount();
                 hp.clickLogin();
                 logger.info("Navigated to Login Page");

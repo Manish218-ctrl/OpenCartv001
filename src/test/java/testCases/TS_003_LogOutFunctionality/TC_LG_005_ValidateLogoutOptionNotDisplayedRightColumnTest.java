@@ -13,16 +13,13 @@ import testBase.BaseClass;
 
             try {
                 // Step 1: Open the Application URL (handled by BaseClass setup)
-                // The application is already opened by the @BeforeClass setup method in BaseClass.
                 logger.info("Application URL is open and user is not logged in.");
 
                 // Expected Result 1: Logout option should not be displayed in the 'Right Column'
-                // We'll use the MyAccountPage to check for the 'lnkLogout' which typically resides
-                // in the right column list group. Before login, this should not be displayed.
+
                 MyAccountPage macc = new MyAccountPage(driver);
 
-                // The isUserLoggedIn() method in MyAccountPage checks if lnkLogout is displayed.
-                // We expect it to be false before logging in.
+
                 boolean isLogoutOptionDisplayedInRightColumn = macc.isUserLoggedIn();
 
                 Assert.assertFalse(isLogoutOptionDisplayedInRightColumn, "Logout option IS displayed in the Right Column before login.");

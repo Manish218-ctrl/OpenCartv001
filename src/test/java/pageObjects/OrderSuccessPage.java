@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static pageObjects.Homepage.logger;
+import static pageObjects.HomePage.logger;
 
 public class OrderSuccessPage extends BasePage {
 

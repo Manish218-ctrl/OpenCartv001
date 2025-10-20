@@ -13,7 +13,7 @@ public class TC_WL_001_ValidateAddProductFromRelatedProductsToWishListTest exten
 
         try {
             // 1. Login
-            Homepage hp = new Homepage(driver);
+            HomePage hp = new HomePage(driver);
             hp.clickMyAccount();
             hp.clickLogin();
 

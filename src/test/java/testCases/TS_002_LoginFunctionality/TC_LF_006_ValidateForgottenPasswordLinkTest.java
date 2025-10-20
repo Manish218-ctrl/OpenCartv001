@@ -2,7 +2,7 @@ package testCases.TS_002_LoginFunctionality;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.ForgotPasswordPage;
 import testBase.BaseClass;
@@ -15,7 +15,7 @@ import testBase.BaseClass;
 
             try {
                 // Step 1: Navigate to Home page and click My Account -> Login
-                Homepage hp = new Homepage(driver);
+                HomePage hp = new HomePage(driver);
                 hp.clickMyAccount();
                 hp.clickLogin();
                 logger.info("Clicked on My Account -> Login");

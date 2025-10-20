@@ -3,12 +3,14 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import testBase.BaseClass;
+
 import java.time.Duration;
 
-public class BasePage {
+public class BasePage extends BaseClass {
 
     protected static WebDriver driver;
-    protected static WebDriverWait wait;
+    public static WebDriverWait wait;
 
     // Constructor with WebDriver
     public BasePage(WebDriver driver) {
@@ -18,7 +20,7 @@ public class BasePage {
     }
 
     // Optional helper for dynamic waits
-    protected WebDriverWait getWait(int seconds) {
+    public WebDriverWait getWait(int seconds) {
         return new WebDriverWait(driver, Duration.ofSeconds(seconds));
     }
 

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import testBase.BaseClass;
 
@@ -18,7 +18,7 @@ import testBase.BaseClass;
 
             try {
                 // Step 1: Open application (already handled by BaseClass)
-                Homepage hp = new Homepage(driver);
+                HomePage hp = new HomePage(driver);
                 hp.clickMyAccount();
                 hp.clickLogin();
                 logger.info("Navigated to Login page");
@@ -29,13 +29,13 @@ import testBase.BaseClass;
                 String samplePassword = "MySecret123";
                 passwordField.sendKeys(samplePassword);
 
-                // Step 3: Try Right-Click Copy (context menu should not allow copy)
+                // Step 3:Right-Click Copy (context menu should not allow copy)
                 passwordField.sendKeys(Keys.chord(Keys.CONTROL, "a")); // select all
                 passwordField.sendKeys(Keys.chord(Keys.SHIFT, Keys.F10)); // open context menu
                 String fieldType = passwordField.getAttribute("type");
                 Assert.assertEquals(fieldType, "password", "Password field should remain masked.");
 
-                // Step 4: Try Ctrl+C and paste into another field (should not paste actual value)
+                // Step 4:Ctrl+C and paste into another field
                 passwordField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
                 passwordField.sendKeys(Keys.chord(Keys.CONTROL, "c"));
 

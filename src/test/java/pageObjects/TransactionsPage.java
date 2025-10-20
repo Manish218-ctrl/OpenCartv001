@@ -22,7 +22,7 @@ public class TransactionsPage extends BasePage {
     }
 
     // Breadcrumb element (last breadcrumb item = current page name)
-    @FindBy(xpath = "/html/body/div[2]/ul/li[3]/a")
+    @FindBy(xpath = "/html/body/div[2]/div/div/h1")
     public WebElement breadcrumbElementT;
 
 
@@ -44,10 +44,6 @@ public class TransactionsPage extends BasePage {
     // Replace old locator
     @FindBy(xpath = "/html/body/div[2]/div/div/h1")
     public WebElement headingYourTransactions;
-
-
-
-
 
 
     // Balance text
@@ -96,9 +92,5 @@ public class TransactionsPage extends BasePage {
     public String getBreadcrumbText() {
         return driver.findElement(By.cssSelector(".breadcrumb")).getText();
     }
-
-
-
-
 
 }

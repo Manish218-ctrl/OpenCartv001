@@ -32,9 +32,7 @@ public class ChangePasswordPage {
     @FindBy(css = ".alert.alert-success") // Success message locator (adjust if needed)
     public WebElement successMessage;
 
-    // ==========================
-    // Getters for WebElements
-    // ==========================
+
     public WebElement getNewPasswordField() {
         return newPasswordField;
     }
@@ -51,9 +49,7 @@ public class ChangePasswordPage {
         return successMessage;
     }
 
-    // ==========================
-    // Actions / Methods
-    // ==========================
+
     public void setNewPassword(String password) {
         newPasswordField.clear();
         newPasswordField.sendKeys(password);

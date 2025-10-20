@@ -6,8 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-    public class CurrencyPage extends BasePage {
+public class CurrencyPage extends BasePage {
 
         public CurrencyPage(WebDriver driver) {
             super(driver);
@@ -26,6 +27,17 @@ import org.openqa.selenium.support.PageFactory;
 
         @FindBy(xpath = "/html/body/nav/div/div[1]/form/div/ul/li[3]/button")  // US Dollar option
         WebElement usDollarOption;
+
+        private final By currencySymbolDisplay = By.xpath("/html/body/nav/div/div[1]/form/div/button/strong");
+
+        public String getCurrentSelectedCurrencySymbol() {
+            // 1. Wait for the element to be visible/clickable (ensures it's not stale)
+            WebElement currencyElement = waitShort().until(
+                    ExpectedConditions.visibilityOfElementLocated(currencySymbolDisplay)
+            );
+
+            return currencyElement.getText();
+        }
 
         public void clickCurrencyDropdown() {
             currencyDropdown.click();

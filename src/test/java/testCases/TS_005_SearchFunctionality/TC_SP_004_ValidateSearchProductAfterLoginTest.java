@@ -5,7 +5,7 @@ package testCases.TS_005_SearchFunctionality;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.MyAccountPage;
 import pageObjects.SearchPage; // Import the SearchPage
@@ -19,10 +19,8 @@ import testBase.BaseClass;
             logger.info("Starting TC_SP_004_ValidateSearchProductAfterLoginTest: Validate searching for a product after login.");
 
             try {
-                // 1. Open the Application URL in any supported browser (handled by BaseClass setup)
 
-                // 2. Login to the Application
-                Homepage hp = new Homepage(driver);
+                HomePage hp = new HomePage(driver);
                 hp.clickMyAccount();
                 logger.info("Clicked 'My Account' dropdown.");
                 hp.clickLogin();
@@ -52,7 +50,6 @@ import testBase.BaseClass;
                 logger.info("Clicked search icon button.");
 
                 // Expected Result: 1. Searched product should be displayed in the search results
-                // Verify the search results heading contains the product name
                 String searchResultsHeading = searchPage.getSearchResultsHeading();
                 Assert.assertTrue(searchResultsHeading.contains(productName), "Search results heading does not contain the searched product name.");
                 logger.info("Verified search results heading: '" + searchResultsHeading + "'");

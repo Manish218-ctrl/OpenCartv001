@@ -14,8 +14,7 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_WL_003 Add Product from Featured Section to Wish List *****");
 
             try {
-                // 1. Login
-                Homepage hp = new Homepage(driver);
+                HomePage hp = new HomePage(driver);
                 hp.clickMyAccount();
                 hp.clickLogin();
 
@@ -23,18 +22,18 @@ import testBase.BaseClass;
                 lp.login(rb.getString("email"), rb.getString("password"));
                 logger.info("Login successful");
 
-                // 2. Click on Store Logo (in this site, "Your Store")
+                //Click on Store Logo (in this site, "Your Store")
                 driver.findElement(org.openqa.selenium.By.xpath("/html/body/header/div/div/div[1]/div/h1/a")).click();
                 logger.info("Clicked on Store logo → navigated to Home page");
                 Assert.assertTrue(driver.getTitle().contains("Your Store"),
                         "ER-1 Failed: Not navigated to Home page");
 
-                // 3. Scroll to Featured Section
+                //Scroll to Featured Section
                 FeaturedSectionPage fsp = new FeaturedSectionPage(driver);
                 String featuredProduct = fsp.getFirstFeaturedProductName();
                 logger.info("First Featured Product: " + featuredProduct);
 
-                // 4. Add to Wish List from Featured Section
+                //Add to Wish List from Featured Section
                 driver.findElement(org.openqa.selenium.By.xpath(
                         "(//div[@id='content']//div[contains(@class,'product-layout')])[1]//button[@data-original-title='Add to Wish List']"
                 )).click();

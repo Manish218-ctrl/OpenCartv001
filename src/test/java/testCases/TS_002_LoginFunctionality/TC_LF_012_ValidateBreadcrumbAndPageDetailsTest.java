@@ -2,7 +2,7 @@ package testCases.TS_002_LoginFunctionality;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import testBase.BaseClass;
 
@@ -12,8 +12,8 @@ public class TC_LF_012_ValidateBreadcrumbAndPageDetailsTest extends BaseClass {
     public void verify_LoginPage_Details() {
         logger.info("***** Starting TC_LF_012_ValidateBreadcrumbAndPageDetailsTest *****");
 
-        // Step 1: Open Homepage and navigate to Login
-        Homepage hp = new Homepage(driver);
+        // Step 1: Open HomePage and navigate to Login
+        HomePage hp = new HomePage(driver);
         hp.clickMyAccount();
         hp.clickLogin();
         logger.info("Navigated to Login page");

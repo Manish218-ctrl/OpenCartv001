@@ -2,17 +2,15 @@ package pageObjects;
 
 
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static pageObjects.Homepage.logger;
+import static pageObjects.HomePage.logger;
 
 public class RecurringPaymentsPage extends BasePage {
 
@@ -73,13 +71,6 @@ public class RecurringPaymentsPage extends BasePage {
 
 
 
-
-
-
-
-        // Method to check if the breadcrumb is displayed
-
-
         public boolean isBreadcrumbDisplayed() {
             try {
                 // Wait for the breadcrumb to be visible
@@ -91,7 +82,6 @@ public class RecurringPaymentsPage extends BasePage {
         }
 
 
-        // Method to get the breadcrumb text
         public String getBreadcrumbText() {
             try {
                 // Wait for breadcrumb element to be visible and get its text
@@ -104,7 +94,6 @@ public class RecurringPaymentsPage extends BasePage {
 
 
 
-        // Page Title (already available from BasePage)
         public String getPageTitle() {
             return driver.getTitle();
         }

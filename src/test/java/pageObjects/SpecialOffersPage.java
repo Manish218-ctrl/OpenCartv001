@@ -31,7 +31,12 @@ public class SpecialOffersPage {
 
     // Locator for the page title or heading (change the XPath if necessary)
     @FindBy(xpath = "/html/body/div[2]/div/div/h2")
-    private WebElement pageTitle;
+    public WebElement pageTitle;
+
+    @FindBy(xpath = "/html/body/div[2]/div[1]/a[2]")
+    public WebElement productcompararisonmsg;
+
+
 
     // Method to get the page title text
     public String getPageTitle() {
@@ -40,25 +45,42 @@ public class SpecialOffersPage {
 
     // Locator for the 'Specials' footer link
     @FindBy(linkText = "Specials")
-    private WebElement specialsFooterLink;
+    public WebElement specialsFooterLink;
 
     // Locator for the 'Compare this Product' icon
-    private By compareProductIcon = By.xpath("//div[@class='product-thumb']//button[contains(@onclick, 'compare.add')]");
+    public By compareProductIcon = By.xpath("//div[@class='product-thumb']//button[contains(@onclick, 'compare.add')]");
 
     // Locator for the success message after adding a product to the comparison
-    private By successMessageLocator = By.xpath("//div[contains(@class, 'alert-success')]");
+    public By successMessageLocator = By.xpath("//div[contains(@class, 'alert-success')]");
 
     // Locator for the 'Compare this Product' icon (Adjust based on actual UI)
     @FindBy(xpath = "//button[@title='Compare this Product']")
-    private WebElement compareThisProductButton;
+    public WebElement compareThisProductButton;
 
     // Locator for success message
     @FindBy(xpath = "//div[contains(@class, 'alert-success')]")
-    private WebElement successMessage;
+    public WebElement successMessage;
+
+    @FindBy(xpath = "//*[@id='content']/div[1]/div[2]/div[1]/button[1]")
+    public WebElement wishlisticon;
+
+    @FindBy(xpath = "//*[@id='content']/div[2]/div[2]/div/div[2]/div[2]/button[3]")
+    public WebElement productcomparebtn;
 
     // Locator for the success message text
-    private By successMessageText = By.xpath("//div[contains(@class, 'alert-success')]//text()");
+    public By successMessageText = By.xpath("//div[contains(@class, 'alert-success')]//text()");
 
+public void clickproductcomparisonmsg(){
+    productcompararisonmsg.click();
+}
+
+public void clickproductcomparebtn(){
+    productcomparebtn.click();
+}
+
+public void clickwishlisticon(){
+    wishlisticon.click();
+}
 
     // Method to click on the 'Specials' footer link
     public void clickSpecialsLink() {
@@ -67,7 +89,7 @@ public class SpecialOffersPage {
 
     // Method to check if the offer products are displayed
     @FindBy(xpath = "//div[@class='product-thumb']")
-    private WebElement specialOfferItem;
+    public WebElement specialOfferItem;
 
     public boolean areSpecialOffersDisplayed() {
         return specialOfferItem.isDisplayed();
@@ -79,7 +101,7 @@ public class SpecialOffersPage {
     }
 
     // Locator for the offer products (adjust according to the actual HTML)
-    private By offerProductsLocator = By.cssSelector(".offer-product");
+    public By offerProductsLocator = By.cssSelector(".offer-product");
 
     // Method to check if offer products are displayed
     public boolean areOfferProductsDisplayed() {
@@ -100,7 +122,7 @@ public class SpecialOffersPage {
 
     // Method to verify products are displayed in Grid view
     @FindBy(xpath = "//div[@class='product-thumb']")
-    private WebElement productGrid;
+    public WebElement productGrid;
 
     public boolean areProductsInGridView() {
         return productGrid.isDisplayed();  // Validate if product grid is visible
@@ -108,7 +130,7 @@ public class SpecialOffersPage {
 
     // Locator for 'ADD TO CART' button
     @FindBy(xpath = "//button[contains(@onclick, 'cart.add')]")
-    private WebElement addToCartButton;
+    public WebElement addToCartButton;
 
     // Method to click the 'Add to Cart' button for the first product
     public void clickAddToCart() {
@@ -123,7 +145,7 @@ public class SpecialOffersPage {
 
 
     @FindBy(linkText = "Product Compare") // Locator for Product Compare link
-    private WebElement productCompareLink;
+    public WebElement productCompareLink;
 
     // Method to click on the 'Product Compare' link
     public void clickProductPage() {
@@ -131,7 +153,7 @@ public class SpecialOffersPage {
     }
 
     @FindBy(id = "input-sort")  // Assuming the 'Sort By' dropdown has id "input-sort"
-    private WebElement sortByDropdown;
+    public WebElement sortByDropdown;
 
 
     public void selectSortByOption(String option) {
@@ -139,7 +161,7 @@ public class SpecialOffersPage {
         sortBySelect.selectByVisibleText(option);
     }
 
-    private By productTitlesLocator = By.xpath("//div[@class='product-thumb']//h4/a"); // Adjust this if necessary
+    public By productTitlesLocator = By.xpath("//div[@class='product-thumb']//h4/a"); // Adjust this if necessary
 
 
     public List<WebElement> getProductTitles() {
@@ -162,7 +184,7 @@ public class SpecialOffersPage {
 
     // Method to select 'List' view for products in Special Offers page
     @FindBy(id = "list-view")
-    private WebElement listViewOption;
+    public WebElement listViewOption;
 
     public void selectListView() {
         wait.until(ExpectedConditions.elementToBeClickable(listViewOption)).click();
@@ -217,18 +239,5 @@ public class SpecialOffersPage {
             logger.error("Error while selecting product for comparison: " + e.getMessage());
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

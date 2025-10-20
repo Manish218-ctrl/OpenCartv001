@@ -1,28 +1,17 @@
 package testCases.TS_005_SearchFunctionality;
 
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import pageObjects.Homepage;
-import pageObjects.SearchPage; // Assume this POM exists
+import pageObjects.HomePage;
+import pageObjects.SearchPage;
 import testBase.BaseClass;
-import utilities.ExcelUtility;
+import utilities.DataProviders;
 
 public class TC_SP_010_ValidateSearchExistingProductDataDrivenTest extends BaseClass {
 
 
-    @DataProvider(name="SearchExistingProductData")
-    public Object[][] getSearchData()
-    {
-        // Adjust these parameters to match your Excel file name and sheet name
-        // The data returned should be: {searchQuery, expectedProductTitle}
-        Object[][] data = ExcelUtility.getTestData("SearchData.xlsx", "ExistingProducts");
-        return data;
-    }
-
-    // The @Test annotation uses the data provider to execute the test multiple times.
-    @Test(dataProvider = "SearchExistingProductData")
+    @Test(dataProvider = "SearchExistingProductData", dataProviderClass = DataProviders.class)
     public void verify_search_existing_product(String searchQuery, String expectedProductTitle)
     {
         logger.info("***** Starting Data-Driven TC_SF_001_SearchExistingProductTest ****");
@@ -30,18 +19,15 @@ public class TC_SP_010_ValidateSearchExistingProductDataDrivenTest extends BaseC
 
         try
         {
-            Homepage hp = new Homepage(driver);
+            HomePage hp = new HomePage(driver);
 
-            // 1. Enter the search query and click search
             hp.searchProduct(searchQuery);
             logger.info("Executed search for: " + searchQuery);
 
             SearchPage searchPage = new SearchPage(driver);
 
-            // 2. Validate the searched product is displayed
             boolean isProductVisible = searchPage.isProductDisplayed(expectedProductTitle);
 
-            // 3. Get the actual title of the first result for a more precise check
             String actualProductTitle = searchPage.getProductTitleFromResult();
 
             if (isProductVisible) {

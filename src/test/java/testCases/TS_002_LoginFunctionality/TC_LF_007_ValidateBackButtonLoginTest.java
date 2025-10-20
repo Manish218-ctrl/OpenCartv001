@@ -3,7 +3,7 @@ package testCases.TS_002_LoginFunctionality;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.MyAccountPage;
 import testBase.BaseClass;
@@ -18,7 +18,7 @@ public class TC_LF_007_ValidateBackButtonLoginTest extends BaseClass {
             driver.get(rb.getString("appURL"));
             logger.info("URL opened");
 
-            Homepage hp = new Homepage(driver);
+            HomePage hp = new HomePage(driver);
             hp.clickMyAccount();
             hp.clickLogin();
 
@@ -30,7 +30,7 @@ public class TC_LF_007_ValidateBackButtonLoginTest extends BaseClass {
             MyAccountPage myAcc = new MyAccountPage(driver);
             Assert.assertTrue(myAcc.isUserLoggedIn(), "Login failed - My Account page not displayed!");
 
-            // Now press back button
+            // press back button
             driver.navigate().back();
             logger.info("Pressed browser back button");
 

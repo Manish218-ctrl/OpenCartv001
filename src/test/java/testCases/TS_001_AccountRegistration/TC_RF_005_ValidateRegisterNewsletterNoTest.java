@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import pageObjects.AccountRegistrationPage;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.MyAccountPage;
 import pageObjects.NewsletterPage;
 import testBase.BaseClass;
@@ -18,7 +18,7 @@ import testBase.BaseClass;
 
             try {
                 // Step 1: Navigate to Register Page
-                Homepage hp = new Homepage(driver);
+                HomePage hp = new HomePage(driver);
                 hp.clickMyAccount();
                 hp.clickRegister();
 

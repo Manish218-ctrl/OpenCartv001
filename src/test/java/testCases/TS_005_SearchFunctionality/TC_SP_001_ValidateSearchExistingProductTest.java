@@ -3,28 +3,26 @@ package testCases.TS_005_SearchFunctionality;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.SearchPage; // Import the new SearchPage
 import testBase.BaseClass;
 
 
 public class TC_SP_001_ValidateSearchExistingProductTest extends BaseClass {
 
-    @Test(groups = {"sanity", "regression", "master"}) // Assigning groups for test categorization
+    @Test(groups = {"sanity", "regression", "master"})
     public void test_search_existing_product_name() {
         logger.info("Starting TC_SP_001_ValidateSearchExistingProductTest: Validate searching with an existing Product Name.");
 
         try {
             // 1. Open the Application URL in any supported browser (handled by BaseClass setup)
 
-            // Instantiate HomePage (if needed for initial navigation or common header elements)
-            Homepage hp = new Homepage(driver);
+            HomePage hp = new HomePage(driver);
 
-            // Instantiate SearchPage to use its methods for search actions and validations
             SearchPage searchPage = new SearchPage(driver);
 
             // 1. Enter any existing product name into the 'Search' text box field - <Refer Test Data>
-            String productName = p.getProperty("searchProduct"); // Assuming 'searchProduct' in config.properties
+            String productName = p.getProperty("searchProduct");
 
             searchPage.enterSearchKeyword(productName); // Use method from SearchPage
             logger.info("Entered product name into search box: " + productName);
@@ -33,7 +31,6 @@ public class TC_SP_001_ValidateSearchExistingProductTest extends BaseClass {
             searchPage.clickSearchButton(); // Use method from SearchPage
             logger.info("Clicked search icon button.");
 
-            // 1. Searched product should be displayed in the search results
 
             // Verify the search results heading contains the product name (e.g., "Search - MacBook")
             String searchResultsHeading = searchPage.getSearchResultsHeading();

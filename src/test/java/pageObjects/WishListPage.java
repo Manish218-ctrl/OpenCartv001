@@ -1,8 +1,6 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -10,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.openqa.selenium.TimeoutException;
 
 import java.time.Duration;
 import java.util.List;
@@ -31,9 +28,10 @@ public class WishListPage extends BasePage {
         final Logger logger = LoggerFactory.getLogger(WishListPage.class);
     }
 
-    // --- Locators ---
-    private By wishlistHeader = By.xpath("//a[normalize-space()='Wish List']");
+    //  Locators
+    private By wishlistHeader = By.xpath("/html/body/nav/div/div[2]/ul/li[3]/a/span");
     private By productRows = By.xpath("//table[contains(@class,'table')]/tbody/tr");
+
 
     private By productNameCell(String productName) {
         return By.xpath("//table[contains(@class,'table')]/tbody/tr/td/a[text()='" + productName + "']");
@@ -48,20 +46,23 @@ public class WishListPage extends BasePage {
     }
 
     @FindBy(xpath = "//table[@class='table table-bordered table-hover']//td[@class='text-left']/a")
-    private List<WebElement> wishListProducts;
+    public List<WebElement> wishListProducts;
 
-    @FindBy(xpath = "//h2[normalize-space()='My Wish List']")
-    private WebElement headingMyWishList;
+    @FindBy(xpath = "/html/body/div[2]/div/div/h2")
+    public WebElement headingMyWishList;
 
-    @FindBy(xpath = "//div[contains(@class,'alert-success')]")
-    private WebElement successMessage;
+    @FindBy(xpath = "/html/body/div[2]/div[1]")
+    public WebElement successMessage;
+
+    @FindBy(xpath ="//*[@id='account-wishlist']/div[1]")
+    public WebElement successmessage;
 
     @FindBy(xpath = "//a[@title='Shopping Cart']")
-    private WebElement linkShoppingCartHeader;
+    public WebElement linkShoppingCartHeader;
 
 
 
-    // --- Actions ---
+    //  Actions
 
 
     public boolean isOnWishListPage() {
@@ -71,11 +72,6 @@ public class WishListPage extends BasePage {
             return false;
         }
     }
-
-
-
-    // --- Remove product(s) ---
-
 
 
     // Remove the first product in the wishlist (if exists)
@@ -130,14 +126,28 @@ public class WishListPage extends BasePage {
     }
 
     // --- Locators ---
-    public By addToCartButtonInRow = By.xpath("/html/body/div[2]/div[2]/div/div[1]/table/tbody/tr/td[6]/button");
+    public By addToCartButtonInRow = By.xpath("//*[@id=\"content\"]/div[1]/table/tbody/tr/td[6]/button/i");
 
     public void clickAddToCartIcon(String productName) {
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonInRow)).click();
         logger.info("Clicked Add to Cart for product: {}", productName);
     }
 
+    protected WebDriverWait waitShort() {
+        return new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
 
+    // Inside your Page Object's method (e.g., clickWishListLinkFromSuccessMessage)
+
+    public void clickWishListLinkFromSuccessMessage() {
+        WebElement wishListLink = waitShort().until(
+                ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='wish list']"))
+        );
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", wishListLink);
+
+        logger.info("Forced click on 'wish list' link using JavaScript.");
+    }
 
     public String getSuccessMessage() {
         try {
@@ -147,20 +157,23 @@ public class WishListPage extends BasePage {
         }
     }
 
+    public String getSuccessmessage() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOf(successmessage)).getText().trim();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     public void clickShoppingCartHeader() {
         wait.until(ExpectedConditions.elementToBeClickable(linkShoppingCartHeader)).click();
     }
-
-
-
-
-
 
     // Locator for the 'Wish List' link in the navigation
     private By wishListHeaderLink = By.xpath("//a[normalize-space()='Wish List']");
 
     // Locator for the heading of the Wish List page (capture the page title heading)
-    private By wishListPageHeading = By.xpath("/html/body/div[2]/div/div/h2");
+    private By wishListPageHeading = By.xpath("//*[@id=\"content\"]/h2");
 
     // Method to click the 'Wish List' header link and navigate to the Wish List page
     public void clickWishListHeader() {
@@ -174,12 +187,8 @@ public class WishListPage extends BasePage {
         }
     }
 
-
-
-
-
     // Locator for the Wish List page heading
-    private By headingLocator = By.xpath("/html/body/div[2]/div/div/h2");
+    private By headingLocator = By.xpath("//*[@id='content']/h2");
 
     // Method to get the Wish List page heading
     public String getWishListPageHeading() {
@@ -199,7 +208,6 @@ public class WishListPage extends BasePage {
         driver.switchTo().frame(driver.findElement(By.xpath(iframeLocator)));
     }
 
-    // Optional: If you need to switch back to the main document (after working in an iframe)
     public void switchToDefaultContent() {
         driver.switchTo().defaultContent();
     }
@@ -218,13 +226,11 @@ public class WishListPage extends BasePage {
     }
 
 
-
-
-
     public void clickRemoveButtonForProduct(String productName) {
         try {
             WebElement removeBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//a[text()='" + productName + "']/ancestor::tr//a[contains(@data-original-title,'Remove') or contains(@title,'Remove')]")
+                    //By.xpath("//a[text()='" + productName + "']/ancestor::tr//a[contains(@data-original-title,'Remove') or contains(@title,'Remove')]")
+                    By.xpath("//*[@id=\"content\"]/div[1]/table/tbody/tr[1]/td[6]/a")
             ));
             removeBtn.click();
             logger.info("Clicked Remove button for product: " + productName);
@@ -241,37 +247,19 @@ public class WishListPage extends BasePage {
     }
 
 
-
-
-
-    /*public boolean isWishListEmptyMessageDisplayed() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("/html/body/div[2]/div/div/p"))).isDisplayed();
-    }*/
-
     public boolean isWishListEmptyMessageDisplayed() {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement emptyMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//div[@id='content']//p[contains(text(),'Your wish list is empty')]")
-            ));
-            logger.info("Wishlist empty message displayed: {}", emptyMsg.getText());
-            return emptyMsg.isDisplayed();
-        } catch (TimeoutException e) {
-            logger.error("Empty wishlist message not found.");
-            return false;
-        } catch (Exception e) {
-            logger.error("Unexpected error while checking empty wishlist message: {}", e.getMessage());
-            return false;
-        }
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@id='content']//p[contains(text(),'Your wish list is empty')]"))).isDisplayed();
     }
+
+
 
     public void removeAllProductsIndividually() {
         try {
             List<WebElement> removeButtons;
             do {
-                removeButtons = driver.findElements(By.xpath("//button[@data-original-title='Remove']"));
+                removeButtons = driver.findElements(By.xpath("//*[@id=\"content\"]/div[1]/table/tbody/tr[*]/td[6]/a"));
                 if (!removeButtons.isEmpty()) {
                     WebElement btn = removeButtons.get(0);
                     wait.until(ExpectedConditions.elementToBeClickable(btn)).click();
@@ -282,6 +270,14 @@ public class WishListPage extends BasePage {
         } catch (Exception e) {
             logger.error("Error while removing all products from wishlist: {}", e.getMessage());
         }
+    }
+
+    @FindBy (xpath ="/html/body/div[2]/div/div/div[1]/table/tbody/tr/td[6]/button")
+
+    public WebElement addtocartbtnfromwishlist;
+
+    public void clickaddtocartbtnfromwishlist(){
+        addtocartbtnfromwishlist.click();
     }
 
 }

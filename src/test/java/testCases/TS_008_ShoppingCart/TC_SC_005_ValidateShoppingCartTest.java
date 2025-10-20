@@ -2,7 +2,7 @@ package testCases.TS_008_ShoppingCart;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.ProductDisplayPage;
 import pageObjects.ShoppingCartPage;
 import testBase.BaseClass;
@@ -19,7 +19,7 @@ public class TC_SC_005_ValidateShoppingCartTest extends BaseClass {
             logger.info("User logged in successfully.");
 
             // Step 2: Search for the product (e.g., "HP LP3065")
-            Homepage homepage = new Homepage(driver);
+            HomePage homepage = new HomePage(driver);
             homepage.enterSearchText("HP LP3065");
             homepage.clickSearchButton();
             logger.info("Searched for 'HP LP3065' product.");
@@ -54,20 +54,7 @@ public class TC_SC_005_ValidateShoppingCartTest extends BaseClass {
             Assert.assertEquals(productModel, "Model", "Product model is incorrect. Expected: 'iMac Model', Found: " + productModel);
             logger.info("Product model is correct: " + productModel);
 
-            // Validate Quantity
-         /*   int productQuantity = Integer.parseInt(cartPage.getProductQuantity());
-            Assert.assertEquals(productQuantity, 1, "Product quantity is incorrect. Expected: '1', Found: " + productQuantity);
-            logger.info("Product quantity is correct: " + productQuantity);
 
-            // Validate Unit Price
-            String unitPrice = cartPage.getUnitPrice();
-            Assert.assertEquals(unitPrice, "$122.00", "Unit price is incorrect. Expected: '$1000.00', Found: " + unitPrice);
-            logger.info("Unit price is correct: " + unitPrice);
-
-            // Validate Total Price
-            String totalPrice = cartPage.getTotalPrice();
-            Assert.assertEquals(totalPrice, "$122.00", "Total price is incorrect. Expected: '$1000.00', Found: " + totalPrice);
-            logger.info("Total price is correct: " + totalPrice);*/
 
         } catch (Exception e) {
             logger.error("Test failed due to exception: " + e.getMessage(), e);

@@ -27,7 +27,6 @@ import testBase.BaseClass;
             RecurringPaymentsPage recurringPage = new RecurringPaymentsPage(driver);
             Assert.assertTrue(recurringPage.isRecurringPaymentsPageDisplayed(), "'Recurring Payments' page heading not displayed");
 
-            // Optional: Verify the recurring payments table exists
             Assert.assertTrue(recurringPage.isRecurringPaymentsTableDisplayed(), "'Recurring Payments' table not displayed");
         }
     }

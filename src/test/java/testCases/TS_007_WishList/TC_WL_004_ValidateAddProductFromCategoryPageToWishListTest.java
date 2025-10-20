@@ -13,7 +13,7 @@ public class TC_WL_004_ValidateAddProductFromCategoryPageToWishListTest extends 
 
         try {
             // 1. Login
-            Homepage hp = new Homepage(driver);
+            HomePage hp = new HomePage(driver);
             hp.clickMyAccount();
             hp.clickLogin();
 
@@ -39,9 +39,6 @@ public class TC_WL_004_ValidateAddProductFromCategoryPageToWishListTest extends 
 
 
             logger.info("Product found in Mac category: " + productName);
-
-
-
 
             // Dynamic Add to Wishlist
             driver.findElement(org.openqa.selenium.By.xpath(

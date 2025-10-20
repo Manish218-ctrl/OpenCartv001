@@ -6,26 +6,30 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+
 import java.time.Duration;
 import java.util.List;
 
-import static pageObjects.Homepage.logger;
 
 public class ShoppingCartPage extends BasePage {
 
     private WebDriver driver;
-    private WebDriverWait wait;
+   // private WebDriverWait wait;
 
     public ShoppingCartPage(WebDriver driver) {
         super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        //wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
     }
 
     // --- Locators ---
-    private By headingShoppingCart = By.xpath("/html/body/div[2]/ul/li[2]/a");
+    private By headingShoppingCart = By.xpath("//*[@id='content']/h1");
     private By cartProductNames = By.cssSelector("table.table.table-bordered td.text-left a");
+    private final By removeProductButtonLocator = By.xpath("//button[@data-original-title='Remove' or contains(@class, 'btn-danger')]");
+    private final By shoppingCartHeaderLink = By.xpath("//a[@title='Shopping Cart']");
+    private final By emptyCartMessage = By.xpath("//div[@id='content']/p[text()='Your shopping cart is empty!']");
 
     // --- Methods ---
 
@@ -53,14 +57,6 @@ public class ShoppingCartPage extends BasePage {
         }
     }
 
-    // Check if a product is in the cart
-  /*  public boolean isProductInCart(String productName) {
-        try {
-            return driver.findElement(By.xpath("//div[@id='content']//table//a[text()='" + productName + "']")).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
-    }*/
 
     // Remove product by name
     public void removeProductFromCart(String productName) {
@@ -81,8 +77,6 @@ public class ShoppingCartPage extends BasePage {
     public void goToCart() {
         driver.get("https://tutorialsninja.com/demo/index.php?route=checkout/cart");
     }
-
-
 
 
     @FindBy(xpath = "//table[@class='table table-bordered']//td[@class='text-left']//a")
@@ -143,21 +137,6 @@ public class ShoppingCartPage extends BasePage {
     }
 
 
-
-   /* public boolean isProductInCart(String productName) {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement productRow = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            By.xpath("//div[@id='content']//a[normalize-space(text())='" + productName + "']")
-                    )
-            );
-            return productRow.isDisplayed();
-        } catch (TimeoutException e) {
-            return false;
-        }
-    }*/
-
     public void removeProduct(String productName) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -198,6 +177,38 @@ public class ShoppingCartPage extends BasePage {
     }
 
 
+    public void clearCart() {
+        driver.findElement(shoppingCartHeaderLink).click();
 
+        logger.info("Starting cart cleanup...");
+
+        try {
+            // Find all 'Remove' buttons
+            List<WebElement> removeButtons = driver.findElements(removeProductButtonLocator);
+
+            // Loop as long as remove buttons are visible
+            while (!removeButtons.isEmpty()) {
+                WebElement firstButton = removeButtons.get(0);
+                firstButton.click();
+                logger.info("Removed an item. Waiting for cart table refresh.");
+
+                waitShort().until(ExpectedConditions.stalenessOf(firstButton));
+
+                // Re-find the buttons
+                removeButtons = driver.findElements(removeProductButtonLocator);
+            }
+
+            // Final check: Wait for the "Your shopping cart is empty!" message
+            waitShort().until(ExpectedConditions.visibilityOfElementLocated(emptyCartMessage));
+            logger.info("Cart successfully cleared.");
+
+        } catch (Exception e) {
+            logger.warn("Cart cleanup encountered an exception or failed to remove all items: " + e.getMessage());
+
+
+        }
+
+    }
 
 }
+

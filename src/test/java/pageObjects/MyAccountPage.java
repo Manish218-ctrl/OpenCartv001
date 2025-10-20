@@ -12,7 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import testCases.TS_016_ReturnsPage.TC_PR_001_ValidateProductductReturnsPageNavigationTest;
+import testCases.TS_015_ReturnsPage.TC_PR_001_ValidateProductductReturnsPageNavigationTest;
 
 import java.time.Duration;
 
@@ -35,12 +35,8 @@ public class MyAccountPage extends BasePage {
     @FindBy(xpath = "//h2[text()='My Account']")
     WebElement msgHeading;
 
-
-
-
-
-
-   
+    @FindBy(xpath = "/html/body/footer/div/div/div[4]/ul/li[4]/a")
+    WebElement newsletterfooterlnk;
 
 
     // Click Logout link
@@ -50,6 +46,10 @@ public class MyAccountPage extends BasePage {
         } catch (Exception e) {
             System.out.println("Logout link not found.");
         }
+    }
+
+    public void clicknewsletterfooterlnk(){
+        newsletterfooterlnk.click();
     }
 
     // Verify if user is logged in (logout link displayed)
@@ -108,18 +108,7 @@ public WebElement lnkreturnfooterlink;
     @FindBy(xpath = "//a[normalize-space(text())='View your return requests']")
     private WebElement lnkViewYourReturnRequests;
 
-   /* public void clickViewYourReturnRequests() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            WebElement returnRequestsLink = wait.until(ExpectedConditions.elementToBeClickable(lnkViewYourReturnRequests));
-            returnRequestsLink.click();
-            logger.info("Successfully clicked 'View your return requests'.");
-        } catch (Exception e) {
-            logger.error("Failed to click 'View your return requests'.", e);
-            Assert.fail("Failed to navigate to Product Returns page: " + e.getMessage());
-        }
-    }
-*/
+
     public void clickViewYourReturnRequests() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         logger.info("Waiting for 'View your return requests' link to be visible.");
@@ -163,12 +152,7 @@ public WebElement lnkreturnfooterlink;
         }
     }
 
- /*   @FindBy(xpath = "/html/body/div[2]/div/aside/div/a[6]")
-    WebElement orderHistoryLink;
 
-    public void clickOrderHistory() {
-        orderHistoryLink.click();
-    }*/
 
     // Locate the 'Order History' link in the My Account page
     @FindBy(xpath = "/html/body/div[2]/div/aside/div/a[6]")
@@ -192,7 +176,7 @@ public WebElement lnkreturnfooterlink;
     public WebElement lnkModifyAddressBook;
 
 
-    @FindBy(xpath = "/html/body/div[2]/div[2]/div/ul[1]/li[1]/a")
+    @FindBy(xpath = "//*[@id=\"column-right\"]/div/a[2]")
     public WebElement lnkEditAccountInformation;
 
     // Method to click Edit Account Information
@@ -207,7 +191,7 @@ public WebElement lnkreturnfooterlink;
         try {
             WebElement heading = new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(ExpectedConditions.visibilityOfElementLocated(
-                            By.xpath("//h1[normalize-space()='My Account Information']")));
+                            By.xpath("//*[@id=\"content\"]/h1")));
             return heading.isDisplayed();
         } catch (Exception e) {
             logger.error("My Account Information page not displayed: " + e.getMessage());
@@ -314,7 +298,12 @@ public WebElement lnkreturnfooterlink;
         logger.info("Clicked on 'Downloads' link from Right Column in My Account page.");
     }
 
+@FindBy(xpath = "/html/body/div[2]/div/aside/div/a[4]")
+WebElement rightclmnmyaccount;
 
+    public void clickrightclmnmyaccount(){
+        rightclmnmyaccount.click();
+    }
 
 
 
@@ -381,13 +370,10 @@ public WebElement lnkreturnfooterlink;
     @CacheLookup
     WebElement breadcrumb;
 
-    // ===== Methods =====
-
 
     public void clickChangeYourPassword() {
         lnkChangeYourPassword.click();
     }
-
 
 
     public boolean isMyAccountPageDisplayed() {

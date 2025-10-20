@@ -3,7 +3,7 @@ package testCases.TS_009_RecurringPayments;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.RecurringPaymentsPage;
 import testBase.BaseClass;
 
@@ -18,9 +18,9 @@ import testBase.BaseClass;
                 performLogin();
 
                 // Step 2: Navigate to "My Account" dropdown and click "Recurring Payments"
-                Homepage homepage = new Homepage(driver);
-                homepage.clickMyAccount();  // Click on 'My Account' link
-                homepage.clickMyAccountFromDropdown();  // Click 'My Account' from dropdown menu
+                HomePage homepage = new HomePage(driver);
+                homepage.clickMyAccount();
+                homepage.clickMyAccountFromDropdown();
                 logger.info("Navigated to My Account page from the dropdown.");
 
                 // Click on the "Recurring Payments" link

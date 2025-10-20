@@ -19,7 +19,7 @@ public class CheckoutPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    // ---------- Billing & Delivery using existing address ----------
+    //  Billing & Delivery using existing address
     public void fillExistingBillingDetails() {
         driver.findElement(By.id("input-payment-firstname")).clear();
         driver.findElement(By.id("input-payment-firstname")).sendKeys("John");
@@ -46,14 +46,14 @@ public class CheckoutPage {
         driver.findElement(By.id("input-shipping-postcode")).sendKeys("10001");
     }
 
-    // ---------- Region selection ----------
+    //  Region selection
     public void selectRandomRegion() {
         WebElement regionDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.id("input-payment-zone")));
         Select select = new Select(regionDropdown);
         select.selectByIndex(1); // Choose first available region
     }
 
-    // ---------- Continue buttons ----------
+    //  Continue buttons
     public void clickOrderSuccessContinueButton() {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='content']/div/div/a"))).click();
     }
@@ -138,8 +138,6 @@ public class CheckoutPage {
 
 
     public void completeCheckout() {
-        // Fill in address/shipping/payment and confirm
-        // You may need waits here depending on your site
         driver.findElement(By.id("button-payment-address")).click();
         driver.findElement(By.id("button-shipping-address")).click();
         driver.findElement(By.id("button-shipping-method")).click();

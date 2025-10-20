@@ -3,7 +3,7 @@ package testCases.TS_006_AddtoCart;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.CategoryPage;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.ShoppingCartPage;
 import testBase.BaseClass;
 
@@ -16,10 +16,10 @@ public class TC_ATC_004_ValidateAddProductToCartFromCategoryPageTest extends Bas
         String productName = "iMac"; // Product to add to cart
 
         try {
-            Homepage hp = new Homepage(driver); // If homepage interaction needed
+            HomePage hp = new HomePage(driver);
             CategoryPage categoryPage = new CategoryPage(driver);
 
-            // Step 1: Open Application URL (BaseClass handles this)
+            // Step 1: Open Application URL
             logger.info("Application URL opened.");
 
             // Step 2: Hover on 'Desktops' menu

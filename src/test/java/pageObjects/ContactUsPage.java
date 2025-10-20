@@ -35,7 +35,7 @@ public class ContactUsPage extends BasePage {
     @FindBy(css = "div.text-danger")
     public WebElement emailErrorMessage;
 
-    // ------------------- METHODS -------------------
+    //  METHODS
 
     // Get page title text
     public String getPageTitle() {

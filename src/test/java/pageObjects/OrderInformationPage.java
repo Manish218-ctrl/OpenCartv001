@@ -2,6 +2,7 @@ package pageObjects;
 
 
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static pageObjects.Homepage.logger;
+import static pageObjects.HomePage.logger;
 
 public class OrderInformationPage extends BasePage {
 
@@ -73,9 +74,15 @@ public class OrderInformationPage extends BasePage {
     @FindBy(xpath = "/html/body/div[2]/div/div/div[1]/table/thead/tr/td[1]")
     private WebElement productDetails;
 
+
+
     // Order History section
     @FindBy(xpath = "/html/body/div[2]/div/div/h3")
     private WebElement orderHistoryStatus;
+
+    private By pageTitleElementLocator = By.xpath("//h1[normalize-space()='Order Information']");
+
+    private By continueButtonLocator = By.xpath("//*[@id='content']/div[2]/div/a");
 
 
     // Method to get Order ID from the page
@@ -168,8 +175,8 @@ public class OrderInformationPage extends BasePage {
     }
 
     // OrderInformationPage.java
-    @FindBy(xpath = "/html/body/div[2]/ul/li[4]/a")
-    private WebElement continueButton;
+    @FindBy(xpath = "//*[@id='content']/div[2]/div/a")
+    public WebElement continueButton;
 
     public void clickContinueButton() {
         new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -217,9 +224,6 @@ public class OrderInformationPage extends BasePage {
 
     }
 
-
-
-    // Validate the page title contains "Order Information"
     public boolean isOrderInformationPageDisplayed() {
         return driver.getTitle().contains("Order Information");
     }

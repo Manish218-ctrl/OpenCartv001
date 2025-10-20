@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import pageObjects.AccountSuccessPage;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.MyAccountPage;
 import testBase.BaseClass;
@@ -18,10 +18,9 @@ import testBase.BaseClass;
             logger.info("Starting TC_LG_006_ValidateLogoutFunctionalityTestFromDifferentBrowsersTest: Validating logout functionality.");
 
             try {
-                // 1. Open the Application URL (handled by BaseClass setup)
 
                 // Navigate to Login Page
-                Homepage hp = new Homepage(driver);
+                HomePage hp = new HomePage(driver);
                 hp.clickMyAccount();
                 logger.info("Navigating to 'My Account' dropdown.");
                 hp.clickLogin();
@@ -40,10 +39,6 @@ import testBase.BaseClass;
                 MyAccountPage macc = new MyAccountPage(driver);
                 Assert.assertTrue(macc.isMyAccountPageExists(), "Login failed: My Account page not displayed.");
                 logger.info("Login successful. User is on My Account page.");
-
-                // --- Scenario: Validate logout from a single place after logging into it from different places ---
-                // This script simulates the logout flow from the current logged-in session.
-                // Full multi-browser/device logout validation requires a more advanced Selenium Grid setup.
 
                 // 1. Click on 'My Account' Dropmenu (simulated in current browser)
                 hp.clickMyAccount(); // Re-click My Account to open dropdown

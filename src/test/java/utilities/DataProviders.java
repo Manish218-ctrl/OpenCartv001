@@ -1,5 +1,4 @@
-import org.testng.annotations.DataProvider;
-
+package utilities;
 /*package utilities;
 
 import org.testng.annotations.DataProvider;
@@ -82,3 +81,31 @@ public class DataProviders {
         };
     }
 }*/
+
+
+
+
+
+import org.testng.annotations.DataProvider;
+import utilities.ExcelUtility; // Assuming ExcelUtility is in a 'utilities' package
+
+public class DataProviders {
+
+    /**
+     * Data Provider method to fetch existing product search queries and expected titles
+     * from the "ExistingProducts" sheet of the "SearchData.xlsx" file.
+     * The method must be static to be referenced by the @Test method.
+     * @return 2D Object array containing {searchQuery, expectedProductTitle}
+     */
+    @DataProvider(name="SearchExistingProductData")
+    public static Object[][] getSearchExistingProductData()
+    {
+        // Define your Excel file name and sheet name
+        final String EXCEL_FILE_NAME = "SearchData.xlsx";
+        final String SHEET_NAME = "ExistingProducts";
+
+        // The data returned should be: {searchQuery, expectedProductTitle}
+        Object[][] data = ExcelUtility.getTestData(EXCEL_FILE_NAME, SHEET_NAME);
+        return data;
+    }
+}

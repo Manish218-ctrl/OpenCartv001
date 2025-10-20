@@ -21,13 +21,10 @@ import testBase.BaseClass;
 
 public class ExtentManager implements ITestListener {
 
-    // ✅ FIXED: Class-level declaration for ExtentSparkReporter
     public ExtentSparkReporter sparkReporter;
 
-    // Make extent static to be initialized once and accessible everywhere
     public static ExtentReports extent;
 
-    // Use ThreadLocal for ExtentTest for parallel execution safety
     public static ThreadLocal<ExtentTest> test = new ThreadLocal<ExtentTest>();
 
     String repName;
@@ -46,11 +43,10 @@ public class ExtentManager implements ITestListener {
         extent = new ExtentReports();
         extent.attachReporter(sparkReporter);
 
-        // System Info Setup (Kept as is)
-        extent.setSystemInfo("Application", "opencart");
+        extent.setSystemInfo("Application", "Opencart");
         extent.setSystemInfo("Module", "Admin");
         extent.setSystemInfo("Sub Module", "Customers");
-        extent.setSystemInfo("User Name", System.getProperty("user.name"));
+        extent.setSystemInfo("User Name", "Automation Tester");
         extent.setSystemInfo("Environemnt", "QA");
 
         String os = testContext.getCurrentXmlTest().getParameter("os");
@@ -115,4 +111,33 @@ public class ExtentManager implements ITestListener {
             e.printStackTrace();
         }
     }
+
+    public static ExtentTest getTest() {
+        return test.get();
+    }
+
+    public static void setTest(ExtentTest extentTest) {
+        test.set(extentTest);
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

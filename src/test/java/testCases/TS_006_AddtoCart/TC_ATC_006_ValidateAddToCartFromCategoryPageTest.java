@@ -5,7 +5,7 @@ package testCases.TS_006_AddtoCart;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.ShoppingCartPage;
 import testBase.BaseClass;
 
@@ -17,11 +17,10 @@ import testBase.BaseClass;
                 logger.info("***** Starting TC_ATC_006_ValidateAddToCartFromCategoryPageTest *****");
 
                 // Step 1: Initialize HomePage
-                Homepage home = new Homepage(driver);
+                HomePage home = new HomePage(driver);
 
                 // Step 2: Hover on 'Desktops' -> Click 'Show All Desktops'
-                home.clickLogo(); // return to homepage (safe start)
-              //  home.selectListView(); // optional: ensure list view for easier clicking
+                home.clickLogo();
 
                 // Navigate to Mac subcategory
                 driver.navigate().to(appURL + "/index.php?route=product/product&path=18&product_id=47"); // Direct URL for "Mac"

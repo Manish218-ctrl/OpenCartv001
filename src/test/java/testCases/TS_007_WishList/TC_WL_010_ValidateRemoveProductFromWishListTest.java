@@ -14,7 +14,7 @@ import testBase.BaseClass;
 
             try {
                 // 1) Login
-                Homepage hp = new Homepage(driver);
+                HomePage hp = new HomePage(driver);
                 hp.clickMyAccount();
                 hp.clickLogin();
 
@@ -36,25 +36,25 @@ import testBase.BaseClass;
                 wl.clearWishList();
 
                 // 5) Add a product into wishlist (from homepage 'Featured' for simplicity)
-                hp = new Homepage(driver);
+                hp = new HomePage(driver);
+                HomePage home = new HomePage(driver);
                 hp.clickFooterWishList(); // optional, just to navigate if needed
                 driver.navigate().to(rb.getString("appURL")); // Go back home
 
                 SearchPage sp = new SearchPage(driver);
                 sp.enterSearchKeyword("iPhone");
-                sp.clickSearchButton();
+                home.clickSearchButton();
+
                 Assert.assertTrue(sp.isProductDisplayed("iPhone"), "Test product not found in search results.");
                 sp.clickAddToWishListIconForProduct("iPhone");
                 logger.info("Added product 'iPhone' to wishlist");
 
                 // Go to wishlist via success message link
                 sp.clickWishListLinkInSuccessMessage();
+
                 Assert.assertTrue(wl.isOnWishListPage(), "Did not navigate to wishlist page after adding.");
 
-                // 6) Remove the product
-                wl.clickRemoveButtonForProduct("iPhone");
-                wl.waitForModificationSuccessMessage();
-                logger.info("Clicked remove and success message appeared for 'iPhone'");
+
 
                 //  Remove all products from the wishlist
                 wl.removeAllProductsIndividually();
@@ -74,9 +74,9 @@ import testBase.BaseClass;
                         "Expected 'Your wish list is empty.' message not displayed.");
 
 
-                logger.info("Validation Passed: Wish List is empty after removal");
+                logger.info("Validation Passed:Wish List is empty after removal");
 
-                Thread.sleep(20000);
+               // Thread.sleep(20000);
 
                 logger.info("***** TC_WL_015 PASSED *****");
 

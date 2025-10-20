@@ -4,7 +4,7 @@ package testCases.TS_009_RecurringPayments;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.RecurringPaymentsPage;
 import testBase.BaseClass;
 
@@ -15,11 +15,12 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_RCP_006 - Validate Breadcrumb on Recurring Payments Page *****");
 
             try {
+
                 // Step 1: Login to the application (already handled in BaseClass)
                 performLogin();
 
                 // Step 2: Navigate to the "My Account" dropdown and click "My Account"
-                Homepage homepage = new Homepage(driver);
+                HomePage homepage = new HomePage(driver);
                 homepage.clickMyAccount();               // Click on 'My Account' link
                 homepage.clickMyAccountFromDropdown();  // Click 'My Account' from dropdown menu
                 logger.info("Navigated to My Account page from the dropdown.");
@@ -28,6 +29,7 @@ import testBase.BaseClass;
                 homepage.clickRecurringPaymentsLink();
                 logger.info("Navigated to the Recurring Payments page.");
                 Thread.sleep(20000);
+
                 // Step 3: Verify that the breadcrumb is displayed
                 RecurringPaymentsPage recurringPaymentsPage = new RecurringPaymentsPage(driver);
                 Assert.assertTrue(recurringPaymentsPage.isBreadcrumbDisplayed(), "Breadcrumb is not displayed on the Recurring Payments page.");

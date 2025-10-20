@@ -1,78 +1,78 @@
 package testCases.TS_004_ProductCompare;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.SearchPage;
+import pageObjects.HomePage;
 import pageObjects.ProductComparisonPage;
+import pageObjects.SearchPage;
 import testBase.BaseClass;
 
-import java.time.Duration;
+import java.util.Set;
 
 public class TC_PC_002_ValidateProductCompareFromListViewTest extends BaseClass {
 
-    @Test(groups = {"regression","sanity"})
+    // Test Data
+    private static final String ProductName = "HP LP3065";
+    private static final String EXPECTED_COMPARE_TOOLTIP = "Compare this Product";
+
+
+    @Test
     public void verifyProductCompareFromListView() {
         logger.info("***** Starting TC_PC_002_ValidateProductCompareFromListViewTest *****");
 
         try {
-            String productName = "HP LP3065";
+            HomePage hp = new HomePage(driver);
             SearchPage sp = new SearchPage(driver);
-
-            // Step 1 & 2: Search for product
-            sp.enterSearchKeyword(productName);
-            sp.clickSearchButton();
-            Assert.assertTrue(sp.isProductDisplayed(productName),
-                    "ERROR: Product '" + productName + "' not displayed in search results.");
-
-            // Step 3: Switch to List View
-            sp.clickListView();
-            Assert.assertTrue(sp.isListViewActive(),
-                    "ERROR: Search results are not in List View.");
-
-            // Step 4: Validate tooltip on Compare button
-            String tooltip = sp.getFirstProductCard()
-                    .findElement(org.openqa.selenium.By.xpath(".//button[@data-original-title='Compare this Product']"))
-                    .getAttribute("data-original-title");
-            Assert.assertEquals(tooltip, "Compare this Product",
-                    "Tooltip text mismatch for 'Compare this Product'.");
-
-            // Step 5: Add product to Compare
-            sp.addFirstProductToCompare();
-
-            // Step 6: Validate success message & navigate to comparison page
-            String successMsg = driver.findElement(
-                            By.xpath("//div[contains(@class,'alert-success')]"))
-                    .getText().trim();
-            String expectedMsg = "Success: You have added " + productName + " to your product comparison!";
-            Assert.assertTrue(successMsg.contains(expectedMsg),
-                    "Success message mismatch. Expected: " + expectedMsg + " | Actual: " + successMsg);
-
-// Optionally wait for message to appear (not disappear)
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//div[contains(@class,'alert-success')]")));
-
-// Don't wait for it to disappear – just proceed
-            sp.clickProductCompareLink();
-
-
             ProductComparisonPage cmp = new ProductComparisonPage(driver);
-            cmp.waitForComparisonTableToLoad();
-            Assert.assertTrue(cmp.isOnComparisonPage(),
-                    "ERROR: Not navigated to Product Comparison page.");
-            Assert.assertTrue(cmp.waitForProductToBeListed(productName),
-                    "ERROR: Product '" + productName + "' not found in comparison table.");
 
+
+            cmp.clearAllComparedProducts();
+            logger.info("Cleared all previously compared products.");
+            hp.enterProductNameInSearch( ProductName);
+            logger.info("Entered search keyword: '" +  ProductName + "'");
+            hp.clickSearchButton();
+            logger.info("Clicked global search icon.");
+            sp.clickListView();
+            logger.info("Clicked List View button.");
+            String actualTooltip = sp.getCompareTooltipForFirstProduct();
+            Assert.assertEquals(actualTooltip, EXPECTED_COMPARE_TOOLTIP, "ERROR: Tooltip mismatch for 'Compare this Product'.");
+            logger.info("Verified tooltip: " + actualTooltip);
+            sp.clickCompareProductForFirstProduct();
+            logger.info("Clicked 'Compare this Product' for the first product.");
+            String successMsg = sp.getSuccessMessage();
+            Assert.assertTrue(successMsg.contains("Success: You have added " +  ProductName), "ERROR: Success message not displayed or product name missing.");
+            logger.info("Success message verified: " + successMsg);
+            String originalWindow = driver.getWindowHandle();
+            sp.clickProductComparisonLinkFromSuccessMessage();
+            logger.info("Clicked 'Product Compare' link from search results.");
+            Set<String> allWindowHandles = driver.getWindowHandles();
+            for (String winHandle : allWindowHandles) {
+                if (!originalWindow.contentEquals(winHandle)) {
+                    driver.switchTo().window(winHandle);
+                    break;
+                }
+            }
+            logger.info("Switched to window/tab: " + driver.getTitle());
+
+            cmp = new ProductComparisonPage(driver);
+
+            Assert.assertTrue(cmp.isOnComparisonPage(), "ERROR: Did not land on Product Comparison page.");
+            logger.info("Verified product comparison page loaded.");
+
+            boolean isProductInTable = cmp.waitForProductToBeListed(ProductName);
+
+            if (isProductInTable) {
+                logger.info("Assertion Passed: Product '" +  ProductName + "' successfully found in comparison table.");
+            } else {
+                logger.error("ERROR: Product '" +  ProductName + "' not found in comparison table.");
+                Assert.fail("ERROR: Product '" +  ProductName + "' not found in comparison table.");
+            }
 
         } catch (Exception e) {
-            logger.error("Test Failed due to Exception: " + e.getMessage(), e);
-            Assert.fail("Exception occurred during Product Compare List View test: " + e.getMessage());
+            logger.error("Test Failed: An exception occurred during execution: " + e.getMessage());
+            Assert.fail("Test failed due to an exception: " + e.getMessage());
+        } finally {
+            logger.info("***** Finished TC_PC_002_ValidateProductCompareFromListViewTest *****");
         }
-
-        logger.info("***** Finished TC_PC_002_ValidateProductCompareFromListViewTest *****");
     }
-
 }

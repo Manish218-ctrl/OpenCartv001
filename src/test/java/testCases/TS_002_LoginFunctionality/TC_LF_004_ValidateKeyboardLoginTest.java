@@ -3,7 +3,7 @@ package testCases.TS_002_LoginFunctionality;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.MyAccountPage;
 import testBase.BaseClass;
@@ -15,8 +15,8 @@ public class TC_LF_004_ValidateKeyboardLoginTest extends BaseClass {
         logger.info("***** Starting TC_LF_004_ValidateKeyboardLoginTest *****");
 
         try {
-            // Step 1: Open Homepage and go to Login Page
-            Homepage hp = new Homepage(driver);
+            // Step 1: Open HomePage and go to Login Page
+            HomePage hp = new HomePage(driver);
             hp.clickMyAccount();
             hp.clickLogin();
 

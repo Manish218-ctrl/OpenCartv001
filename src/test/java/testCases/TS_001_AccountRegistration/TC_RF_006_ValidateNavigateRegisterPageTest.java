@@ -3,7 +3,7 @@ package testCases.TS_001_AccountRegistration;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.RegisterPage;
 import testBase.BaseClass;
@@ -15,7 +15,7 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_RF_006_ValidateNavigateRegisterPageTest *****");
 
             try {
-                Homepage hp = new Homepage(driver);
+                HomePage hp = new HomePage(driver);
                 RegisterPage regPage = new RegisterPage(driver);
 
                 // Path 1: My Account → Register

@@ -30,7 +30,6 @@ import testBase.BaseClass;
                 Assert.assertTrue(recurringPage.isRecurringPaymentsPageDisplayed(),
                         "'Recurring Payments' page is displayed successfully.");
 
-                // Optional: Verify recurring payments table exists
                 Assert.assertTrue(recurringPage.isRecurringPaymentsTableDisplayed(),
                         "Recurring Payments table is displayed.");
 

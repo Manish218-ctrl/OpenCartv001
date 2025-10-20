@@ -5,7 +5,7 @@ package testCases.TS_001_AccountRegistration;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.AccountRegistrationPage;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import testBase.BaseClass;
 
     public class TC_RF_003_ValidateRegisterMandatoryFieldsTest extends BaseClass {
@@ -16,7 +16,7 @@ import testBase.BaseClass;
 
             try {
                 // Step 1: Navigate to Register Page
-                Homepage hp = new Homepage(driver);
+                HomePage hp = new HomePage(driver);
                 hp.clickMyAccount();
                 hp.clickRegister();
 

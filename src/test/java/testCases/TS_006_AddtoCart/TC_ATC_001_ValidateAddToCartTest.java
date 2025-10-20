@@ -14,7 +14,7 @@ public class TC_ATC_001_ValidateAddToCartTest extends BaseClass {
         logger.info("***** Starting TC_ATC_001_ValidateAddToCartTest *****");
 
         try {
-            String productName = "iMac";
+            String productName = "MacBook";
 
             // Step 1: Search for product
             SearchPage sp = new SearchPage(driver);

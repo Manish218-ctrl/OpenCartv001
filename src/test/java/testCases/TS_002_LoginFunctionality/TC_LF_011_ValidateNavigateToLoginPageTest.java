@@ -2,7 +2,7 @@ package testCases.TS_002_LoginFunctionality;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.RegisterPage;
 import testBase.BaseClass;
@@ -17,7 +17,7 @@ import testBase.BaseClass;
                 driver.get(rb.getString("appURL"));
                 logger.info("URL opened");
 
-                Homepage home = new Homepage(driver);
+                HomePage home = new HomePage(driver);
                 LoginPage login = new LoginPage(driver);
                 RegisterPage register = new RegisterPage(driver);
 

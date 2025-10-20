@@ -16,13 +16,11 @@ import testBase.BaseClass;
 
             SearchPage sp = new SearchPage(driver);
 
-            // Step 1-2: Search for product
             sp.enterSearchKeyword(PRODUCT_NAME);
             sp.clickSearchButton();
             Assert.assertFalse(sp.isNoProductMessageDisplayed(),
                     "Search returned no products for: " + PRODUCT_NAME);
 
-            // Step 3: Click on 'Product Compare' link (Validate ER-1)
             sp.clickProductCompareLink();
 
             // ER-1: User should be navigated to the Product Compare Page

@@ -24,17 +24,12 @@ public class SiteMapPage extends BasePage {
         }
 
 
-
-
-
-            // --- Locators ---
             public By headingSiteMap = By.xpath("/html/body/div[2]/div/div/h1");
-            private By linkShoppingCart = By.xpath("//div[@id='content']//a[normalize-space()='Shopping Cart']");
+            private By linkShoppingCart = By.xpath("/html/body/div[2]/div/div/div/div[2]/ul/li[3]/a");
             // Locator for Order History link inside Site Map
-            private By linkOrderHistory = By.xpath("//div[@id='content']//a[normalize-space()='Order History']");
+            private By linkOrderHistory = By.xpath("/html/body/div[2]/div/div/div/div[2]/ul/li[2]/ul/li[4]/a");
 
 
-            // --- Methods ---
             public boolean isOnSiteMapPage () {
                 try {
                     return wait.until(ExpectedConditions.visibilityOfElementLocated(headingSiteMap)).isDisplayed();
@@ -49,7 +44,7 @@ public class SiteMapPage extends BasePage {
             }
 
             public static void clickFooterLink (String linkText){
-                WebElement footerLink = driver.findElement(By.xpath("/html/body/footer/div/div/div[2]/ul/li[3]/a"));
+                WebElement footerLink = driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div[2]/ul/li[1]/a"));
                 wait.until(ExpectedConditions.elementToBeClickable(footerLink)).click();
             }
 
@@ -102,11 +97,6 @@ public class SiteMapPage extends BasePage {
                 WebElement passwordLink = driver.findElement(lnkPassword);
                 passwordLink.click();
             }
-
-   /* public boolean isOnSiteMapPage() {
-        return driver.findElement(By.xpath("//h2[text()='Site Map']")).isDisplayed();
-    }*/
-
 
 }
 

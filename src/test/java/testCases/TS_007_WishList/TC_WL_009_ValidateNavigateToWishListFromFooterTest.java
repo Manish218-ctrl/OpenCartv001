@@ -14,7 +14,7 @@ import testBase.BaseClass;
 
             try {
                 // 1) Login
-                Homepage hp = new Homepage(driver);
+                HomePage hp = new HomePage(driver);
                 hp.clickMyAccount();
                 hp.clickLogin();
 

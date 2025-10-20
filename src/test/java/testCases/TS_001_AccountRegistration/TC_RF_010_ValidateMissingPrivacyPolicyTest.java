@@ -4,7 +4,7 @@ package testCases.TS_001_AccountRegistration;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.RegisterPage;
 import testBase.BaseClass;
 
@@ -18,7 +18,7 @@ import testBase.BaseClass;
                 driver.get(p.getProperty("appURL"));
 
                 // Navigate to Register page
-                Homepage hp = new Homepage(driver);
+                HomePage hp = new HomePage(driver);
                 hp.clickMyAccount();
                 hp.clickRegister();
 
@@ -32,7 +32,6 @@ import testBase.BaseClass;
                 rp.setPassword("test123");
                 rp.setConfirmPassword("test123");
 
-                // Important: DO NOT call rp.acceptPrivacyPolicy();
 
                 rp.clickContinue();
 

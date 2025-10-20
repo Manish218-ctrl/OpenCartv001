@@ -2,7 +2,7 @@ package testCases.TS_002_LoginFunctionality;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.RegisterPage;
 import testBase.BaseClass;
@@ -18,7 +18,7 @@ public class TC_LF_010_ValidateNavigationFromLoginPageTest extends BaseClass {
             driver.get(rb.getString("appURL"));
             logger.info("URL opened");
 
-            Homepage hp = new Homepage(driver);
+            HomePage hp = new HomePage(driver);
             hp.clickMyAccount();
             hp.clickLogin();
 

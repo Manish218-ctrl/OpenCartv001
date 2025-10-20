@@ -15,7 +15,7 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_WL_006 Navigate to My Wish List via success link *****");
 
             // 1) Login
-            Homepage hp = new Homepage(driver);
+            HomePage hp = new HomePage(driver);
             hp.clickMyAccount();
             hp.clickLogin();
 

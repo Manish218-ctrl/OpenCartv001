@@ -23,7 +23,7 @@ import java.time.Duration;
         @FindBy(xpath = "/html/body/div[2]/div/aside/div/a[4]")
         public WebElement headingAddressBook;
 
-        @FindBy(xpath = "//input[@name='default']")
+        @FindBy(xpath = "//*[@id=\"content\"]/form/fieldset/div[10]/div/label[1]/input")
         public WebElement chkDefaultAddress;
 
         @FindBy(xpath = "//button[@type='submit']")
@@ -32,6 +32,12 @@ import java.time.Duration;
         @FindBy(xpath = "/html/body/div[2]/div[1]")
         public WebElement warningMessage;
 
+        @FindBy(xpath = "/html/body/div[2]/div/div/div[1]/table/tbody/tr[2]/td[2]/a[1]")
+          public WebElement editaddressbook;
+
+                public void clickeditaddressbook(){
+            editaddressbook.click();
+                }
         // Verify if Address Book page is displayed
         public void verifyAddressBookPage() {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -78,10 +84,6 @@ import java.time.Duration;
             // Verify success
             editAddress.verifySuccessMessage();
         }
-
-
-
-
 
 
             By defaultAddressNo = By.xpath("//input[@name='default'][@value='0']");

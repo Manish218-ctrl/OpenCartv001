@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import pageObjects.AccountSuccessPage;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import testBase.BaseClass;
 
@@ -18,7 +18,7 @@ public class TC_LG_008_ValidateAccountValidateLogoutPageTest extends BaseClass {
             // 1. Open the Application URL (handled by BaseClass setup)
 
             // Step 2: User is logged in - Initial Login
-            Homepage hp = new Homepage(driver);
+            HomePage hp = new HomePage(driver);
             hp.clickMyAccount();
             logger.info("Clicked 'My Account' dropdown.");
             hp.clickLogin();
@@ -32,10 +32,7 @@ public class TC_LG_008_ValidateAccountValidateLogoutPageTest extends BaseClass {
             lp.clickLogin();
             logger.info("Attempting login.");
 
-            // Verify successful login (optional, but good practice for preconditions)
-            // MyAccountPage macc = new MyAccountPage(driver);
-            // Assert.assertTrue(macc.isMyAccountPageExists(), "Login failed: My Account page not displayed.");
-            // logger.info("Login successful. User is on My Account page.");
+
 
             // Step 1 (of test case steps): Click on My Account Dropmenu
             hp.clickMyAccount();
@@ -46,7 +43,6 @@ public class TC_LG_008_ValidateAccountValidateLogoutPageTest extends BaseClass {
             logger.info("Selected 'Logout' from the dropdown menu.");
 
             // Step 3 (of test case steps): Check the Page Heading, Page Title, Page URL and Breadcrumb
-            // of the displayed Account Logout page (Verify FR-1)
 
             AccountSuccessPage accSuccess = new AccountSuccessPage(driver);
 
@@ -65,11 +61,8 @@ public class TC_LG_008_ValidateAccountValidateLogoutPageTest extends BaseClass {
             Assert.assertTrue(currentUrl.contains("account/logout"), "Page URL does not contain 'account/logout'. Actual: " + currentUrl);
             logger.info("Verified Page URL: '" + currentUrl + "'");
 
-            // Verify Breadcrumb (Assuming LoginPage has a getBreadcrumb method that works for AccountSuccessPage too)
-            // Or, add a specific breadcrumb element in AccountSuccessPage if needed.
-            // For now, let's assume getBreadcrumb from LoginPage can be used if it's general enough.
-            // If not, you'd need to add a specific @FindBy and method to AccountSuccessPage for breadcrumb.
-            LoginPage logoutPage = new LoginPage(driver); // Reusing LoginPage for breadcrumb check, if applicable.
+
+            LoginPage logoutPage = new LoginPage(driver);
             String breadcrumbText = logoutPage.getBreadcrumb();
             // Changed assertion to expect "Logout" as per the actual value in the logs
             Assert.assertTrue(breadcrumbText.contains("Logout"), "Breadcrumb does not contain 'Logout'. Actual: " + breadcrumbText);

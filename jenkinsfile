@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven'
+        jdk 'MyJava'      
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/Manish218-ctrl/OpenCartv001.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'mvn test -Dsurefire.suiteXmlFiles=testng.xml'
+            }
+        }
+
+        stage('Publish Reports') {
+            steps {
+                publishHTML([
+                    reportDir: 'reports',
+                    reportFiles: 'ExtentReport_*.html',
+                    reportName: 'Test Execution Report'
+                ])
+                junit '**/surefire-reports/*.xml'
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'screenshots/**/*.png',
+                             allowEmptyArchive: true
+        }
+    }
+}

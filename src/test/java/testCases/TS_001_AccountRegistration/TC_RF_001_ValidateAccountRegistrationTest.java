@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import pageObjects.AccountRegistrationPage;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import testBase.BaseClass;
 
 public class TC_RF_001_ValidateAccountRegistrationTest extends BaseClass {
@@ -16,7 +16,7 @@ public class TC_RF_001_ValidateAccountRegistrationTest extends BaseClass {
         logger.debug("This is a debug log message");
         try
         {
-            Homepage hp=new Homepage(driver);
+            HomePage hp=new HomePage(driver);
             hp.clickMyAccount();
             logger.info("Clicked on MyAccount Link.. ");
 
@@ -57,8 +57,6 @@ public class TC_RF_001_ValidateAccountRegistrationTest extends BaseClass {
         }
 
     }
-
-
 
 
 }

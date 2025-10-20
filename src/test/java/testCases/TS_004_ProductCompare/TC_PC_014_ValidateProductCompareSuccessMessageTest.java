@@ -16,11 +16,11 @@ public class TC_PC_014_ValidateProductCompareSuccessMessageTest extends BaseClas
         try {
             String productName = "iMac";
 
-            // Step 0: Cleanup any leftover products in comparison
+            // Step 1: Cleanup any leftover products in comparison
             ProductComparisonPage cmp = new ProductComparisonPage(driver);
             cmp.clearAllComparedProducts();
 
-            // Step 1 & 2: Search for product
+            // Step 2: Search for product
             SearchPage sp = new SearchPage(driver);
             sp.enterSearchKeyword(productName);
             sp.clickSearchButton();

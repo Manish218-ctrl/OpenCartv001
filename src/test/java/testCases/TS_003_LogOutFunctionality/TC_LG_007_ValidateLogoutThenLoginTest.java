@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import pageObjects.AccountSuccessPage;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.MyAccountPage;
 import testBase.BaseClass;
@@ -18,10 +18,9 @@ import testBase.BaseClass;
             logger.info("Starting TC_LG_007_ValidateLogoutThenLoginTest: Validate logging out and immediate login functionality.");
 
             try {
-                // 1. Open the Application URL (handled by BaseClass setup)
 
                 // Step 2: User is logged in - Initial Login
-                Homepage hp = new Homepage(driver);
+                HomePage hp = new HomePage(driver);
                 hp.clickMyAccount();
                 logger.info("Clicked 'My Account' dropdown.");
                 hp.clickLogin();
@@ -57,8 +56,7 @@ import testBase.BaseClass;
                 accSuccess.clickContinueOnSuccessPage();
                 logger.info("Clicked 'Continue' button on the logout success page.");
 
-                // Step 3 (of test case steps): Login immediately again with same or different account
-                // For simplicity, we'll try to log in with the same account.
+                // Step 3 : Login immediately again with same or different account
                 hp.clickMyAccount();
                 logger.info("Clicked 'My Account' dropdown for re-login attempt.");
                 hp.clickLogin();

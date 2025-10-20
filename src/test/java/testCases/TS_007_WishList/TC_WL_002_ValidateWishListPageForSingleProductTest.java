@@ -12,11 +12,12 @@ public class TC_WL_002_ValidateWishListPageForSingleProductTest extends BaseClas
     public void test_ValidateWishListPageForSingleProduct() {
         logger.info("***** Starting TC_WL_014: Validate Wish List page with a single product *****");
 
-        final String PRODUCT_NAME = "iPhone"; // Define the product
+        final String PRODUCT_NAME = "HP LP3065"; // Define the product
 
+       // WishListPage wl;
         try {
             // 1. Login
-            Homepage hp = new Homepage(driver);
+            HomePage hp = new HomePage(driver);
             hp.clickMyAccount();
             hp.clickLogin();
 
@@ -29,17 +30,31 @@ public class TC_WL_002_ValidateWishListPageForSingleProductTest extends BaseClas
 
             // Cleanup: Ensure the Wish List is empty before starting the test
             my.clickWishListFromMyAccount();
-            WishListPage wl = new WishListPage(driver);
+           WishListPage wl = new WishListPage(driver);
 
-            // --- MODIFICATION START ---
-            // The issue is likely here: remove the explicit wait after removing products
-            if (wl.getTotalProductsInWishList() > 0) {
-                wl.removeAllProductsIndividually();
-                // wl.waitForModificationSuccessMessage(); <-- REMOVED THIS LINE
-                // Instead, rely on the assertion below to confirm cleanup success
-                Assert.assertTrue(wl.isWishListEmptyMessageDisplayed(), "Cleanup failed: Wish List is not empty after removal.");
-                logger.info("Cleaned up existing products from the Wish List.");
-            }
+            wl.clickRemoveButtonForProduct("iPhone");
+            wl.waitForModificationSuccessMessage();
+            logger.info("Clicked remove and success message appeared for 'iPhone'");
+
+            //  Remove all products from the wishlist
+            wl.removeAllProductsIndividually();
+            wl.waitForModificationSuccessMessage();
+            logger.info("Removed all products from wishlist");
+
+
+
+            String successMsg = wl.getSuccessMessage();
+            Assert.assertTrue(successMsg.contains("Success: You have modified your wish list!"),
+                    "Success message not shown after removing product.");
+            logger.info("Validation Passed: Correct success message displayed");
+
+            // 8) Validate wishlist is empty
+            Assert.assertTrue(wl.isWishListEmptyMessageDisplayed(),
+                    "Expected 'Your wish list is empty.' message not displayed.");
+
+
+            logger.info("Validation Passed: Wish List is empty after removal");
+
             // --- MODIFICATION END ---
 
 
@@ -47,17 +62,21 @@ public class TC_WL_002_ValidateWishListPageForSingleProductTest extends BaseClas
             driver.navigate().to(rb.getString("appURL")); // Go back home
             SearchPage sp = new SearchPage(driver);
 
-            sp.enterSearchKeyword(PRODUCT_NAME);
-            sp.clickSearchButton();
-            Assert.assertTrue(sp.isProductDisplayed(PRODUCT_NAME), PRODUCT_NAME + " not found in search results. Cannot proceed.");
+            HomePage home = new HomePage(driver);
 
-            sp.clickAddToWishListIconForProduct(PRODUCT_NAME);
+
+
+            home.enterSearchText(PRODUCT_NAME);
+            home.clickSearchButton();
+
+
+            home.clickAddToWishListIconForProduct();
             logger.info("Added product '" + PRODUCT_NAME + "' to Wish List.");
 
-            // Navigate to Wish List page via the success message link
+
             sp.clickWishListLinkInSuccessMessage();
 
-            // --- Validation Steps ---
+
 
             // Validate ER-1: My Wish List page is displayed correctly
             Assert.assertTrue(wl.isOnWishListPage(), "My Wish List page did not open after navigation.");
@@ -68,8 +87,6 @@ public class TC_WL_002_ValidateWishListPageForSingleProductTest extends BaseClas
             Assert.assertTrue(wl.isProductInWishList(PRODUCT_NAME), PRODUCT_NAME + " is not displayed in the Wish List.");
             logger.info("Validation Passed: The added product '" + PRODUCT_NAME + "' is present in the Wish List.");
 
-            // 3. Optional: Validate Continue button functionality (if supported)
-            // If you need to validate the 'Continue' button, add the necessary page object methods here.
 
             logger.info("***** TC_WL_014 PASSED *****");
 
@@ -77,7 +94,6 @@ public class TC_WL_002_ValidateWishListPageForSingleProductTest extends BaseClas
             logger.error("Test Failed for TC_WL_014: " + e.getMessage());
             Assert.fail("Test failed due to an exception: " + e.getMessage());
         } finally {
-            // Clean up in the finally block for reliability
             try {
                 WishListPage wl = new WishListPage(driver);
                 // Ensure we are on the wishlist page before attempting cleanup

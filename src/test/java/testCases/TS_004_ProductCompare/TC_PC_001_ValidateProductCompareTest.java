@@ -10,12 +10,12 @@ import testBase.BaseClass;
 
     public class TC_PC_001_ValidateProductCompareTest extends BaseClass {
 
-        @Test(groups = {"regression","sanity"})
+        @Test (groups = {"regression","sanity"})
         public void verifyProductCompareFeature() {
             logger.info("***** Starting TC_PC_001_ValidateProductCompareTest *****");
 
             try {
-                // --- Step 1 & 2: Search product ---
+                // --- Step 1: Search product ---
                 SearchPage sp = new SearchPage(driver);
                 String productName = "iMac";
                 sp.enterSearchKeyword(productName);
@@ -23,13 +23,13 @@ import testBase.BaseClass;
                 Assert.assertTrue(sp.isProductDisplayed(productName),
                         "ERROR: Product '" + productName + "' not displayed in search results.");
 
-                // --- Step 3: Open product display page ---
+                // --- Step 2: Open product display page ---
                 sp.clickFirstProductName();
                 ProductDisplayPage pdp = new ProductDisplayPage(driver);
                 Assert.assertTrue(pdp.isOnProductDisplayPage(),
                         "ERROR: Not navigated to Product Display Page.");
 
-                // --- Step 4: Hover & validate tooltip ---
+                // --- Step 3: Hover & validate tooltip ---
                 pdp.hoverOnCompareButton();
                 Assert.assertTrue(pdp.isCompareTooltipDisplayed(),
                         "Tooltip 'Compare this Product' not displayed.");

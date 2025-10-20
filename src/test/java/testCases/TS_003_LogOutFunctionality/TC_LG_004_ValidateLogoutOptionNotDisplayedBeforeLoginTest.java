@@ -4,7 +4,7 @@ package testCases.TS_003_LogOutFunctionality;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.Homepage;
+import pageObjects.HomePage;
 import testBase.BaseClass;
 
     public class TC_LG_004_ValidateLogoutOptionNotDisplayedBeforeLoginTest extends BaseClass {
@@ -15,35 +15,19 @@ import testBase.BaseClass;
 
             try {
                 // Step 1: Open the Application URL (handled by BaseClass setup)
-                // The application is already opened by the @BeforeClass setup method in BaseClass.
 
                 // Step 2: Click on 'My Account' Dropmenu (Verify ER-1)
-                Homepage hp = new Homepage(driver);
+                HomePage hp = new HomePage(driver);
                 hp.clickMyAccount(); // This action opens the 'My Account' dropdown
 
                 logger.info("Clicked on My Account dropdown.");
 
-                // Expected Result 1: Logout option should not be displayed under 'My Account' dropmenu
-                // We need to verify that the 'Logout' WebElement, which normally appears
-                // when logged in, is NOT displayed.
-
-                // To do this, we'll try to find the logout element and assert that it's not present.
-                // MyAccountPage.java has a 'lnkLogout' WebElement. We can reuse it,
-                // or directly check for the 'Logout' link on the Homepage if it's strictly
-                // within the dropdown that Homepage controls.
-                // Given 'lnkLogoutFromDropdown' in Homepage.java:
-
-                // The 'lnkLogoutFromDropdown' is defined in Homepage.java.
-                // Its existence implies it's part of the dropdown when 'My Account' is clicked.
                 boolean isLogoutOptionDisplayed = false;
                 try {
-                    // Using Homepage's lnkLogoutFromDropdown to check its display status.
-                    // This assumes the element is always present in the DOM but hidden,
-                    // or throws NoSuchElementException if not present at all.
+
                     isLogoutOptionDisplayed = hp.lnkLogoutFromDropdown.isDisplayed();
                 } catch (Exception e) {
-                    // If the element is not found, isDisplayed() would throw an exception,
-                    // which means it's not displayed as expected.
+
                     isLogoutOptionDisplayed = false;
                 }
 
