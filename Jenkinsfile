@@ -2,7 +2,6 @@
     agent any
     
     environment {
-        // IntelliJ IDEA's bundled Maven path
         MAVEN_HOME = 'C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2025.2\\plugins\\maven\\lib\\maven3'
         JAVA_HOME = 'C:\\Users\\manis\\.jdks\\graalvm-jdk-21.0.8'
         PATH = "${env.MAVEN_HOME}\\bin;${env.JAVA_HOME}\\bin;${env.PATH}"
