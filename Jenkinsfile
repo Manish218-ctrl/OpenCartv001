@@ -1,9 +1,11 @@
 pipeline {
     agent any
     
-    tools {
-        maven 'Maven'      
-        jdk 'Java'       
+    environment {
+        // IntelliJ IDEA's bundled Maven path
+        MAVEN_HOME = 'C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2025.2\\plugins\\maven\\lib\\maven3'
+        JAVA_HOME = 'C:\\Users\\manis\\.jdks\\graalvm-jdk-21.0.8'
+        PATH = "${env.MAVEN_HOME}\\bin;${env.JAVA_HOME}\\bin;${env.PATH}"
     }
     
     stages {
@@ -17,34 +19,20 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Compiling the project...'
-                script {
-                    if (isUnix()) {
-                        sh 'mvn clean compile'
-                    } else {
-                        bat 'mvn clean compile'
-                    }
-                }
+                bat 'mvn clean compile'
             }
         }
         
         stage('Run Tests') {
             steps {
                 echo 'Running Selenium tests...'
-                script {
-                    if (isUnix()) {
-                        sh 'mvn test -Dsurefire.suiteXmlFiles=testng.xml'
-                    } else {
-                        bat 'mvn test -Dsurefire.suiteXmlFiles=testng.xml'
-                    }
-                }
+                bat 'mvn test -Dsurefire.suiteXmlFiles=testng.xml'
             }
         }
         
         stage('Publish Reports') {
             steps {
                 echo 'Publishing test reports...'
-                
-                // Publish HTML reports (ExtentReports)
                 publishHTML([
                     allowMissing: true,
                     alwaysLinkToLastBuild: true,
@@ -52,12 +40,8 @@ pipeline {
                     reportDir: 'reports',
                     reportFiles: 'ExtentReport_*.html',
                     reportName: 'Extent Test Report',
-                    reportTitles: 'Selenium Test Execution Report'
+                    reportTitles: 'Test Execution Report'
                 ])
-                
-                // Publish TestNG results
-                step([$class: 'Publisher', 
-                      reportFilenamePattern: '**/testng-results.xml'])
             }
         }
     }
@@ -67,21 +51,12 @@ pipeline {
             echo 'Archiving artifacts...'
             archiveArtifacts artifacts: 'screenshots/**/*.png', 
                              allowEmptyArchive: true
-            
-            archiveArtifacts artifacts: 'reports/**/*.html', 
-                             allowEmptyArchive: true
         }
-        
         success {
-            echo 'Build and tests completed successfully!'
+            echo '✅ Build succeeded!'
         }
-        
         failure {
-            echo 'Build or tests failed. Check the console output for details.'
-        }
-        
-        unstable {
-            echo 'Build is unstable. Some tests may have failed.'
+            echo '❌ Build failed!'
         }
     }
 }
