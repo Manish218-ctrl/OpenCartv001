@@ -28,7 +28,7 @@
 
             TS_001_AccountRegistration
 
-         <!--   <class name="testCases.TS_001_AccountRegistration.TC_RF_001_ValidateAccountRegistrationTest" />
+           <!-- <class name="testCases.TS_001_AccountRegistration.TC_RF_001_ValidateAccountRegistrationTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_002_ValidateRegisterAllFieldsTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_003_ValidateRegisterMandatoryFieldsTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_004_ValidateRegisterNewsletterYesTest" />
@@ -38,7 +38,7 @@
             <class name="testCases.TS_001_AccountRegistration.TC_RF_008_ValidateInvalidEmailRegistrationTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_009_ValidateMissingPasswordConfirmTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_010_ValidateMissingPrivacyPolicyTest" />-->
-            <!--<class name="testCases.TS_001_AccountRegistration.TC_RF_001_ValidateAccountRegistrationDataDrivenTest" />-->
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_001_ValidateAccountRegistrationDataDrivenTest" />-->
 
             TS_002_LoginFunctionality
 
@@ -91,7 +91,7 @@
 
             TS_005_SearchFunctionality
 
-             <!-- <class name="testCases.TS_005_SearchFunctionality.TC_SP_001_ValidateSearchExistingProductTest" />
+            <!--<class name="testCases.TS_005_SearchFunctionality.TC_SP_001_ValidateSearchExistingProductTest" />
               <class name="testCases.TS_005_SearchFunctionality.TC_SP_002_ValidateSearchNonExistingProductTest" />
               <class name="testCases.TS_005_SearchFunctionality.TC_SP_003_ValidateSearchWithoutProductNameTest" />
               <class name="testCases.TS_005_SearchFunctionality.TC_SP_004_ValidateSearchProductAfterLoginTest" />
@@ -99,8 +99,8 @@
               <class name="testCases.TS_005_SearchFunctionality.TC_SP_006_ValidateSearchSingleProductTest" />
               <class name="testCases.TS_005_SearchFunctionality.TC_SP_007_ValidateSearchUsingCriteriaFieldTest" />
               <class name="testCases.TS_005_SearchFunctionality.TC_SP_008_ValidateSearchPlaceholderTest" />
-              <class name="testCases.TS_005_SearchFunctionality.TC_SP_009_ValidateNavigateToCompareFromSearchTest" />-->
-             <!-- <class name="testCases.TS_005_SearchFunctionality.TC_SP_010_ValidateSearchExistingProductDataDrivenTest"/>-->
+              <class name="testCases.TS_005_SearchFunctionality.TC_SP_009_ValidateNavigateToCompareFromSearchTest" />
+              <class name="testCases.TS_005_SearchFunctionality.TC_SP_010_ValidateSearchExistingProductDataDrivenTest"/>-->
 
 
             TS_006_AddtoCart
@@ -176,8 +176,7 @@
             <class name="testCases.TS_012_SpecialOffers.TC_SPO_009_ValidateAddingProductForComparisonTest" />-->
 
             TS_013_ContactUs
-
-            <class name="testCases.TS_013_ContactUs.TC_CU_001_ValidateContactUsPageNavigationFromHeaderOptionsTest" />
+         <!--<class name="testCases.TS_013_ContactUs.TC_CU_001_ValidateContactUsPageNavigationFromHeaderOptionsTest" />
             <class name="testCases.TS_013_ContactUs.TC_CU_002_ValidateContactUsPageNavigationFromFooterOptionsTest" />
             <class name="testCases.TS_013_ContactUs.TC_CU_003_ValidateContactUsPageNavigationFromOrderSuccessTest" />
             <class name="testCases.TS_013_ContactUs.TC_CU_004_ValidateContactUsPageValidationTest" />

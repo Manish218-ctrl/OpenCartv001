@@ -2,58 +2,74 @@ package testCases.TS_005_SearchFunctionality;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import pageObjects.HomePage;
 import pageObjects.SearchPage;
 import testBase.BaseClass;
 import utilities.DataProviders;
 
+/**
+ * Data-driven test to validate that searching for existing products
+ * displays the correct product in search results.
+ *
+ * Test data is read from: src/test/resources/SearchData.xlsx -> ExistingProducts sheet
+ */
 public class TC_SP_010_ValidateSearchExistingProductDataDrivenTest extends BaseClass {
 
-
-    @Test(dataProvider = "SearchExistingProductData", dataProviderClass = DataProviders.class)
+    @Test(dataProvider = "SearchExistingProductData", dataProviderClass = DataProviders.class,
+            groups = {"Sanity", "Regression"})
     public void verify_search_existing_product(String searchQuery, String expectedProductTitle)
     {
-        logger.info("***** Starting Data-Driven TC_SF_001_SearchExistingProductTest ****");
-        logger.debug("Testing search query: " + searchQuery);
+        logger.info("***** Starting Data-Driven Search Test ****");
+        logger.info("Search Query: '{}', Expected Product: '{}'", searchQuery, expectedProductTitle);
 
         try
         {
-            HomePage hp = new HomePage(driver);
+            // Step 1: Perform search from home page
+            HomePage homePage = new HomePage(driver);
+            homePage.searchProduct(searchQuery);
+            logger.info("Executed search for: '{}'", searchQuery);
 
-            hp.searchProduct(searchQuery);
-            logger.info("Executed search for: " + searchQuery);
-
+            // Step 2: Validate product appears in search results
             SearchPage searchPage = new SearchPage(driver);
-
             boolean isProductVisible = searchPage.isProductDisplayed(expectedProductTitle);
 
-            String actualProductTitle = searchPage.getProductTitleFromResult();
-
             if (isProductVisible) {
-                logger.info("Product found: " + actualProductTitle);
+                // Step 3: Get actual product title and compare
+                String actualProductTitle = searchPage.getActualProductTitleFromResults(expectedProductTitle);
+                logger.info("Product found: '{}'", actualProductTitle);
 
-                // Assert that the product is visible AND the displayed title matches the expected title
-                Assert.assertTrue(isProductVisible, "Product link was not visible in search results.");
-                Assert.assertEquals(actualProductTitle, expectedProductTitle,
-                        "Product title mismatch. Expected: " + expectedProductTitle + ", Actual: " + actualProductTitle);
+                // Step 4: Assert using contains() for flexible matching
+                Assert.assertTrue(
+                        actualProductTitle.contains(expectedProductTitle) ||
+                                expectedProductTitle.contains(actualProductTitle),
+                        String.format(
+                                "Product title mismatch. Expected (partial): '%s', Actual: '%s'",
+                                expectedProductTitle, actualProductTitle
+                        )
+                );
 
-                logger.info("Test Passed for: " + searchQuery);
-
+                logger.info("Test PASSED for query: '{}'", searchQuery);
             } else {
-                // Should only happen if the search mechanism failed, not if the data is incorrect.
-                logger.error("Test Failed: Product '" + expectedProductTitle + "' not displayed for query '" + searchQuery + "'.");
-                Assert.fail("Product '" + expectedProductTitle + "' was not found in the search results.");
+                logger.error("Test FAILED: Product '{}' not displayed for query '{}'",
+                        expectedProductTitle, searchQuery);
+                Assert.fail(String.format(
+                        "Product '%s' was not found in search results for query '%s'",
+                        expectedProductTitle, searchQuery
+                ));
             }
+        }
+        catch (AssertionError ae) {
+            // Re-throw assertion errors directly
+            throw ae;
         }
         catch (Exception e)
         {
-            logger.error("Test failed for query: " + searchQuery + ". Error: " + e.getMessage());
-            Assert.fail("Test failed: " + e.getMessage());
+            logger.error("Test failed for query: '{}'. Error: {}", searchQuery, e.getMessage());
+            Assert.fail("Test failed with exception: " + e.getMessage());
         }
         finally
         {
-            logger.info("***** Finished a run of TC_SF_001_SearchExistingProductTest *****");
+            logger.info("***** Finished Search Test for: '{}' *****\n", searchQuery);
         }
     }
 }

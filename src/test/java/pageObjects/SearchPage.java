@@ -95,7 +95,7 @@ public class SearchPage extends BasePage {
         return waitShort().until(ExpectedConditions.visibilityOf(headingSearchResults)).getText();
     }
 
-   public boolean isProductDisplayed(String productName) {
+  /* public boolean isProductDisplayed(String productName) {
         try {
             waitShort().until(ExpectedConditions.or(
                     ExpectedConditions.visibilityOfAllElements(productResultCards),
@@ -115,7 +115,7 @@ public class SearchPage extends BasePage {
             } catch (NoSuchElementException ignore) {}
         }
         return false;
-    }
+    }*/
 
     public boolean isNoProductMessageDisplayed() {
         try {
@@ -515,7 +515,157 @@ public class SearchPage extends BasePage {
         }
     }
 
-      }
+
+    /*public boolean isProductDisplayed(String productName) {
+        try {
+            waitShort().until(ExpectedConditions.or(
+                    ExpectedConditions.visibilityOfAllElements(productResultCards),
+                    ExpectedConditions.visibilityOf(noProductMessage)
+            ));
+        } catch (TimeoutException e) {
+            return false;
+        }
+
+        // Use partial text match instead of exact linkText
+        for (WebElement productCard : productResultCards) {
+            try {
+                // Use XPath with contains() for partial match
+                WebElement productLink = productCard.findElement(
+                        By.xpath(".//a[contains(text(), '" + productName + "')]")
+                );
+                if (productLink.isDisplayed()) {
+                    logger.info("Product found: {}", productLink.getText());
+                    return true;
+                }
+            } catch (NoSuchElementException ignore) {
+                // Continue to next product card
+            }
+        }
+        logger.warn("Product '{}' not found in search results", productName);
+        return false;
+    }*/
+
+
+
+   /* public String getActualProductTitleFromResults(String productName) {
+        try {
+            waitShort().until(ExpectedConditions.visibilityOfAllElements(productResultCards));
+
+            for (WebElement productCard : productResultCards) {
+                try {
+                    WebElement productLink = productCard.findElement(
+                            By.xpath(".//a[contains(text(), '" + productName + "')]")
+                    );
+                    if (productLink.isDisplayed()) {
+                        String actualTitle = productLink.getText();
+                        logger.info("Found product title: {}", actualTitle);
+                        return actualTitle;
+                    }
+                } catch (NoSuchElementException ignore) {}
+            }
+        } catch (Exception e) {
+            logger.error("Error getting product title: {}", e.getMessage());
+        }
+        return "";
+    }*/
+
+
+
+
+    /**
+     * Gets the actual product title from search results that matches the given product name.
+     * Uses partial text matching to handle variations in product names.
+     *
+     * @param productName The product name to search for (can be partial)
+     * @return The actual full product title text, or empty string if not found
+     */
+    public String getActualProductTitleFromResults(String productName) {
+        try {
+            // Wait for product cards to be visible
+            waitShort().until(ExpectedConditions.visibilityOfAllElements(productResultCards));
+
+            // Search through each product card
+            for (WebElement productCard : productResultCards) {
+                try {
+                    // Find product link containing the search text
+                    WebElement productLink = productCard.findElement(
+                            By.xpath(".//div[contains(@class,'caption')]//a[contains(text(), '" + productName + "')]")
+                    );
+
+                    if (productLink.isDisplayed()) {
+                        String actualTitle = productLink.getText().trim();
+                        logger.info("Found product title: '{}'", actualTitle);
+                        return actualTitle;
+                    }
+                } catch (NoSuchElementException ignore) {
+                    // Continue searching in next product card
+                }
+            }
+
+            logger.warn("Product title not found for: '{}'", productName);
+        } catch (Exception e) {
+            logger.error("Error getting product title: {}", e.getMessage());
+        }
+
+        return "";
+    }
+
+
+
+
+
+
+    /**
+     * Checks if a product with the given name is displayed in search results.
+     * Uses partial text matching for flexible product name validation.
+     *
+     * @param productName The product name to search for (can be partial)
+     * @return true if product is found and visible, false otherwise
+     */
+    public boolean isProductDisplayed(String productName) {
+        try {
+            // Wait for either product results or "no products" message
+            waitShort().until(ExpectedConditions.or(
+                    ExpectedConditions.visibilityOfAllElements(productResultCards),
+                    ExpectedConditions.visibilityOf(noProductMessage)
+            ));
+        } catch (TimeoutException e) {
+            logger.warn("Timeout waiting for search results for: '{}'", productName);
+            return false;
+        }
+
+        // Check if "no products" message is displayed
+        try {
+            if (noProductMessage.isDisplayed()) {
+                logger.info("No products found message displayed");
+                return false;
+            }
+        } catch (Exception ignore) {}
+
+        // Search through product cards for matching product
+        for (WebElement productCard : productResultCards) {
+            try {
+                // Use partial text match with contains()
+                WebElement productLink = productCard.findElement(
+                        By.xpath(".//div[contains(@class,'caption')]//a[contains(text(), '" + productName + "')]")
+                );
+
+                if (productLink.isDisplayed()) {
+                    logger.info("Product '{}' found: {}", productName, productLink.getText());
+                    return true;
+                }
+            } catch (NoSuchElementException ignore) {
+                // Continue to next product card
+            }
+        }
+
+        logger.warn("Product '{}' not found in {} search results", productName, productResultCards.size());
+        return false;
+    }
+
+
+
+}
 
 
 

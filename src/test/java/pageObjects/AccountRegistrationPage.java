@@ -1,8 +1,13 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class AccountRegistrationPage extends BasePage{
 
@@ -176,7 +181,7 @@ public class AccountRegistrationPage extends BasePage{
 
     }
 
-    public String getConfirmationMsg() {
+  /*  public String getConfirmationMsg() {
         try {
             return (msgConfirmation.getText());
         } catch (Exception e) {
@@ -184,5 +189,47 @@ public class AccountRegistrationPage extends BasePage{
 
         }
 
+    }*/
+
+
+    public String getConfirmationMsg() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        try {
+            // 1. Check for SUCCESS message
+            WebElement successElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//h1[normalize-space()='Your Account Has Been Created!']")));
+            return successElement.getText().trim();
+        } catch (Exception e1) {
+            try {
+                // 2. Check for password field error
+                WebElement pwdError = driver.findElement(
+                        By.xpath("//input[@id='input-password']/following-sibling::div[contains(@class,'text-danger')]"));
+                if (pwdError.isDisplayed()) {
+                    return pwdError.getText().trim();
+                }
+            } catch (Exception e2) {}
+
+            try {
+                // 3. Check for confirm password field error
+                WebElement confirmError = driver.findElement(
+                        By.xpath("//input[@id='input-confirm']/following-sibling::div[contains(@class,'text-danger')]"));
+                if (confirmError.isDisplayed()) {
+                    return confirmError.getText().trim();
+                }
+            } catch (Exception e3) {}
+
+            try {
+                // 4. Check for general alert/warning
+                WebElement alert = driver.findElement(
+                        By.xpath("//div[contains(@class,'alert') and contains(@class,'danger')]"));
+                if (alert.isDisplayed()) {
+                    return alert.getText().trim();
+                }
+            } catch (Exception e4) {}
+
+            return "No validation message found";
+        }
     }
+
 }
