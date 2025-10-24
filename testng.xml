@@ -36,7 +36,7 @@
             <class name="testCases.TS_001_AccountRegistration.TC_RF_008_ValidateInvalidEmailRegistrationTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_009_ValidateMissingPasswordConfirmTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_010_ValidateMissingPrivacyPolicyTest" />
-            <class name="testCases.TS_001_AccountRegistration.TC_RF_011_ValidateAccountRegistrationDataDrivenTest" />-->
+            <!--<class name="testCases.TS_001_AccountRegistration.TC_RF_011_ValidateAccountRegistrationDataDrivenTest" />-->
 
             TS_002_LoginFunctionality
 
