@@ -23,7 +23,7 @@ public class ProductDisplayPage extends BasePage {
         super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        //   wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
@@ -40,7 +40,6 @@ public class ProductDisplayPage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[not(contains(@href,'compare'))]")
     public WebElement linkProductNameInSuccessMessage;
 
-   // public final By relatedProductCards = By.xpath("//h3[normalize-space()='Related Products']/following-sibling::div//div[contains(@class,'product-layout')]");
 
 
     @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[contains(text(),'shopping cart')]")
@@ -56,7 +55,6 @@ public class ProductDisplayPage extends BasePage {
 
 
 
-    // Link inside success message → "wish list!"
     @FindBy(xpath = "//a[text()='wish list']")
     public WebElement linkWishList;
 
@@ -64,7 +62,7 @@ public class ProductDisplayPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(linkWishList)).click();
     }
 
-    // --- Methods ---
+    //Methods
 
     public void clickProductNameLinkInSuccessMessage() {
         wait.until(ExpectedConditions.elementToBeClickable(linkProductNameInSuccessMessage)).click();
@@ -101,8 +99,6 @@ public class ProductDisplayPage extends BasePage {
     }
 
 
-
-
     // Related products section heading
     private By relatedProductsSection = By.xpath("/html/body/div[2]/div/div/h3");
 
@@ -124,12 +120,10 @@ public class ProductDisplayPage extends BasePage {
     }
 
     public void addRelatedProductToWishList(String productName) {
-        // Wait until Related Products section is visible
         wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//h3[text()='Related Products']")
         ));
 
-        // Build a safer locator for the button inside Related Product card
         By addToWishListBtn = By.xpath("//div[@class='caption']/h4/a[contains(text(),'"
                 + productName + "')]/../..//button[contains(@onclick,'wishlist.add')]");
 
@@ -150,7 +144,7 @@ public class ProductDisplayPage extends BasePage {
     }
 
 
-    // --- Locators ---
+    //Locators
     @FindBy(css = "div#content img.img-responsive")  // Main Product Image
     private WebElement mainThumbnail;
 
@@ -166,7 +160,7 @@ public class ProductDisplayPage extends BasePage {
     @FindBy(css = "ul.thumbnails img")   // List of thumbnails
     private java.util.List<WebElement> smallThumbnails;
 
-    // --- Actions ---
+    //Actions
 
     // Click main thumbnail to open Lightbox
     public void openLightboxFromMainThumbnail() {
@@ -175,28 +169,23 @@ public class ProductDisplayPage extends BasePage {
 
     }
 
-    // Click next image
     public void clickNextThumbnail() {
         wait.until(ExpectedConditions.elementToBeClickable(btnNextThumbnail)).click();
     }
 
-    // Click previous image
     public void clickPrevThumbnail() {
         wait.until(ExpectedConditions.elementToBeClickable(btnPrevThumbnail)).click();
     }
 
-    // Close Lightbox
     public void closeLightbox() {
         wait.until(ExpectedConditions.elementToBeClickable(btnCloseLightbox)).click();
     }
 
-    // Click ESC key to close Lightbox
     public void pressEscapeKey() {
         Actions actions = new Actions(driver);
         actions.sendKeys(Keys.ESCAPE).perform();
     }
 
-    // Click on a small thumbnail by index
     public void clickSmallThumbnail(int index) {
         if (index < smallThumbnails.size()) {
             wait.until(ExpectedConditions.elementToBeClickable(smallThumbnails.get(index))).click();
@@ -205,7 +194,6 @@ public class ProductDisplayPage extends BasePage {
         }
     }
 
-    // Validate if lightbox is displayed
     public boolean isLightboxDisplayed() {
         try {
             return btnCloseLightbox.isDisplayed();
@@ -214,7 +202,7 @@ public class ProductDisplayPage extends BasePage {
         }
     }
 
-    // --- Product Details ---
+    //Product Details
     @FindBy(xpath = "//div[@id='content']//h1")
     private WebElement productName;   // Product Name
 
@@ -224,7 +212,8 @@ public class ProductDisplayPage extends BasePage {
     @FindBy(xpath = "//div[@id='content']//ul[@class='list-unstyled']/li[contains(text(),'Product Code')]")
     private WebElement productCode;   // Product Code
 
-    // --- Getter Methods ---
+    //Getter Methods
+
     public String getProductName() {
         return wait.until(ExpectedConditions.visibilityOf(productName)).getText().trim();
     }
@@ -240,7 +229,6 @@ public class ProductDisplayPage extends BasePage {
     public String getProductAvailability() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // Use XPath that matches text containing "Availability"
         WebElement availabilityElement = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//*[contains(text(),'Availability')]")
@@ -249,20 +237,19 @@ public class ProductDisplayPage extends BasePage {
 
         String rawText = availabilityElement.getText().trim();
 
-        // Normalize: remove "Availability:" if present
         if (rawText.contains(":")) {
             rawText = rawText.split(":", 2)[1].trim();
         }
 
-        return rawText;  // "In Stock", "Out Of Stock", etc.
+        return rawText;
     }
 
 
 
-    // Locator for price with tax
+
     private By priceWithTax = By.xpath("//ul[@class='list-unstyled']//h2");
 
-    // Locator for price without tax (Ex Tax)
+
     private By priceExTax = By.xpath("//ul[@class='list-unstyled']/li[contains(text(),'Ex Tax')]");
 
     // Method to get Price With Tax
@@ -292,7 +279,7 @@ public class ProductDisplayPage extends BasePage {
         return wait.until(ExpectedConditions.visibilityOf(productDescriptionText)).getText().trim();
     }
 
-    // ProductDisplayPage.java
+
 
     @FindBy(xpath = "//table[@class='table table-bordered']//tr")
     private java.util.List<WebElement> bulkPriceRows;
@@ -493,26 +480,19 @@ public class ProductDisplayPage extends BasePage {
     }
 
 
-    // New locator for the static header element
     public final By relatedProductsHeader = By.xpath("//h3[normalize-space()='Related Products']");
-    // Existing locator for the dynamic product cards
     public final By relatedProductCards = By.xpath("//h3[normalize-space()='Related Products']/following-sibling::div//div[contains(@class,'product-layout')]");
 
 
     public boolean hasRelatedProducts() {
         try {
-            // 1. Find the static header element
             WebElement header = driver.findElement(relatedProductsHeader);
 
-            // 2. Scroll the HEADER element into view, ensuring the entire section is visible
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", header);
 
-            // --- FIX: Use a dedicated longer wait (30 seconds) for the dynamic content ---
-            // This addresses the TimeoutException caused by slow asynchronous product loading.
             WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
-            // 3. Wait explicitly for at least ONE dynamic product card to appear
-            // This confirms the section loaded and populated.
+
             longWait.until(
                     ExpectedConditions.numberOfElementsToBeMoreThan(relatedProductCards, 0)
             );

@@ -18,17 +18,13 @@ public class RecurringPaymentsPage extends BasePage {
             super(driver);
         }
 
-        // Page heading
         @FindBy(xpath = "//h1[text()='Recurring Payments']")
         private WebElement headingRecurringPayments;
 
-        // Example: Table of recurring payments (if exists)
         @FindBy(xpath = "/html/body/div[2]/div/div/p")
         private WebElement tblRecurringPayments;
 
-        /**
-         * Verify that the 'Recurring Payments' page is displayed
-         */
+
         public boolean isRecurringPaymentsPageDisplayed() {
             try {
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -39,9 +35,7 @@ public class RecurringPaymentsPage extends BasePage {
             }
         }
 
-        /**
-         * Verify that the recurring payments table exists
-         */
+
         public boolean isRecurringPaymentsTableDisplayed() {
             try {
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -69,8 +63,6 @@ public class RecurringPaymentsPage extends BasePage {
         @FindBy(xpath = "/html/body/div[2]/ul/li[3]/a")
         public WebElement breadcrumbElement;
 
-
-
         public boolean isBreadcrumbDisplayed() {
             try {
                 // Wait for the breadcrumb to be visible
@@ -84,7 +76,6 @@ public class RecurringPaymentsPage extends BasePage {
 
         public String getBreadcrumbText() {
             try {
-                // Wait for breadcrumb element to be visible and get its text
                 wait.until(ExpectedConditions.visibilityOf(breadcrumbElement));
                 return breadcrumbElement.getText();
             } catch (Exception e) {
@@ -107,7 +98,7 @@ public class RecurringPaymentsPage extends BasePage {
                 return headingRecurringPayments.getText().trim();  // Ensure that any extra whitespace is removed
             } catch (Exception e) {
                 logger.error("Error getting page heading: " + e.getMessage());
-                return "";  // Return empty string if heading is not found
+                return "";
             }
         }
 

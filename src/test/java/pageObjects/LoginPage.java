@@ -50,7 +50,7 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//h2[normalize-space()='Returning Customer']")
     WebElement pageHeading;
 
-    // --- Combined Login Method ---
+
     public void login(String email, String password) {
         setEmail(email);
         setPassword(password);
@@ -58,8 +58,7 @@ public class LoginPage extends BasePage {
     }
 
 
-    // Methods
-    // Return breadcrumb text in a normalized form
+
     public String getBreadcrumb() {
         try {
             WebElement breadcrumbElement = driver.findElement(By.xpath("//ul[@class='breadcrumb']//li[last()]"));

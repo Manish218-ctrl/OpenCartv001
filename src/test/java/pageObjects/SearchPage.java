@@ -32,29 +32,22 @@ public class SearchPage extends BasePage {
     @FindBy(name = "search")
     private WebElement txtGlobalSearchInput;
 
-    // Locator for all products in the search results
     @FindBy(css = "div.product-layout")
     public List<WebElement> resultCards;
 
     public By firstProductCard = By.xpath("//div[@class='product-layout'][1]");
 
-    // Button to switch to List View
     @FindBy(xpath = "//button[@id='list-view']")
     private WebElement btnListView;
 
-    // Locator for the 'Compare this Product' button/link in the List View (targets the first product card)
-    // The link should be inside the product-layout div. This relies on the common OpenCart structure.
     public By compareButtonFirstProductLocator = By.xpath("(//div[contains(@class,'product-layout')])[1]//button[contains(@onclick, 'compare.add')]");
 
-    // Locator for the dynamic success/alert message
     @FindBy(xpath = "//div[contains(@class, 'alert-success')]")
     public WebElement successAlert;
 
-    // Locator for the 'product comparison' link within the success message
     @FindBy(xpath = "//div[contains(@class, 'alert-success')]/a[contains(text(), 'product comparison')]")
     public WebElement linkProductComparison;
 
-    //private final By productTitle = By.xpath("//div[@class='product-layout'][1]//div[@class='caption']//h4/a");
 
     public final By expectedProductTitle = By.xpath("//*[@id=\"content\"]/div[3]/div/div/div[2]/div[1]/h4/a");
 
@@ -95,27 +88,7 @@ public class SearchPage extends BasePage {
         return waitShort().until(ExpectedConditions.visibilityOf(headingSearchResults)).getText();
     }
 
-  /* public boolean isProductDisplayed(String productName) {
-        try {
-            waitShort().until(ExpectedConditions.or(
-                    ExpectedConditions.visibilityOfAllElements(productResultCards),
-                    ExpectedConditions.visibilityOf(noProductMessage)
-            ));
-        } catch (TimeoutException e) {
-            return false;
-        }
 
-
-
-
-        for (WebElement productCard : productResultCards) {
-            try {
-                WebElement productLink = productCard.findElement(By.linkText(productName));
-                if (productLink.isDisplayed()) return true;
-            } catch (NoSuchElementException ignore) {}
-        }
-        return false;
-    }*/
 
     public boolean isNoProductMessageDisplayed() {
         try {
@@ -191,11 +164,10 @@ public class SearchPage extends BasePage {
 
 
     public WebDriverWait waitLong() {
-        return new WebDriverWait(driver, Duration.ofSeconds(15)); // Use 15 seconds for critical clicks
+        return new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     public void clickComparisonLinkFromSuccessMessage() {
-        // Use the longer wait and wait for the specific link text to be clickable.
         WebElement cmpLink = waitLong().until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//a[contains(text(),'product comparison')]")));
 
@@ -302,7 +274,6 @@ public class SearchPage extends BasePage {
     }
 
 
-    // Click the Grid View button
     public void clickGridView() {
         WebElement gridButton = driver.findElement(By.id("grid-view-button"));
         scrollHover(gridButton);
@@ -328,9 +299,7 @@ public class SearchPage extends BasePage {
     }
 
 
-    /**
-     * Clicks the 'product comparison' link found within the success message.
-     */
+
     public void clickProductComparisonLinkFromSuccessMessage() {
         wait.until(ExpectedConditions.elementToBeClickable(linkProductComparison)).click();
     }
@@ -347,7 +316,6 @@ public class SearchPage extends BasePage {
         }
     }
 
-    // Click "wish list!" link inside success message
     public void clickWishListLinkInSuccessMessage() {
         WebElement link = waitShort().until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//a[text()='wish list']")));
@@ -355,7 +323,6 @@ public class SearchPage extends BasePage {
         logger.info("Clicked 'wish list!' link from success message.");
     }
 
-    // Click "Add to Cart" for a product from search results
     public void clickAddToCartFromSearchResults(String productName) {
         By addToCartBtn = By.xpath(
                 "//a[text()='" + productName + "']/ancestor::div[@class='product-thumb']//button[contains(@onclick,'cart.add')]"
@@ -366,7 +333,6 @@ public class SearchPage extends BasePage {
         logger.info("Clicked 'Add to Cart' for product: {}", productName);
     }
 
-    // Click Shopping Cart link from header
     public void clickShoppingCartHeaderLink() {
         WebElement link = waitShort().until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//a[@title='Shopping Cart']")));
@@ -376,17 +342,14 @@ public class SearchPage extends BasePage {
 
     public boolean isProductInCart(String productName) {
         try {
-            // wait until all product links inside the shopping cart table are present
             List<WebElement> products = wait.until(
                     ExpectedConditions.presenceOfAllElementsLocatedBy(cartProductNames)
             );
 
-            // debug log to see actual product names
             for (WebElement product : products) {
                 String actualName = product.getText().trim();
                 System.out.println("DEBUG - Found product in cart: " + actualName);
 
-                // match either exact or partial (case-insensitive)
                 if (actualName.equalsIgnoreCase(productName) ||
                         actualName.toLowerCase().contains(productName.toLowerCase())) {
                     return true;
@@ -406,15 +369,11 @@ public class SearchPage extends BasePage {
         return !resultCards.isEmpty();
     }
 
-    /** Click a product by its exact visible name in search results */
     public void openProductByName(String productName) {
         WebElement productLink = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//div[contains(@class,'product-thumb')]//a[normalize-space()='" + productName + "']")));
         productLink.click();
     }
-
-
-
 
     public void clickCompareProductForFirstProduct() {
         WebElement compareButton = wait.until(
@@ -423,12 +382,6 @@ public class SearchPage extends BasePage {
         compareButton.click();
         logger.info("Clicked 'Compare this Product' for the first product.");
     }
-
-    /**
-     * Retrieves the tooltip text for the 'Compare this Product' button of the first product.
-     * This uses the 'title' attribute typically found on the button/link element.
-     */
-
 
     public String getCompareTooltipForFirstProduct() {
         WebElement compareButton = wait.until(
@@ -454,14 +407,12 @@ public class SearchPage extends BasePage {
 
 
     public boolean isGridViewActive() {
-        // If the List View button is NOT active, the page is in Grid View.
         boolean isActive = !isListViewActive();
         logger.info("Is Grid View active? (Inverted List Check) {}", isActive);
         return isActive;
     }
 
 
-    // Keep this scrollHover method, it is the one you should use:
     public void scrollHover(WebElement el) {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].scrollIntoView({block:'center', inline:'nearest'});", el);
@@ -477,16 +428,13 @@ public class SearchPage extends BasePage {
                 "//a[text()='" + productName + "']/ancestor::div[contains(@class,'product-thumb')]//button[contains(@onclick,'compare.add')]"
         );
 
-        // Use explicit wait to ensure the element is clickable before performing the action.
         WebElement compareBtn = waitShort().until(ExpectedConditions.elementToBeClickable(compareBtnLocator));
 
-        // Add scroll to ensure it's in the viewport (optional, but good practice)
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", compareBtn);
 
         try {
             compareBtn.click();
         } catch (ElementClickInterceptedException e) {
-            // Fallback for click interception issues
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", compareBtn);
         }
 
@@ -494,100 +442,29 @@ public class SearchPage extends BasePage {
     }
 
     public String getSearchProductTitle(long timeoutInSeconds) {
-        // Use Explicit Wait for the first product title to be visible
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(expectedProductTitle));
 
         return element.getText();
     }
 
-    // Add a check for no results (optional but good practice)
     public boolean isProductFound(long timeoutInSeconds) {
         try {
-            // Wait for the product title. If found, return true.
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
             wait.until(ExpectedConditions.visibilityOfElementLocated(expectedProductTitle));
             return true;
         } catch (Exception e) {
-            // If the product title is not found within the timeout, assume no result.
-            // You can add a specific check for the "no results" message here if needed.
             return false;
         }
     }
 
 
-    /*public boolean isProductDisplayed(String productName) {
-        try {
-            waitShort().until(ExpectedConditions.or(
-                    ExpectedConditions.visibilityOfAllElements(productResultCards),
-                    ExpectedConditions.visibilityOf(noProductMessage)
-            ));
-        } catch (TimeoutException e) {
-            return false;
-        }
-
-        // Use partial text match instead of exact linkText
-        for (WebElement productCard : productResultCards) {
-            try {
-                // Use XPath with contains() for partial match
-                WebElement productLink = productCard.findElement(
-                        By.xpath(".//a[contains(text(), '" + productName + "')]")
-                );
-                if (productLink.isDisplayed()) {
-                    logger.info("Product found: {}", productLink.getText());
-                    return true;
-                }
-            } catch (NoSuchElementException ignore) {
-                // Continue to next product card
-            }
-        }
-        logger.warn("Product '{}' not found in search results", productName);
-        return false;
-    }*/
-
-
-
-   /* public String getActualProductTitleFromResults(String productName) {
-        try {
-            waitShort().until(ExpectedConditions.visibilityOfAllElements(productResultCards));
-
-            for (WebElement productCard : productResultCards) {
-                try {
-                    WebElement productLink = productCard.findElement(
-                            By.xpath(".//a[contains(text(), '" + productName + "')]")
-                    );
-                    if (productLink.isDisplayed()) {
-                        String actualTitle = productLink.getText();
-                        logger.info("Found product title: {}", actualTitle);
-                        return actualTitle;
-                    }
-                } catch (NoSuchElementException ignore) {}
-            }
-        } catch (Exception e) {
-            logger.error("Error getting product title: {}", e.getMessage());
-        }
-        return "";
-    }*/
-
-
-
-
-    /**
-     * Gets the actual product title from search results that matches the given product name.
-     * Uses partial text matching to handle variations in product names.
-     *
-     * @param productName The product name to search for (can be partial)
-     * @return The actual full product title text, or empty string if not found
-     */
     public String getActualProductTitleFromResults(String productName) {
         try {
-            // Wait for product cards to be visible
             waitShort().until(ExpectedConditions.visibilityOfAllElements(productResultCards));
 
-            // Search through each product card
             for (WebElement productCard : productResultCards) {
                 try {
-                    // Find product link containing the search text
                     WebElement productLink = productCard.findElement(
                             By.xpath(".//div[contains(@class,'caption')]//a[contains(text(), '" + productName + "')]")
                     );
@@ -611,20 +488,8 @@ public class SearchPage extends BasePage {
     }
 
 
-
-
-
-
-    /**
-     * Checks if a product with the given name is displayed in search results.
-     * Uses partial text matching for flexible product name validation.
-     *
-     * @param productName The product name to search for (can be partial)
-     * @return true if product is found and visible, false otherwise
-     */
     public boolean isProductDisplayed(String productName) {
         try {
-            // Wait for either product results or "no products" message
             waitShort().until(ExpectedConditions.or(
                     ExpectedConditions.visibilityOfAllElements(productResultCards),
                     ExpectedConditions.visibilityOf(noProductMessage)
@@ -634,7 +499,6 @@ public class SearchPage extends BasePage {
             return false;
         }
 
-        // Check if "no products" message is displayed
         try {
             if (noProductMessage.isDisplayed()) {
                 logger.info("No products found message displayed");
@@ -642,7 +506,6 @@ public class SearchPage extends BasePage {
             }
         } catch (Exception ignore) {}
 
-        // Search through product cards for matching product
         for (WebElement productCard : productResultCards) {
             try {
                 // Use partial text match with contains()
@@ -655,7 +518,6 @@ public class SearchPage extends BasePage {
                     return true;
                 }
             } catch (NoSuchElementException ignore) {
-                // Continue to next product card
             }
         }
 

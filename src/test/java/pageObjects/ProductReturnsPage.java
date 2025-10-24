@@ -59,7 +59,6 @@ WebElement Returnsucessmsg;
         @FindBy(xpath = "//input[@value='Submit']")
         WebElement submitButtonrp;
 
-        // Method to fill in the product return form with all required details
         public void fillProductReturnForm( String orderID,
                                           String orderDate, String productName, String productCode, String quantity,
                                           String reason, boolean productOpened, String faultDetails) {
@@ -74,12 +73,10 @@ WebElement Returnsucessmsg;
             faultDetailsField.sendKeys(faultDetails);
         }
 
-        // Method to click the 'Submit' button to submit the return request
         public void clickSubmit() {
             submitButton.click();
         }
 
-        // Method to retrieve the page title text
         public String getPageTitle() {
             return pageTitle.getText();
         }
@@ -88,22 +85,18 @@ WebElement Returnsucessmsg;
             return Returnsucessmsg.getText();
         }
 
-        // Click Submit button
 
           public void clickSubmitrp() {
         submitButtonrp.click();
     }
 
-    // Check if any validation error is displayed
     public boolean isValidationErrorDisplayed() {
         List<WebElement> errors = driver.findElements(errorMessages);
         return errors.size() > 0;
     }
 
-    // --- Page Title ---
 
 
-    // --- Input Fields with Placeholders ---
     @FindBy(id = "input-order-id")
     public WebElement orderIDFieldp;
 
@@ -122,18 +115,12 @@ WebElement Returnsucessmsg;
     @FindBy(id = "input-comment")
     public WebElement faultDetailsFieldp;
 
-    // --- Back Button ---
     @FindBy(xpath = "//a[normalize-space()='Back' and contains(@class,'btn')] | //input[@value='Back'] | //button[normalize-space()='Back']")
     private WebElement backButton;
 
-    // Breadcrumb Element (add the correct XPath here)
     @FindBy(xpath = "//ul[@class='breadcrumb']//li[last()]")  // Example XPath for breadcrumb
     public WebElement breadcrumbElement;
 
-
-
-
-    // --- Methods ---
 
 
     public String getOrderIDPlaceholder() {
@@ -160,11 +147,9 @@ WebElement Returnsucessmsg;
         return faultDetailsFieldp.getAttribute("placeholder");
     }
 
-    // Web element for the return message
     @FindBy(xpath = "//div[@class='alert alert-success']")
     private WebElement returnMessage;
 
-    // Method to click Back
     public void clickBack() {
         wait.until(ExpectedConditions.elementToBeClickable(backButton)).click();
     }
@@ -173,7 +158,6 @@ WebElement Returnsucessmsg;
     WebElement pageTitle;
 
 
-    // Method to get the return message
     public String getReturnMessage() {
         return returnMessage.getText();
     }

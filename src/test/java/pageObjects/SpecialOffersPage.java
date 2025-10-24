@@ -17,19 +17,17 @@ import org.openqa.selenium.support.ui.Select;
 public class SpecialOffersPage {
 
     WebDriver driver;
-    private WebDriverWait wait; // Made private for encapsulation
+    private WebDriverWait wait;
 
     private static final Logger logger = LoggerFactory.getLogger(SpecialOffersPage.class);
 
 
-    // Constructor to initialize driver and WebDriverWait
     public SpecialOffersPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Initialize WebDriverWait
         PageFactory.initElements(driver, this); // Initializes all @FindBy elements
     }
 
-    // Locator for the page title or heading (change the XPath if necessary)
     @FindBy(xpath = "/html/body/div[2]/div/div/h2")
     public WebElement pageTitle;
 
@@ -38,26 +36,20 @@ public class SpecialOffersPage {
 
 
 
-    // Method to get the page title text
     public String getPageTitle() {
         return pageTitle.getText();
     }
 
-    // Locator for the 'Specials' footer link
     @FindBy(linkText = "Specials")
     public WebElement specialsFooterLink;
 
-    // Locator for the 'Compare this Product' icon
     public By compareProductIcon = By.xpath("//div[@class='product-thumb']//button[contains(@onclick, 'compare.add')]");
 
-    // Locator for the success message after adding a product to the comparison
     public By successMessageLocator = By.xpath("//div[contains(@class, 'alert-success')]");
 
-    // Locator for the 'Compare this Product' icon (Adjust based on actual UI)
     @FindBy(xpath = "//button[@title='Compare this Product']")
     public WebElement compareThisProductButton;
 
-    // Locator for success message
     @FindBy(xpath = "//div[contains(@class, 'alert-success')]")
     public WebElement successMessage;
 
@@ -67,7 +59,6 @@ public class SpecialOffersPage {
     @FindBy(xpath = "//*[@id='content']/div[2]/div[2]/div/div[2]/div[2]/button[3]")
     public WebElement productcomparebtn;
 
-    // Locator for the success message text
     public By successMessageText = By.xpath("//div[contains(@class, 'alert-success')]//text()");
 
 public void clickproductcomparisonmsg(){
@@ -82,12 +73,10 @@ public void clickwishlisticon(){
     wishlisticon.click();
 }
 
-    // Method to click on the 'Specials' footer link
     public void clickSpecialsLink() {
         wait.until(ExpectedConditions.elementToBeClickable(specialsFooterLink)).click();
     }
 
-    // Method to check if the offer products are displayed
     @FindBy(xpath = "//div[@class='product-thumb']")
     public WebElement specialOfferItem;
 
@@ -95,15 +84,12 @@ public void clickwishlisticon(){
         return specialOfferItem.isDisplayed();
     }
 
-    // Method to click on the first special offer item (optional)
     public void clickFirstSpecialOffer() {
         specialOfferItem.click();
     }
 
-    // Locator for the offer products (adjust according to the actual HTML)
     public By offerProductsLocator = By.cssSelector(".offer-product");
 
-    // Method to check if offer products are displayed
     public boolean areOfferProductsDisplayed() {
         try {
             // Wait for the offer products to be visible on the page
@@ -114,13 +100,11 @@ public void clickwishlisticon(){
         }
     }
 
-    // Method to select Grid view option
     public void selectGridView() {
         WebElement gridViewOption = wait.until(ExpectedConditions.elementToBeClickable(By.id("grid-view")));
         gridViewOption.click();
     }
 
-    // Method to verify products are displayed in Grid view
     @FindBy(xpath = "//div[@class='product-thumb']")
     public WebElement productGrid;
 
@@ -128,11 +112,9 @@ public void clickwishlisticon(){
         return productGrid.isDisplayed();  // Validate if product grid is visible
     }
 
-    // Locator for 'ADD TO CART' button
     @FindBy(xpath = "//button[contains(@onclick, 'cart.add')]")
     public WebElement addToCartButton;
 
-    // Method to click the 'Add to Cart' button for the first product
     public void clickAddToCart() {
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
     }

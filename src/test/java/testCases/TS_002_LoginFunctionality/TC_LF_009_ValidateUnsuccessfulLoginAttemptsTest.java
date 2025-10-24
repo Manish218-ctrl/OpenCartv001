@@ -23,11 +23,9 @@ public class TC_LF_009_ValidateUnsuccessfulLoginAttemptsTest extends BaseClass {
 
             LoginPage lp = new LoginPage(driver);
 
-            // Invalid credentials (test data)
             String invalidEmail = "xyzabc123@gmail.com";
             String invalidPassword = "xyzabc123";
 
-            // Perform 5 unsuccessful login attempts
             for (int i = 1; i <= 5; i++) {
                 lp.setEmail(invalidEmail);
                 lp.setPassword(invalidPassword);

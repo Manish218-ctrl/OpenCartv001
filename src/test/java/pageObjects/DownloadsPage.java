@@ -31,7 +31,7 @@ import java.util.List;
 
 
 
-        // Optional: Validate breadcrumb or title
+       // Validate breadcrumb or title
         @FindBy(xpath = "//ul[@class='breadcrumb']//li[last()]")
         private WebElement breadcrumbElement;
 

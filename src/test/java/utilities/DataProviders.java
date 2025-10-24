@@ -14,7 +14,7 @@ public class DataProviders {
     public String [][] getData() throws IOException
     {
         // NOTE: Ensure the ExcelUtility class is correctly implemented to read test data.
-        String path=".\\testData\\TC_RF_001_ValidateAccountRegistrationDataDrivenTest(TestData).xlsx";
+        String path=".\\testData\\TC_RF_011_ValidateAccountRegistrationDataDrivenTest(TestData).xlsx";
 
         ExcelUtility xlutil = new ExcelUtility(path);
 

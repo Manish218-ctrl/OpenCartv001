@@ -145,7 +145,7 @@ public class RegisterPage extends BasePage {
         }
 
 
-        // ------------ ACTION METHODS ------------
+        //ACTION METHODS
 
         public void setFirstName(String fname) {
             txtFirstName.clear();

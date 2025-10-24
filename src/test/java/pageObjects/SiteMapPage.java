@@ -26,7 +26,6 @@ public class SiteMapPage extends BasePage {
 
             public By headingSiteMap = By.xpath("/html/body/div[2]/div/div/h1");
             private By linkShoppingCart = By.xpath("/html/body/div[2]/div/div/div/div[2]/ul/li[3]/a");
-            // Locator for Order History link inside Site Map
             private By linkOrderHistory = By.xpath("/html/body/div[2]/div/div/div/div[2]/ul/li[2]/ul/li[4]/a");
 
 
@@ -49,23 +48,19 @@ public class SiteMapPage extends BasePage {
             }
 
 
-            // Method to click on Order History
             public void clickOrderHistoryLink () {
                 wait.until(ExpectedConditions.elementToBeClickable(linkOrderHistory)).click();
             }
 
 
-            // --- Locator for 'Address Book' link in Site Map page ---
             @FindBy(xpath = "//a[normalize-space()='Address Book']")
             public WebElement lnkAddressBook;
 
-            // --- Method to click 'Address Book' link ---
             public void clickAddressBook () {
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
                 try {
                     WebElement addressBookLink = wait.until(ExpectedConditions.elementToBeClickable(lnkAddressBook));
 
-                    // Scroll into view in case it's hidden
                     ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addressBookLink);
 
                     addressBookLink.click();
@@ -75,24 +70,19 @@ public class SiteMapPage extends BasePage {
             }
 
 
-            // --- Locator for 'Account Information' link ---
             private By linkAccountInformation = By.xpath("//div[@id='content']//a[normalize-space()='Account Information']");
 
-            // --- Method to click 'Account Information' ---
             public void clickAccountInformation () {
                 WebElement element = wait.until(ExpectedConditions.elementToBeClickable(linkAccountInformation));
 
-                // Scroll into view in case it is not visible
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 
                 element.click();
             }
 
-            // Locator for "Password" link
             private By lnkPassword = By.xpath("//div[@id='content']//a[normalize-space()='Password']");
 
 
-            // Method to click "Password" link
             public void clickPasswordLink () {
                 WebElement passwordLink = driver.findElement(lnkPassword);
                 passwordLink.click();

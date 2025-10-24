@@ -153,11 +153,6 @@ public class HomePage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(lnkFooterAboutUs)).click();
     }
 
-    // Method to get the page title (you can modify this method to check specific text if needed)
-    /*public String getPageTitle() {
-        return driver.getTitle();
-    }*/
-
 
     // Method to get the phone number displayed next to the 'Contact Us' option
     public String getPhoneNumber() {
@@ -250,9 +245,6 @@ public class HomePage extends BasePage {
     @FindBy(name = "confirm")
     private WebElement btnConfirmOrder;
 
-    // In HomePage.java
-
-// In HomePage.java
 
     @FindBy(xpath = "/html/body/footer/div/div/div[2]/ul/li[1]/a")
     public static WebElement lnkFooterContactUs;
@@ -407,7 +399,7 @@ public class HomePage extends BasePage {
     private WebElement btnCart;
 
 
-// --- METHODS ---
+
 
     // Check if carousel section is displayed
     public boolean isPartnerCarouselDisplayed() {
@@ -454,7 +446,7 @@ public class HomePage extends BasePage {
     }
 
 
-    // Case 2: From cart dropdown (used in empty cart tests)
+    // From cart dropdown (used in empty cart tests)
     public void clickViewCartFromCartDropdown() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -1012,26 +1004,25 @@ public class HomePage extends BasePage {
 
 
 
-    // --- Locators ---
-    // Define search input field locator
+
     private final By txt_search_locator = By.xpath("//input[@name='search']");
     private final By btn_search_locator = By.xpath("//button[@class='btn btn-default btn-lg']");
 
 
     public void enterSearchText(String text) {
-        // Explicitly wait for the element to be present and visible before interacting
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // Find a fresh reference to the element
+
         WebElement searchField = wait.until(ExpectedConditions.presenceOfElementLocated(txt_search_locator));
 
-        // Use the fresh reference
+
         searchField.clear();
         searchField.sendKeys(text);
     }
 
     public void clickSearchButton() {
-        // Similarly, wait for the button to be clickable
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(btn_search_locator));
         searchButton.click();

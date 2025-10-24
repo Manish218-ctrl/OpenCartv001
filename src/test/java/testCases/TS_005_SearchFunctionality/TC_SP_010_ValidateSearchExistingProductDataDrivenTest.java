@@ -24,21 +24,17 @@ public class TC_SP_010_ValidateSearchExistingProductDataDrivenTest extends BaseC
 
         try
         {
-            // Step 1: Perform search from home page
             HomePage homePage = new HomePage(driver);
             homePage.searchProduct(searchQuery);
             logger.info("Executed search for: '{}'", searchQuery);
 
-            // Step 2: Validate product appears in search results
             SearchPage searchPage = new SearchPage(driver);
             boolean isProductVisible = searchPage.isProductDisplayed(expectedProductTitle);
 
             if (isProductVisible) {
-                // Step 3: Get actual product title and compare
                 String actualProductTitle = searchPage.getActualProductTitleFromResults(expectedProductTitle);
                 logger.info("Product found: '{}'", actualProductTitle);
 
-                // Step 4: Assert using contains() for flexible matching
                 Assert.assertTrue(
                         actualProductTitle.contains(expectedProductTitle) ||
                                 expectedProductTitle.contains(actualProductTitle),
@@ -59,7 +55,6 @@ public class TC_SP_010_ValidateSearchExistingProductDataDrivenTest extends BaseC
             }
         }
         catch (AssertionError ae) {
-            // Re-throw assertion errors directly
             throw ae;
         }
         catch (Exception e)

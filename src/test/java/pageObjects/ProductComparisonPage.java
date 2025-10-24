@@ -206,21 +206,19 @@ public class ProductComparisonPage extends BasePage {
     public void addProductToCart(String productName) {
         logger.info("Attempting to add product '{}' to cart from comparison page.", productName);
 
-        // 1. Locate the product link element in the table header (<th> or <td>)
-        // This helps us find its column.
+
         By productHeaderLinkLocator = By.xpath(
                 "//table[@class='table table-bordered']//thead//a[normalize-space()='" + productName + "']"
         );
         WebElement productLinkInHeader = wait.until(ExpectedConditions.visibilityOfElementLocated(productHeaderLinkLocator));
 
-        // 2. Find the immediate parent TH (table header) of the product link.
+
         WebElement headerCell = productLinkInHeader.findElement(By.xpath("./ancestor::th[1]"));
 
-        // 3. Find all preceding TH elements in that same header row to determine the 1-based column index.
-        // This calculates the position of the product's column.
+
         int columnIndex = driver.findElements(By.xpath(
                 "//table[@class='table table-bordered']//thead//th[preceding-sibling::th]"
-        )).size() + 1; // Start with 1-based index
+        )).size() + 1;
 
         List<WebElement> allHeaderThs = driver.findElements(By.xpath("//table[@class='table table-bordered']//thead//th"));
         int productActualColumnIndex = -1;
@@ -258,20 +256,17 @@ public class ProductComparisonPage extends BasePage {
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", addToCartBtn);
         }
     }
-    // --- FIX END: addProductToCart method with robust scrolling ---
 
-    // You might also need the isProductInCart method in ProductComparisonPage:
+
+
     public boolean isProductInCart(String productName) {
-        // This is typically in the Mini Cart/Shopping Cart page, not Comparison page.
-        // Assuming this method checks the actual Shopping Cart page.
-        // If it's meant to check a success message, you'll need to adapt.
-        // For now, let's assume it checks the final cart.
+
         logger.warn("isProductInCart on ProductComparisonPage currently assumes checking the actual Shopping Cart page after navigation. Ensure correct context.");
         return driver.getCurrentUrl().contains("checkout/cart") &&
                 driver.findElements(By.xpath("//td[@class='text-left']//a[normalize-space()='" + productName + "']")).size() > 0;
     }
 
-    // Example of clearAllComparedProducts method
+
     public void clearAllComparedProducts() {
         if (isOnComparisonPage()) {
             By removeButtonLocator = By.xpath("//a[contains(@href, 'remove')]");

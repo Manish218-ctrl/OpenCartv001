@@ -39,9 +39,7 @@ public class TransactionsPage extends BasePage {
 
 
 
-    // TransactionsPage.java
 
-    // Replace old locator
     @FindBy(xpath = "/html/body/div[2]/div/div/h1")
     public WebElement headingYourTransactions;
 
@@ -58,7 +56,7 @@ public class TransactionsPage extends BasePage {
     @FindBy(xpath = "//table[@class='table table-bordered table-hover']//tbody/tr")
     private List<WebElement> tableRows;
 
-    // --- METHODS ---
+    //METHODS
 
     public boolean isTransactionsHeadingDisplayed() {
         return wait.until(ExpectedConditions.visibilityOf(headingYourTransactions)).isDisplayed();
@@ -79,11 +77,9 @@ public class TransactionsPage extends BasePage {
         return tableRows.size();
     }
 
-    // Locator for Continue button on Transactions page
     @FindBy(xpath = "/html/body/div[2]/div/div/div[3]/div/a")
     public WebElement btnContinue;
 
-    // Method to click Continue
     public void clickContinueButton() {
         wait.until(ExpectedConditions.elementToBeClickable(btnContinue)).click();
     }

@@ -62,7 +62,6 @@ public class WishListPage extends BasePage {
 
 
 
-    //  Actions
 
 
     public boolean isOnWishListPage() {
@@ -74,7 +73,6 @@ public class WishListPage extends BasePage {
     }
 
 
-    // Remove the first product in the wishlist (if exists)
     public void removeFirstProduct() {
         try {
             List<WebElement> rows = driver.findElements(productRows);
@@ -92,7 +90,6 @@ public class WishListPage extends BasePage {
         }
     }
 
-    // Clear all products from wishlist
     public void clearWishList() {
         try {
             List<WebElement> removeButtons = driver.findElements(By.xpath("//button[@data-original-title='Remove']"));
@@ -105,7 +102,6 @@ public class WishListPage extends BasePage {
         }
     }
 
-    // --- Utility methods ---
 
     public int getTotalProductsInWishList() {
         try {
@@ -125,7 +121,6 @@ public class WishListPage extends BasePage {
         driver.findElement(productNameCell(productName)).click();
     }
 
-    // --- Locators ---
     public By addToCartButtonInRow = By.xpath("//*[@id=\"content\"]/div[1]/table/tbody/tr/td[6]/button/i");
 
     public void clickAddToCartIcon(String productName) {
@@ -137,7 +132,6 @@ public class WishListPage extends BasePage {
         return new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    // Inside your Page Object's method (e.g., clickWishListLinkFromSuccessMessage)
 
     public void clickWishListLinkFromSuccessMessage() {
         WebElement wishListLink = waitShort().until(

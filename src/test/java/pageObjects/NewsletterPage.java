@@ -36,7 +36,13 @@ public class NewsletterPage extends BasePage {
     @FindBy(css = "input[type='submit'][value='Continue']")
     private WebElement btnContinue;
 
-    // --- METHODS ---
+    @FindBy(id = "newsletter-yes")
+    private WebElement yesOption;
+
+    @FindBy(id = "newsletter-no")
+    private WebElement noOption;
+
+    //METHODS
 
     public String getPageTitle() {
         wait.until(ExpectedConditions.visibilityOf(pageTitle));
@@ -77,8 +83,6 @@ public class NewsletterPage extends BasePage {
     }
 
 
-    // NewsletterPage.java
-
     // Click the Back button (if present on the page)
     @FindBy(css = "a.btn.btn-default")  // adjust selector if needed
     private WebElement btnBack;
@@ -107,11 +111,6 @@ public class NewsletterPage extends BasePage {
         }
     }
 
-    @FindBy(id = "newsletter-yes")
-    private WebElement yesOption;
-
-    @FindBy(id = "newsletter-no")
-    private WebElement noOption;
 
 
 }

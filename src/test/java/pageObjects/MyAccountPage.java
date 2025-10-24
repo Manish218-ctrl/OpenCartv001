@@ -39,7 +39,7 @@ public class MyAccountPage extends BasePage {
     WebElement newsletterfooterlnk;
 
 
-    // Click Logout link
+
     public void clickLogout() {
         try {
             lnkLogout.click();
@@ -52,7 +52,6 @@ public class MyAccountPage extends BasePage {
         newsletterfooterlnk.click();
     }
 
-    // Verify if user is logged in (logout link displayed)
     public boolean isUserLoggedIn() {
         try {
             return lnkLogout.isDisplayed();
@@ -96,13 +95,6 @@ public class MyAccountPage extends BasePage {
 
 @FindBy(xpath = "/html/body/footer/div/div/div[2]/ul/li[2]/a")
 public WebElement lnkreturnfooterlink;
-
-   /* public void clicklnkreturnfooterlink() {
-        lnkreturnfooterlink.click();
-    }*/
-        /*  @FindBy(xpath = "//a[contains(text(), 'View your Product Returns')]")
-    private WebElement lnkViewYourReturnRequests;*/
-
 
 
     @FindBy(xpath = "//a[normalize-space(text())='View your return requests']")
@@ -266,7 +258,7 @@ public WebElement lnkreturnfooterlink;
     @FindBy(xpath = "//ul[@class='breadcrumb']//li[last()]")
     private WebElement breadcrumbElement;
 
-    // Method to get the breadcrumb text
+
     public String getBreadcrumb() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(breadcrumbElement));
@@ -276,13 +268,13 @@ public WebElement lnkreturnfooterlink;
     @FindBy(linkText = "Downloads")
     public WebElement lnkDownloads;
 
-    // Click Downloads link
+
     public void clickDownloads() {
         wait.until(ExpectedConditions.elementToBeClickable(lnkDownloads)).click();
         logger.info("Clicked on 'Downloads' link in My Account page.");
     }
 
-    // Validate if Downloads page is displayed by page title
+
     public String getPageTitle() {
         return driver.getTitle();
     }
@@ -322,8 +314,6 @@ WebElement rightclmnmyaccount;
         wait.until(ExpectedConditions.elementToBeClickable(btnContinue0));
         btnContinue0.click();
     }
-
-
 
 
     @FindBy(xpath = "//ul[@class='breadcrumb']//li[last()]")
@@ -390,15 +380,6 @@ WebElement rightclmnmyaccount;
 
 
 
-
-
-
-
-
-
-
-
-
     public boolean isMyAccountPageExists() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -446,10 +427,6 @@ WebElement rightclmnmyaccount;
             Assert.fail("Unable to click on Address Book link: " + e.getMessage());
         }
     }
-
-
-
-
 
 }
 

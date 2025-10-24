@@ -14,24 +14,22 @@ import java.util.List;
 public class ShoppingCartPage extends BasePage {
 
     private WebDriver driver;
-   // private WebDriverWait wait;
 
     public ShoppingCartPage(WebDriver driver) {
         super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        //wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
     }
 
-    // --- Locators ---
+    //Locators
     private By headingShoppingCart = By.xpath("//*[@id='content']/h1");
     private By cartProductNames = By.cssSelector("table.table.table-bordered td.text-left a");
     private final By removeProductButtonLocator = By.xpath("//button[@data-original-title='Remove' or contains(@class, 'btn-danger')]");
     private final By shoppingCartHeaderLink = By.xpath("//a[@title='Shopping Cart']");
     private final By emptyCartMessage = By.xpath("//div[@id='content']/p[text()='Your shopping cart is empty!']");
 
-    // --- Methods ---
+    //Methods
 
     // Verify we are on Shopping Cart page (by heading or fallback URL check)
     public boolean isOnShoppingCartPage() {
@@ -121,7 +119,6 @@ public class ShoppingCartPage extends BasePage {
 
     public void clickShoppingCartLinkInSuccessMessage() {
         By cartLinkLocator = By.xpath("/html/body/div[2]/div[1]/a[2]");
-        // Code to click the shopping cart link.
     }
 
     @FindBy(xpath = "//table[@class='table table-bordered']//tr//td//img")
@@ -140,18 +137,15 @@ public class ShoppingCartPage extends BasePage {
     public void removeProduct(String productName) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            // Locate the row containing the product
             WebElement productRow = wait.until(
                     ExpectedConditions.presenceOfElementLocated(
                             By.xpath("//div[@id='content']//a[normalize-space(text())='" + productName + "']/ancestor::tr")
                     )
             );
 
-            // Find the remove button inside that row
             WebElement removeBtn = productRow.findElement(By.xpath(".//button[@data-original-title='Remove']"));
             removeBtn.click();
 
-            // Wait for the row to disappear after removal
             wait.until(ExpectedConditions.invisibilityOf(productRow));
 
             logger.info(productName + " removed from the cart successfully.");

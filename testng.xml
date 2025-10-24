@@ -22,13 +22,11 @@
 
 
 
-          <!--  <class name="testCases.TC_002LoginTest" />
-             <class name="testCases.TC_002LoginTest" />
-            <class name="testCases.TC_003LoginDDT" />-->
+
 
             TS_001_AccountRegistration
 
-           <!-- <class name="testCases.TS_001_AccountRegistration.TC_RF_001_ValidateAccountRegistrationTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_001_ValidateAccountRegistrationTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_002_ValidateRegisterAllFieldsTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_003_ValidateRegisterMandatoryFieldsTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_004_ValidateRegisterNewsletterYesTest" />
@@ -37,12 +35,12 @@
             <class name="testCases.TS_001_AccountRegistration.TC_RF_007_ValidateRegisterPasswordMismatchTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_008_ValidateInvalidEmailRegistrationTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_009_ValidateMissingPasswordConfirmTest" />
-            <class name="testCases.TS_001_AccountRegistration.TC_RF_010_ValidateMissingPrivacyPolicyTest" />-->
-            <class name="testCases.TS_001_AccountRegistration.TC_RF_001_ValidateAccountRegistrationDataDrivenTest" />-->
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_010_ValidateMissingPrivacyPolicyTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_011_ValidateAccountRegistrationDataDrivenTest" />-->
 
             TS_002_LoginFunctionality
 
-            <!--<class name="testCases.TS_002_LoginFunctionality.TC_LF_001_ValidateLoginTest" />
+            <class name="testCases.TS_002_LoginFunctionality.TC_LF_001_ValidateLoginTest" />
             <class name="testCases.TS_002_LoginFunctionality.TC_LF_002_ValidateInvalidLoginTest" />
             <class name="testCases.TS_002_LoginFunctionality.TC_LF_003_ValidateInvalidEmailValidPasswordTest" />
             <class name="testCases.TS_002_LoginFunctionality.TC_LF_004_ValidateKeyboardLoginTest" />
@@ -59,8 +57,8 @@
 
             TS_003_LogOutFunctionality
 
-           <!-- <class name="testCases.TS_003_LogOutFunctionality.TC_LG_001_ValidateLogoutFunctionalityTest" />
-            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_002_ValidateLogoutFunctionalityRightColumnTest" />
+            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_001_ValidateLogoutFunctionalityTest" />
+            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_002_ValidateLogoutFunctionalityRightColumnTest" />-->
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_003_ValidateSessionPersistenceTest" />
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_004_ValidateLogoutOptionNotDisplayedBeforeLoginTest" />
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_005_ValidateLogoutOptionNotDisplayedRightColumnTest" />
@@ -73,7 +71,7 @@
 
             TS_004_ProductCompare
 
-          <!--  <class name="testCases.TS_004_ProductCompare.TC_PC_001_ValidateProductCompareTest" />
+            <class name="testCases.TS_004_ProductCompare.TC_PC_001_ValidateProductCompareTest" />
             <class name="testCases.TS_004_ProductCompare.TC_PC_002_ValidateProductCompareFromListViewTest" />
             <class name="testCases.TS_004_ProductCompare.TC_PC_003_ValidateProductCompareFromGridViewTest" />
             <class name="testCases.TS_004_ProductCompare.TC_PC_004_ValidateProductCompareFromCategoryListViewTest" />
@@ -91,7 +89,7 @@
 
             TS_005_SearchFunctionality
 
-            <!--<class name="testCases.TS_005_SearchFunctionality.TC_SP_001_ValidateSearchExistingProductTest" />
+              <class name="testCases.TS_005_SearchFunctionality.TC_SP_001_ValidateSearchExistingProductTest" />
               <class name="testCases.TS_005_SearchFunctionality.TC_SP_002_ValidateSearchNonExistingProductTest" />
               <class name="testCases.TS_005_SearchFunctionality.TC_SP_003_ValidateSearchWithoutProductNameTest" />
               <class name="testCases.TS_005_SearchFunctionality.TC_SP_004_ValidateSearchProductAfterLoginTest" />
@@ -105,12 +103,13 @@
 
             TS_006_AddtoCart
 
-           <!-- <class name="testCases.TS_006_AddtoCart.TC_ATC_001_ValidateAddToCartTest"/>
+           <!--<class name="testCases.TS_006_AddtoCart.TC_ATC_001_ValidateAddToCartTest"/>
             <class name="testCases.TS_006_AddtoCart.TC_ATC_002_ValidateAddToCartFromWishListTest"/>
             <class name="testCases.TS_006_AddtoCart.TC_ATC_003_ValidateAddToCartFromRelatedProductsTest"/>
             <class name="testCases.TS_006_AddtoCart.TC_ATC_004_ValidateAddProductToCartFromCategoryPageTest"/>
-            <class name="testCases.TS_006_AddtoCart.TC_ATC_005_ValidateAddToCartTest_DataDrivenTest"/>
-            <class name="testCases.TS_006_AddtoCart.TC_ATC_006_ValidateAddToCartFromCategoryPageTest"/>-->
+            <class name="testCases.TS_006_AddtoCart.TC_ATC_005_ValidateAddToCartFromCategoryPageTest"/>-->
+            <!--<class name="testCases.TS_006_AddtoCart.TC_ATC_006_ValidateAddToCartTestDataDrivenTest"/>-->
+
 
             TS_007_WishList
 
@@ -175,18 +174,20 @@
             <class name="testCases.TS_012_SpecialOffers.TC_SPO_008_ValidateSpecialOffersPageFromWishListNavigationTest" />
             <class name="testCases.TS_012_SpecialOffers.TC_SPO_009_ValidateAddingProductForComparisonTest" />-->
 
-            TS_013_ContactUs
-         <!--<class name="testCases.TS_013_ContactUs.TC_CU_001_ValidateContactUsPageNavigationFromHeaderOptionsTest" />
-            <class name="testCases.TS_013_ContactUs.TC_CU_002_ValidateContactUsPageNavigationFromFooterOptionsTest" />
-            <class name="testCases.TS_013_ContactUs.TC_CU_003_ValidateContactUsPageNavigationFromOrderSuccessTest" />
-            <class name="testCases.TS_013_ContactUs.TC_CU_004_ValidateContactUsPageValidationTest" />
-            <class name="testCases.TS_013_ContactUs.TC_CU_005_ValidateContactUsFormSubmissionTest" />
-            <class name="testCases.TS_013_ContactUs.TC_CU_006_ValidateContactUsInvalidEmailTest" />
-            <class name="testCases.TS_013_ContactUs.TC_CU_007_ValidateContactUsNoDetailsSubmittedTest" />
-            <class name="testCases.TS_013_ContactUs.TC_CU_008_ValidateContactUsPageTitleTest" />
-            <class name="testCases.TS_013_ContactUs.TC_CU_009_ValidateContactUsMandatoryFieldsTest" />
-            <class name="testCases.TS_013_ContactUs.TC_CU_010_ValidateContactUsPageBreadcrumbValidationTest" />-->
 
+            TS_013_ChangePassword
+
+            <!-- <class name="testCases.TS_013_ChangePassword.TC_CP_001_ValidateChangePasswordPageNavigationValidationTest"/>
+             <class name="testCases.TS_013_ChangePassword.TC_CP_002_ValidateChangePasswordFromRightColumnNavigationTest"/>
+             <class name="testCases.TS_013_ChangePassword.TC_CP_003_ValidateChangePasswordFromSiteMapTest"/>
+             <class name="testCases.TS_013_ChangePassword.TC_CP_004_ValidateChangePasswordTest"/>
+             <class name="testCases.TS_013_ChangePassword.TC_CP_005_ValidateChangePasswordWithBlankFieldsTest"/>
+             <class name="testCases.TS_013_ChangePassword.TC_CP_006_ValidatePasswordMismatchTest"/>
+             <class name="testCases.TS_013_ChangePassword.TC_CP_007_ValidateChangePasswordMandatoryFieldsTest"/>
+             <class name="testCases.TS_013_ChangePassword.TC_CP_008_ValidateChangePasswordHideTextTest"/>
+             <class name="testCases.TS_013_ChangePassword.TC_CP_009_ValidateChangePasswordBackButtonTest"/>
+             <class name="testCases.TS_013_ChangePassword.TC_CP_010_ValidateChangePasswordBreadcrumbTest"/>
+             <class name="testCases.TS_013_ChangePassword.TC_CP_011_ValidateChangePasswordPageDetailsTest"/>-->
 
             TS_014_NewsLetter
 
@@ -343,23 +344,20 @@
              <class name="testCases.TS_026_Transaction.TC_TS_008_ValidateBreadcrumbTest"/>
              <class name="testCases.TS_026_Transaction.TC_TS_009_ValidateTransactionsPageURLTitleHeadingTest"/>-->
 
-            TS_027_ChangePassword
-
-             <!-- <class name="testCases.TS_027_ChangePassword.TC_CP_001_ValidateChangePasswordPageNavigationValidationTest"/>
-              <class name="testCases.TS_027_ChangePassword.TC_CP_002_ValidateChangePasswordFromRightColumnNavigationTest"/>
-              <class name="testCases.TS_027_ChangePassword.TC_CP_003_ValidateChangePasswordFromSiteMapTest"/>
-              <class name="testCases.TS_027_ChangePassword.TC_CP_004_ValidateChangePasswordTest"/>
-              <class name="testCases.TS_027_ChangePassword.TC_CP_005_ValidateChangePasswordWithBlankFieldsTest"/>
-              <class name="testCases.TS_027_ChangePassword.TC_CP_006_ValidatePasswordMismatchTest"/>
-              <class name="testCases.TS_027_ChangePassword.TC_CP_007_ValidateChangePasswordMandatoryFieldsTest"/>
-              <class name="testCases.TS_027_ChangePassword.TC_CP_008_ValidateChangePasswordHideTextTest"/>
-              <class name="testCases.TS_027_ChangePassword.TC_CP_009_ValidateChangePasswordBackButtonTest"/>
-              <class name="testCases.TS_027_ChangePassword.TC_CP_010_ValidateChangePasswordBreadcrumbTest"/>
-              <class name="testCases.TS_027_ChangePassword.TC_CP_011_ValidateChangePasswordPageDetailsTest"/>-->
 
 
+            TS_027_ContactUs
 
-
+            <!--<class name="testCases.TS_027_ContactUs.TC_CU_001_ValidateContactUsPageNavigationFromHeaderOptionsTest" />
+               <class name="testCases.TS_027_ContactUs.TC_CU_002_ValidateContactUsPageNavigationFromFooterOptionsTest" />
+               <class name="testCases.TS_027_ContactUs.TC_CU_003_ValidateContactUsPageNavigationFromOrderSuccessTest" />
+               <class name="testCases.TS_027_ContactUs.TC_CU_004_ValidateContactUsPageValidationTest" />
+               <class name="testCases.TS_027_ContactUs.TC_CU_005_ValidateContactUsFormSubmissionTest" />
+               <class name="testCases.TS_027_ContactUs.TC_CU_006_ValidateContactUsInvalidEmailTest" />
+               <class name="testCases.TS_027_ContactUs.TC_CU_007_ValidateContactUsNoDetailsSubmittedTest" />
+               <class name="testCases.TS_027_ContactUs.TC_CU_008_ValidateContactUsPageTitleTest" />
+               <class name="testCases.TS_027_ContactUs.TC_CU_009_ValidateContactUsMandatoryFieldsTest" />
+               <class name="testCases.TS_027_ContactUs.TC_CU_010_ValidateContactUsPageBreadcrumbValidationTest" />-->
 
 
 
