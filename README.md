@@ -66,7 +66,7 @@ This project implements a Hybrid Driven Automation Framework tailored for the Op
 
 •	Full Jenkins and Docker integration to automate Maven builds upon commits, publish test results, and enable continuous regression testing.
 
-### **Generated Extent Reports**
+### **Generated Extent Report**
 
 ![Extent Report](/reports/Screenshot%202025-10-29%20121239.png)
 
