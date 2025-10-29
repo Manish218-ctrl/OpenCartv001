@@ -12,17 +12,7 @@
        <!-- <parameter name="useRandomAddress" value="true"/>-->
 
 
-
-
-
-
-
         <classes>
-
-
-
-
-
 
             TS_001_AccountRegistration
 
@@ -358,13 +348,6 @@
                <class name="testCases.TS_027_ContactUs.TC_CU_008_ValidateContactUsPageTitleTest" />
                <class name="testCases.TS_027_ContactUs.TC_CU_009_ValidateContactUsMandatoryFieldsTest" />
                <class name="testCases.TS_027_ContactUs.TC_CU_010_ValidateContactUsPageBreadcrumbValidationTest" />-->
-
-
-
-
-
-
-
 
 
 
