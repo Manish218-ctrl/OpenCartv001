@@ -76,5 +76,18 @@ This project implements a Hybrid Driven Automation Framework tailored for the Op
 
 ![Failed Test](screenshots/test_session_persistence_after_browser_close_20251024111441.png)
 
+### **Technologies Used**
+
+•	Java, Selenium WebDriver, TestNG, Maven
+
+•	Apache POI for data-driven tests via Excel
+
+•	Selenium Grid and Docker for parallel and cross-browser execution
+
+•	Log4j2 and ExtentReports for diagnostics and reports
+
+•	Jenkins for continuous integration and deployment
+
+
 
 
