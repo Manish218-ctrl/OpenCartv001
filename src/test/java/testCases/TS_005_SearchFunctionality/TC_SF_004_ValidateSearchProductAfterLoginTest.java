@@ -12,11 +12,11 @@ import pageObjects.SearchPage; // Import the SearchPage
 import testBase.BaseClass;
 
 
-    public class TC_SP_004_ValidateSearchProductAfterLoginTest extends BaseClass {
+    public class TC_SF_004_ValidateSearchProductAfterLoginTest extends BaseClass {
 
         @Test(groups = {"sanity", "regression", "master"}) // Assigning groups for test categorization
         public void test_search_product_after_login() {
-            logger.info("Starting TC_SP_004_ValidateSearchProductAfterLoginTest: Validate searching for a product after login.");
+            logger.info("Starting TC_SF_004_ValidateSearchProductAfterLoginTest: Validate searching for a product after login.");
 
             try {
 
@@ -59,10 +59,10 @@ import testBase.BaseClass;
                 logger.info("Verified that the product '" + productName + "' is displayed in the search results.");
 
             } catch (Exception e) {
-                logger.error("Test execution failed for TC_SP_004_ValidateSearchProductAfterLoginTest: " + e.getMessage());
+                logger.error("Test execution failed for TC_SF_004_ValidateSearchProductAfterLoginTest: " + e.getMessage());
                 Assert.fail("Test failed due to an exception: " + e.getMessage());
             } finally {
-                logger.info("Finished TC_SP_004_ValidateSearchProductAfterLoginTest.");
+                logger.info("Finished TC_SF_004_ValidateSearchProductAfterLoginTest.");
             }
         }
     }

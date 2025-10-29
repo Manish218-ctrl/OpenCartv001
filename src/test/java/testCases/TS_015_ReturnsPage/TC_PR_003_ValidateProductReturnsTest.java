@@ -8,7 +8,7 @@ import pageObjects.HomePage;
 import pageObjects.ProductReturnsPage;
 import testBase.BaseClass;
 
-    public class TC_PR_003_ValidateProductductReturnsTest extends BaseClass {
+    public class TC_PR_003_ValidateProductReturnsTest extends BaseClass {
 
         @Test
         public void validateMandatoryFieldsOnProductReturnsPage() {

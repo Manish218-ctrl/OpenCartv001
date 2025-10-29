@@ -8,9 +8,9 @@ import testBase.BaseClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class TC_AB_003_ValidateAddressBookNavigationFooterLinkTest extends BaseClass {
+public class TC_AB_003_ValidateAddressBookNavigationSiteMapTest extends BaseClass {
 
-    private static final Logger logger = LogManager.getLogger(TC_AB_003_ValidateAddressBookNavigationFooterLinkTest.class);
+    private static final Logger logger = LogManager.getLogger(TC_AB_003_ValidateAddressBookNavigationSiteMapTest.class);
 
     @Test
     public void validateAddressBookNavigation() {

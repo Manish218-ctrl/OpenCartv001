@@ -33,7 +33,6 @@ import java.io.IOException;
             accountPage.clicknewsletterfooterlnk();
 
 
-            // Step 4: Verify the user is redirected to the Newsletter Subscription page
             logger.info("Verifying that the user is redirected to the Newsletter Subscription page.");
             NewsletterPage newsletterPage = new NewsletterPage(driver);
             String actualPageTitle = newsletterPage.getPageTitle();
@@ -44,10 +43,9 @@ import java.io.IOException;
 
         @AfterClass
         public void tearDown() {
-            // Close the browser after the test
             logger.info("Test execution completed. Closing the browser.");
             if (driver != null) {
-                driver.quit(); // Close all browser windows
+                driver.quit();
             }
         }
     }

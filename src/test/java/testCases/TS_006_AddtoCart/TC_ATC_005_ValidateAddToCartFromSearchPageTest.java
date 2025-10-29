@@ -9,12 +9,12 @@ import pageObjects.HomePage;
 import pageObjects.ShoppingCartPage;
 import testBase.BaseClass;
 
-    public class TC_ATC_005_ValidateAddToCartFromCategoryPageTest extends BaseClass {
+    public class TC_ATC_005_ValidateAddToCartFromSearchPageTest extends BaseClass {
 
         @Test
         public void verifyAddToCartFromCategoryPage() {
             try {
-                logger.info("***** Starting TC_ATC_005_ValidateAddToCartFromCategoryPageTest *****");
+                logger.info("***** Starting TC_ATC_005_ValidateAddToCartFromSearchPageTest *****");
 
                 // Step 1: Initialize HomePage
                 HomePage home = new HomePage(driver);
@@ -44,7 +44,7 @@ import testBase.BaseClass;
 
                 logger.info("Product successfully added and verified in Shopping Cart.");
 
-                logger.info("***** Finished TC_ATC_005_ValidateAddToCartFromCategoryPageTest  *****");
+                logger.info("***** Finished TC_ATC_005_ValidateAddToCartFromSearchPageTest  *****");
 
             } catch (Exception e) {
                 logger.error("Test failed due to exception: " + e.getMessage(), e);

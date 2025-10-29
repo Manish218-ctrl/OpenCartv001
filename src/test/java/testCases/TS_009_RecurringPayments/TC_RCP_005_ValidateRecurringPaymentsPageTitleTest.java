@@ -7,7 +7,7 @@ import pageObjects.HomePage;
 import pageObjects.RecurringPaymentsPage;
 import testBase.BaseClass;
 
-    public class TC_RCP_005_ValidateRecurringPaymentsPageTest extends BaseClass {
+    public class TC_RCP_005_ValidateRecurringPaymentsPageTitleTest extends BaseClass {
 
         @Test
         public void validateRecurringPaymentsPageDetails() {

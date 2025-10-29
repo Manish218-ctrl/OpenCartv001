@@ -13,7 +13,7 @@ import utilities.DataProviders;
  *
  * Test data is read from: src/test/resources/SearchData.xlsx -> ExistingProducts sheet
  */
-public class TC_SP_010_ValidateSearchExistingProductDataDrivenTest extends BaseClass {
+public class TC_SF_010_ValidateSearchExistingProductDataDrivenTest extends BaseClass {
 
     @Test(dataProvider = "SearchExistingProductData", dataProviderClass = DataProviders.class,
             groups = {"Sanity", "Regression"})

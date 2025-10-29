@@ -13,7 +13,7 @@ import pageObjects.ProductReturnsPage;
 import testBase.BaseClass;
 
 
-    public class TC_PR_005_ValidateProductductReturnsBackButtonTest extends BaseClass {
+    public class TC_PR_005_ValidateProductReturnsBackButtonTest extends BaseClass {
 
         @Test(description = "Validate Back button on Product Returns page navigates to My Account without submitting")
         public void verifyBackButtonOnProductReturnsPage() {

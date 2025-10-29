@@ -9,11 +9,11 @@ import testBase.BaseClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class TC_PR_004_ValidateProductductReturnsPlaceholdersTest extends BaseClass {
+public class TC_PR_004_ValidateProductReturnsPlaceholdersTest extends BaseClass {
 
     @Test
     public void validatePlaceholdersForProductReturnsPage() {
-        logger.info("***** Starting TC_PR_004_ValidateProductductReturnsPlaceholdersTest *****");
+        logger.info("***** Starting TC_PR_004_ValidateProductReturnsPlaceholdersTest *****");
 
         try {
             // Step 1: Perform login
@@ -67,6 +67,6 @@ public class TC_PR_004_ValidateProductductReturnsPlaceholdersTest extends BaseCl
             Assert.fail("Test failed due to exception: " + e.getMessage());
         }
 
-        logger.info("***** Finished TC_PR_004_ValidateProductductReturnsPlaceholdersTest *****");
+        logger.info("***** Finished TC_PR_004_ValidateProductReturnsPlaceholdersTest *****");
     }
 }

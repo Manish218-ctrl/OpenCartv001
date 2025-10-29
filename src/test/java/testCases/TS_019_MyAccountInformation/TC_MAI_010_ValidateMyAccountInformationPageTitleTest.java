@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import pageObjects.MyAccountPage;
 import testBase.BaseClass;
 
-    public class TC_MAI_010_ValidateMyAccountInformationPageTest extends BaseClass {
+    public class TC_MAI_010_ValidateMyAccountInformationPageTitleTest extends BaseClass {
 
         @Test
         public void validateMyAccountInformationPage() {

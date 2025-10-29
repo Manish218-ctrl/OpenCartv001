@@ -8,11 +8,11 @@ import pageObjects.MyAccountPage;
 import pageObjects.ProductReturnsPage;
 import testBase.BaseClass;
 
-public class TC_PR_002_ValidateSubmitValidateProductductForReturnTest extends BaseClass {
+public class TC_PR_002_ValidateSubmitValidateProductForReturnTest extends BaseClass {
 
     @Test
     public void validateSubmitProductForReturn() throws InterruptedException {
-        logger.info("Starting Test Case: TC_PR_002_ValidateSubmitValidateProductductForReturnTest");
+        logger.info("Starting Test Case: TC_PR_002_ValidateSubmitValidateProductForReturnTest");
 
         // Step 1: Login to the application
         HomePage homepage = new HomePage(driver);
@@ -74,6 +74,6 @@ public class TC_PR_002_ValidateSubmitValidateProductductForReturnTest extends Ba
         Assert.assertEquals(returnSuccessMsg, "Thank you for submitting your return request. Your request has been sent to the relevant department for processing.");
         logger.info("Assertion passed: Product return submitted successfully.");
 
-        logger.info("Test Case TC_PR_002_ValidateSubmitValidateProductductForReturnTest Completed");
+        logger.info("Test Case TC_PR_002_ValidateSubmitValidateProductForReturnTest Completed");
     }
 }

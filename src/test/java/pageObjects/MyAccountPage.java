@@ -12,7 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import testCases.TS_015_ReturnsPage.TC_PR_001_ValidateProductductReturnsPageNavigationTest;
+import testCases.TS_015_ReturnsPage.TC_PR_001_ValidateProductReturnsPageNavigationTest;
 
 import java.time.Duration;
 
@@ -23,7 +23,7 @@ public class MyAccountPage extends BasePage {
 
         PageFactory.initElements(driver, this);
     }
-    private static final Logger logger = LogManager.getLogger(TC_PR_001_ValidateProductductReturnsPageNavigationTest.class);
+    private static final Logger logger = LogManager.getLogger(TC_PR_001_ValidateProductReturnsPageNavigationTest.class);
 
 
     @FindBy(xpath = "//div[@class='list-group']//a[text()='Logout']")

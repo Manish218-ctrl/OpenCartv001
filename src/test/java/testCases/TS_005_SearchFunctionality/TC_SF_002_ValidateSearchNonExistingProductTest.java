@@ -10,11 +10,11 @@ import pageObjects.SearchPage; // Import the SearchPage
 import testBase.BaseClass;
 
 
-    public class TC_SP_002_ValidateSearchNonExistingProductTest extends BaseClass {
+    public class TC_SF_002_ValidateSearchNonExistingProductTest extends BaseClass {
 
         @Test(groups = {"sanity", "regression", "master"})
         public void test_search_non_existing_product_name() {
-            logger.info("Starting TC_SP_002_ValidateSearchNonExistingProductTest: Validate searching with a non-existing Product Name.");
+            logger.info("Starting TC_SF_002_ValidateSearchNonExistingProductTest: Validate searching with a non-existing Product Name.");
 
             try {
 
@@ -37,10 +37,10 @@ import testBase.BaseClass;
 
 
             } catch (Exception e) {
-                logger.error("Test execution failed for TC_SP_002_ValidateSearchNonExistingProductTest: " + e.getMessage());
+                logger.error("Test execution failed for TC_SF_002_ValidateSearchNonExistingProductTest: " + e.getMessage());
                 Assert.fail("Test failed due to an exception: " + e.getMessage());
             } finally {
-                logger.info("Finished TC_SP_002_ValidateSearchNonExistingProductTest.");
+                logger.info("Finished TC_SF_002_ValidateSearchNonExistingProductTest.");
             }
         }
     }

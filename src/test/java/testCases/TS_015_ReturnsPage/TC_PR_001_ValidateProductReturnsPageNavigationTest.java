@@ -8,11 +8,11 @@ import pageObjects.MyAccountPage;
 import pageObjects.ProductReturnsPage;
 import testBase.BaseClass;
 
-public class TC_PR_001_ValidateProductductReturnsPageNavigationTest extends BaseClass {
+public class TC_PR_001_ValidateProductReturnsPageNavigationTest extends BaseClass {
 
     @Test
     public void validateNavigatingToProductReturnsPage() {
-        logger.info("Starting the test: TC_PR_001_ValidateProductductReturnsPageNavigationTest");
+        logger.info("Starting the test: TC_PR_001_ValidateProductReturnsPageNavigationTest");
 
         // Initializing necessary page objects
         HomePage homepage = new HomePage(driver);
@@ -68,6 +68,6 @@ public class TC_PR_001_ValidateProductductReturnsPageNavigationTest extends Base
             Assert.fail("Product Returns page title validation failed: " + e.getMessage());
         }
 
-        logger.info("Test TC_PR_001_ValidateProductductReturnsPageNavigationTest completed successfully.");
+        logger.info("Test TC_PR_001_ValidateProductReturnsPageNavigationTest completed successfully.");
     }
 }

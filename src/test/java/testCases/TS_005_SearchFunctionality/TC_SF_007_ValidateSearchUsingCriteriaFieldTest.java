@@ -10,11 +10,11 @@ import pageObjects.SearchPage;
 import testBase.BaseClass;
 
 
-    public class TC_SP_007_ValidateSearchUsingCriteriaFieldTest extends BaseClass {
+    public class TC_SF_007_ValidateSearchUsingCriteriaFieldTest extends BaseClass {
 
         @Test(groups = {"sanity", "regression", "master"})
         public void test_search_using_criteria_field() {
-            logger.info("Starting TC_SP_007_ValidateSearchUsingCriteriaFieldTest: Validate searching using the Search Criteria field.");
+            logger.info("Starting TC_SF_007_ValidateSearchUsingCriteriaFieldTest: Validate searching using the Search Criteria field.");
 
             try {
 
@@ -53,10 +53,10 @@ import testBase.BaseClass;
                 logger.info("Verified search results heading contains: '" + existingProductName + "'.");
 
             } catch (Exception e) {
-                logger.error("Test execution failed for TC_SP_007_ValidateSearchUsingCriteriaFieldTest: " + e.getMessage());
+                logger.error("Test execution failed for TC_SF_007_ValidateSearchUsingCriteriaFieldTest: " + e.getMessage());
                 Assert.fail("Test failed due to an exception: " + e.getMessage());
             } finally {
-                logger.info("Finished TC_SP_007_ValidateSearchUsingCriteriaFieldTest.");
+                logger.info("Finished TC_SF_007_ValidateSearchUsingCriteriaFieldTest.");
             }
         }
     }

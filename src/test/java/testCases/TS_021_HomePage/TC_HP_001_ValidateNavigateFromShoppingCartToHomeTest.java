@@ -8,7 +8,7 @@ import pageObjects.HomePage;
 import pageObjects.ProductDisplayPage;
 import testBase.BaseClass;
 
-    public class TC_HP_001_ValidateNavigateFromCartToHomeTest extends BaseClass {
+    public class TC_HP_001_ValidateNavigateFromShoppingCartToHomeTest extends BaseClass {
 
         @Test(groups = {"Regression", "HomePage"})
         public void navigateFromCartToHome() {

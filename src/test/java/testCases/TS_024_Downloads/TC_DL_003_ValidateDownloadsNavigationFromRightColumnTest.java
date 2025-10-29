@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import pageObjects.MyAccountPage;
 import testBase.BaseClass;
 
-    public class TC_DL_003_ValidateDownloadsNavigationFromNavigationTest extends BaseClass {
+    public class TC_DL_003_ValidateDownloadsNavigationFromRightColumnTest extends BaseClass {
 
         @Test
         public void validateDownloadsNavigation() {

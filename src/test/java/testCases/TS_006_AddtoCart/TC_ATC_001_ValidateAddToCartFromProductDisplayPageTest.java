@@ -7,11 +7,11 @@ import pageObjects.ProductDisplayPage;
 import pageObjects.ShoppingCartPage;
 import testBase.BaseClass;
 
-public class TC_ATC_001_ValidateAddToCartTest extends BaseClass {
+public class TC_ATC_001_ValidateAddToCartFromProductDisplayPageTest extends BaseClass {
 
     @Test(groups = {"regression","smoke"})
     public void verifyAddToCartFromPDP() {
-        logger.info("***** Starting TC_ATC_001_ValidateAddToCartTest *****");
+        logger.info("***** Starting TC_ATC_001_ValidateAddToCartFromProductDisplayPageTest *****");
 
         try {
             String productName = "MacBook";
@@ -57,6 +57,6 @@ public class TC_ATC_001_ValidateAddToCartTest extends BaseClass {
             Assert.fail("Exception occurred during Add to Cart test: " + e.getMessage());
         }
 
-        logger.info("***** Finished TC_ATC_001_ValidateAddToCartTest *****");
+        logger.info("***** Finished TC_ATC_001_ValidateAddToCartFromProductDisplayPageTest *****");
     }
 }

@@ -8,11 +8,11 @@ import pageObjects.SearchPage; // Import the new SearchPage
 import testBase.BaseClass;
 
 
-public class TC_SP_001_ValidateSearchExistingProductTest extends BaseClass {
+public class TC_SF_001_ValidateSearchExistingProductTest extends BaseClass {
 
     @Test(groups = {"sanity", "regression", "master"})
     public void test_search_existing_product_name() {
-        logger.info("Starting TC_SP_001_ValidateSearchExistingProductTest: Validate searching with an existing Product Name.");
+        logger.info("Starting TC_SF_001_ValidateSearchExistingProductTest: Validate searching with an existing Product Name.");
 
         try {
             // 1. Open the Application URL in any supported browser (handled by BaseClass setup)
@@ -42,10 +42,10 @@ public class TC_SP_001_ValidateSearchExistingProductTest extends BaseClass {
             logger.info("Verified that the product '" + productName + "' is displayed in the search results.");
 
         } catch (Exception e) {
-            logger.error("Test execution failed for TC_SP_001_ValidateSearchExistingProductTest: " + e.getMessage());
+            logger.error("Test execution failed for TC_SF_001_ValidateSearchExistingProductTest: " + e.getMessage());
             Assert.fail("Test failed due to an exception: " + e.getMessage());
         } finally {
-            logger.info("Finished TC_SP_001_ValidateSearchExistingProductTest.");
+            logger.info("Finished TC_SF_001_ValidateSearchExistingProductTest.");
         }
     }
 }

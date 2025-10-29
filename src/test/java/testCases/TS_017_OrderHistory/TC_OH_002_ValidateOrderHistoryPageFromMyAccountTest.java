@@ -9,9 +9,9 @@ import pageObjects.HomePage;
 import pageObjects.OrderHistoryPage;
 import testBase.BaseClass;
 
-public class TC_OH_002_ValidateOrderHistoryPageTest extends BaseClass {
+public class TC_OH_002_ValidateOrderHistoryPageFromMyAccountTest extends BaseClass {
 
-    private static final Logger logger = LogManager.getLogger(TC_OH_002_ValidateOrderHistoryPageTest.class);
+    private static final Logger logger = LogManager.getLogger(TC_OH_002_ValidateOrderHistoryPageFromMyAccountTest.class);
 
     private HomePage homepage;
     private OrderHistoryPage orderHistoryPage;

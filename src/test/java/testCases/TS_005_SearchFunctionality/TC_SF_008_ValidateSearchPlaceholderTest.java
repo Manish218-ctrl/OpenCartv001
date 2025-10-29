@@ -7,13 +7,13 @@ import org.testng.annotations.Test;
 import pageObjects.SearchPage;
 import testBase.BaseClass;
 
-public class TC_SP_008_ValidateSearchPlaceholderTest extends BaseClass {
+public class TC_SF_008_ValidateSearchPlaceholderTest extends BaseClass {
 
-    private static final Logger logger = LogManager.getLogger(TC_SP_008_ValidateSearchPlaceholderTest.class);
+    private static final Logger logger = LogManager.getLogger(TC_SF_008_ValidateSearchPlaceholderTest.class);
 
     @Test(groups = {"sanity", "regression", "master"})
     public void verifySearchPlaceholders() {
-        logger.info("=== Starting TC_SP_008_ValidateSearchPlaceholderTest ===");
+        logger.info("=== Starting TC_SF_008_ValidateSearchPlaceholderTest ===");
         try {
             SearchPage searchPage = new SearchPage(driver);
 
@@ -40,7 +40,7 @@ public class TC_SP_008_ValidateSearchPlaceholderTest extends BaseClass {
             logger.error("Test execution failed: {}", e.getMessage());
             Assert.fail("Test failed due to exception: " + e.getMessage());
         } finally {
-            logger.info("=== Finished TC_SP_008_ValidateSearchPlaceholderTest ===");
+            logger.info("=== Finished TC_SF_008_ValidateSearchPlaceholderTest ===");
         }
     }
 }

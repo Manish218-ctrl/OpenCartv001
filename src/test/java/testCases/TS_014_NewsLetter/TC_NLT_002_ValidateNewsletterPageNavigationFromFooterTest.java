@@ -21,7 +21,7 @@ public class TC_NLT_002_ValidateNewsletterPageNavigationFromFooterTest extends B
 
             // Step 2: Click on 'Newsletter' link in Right Column
             HomePage homepage = new HomePage(driver);
-            homepage.clickRightColumnNewsletter();  // Method for clicking the 'Newsletter' in the right column
+            homepage.clickRightColumnNewsletter();
 
             // Step 3: Wait for the 'Newsletter Subscription' page and verify the page heading
             NewsletterPage newsletterPage = new NewsletterPage(driver);

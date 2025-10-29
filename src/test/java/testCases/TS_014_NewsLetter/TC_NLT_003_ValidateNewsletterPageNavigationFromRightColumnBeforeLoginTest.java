@@ -3,18 +3,15 @@ package testCases.TS_014_NewsLetter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.NewsletterPage;
 import testBase.BaseClass;
 
-import java.io.IOException;
+public class TC_NLT_003_ValidateNewsletterPageNavigationFromRightColumnBeforeLoginTest extends BaseClass  {
 
-public class TC_NLT_003_ValidateNewsletterPageNavigationFromRightColumnTest extends BaseClass  {
-
-    private static final Logger logger = LoggerFactory.getLogger(TC_NLT_003_ValidateNewsletterPageNavigationFromRightColumnTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(TC_NLT_003_ValidateNewsletterPageNavigationFromRightColumnBeforeLoginTest.class);
 
 
 

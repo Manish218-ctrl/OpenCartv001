@@ -89,26 +89,26 @@
 
             TS_005_SearchFunctionality
 
-            <!--<class name="testCases.TS_005_SearchFunctionality.TC_SP_001_ValidateSearchExistingProductTest" />
-              <class name="testCases.TS_005_SearchFunctionality.TC_SP_002_ValidateSearchNonExistingProductTest" />
-              <class name="testCases.TS_005_SearchFunctionality.TC_SP_003_ValidateSearchWithoutProductNameTest" />
-              <class name="testCases.TS_005_SearchFunctionality.TC_SP_004_ValidateSearchProductAfterLoginTest" />
-              <class name="testCases.TS_005_SearchFunctionality.TC_SP_005_ValidateSearchMultipleProductsTest" />
-              <class name="testCases.TS_005_SearchFunctionality.TC_SP_006_ValidateSearchSingleProductTest" />
-              <class name="testCases.TS_005_SearchFunctionality.TC_SP_007_ValidateSearchUsingCriteriaFieldTest" />
-              <class name="testCases.TS_005_SearchFunctionality.TC_SP_008_ValidateSearchPlaceholderTest" />
-              <class name="testCases.TS_005_SearchFunctionality.TC_SP_009_ValidateNavigateToCompareFromSearchTest" />-->
-              <class name="testCases.TS_005_SearchFunctionality.TC_SP_010_ValidateSearchExistingProductDataDrivenTest"/>-->
+            <!--<class name="testCases.TS_005_SearchFunctionality.TC_SF_001_ValidateSearchExistingProductTest" />
+              <class name="testCases.TS_005_SearchFunctionality.TC_SF_002_ValidateSearchNonExistingProductTest" />
+              <class name="testCases.TS_005_SearchFunctionality.TC_SF_003_ValidateSearchWithoutProductNameTest" />
+              <class name="testCases.TS_005_SearchFunctionality.TC_SF_004_ValidateSearchProductAfterLoginTest" />
+              <class name="testCases.TS_005_SearchFunctionality.TC_SF_005_ValidateSearchMultipleProductsTest" />
+              <class name="testCases.TS_005_SearchFunctionality.TC_SF_006_ValidateSearchSingleProductTest" />
+              <class name="testCases.TS_005_SearchFunctionality.TC_SF_007_ValidateSearchUsingCriteriaFieldTest" />
+              <class name="testCases.TS_005_SearchFunctionality.TC_SF_008_ValidateSearchPlaceholderTest" />
+              <class name="testCases.TS_005_SearchFunctionality.TC_SF_009_ValidateNavigateToCompareFromSearchTest" />-->
+              <class name="testCases.TS_005_SearchFunctionality.TC_SF_010_ValidateSearchExistingProductDataDrivenTest"/>-->
 
 
             TS_006_AddtoCart
 
-           <!-- <class name="testCases.TS_006_AddtoCart.TC_ATC_001_ValidateAddToCartTest"/>
+           <!-- <class name="testCases.TS_006_AddtoCart.TC_ATC_001_ValidateAddToCartFromProductDisplayPageTest"/>
             <class name="testCases.TS_006_AddtoCart.TC_ATC_002_ValidateAddToCartFromWishListTest"/>
             <class name="testCases.TS_006_AddtoCart.TC_ATC_003_ValidateAddToCartFromRelatedProductsTest"/>
             <class name="testCases.TS_006_AddtoCart.TC_ATC_004_ValidateAddProductToCartFromCategoryPageTest"/>-->
             <class name="testCases.TS_006_AddtoCart.TC_ATC_006_ValidateAddToCartTestDataDrivenTest"/>
-           <!-- <class name="testCases.TS_006_AddtoCart.TC_ATC_005_ValidateAddToCartFromCategoryPageTest"/>-->
+           <!-- <class name="testCases.TS_006_AddtoCart.TC_ATC_005_ValidateAddToCartFromSearchPageTest"/>-->
 
             TS_007_WishList
 
@@ -138,7 +138,7 @@
             <class name="testCases.TS_009_RecurringPayments.TC_RCP_002_ValidateRecurringPaymentsNavigationUsingRightColumnTest" />
             <class name="testCases.TS_009_RecurringPayments.TC_RCP_003_ValidateRecurringPaymentsContinueButtonTest" />
             <class name="testCases.TS_009_RecurringPayments.TC_RCP_004_ValidateRecurringPaymentsBreadcrumbTest" />
-            <class name="testCases.TS_009_RecurringPayments.TC_RCP_005_ValidateRecurringPaymentsPageTest" />-->
+            <class name="testCases.TS_009_RecurringPayments.TC_RCP_005_ValidateRecurringPaymentsPageTitleTest" />-->
 
             TS_010_Currencies
 
@@ -192,7 +192,7 @@
 
            <!-- <class name="testCases.TS_014_NewsLetter.TC_NLT_001_ValidateNewsletterSubscriptionPageNavigationTest" />
             <class name="testCases.TS_014_NewsLetter.TC_NLT_002_ValidateNewsletterPageNavigationFromFooterTest" />
-            <class name="testCases.TS_014_NewsLetter.TC_NLT_003_ValidateNewsletterPageNavigationFromRightColumnTest"/>
+            <class name="testCases.TS_014_NewsLetter.TC_NLT_003_ValidateNewsletterPageNavigationFromRightColumnBeforeLoginTest"/>
             <class name="testCases.TS_014_NewsLetter.TC_NLT_004_ValidateNewsletterPageNavigationFromFooterTest" />
             <class name="testCases.TS_014_NewsLetter.TC_NLT_005_ValidateNewsletterPageNavigationAfterLoginTest"/>
             <class name="testCases.TS_014_NewsLetter.TC_NLT_006_ValidateNewsletterBackButtonTest" />
@@ -202,11 +202,11 @@
 
             TS_015_ReturnsPage
 
-          <!--<class name="testCases.TS_015_ReturnsPage.TC_PR_001_ValidateProductductReturnsPageNavigationTest" />
-            <class name="testCases.TS_015_ReturnsPage.TC_PR_002_ValidateSubmitValidateProductductForReturnTest" />
-            <class name="testCases.TS_015_ReturnsPage.TC_PR_003_ValidateProductductReturnsTest" />
-            <class name="testCases.TS_015_ReturnsPage.TC_PR_004_ValidateProductductReturnsPlaceholdersTest" />
-            <class name="testCases.TS_015_ReturnsPage.TC_PR_005_ValidateProductductReturnsBackButtonTest" />
+          <!--<class name="testCases.TS_015_ReturnsPage.TC_PR_001_ValidateProductReturnsPageNavigationTest" />
+            <class name="testCases.TS_015_ReturnsPage.TC_PR_002_ValidateSubmitValidateProductForReturnTest" />
+            <class name="testCases.TS_015_ReturnsPage.TC_PR_003_ValidateProductReturnsTest" />
+            <class name="testCases.TS_015_ReturnsPage.TC_PR_004_ValidateProductReturnsPlaceholdersTest" />
+            <class name="testCases.TS_015_ReturnsPage.TC_PR_005_ValidateProductReturnsBackButtonTest" />
             <class name="testCases.TS_015_ReturnsPage.TC_PR_006_ValidateEmailFieldTest" />
             <class name="testCases.TS_015_ReturnsPage.TC_PR_007_ValidateOrderDateFieldTest" />
             <class name="testCases.TS_015_ReturnsPage.TC_PR_008_ValidateBreadcrumbTest" />
@@ -219,12 +219,12 @@
             <class name="testCases.TS_016_OrderInformation.TC_OI_003_ValidateOrderInformationReturnTest" />
             <class name="testCases.TS_016_OrderInformation.TC_OI_004_ValidateOrderInformationContinueTest"/>
             <class name="testCases.TS_016_OrderInformation.TC_OI_005_ValidateOrderInformationBreadcrumbTest"/>
-            <class name="testCases.TS_016_OrderInformation.TC_OI_006_ValidateOrderInformationPageTest" />-->
+            <class name="testCases.TS_016_OrderInformation.TC_OI_006_ValidateOrderInformationPageURLTitleTest" />-->
 
             TS_017_OrderHistory
 
            <!-- <class name="testCases.TS_017_OrderHistory.TC_OH_001_ValidateOrderHistoryTest" />
-            <class name="testCases.TS_017_OrderHistory.TC_OH_002_ValidateOrderHistoryPageTest"/>
+            <class name="testCases.TS_017_OrderHistory.TC_OH_002_ValidateOrderHistoryPageFromMyAccountTest"/>
             <class name="testCases.TS_017_OrderHistory.TC_OH_003_ValidateOrderHistoryPageRightColumnNavigationTest"/>
             <class name="testCases.TS_017_OrderHistory.TC_OH_004_ValidateOrderHistoryPageSiteMapNavigationTest"/>
             <class name="testCases.TS_017_OrderHistory.TC_OH_005_ValidateOrderHistoryNavigationBeforeLoginTest"/>
@@ -239,7 +239,7 @@
 
            <!-- <class name="testCases.TS_018_AddressBook.TC_AB_001_ValidateAddressBookNavigationTest"/>
             <class name="testCases.TS_018_AddressBook.TC_AB_002_ValidateAddressBookRightColumnNavigationTest"/>
-            <class name="testCases.TS_018_AddressBook.TC_AB_003_ValidateAddressBookNavigationFooterLinkTest"/>
+            <class name="testCases.TS_018_AddressBook.TC_AB_003_ValidateAddressBookNavigationSiteMapTest"/>
             <class name="testCases.TS_018_AddressBook.TC_AB_004_ValidateAddressBookNavigationBeforeLoginTest"/>
             <class name="testCases.TS_018_AddressBook.TC_AB_005_ValidateUpdateAddressInAddressBookTest"/>
             <class name="testCases.TS_018_AddressBook.TC_AB_006_ValidateDefaultAddressTest"/>
@@ -258,7 +258,7 @@
             <class name="testCases.TS_019_MyAccountInformation.TC_MAI_007_ValidateBackButtonInMyAccountInformationPageTest"/>
             <class name="testCases.TS_019_MyAccountInformation.TC_MAI_008_ValidateInvalidEmailInMyAccountInformationPageTest"/>
             <class name="testCases.TS_019_MyAccountInformation.TC_MAI_009_ValidateMyAccountBreadcrumbTest"/>
-            <class name="testCases.TS_019_MyAccountInformation.TC_MAI_010_ValidateMyAccountInformationPageTest"/>-->
+            <class name="testCases.TS_019_MyAccountInformation.TC_MAI_010_ValidateMyAccountInformationPageTitleTest"/>-->
 
             TS_020_ProductDisplayPage
 
@@ -279,7 +279,7 @@
 
             TS_021_HomePage
 
-           <!--<class name="testCases.TS_021_HomePage.TC_HP_001_ValidateNavigateFromCartToHomeTest"/>
+           <!--<class name="testCases.TS_021_HomePage.TC_HP_001_ValidateNavigateFromShoppingCartToHomeTest"/>
            <class name="testCases.TS_021_HomePage.TC_HP_002_ValidateNavigateFromOrderSuccessToHomeTest"/>
            <class name="testCases.TS_021_HomePage.TC_HP_003_ValidateHomePageNavigationUsingLogoTest"/>
             <class name="testCases.TS_021_HomePage.TC_HP_004_ValidateNavigateHomeFromEmptyCategoryTest"/>
@@ -309,8 +309,8 @@
             TS_024_Downloads
 
             <!-- <class name="testCases.TS_024_Downloads.TC_DL_001_ValidateNavigationToAccountDownloadsTest"/>
-             <class name="testCases.TS_024_Downloads.TC_DL_002_ValidateDownloadsNavigationTest"/>
-             <class name="testCases.TS_024_Downloads.TC_DL_003_ValidateDownloadsNavigationFromNavigationTest"/>
+             <class name="testCases.TS_024_Downloads.TC_DL_002_ValidateDownloadsNavigationToMyAccountTest"/>
+             <class name="testCases.TS_024_Downloads.TC_DL_003_ValidateDownloadsNavigationFromRightColumnTest"/>
              <class name="testCases.TS_024_Downloads.TC_DL_004_ValidateNavigationToDownloadsThroughSiteMapPageTest"/>
              <class name="testCases.TS_024_Downloads.TC_DL_005_ValidateNavigateToAccountDownloadsBeforeLoginTest"/>
              <class name="testCases.TS_024_Downloads.TC_DL_006_ValidateDownloadsPageNoOrdersTest"/>

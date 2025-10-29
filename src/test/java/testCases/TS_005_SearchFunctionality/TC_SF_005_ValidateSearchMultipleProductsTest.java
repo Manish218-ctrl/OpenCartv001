@@ -9,11 +9,11 @@ import pageObjects.SearchPage; // Import the SearchPage
 import testBase.BaseClass;
 import java.util.List; // Import for List
 
-    public class TC_SP_005_ValidateSearchMultipleProductsTest extends BaseClass {
+    public class TC_SF_005_ValidateSearchMultipleProductsTest extends BaseClass {
 
         @Test(groups = {"sanity", "regression", "master"}) // Assigning groups for test categorization
         public void test_search_multiple_products() {
-            logger.info("Starting TC_SP_005_ValidateSearchMultipleProductsTest: Validate searching with a search criteria resulting in multiple products.");
+            logger.info("Starting TC_SF_005_ValidateSearchMultipleProductsTest: Validate searching with a search criteria resulting in multiple products.");
 
             try {
 
@@ -42,10 +42,10 @@ import java.util.List; // Import for List
                 logger.info("Verified search results heading: '" + searchResultsHeading + "'");
 
             } catch (Exception e) {
-                logger.error("Test execution failed for TC_SP_005_ValidateSearchMultipleProductsTest: " + e.getMessage());
+                logger.error("Test execution failed for TC_SF_005_ValidateSearchMultipleProductsTest: " + e.getMessage());
                 Assert.fail("Test failed due to an exception: " + e.getMessage());
             } finally {
-                logger.info("Finished TC_SP_005_ValidateSearchMultipleProductsTest.");
+                logger.info("Finished TC_SF_005_ValidateSearchMultipleProductsTest.");
             }
         }
     }

@@ -11,7 +11,7 @@ import testBase.BaseClass;
 
 import java.io.IOException;
 
-public class TC_OI_006_ValidateOrderInformationPageTest extends BaseClass {
+public class TC_OI_006_ValidateOrderInformationPageURLTitleTest extends BaseClass {
 
         private OrderHistoryPage orderHistoryPage;
         private OrderInformationPage orderInformationPage;

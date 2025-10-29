@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import pageObjects.SearchPage;
 import testBase.BaseClass;
 
-    public class TC_SP_009_ValidateNavigateToCompareFromSearchTest extends BaseClass {
+    public class TC_SF_009_ValidateNavigateToCompareFromSearchTest extends BaseClass {
 
         private static final String PRODUCT_NAME = "iMac";
 

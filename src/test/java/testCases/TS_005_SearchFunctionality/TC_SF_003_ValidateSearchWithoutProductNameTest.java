@@ -10,11 +10,11 @@ import pageObjects.SearchPage; // Import the SearchPage
 import testBase.BaseClass;
 
 
-    public class TC_SP_003_ValidateSearchWithoutProductNameTest extends BaseClass {
+    public class TC_SF_003_ValidateSearchWithoutProductNameTest extends BaseClass {
 
         @Test(groups = {"sanity", "regression", "master"}) // Assigning groups for test categorization
         public void test_search_without_product_name() {
-            logger.info("Starting TC_SP_003_ValidateSearchWithoutProductNameTest: Validate searching without providing any Product Name.");
+            logger.info("Starting TC_SF_003_ValidateSearchWithoutProductNameTest: Validate searching without providing any Product Name.");
 
             try {
                 // 1. Open the Application URL in any supported browser (handled by BaseClass setup)
@@ -35,10 +35,10 @@ import testBase.BaseClass;
                 logger.info("Verified: 'No product' message is correctly displayed for an empty search.");
 
             } catch (Exception e) {
-                logger.error("Test execution failed for TC_SP_003_ValidateSearchWithoutProductNameTest: " + e.getMessage());
+                logger.error("Test execution failed for TC_SF_003_ValidateSearchWithoutProductNameTest: " + e.getMessage());
                 Assert.fail("Test failed due to an exception: " + e.getMessage());
             } finally {
-                logger.info("Finished TC_SP_003_ValidateSearchWithoutProductNameTest.");
+                logger.info("Finished TC_SF_003_ValidateSearchWithoutProductNameTest.");
             }
         }
     }
