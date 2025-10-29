@@ -74,7 +74,7 @@ This project implements a Hybrid Driven Automation Framework tailored for the Op
 
 ### **Automatic Screenshot Capture of Failed TestCase**
 
-![Failed Test]()
+![Failed Test](screenshots/test_session_persistence_after_browser_close_20251024111441.png)
 
 
 
