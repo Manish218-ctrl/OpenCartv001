@@ -128,12 +128,11 @@ public class BaseClass  {
         String env = p.getProperty("execution_env", "local");
 
         if (env.equalsIgnoreCase("local")) {
-            URL grid = new URL("http://localhost:4444"); // Grid 4 router
+            URL grid = new URL("http://localhost:4444"); 
 
             switch (br.toLowerCase()) {
                 case "chrome": {
                     ChromeOptions co = new ChromeOptions();
-                    // co.setPlatformName("LINUX"); // optional
                     driver = new RemoteWebDriver(grid, co);
                     break;
                 }
