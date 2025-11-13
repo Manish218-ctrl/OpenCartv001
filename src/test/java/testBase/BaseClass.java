@@ -124,57 +124,6 @@ public class BaseClass  {
         driver.get(rb.getString("appURL"));
     }
 
-
-   /* public void initializeDriver(String br, String os) throws MalformedURLException {
-
-        if(p.getProperty("execution_env").equalsIgnoreCase("remote"))
-        {
-            DesiredCapabilities capabilities=new DesiredCapabilities();
-
-            //os
-            if(os.equalsIgnoreCase("windows"))
-            {
-                capabilities.setPlatform(Platform.WIN11);
-            }
-            else if (os.equalsIgnoreCase("mac"))
-            {
-                capabilities.setPlatform(Platform.MAC);
-            }
-            else
-            {
-                System.out.println("No matching os");
-                return;
-            }
-
-            //browser
-            switch(br.toLowerCase())
-            {
-                case "chrome": capabilities.setBrowserName("chrome"); break;
-                case "edge": capabilities.setBrowserName("MicrosoftEdge"); break;
-                case "firefox": capabilities.setBrowserName("firefox"); break;
-
-                default: System.out.println("No matching browser"); return;
-            }
-
-
-            driver=new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),capabilities);
-        }
-
-        else if(p.getProperty("execution_env").equalsIgnoreCase("local"))
-        {
-            switch(br.toLowerCase())
-            {
-                case "chrome" : driver=new ChromeDriver(); break;
-                case "edge" : driver=new EdgeDriver(); break;
-                case "firefox": driver=new FirefoxDriver(); break;
-                default : System.out.println("Invalid browser name.."); return;
-            }
-        }
-    }*/
-
-
-
-
     public void initializeDriver(String br, String os) throws MalformedURLException {
         String env = p.getProperty("execution_env", "local");
 
