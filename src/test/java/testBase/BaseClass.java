@@ -151,7 +151,7 @@ public class BaseClass  {
                     throw new IllegalArgumentException("Unsupported browser for remote: " + br);
             }
 
-        } else { // local (legacy behavior preserved)
+        } else { 
             switch (br.toLowerCase()) {
                 case "chrome":  driver = new ChromeDriver();  break;
                 case "firefox": driver = new FirefoxDriver(); break;
@@ -210,7 +210,6 @@ public class BaseClass  {
         }
     }
 
-   // Call this at the start of each test method, passing the test name
     public void createTest(String testName) {
         if (extent != null) {
             test = extent.createTest(testName);
@@ -243,7 +242,6 @@ public class BaseClass  {
             FileHandler.copy(src, new File(screenshotPath));
             logger.info("Screenshot captured: " + screenshotPath);
 
-            // but harmless. The Listener handles the attachment using the returned path.)
             if (test != null) {
                 test.addScreenCaptureFromPath(screenshotPath);
             }
@@ -253,7 +251,6 @@ public class BaseClass  {
 
         } catch (IOException e) {
             logger.error("Failed to capture screenshot: " + e.getMessage());
-            // Change: Return null or an empty string on failure
             return null;
         }
     }
@@ -285,7 +282,6 @@ public class BaseClass  {
     }
 
     protected WebDriverWait waitShort() {
-        // Example implementation: waits for 10 seconds
         return new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 }
