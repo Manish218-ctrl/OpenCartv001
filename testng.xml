@@ -47,7 +47,7 @@
             TS_003_LogOutFunctionality
 
        <!--<class name="testCases.TS_003_LogOutFunctionality.TC_LG_001_ValidateLogoutFunctionalityTest" />
-            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_002_ValidateLogoutFunctionalityRightColumnTest" />-->
+            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_002_ValidateLogoutFunctionalityRightColumnTest" />
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_003_ValidateSessionPersistenceTest" />
        <!-- <class name="testCases.TS_003_LogOutFunctionality.TC_LG_004_ValidateLogoutOptionNotDisplayedBeforeLoginTest" />
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_005_ValidateLogoutOptionNotDisplayedRightColumnTest" />
