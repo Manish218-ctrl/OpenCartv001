@@ -49,7 +49,7 @@
        <!--<class name="testCases.TS_003_LogOutFunctionality.TC_LG_001_ValidateLogoutFunctionalityTest" />
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_002_ValidateLogoutFunctionalityRightColumnTest" />
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_003_ValidateSessionPersistenceTest" />
-       <!-- <class name="testCases.TS_003_LogOutFunctionality.TC_LG_004_ValidateLogoutOptionNotDisplayedBeforeLoginTest" />
+            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_004_ValidateLogoutOptionNotDisplayedBeforeLoginTest" />
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_005_ValidateLogoutOptionNotDisplayedRightColumnTest" />
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_006_ValidateLogoutFunctionalityTestFromDifferentBrowsersTest" />
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_007_ValidateLogoutThenLoginTest" />
