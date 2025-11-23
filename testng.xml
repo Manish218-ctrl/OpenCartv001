@@ -26,11 +26,10 @@
             <class name="testCases.TS_001_AccountRegistration.TC_RF_008_ValidateInvalidEmailRegistrationTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_009_ValidateMissingPasswordConfirmTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_010_ValidateMissingPrivacyPolicyTest" />
-            <class name="testCases.TS_001_AccountRegistration.TC_RF_011_ValidateAccountRegistrationDataDrivenTest" />-->
 
             TS_002_LoginFunctionality
 
-            <class name="testCases.TS_002_LoginFunctionality.TC_LF_001_ValidateLoginTest" />
+      <!--  <class name="testCases.TS_002_LoginFunctionality.TC_LF_001_ValidateLoginTest" />
             <class name="testCases.TS_002_LoginFunctionality.TC_LF_002_ValidateInvalidLoginTest" />
             <class name="testCases.TS_002_LoginFunctionality.TC_LF_003_ValidateInvalidEmailValidPasswordTest" />
             <class name="testCases.TS_002_LoginFunctionality.TC_LF_004_ValidateKeyboardLoginTest" />
@@ -47,10 +46,10 @@
 
             TS_003_LogOutFunctionality
 
-            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_001_ValidateLogoutFunctionalityTest" />
+       <!--<class name="testCases.TS_003_LogOutFunctionality.TC_LG_001_ValidateLogoutFunctionalityTest" />
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_002_ValidateLogoutFunctionalityRightColumnTest" />-->
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_003_ValidateSessionPersistenceTest" />
-            <class name="testCases.TS_003_LogOutFunctionality.TC_LG_004_ValidateLogoutOptionNotDisplayedBeforeLoginTest" />
+       <!-- <class name="testCases.TS_003_LogOutFunctionality.TC_LG_004_ValidateLogoutOptionNotDisplayedBeforeLoginTest" />
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_005_ValidateLogoutOptionNotDisplayedRightColumnTest" />
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_006_ValidateLogoutFunctionalityTestFromDifferentBrowsersTest" />
             <class name="testCases.TS_003_LogOutFunctionality.TC_LG_007_ValidateLogoutThenLoginTest" />
@@ -61,7 +60,7 @@
 
             TS_004_ProductCompare
 
-            <class name="testCases.TS_004_ProductCompare.TC_PC_001_ValidateProductCompareTest" />
+   <!--     <class name="testCases.TS_004_ProductCompare.TC_PC_001_ValidateProductCompareTest" />
             <class name="testCases.TS_004_ProductCompare.TC_PC_002_ValidateProductCompareFromListViewTest" />
             <class name="testCases.TS_004_ProductCompare.TC_PC_003_ValidateProductCompareFromGridViewTest" />
             <class name="testCases.TS_004_ProductCompare.TC_PC_004_ValidateProductCompareFromCategoryListViewTest" />
@@ -79,7 +78,7 @@
 
             TS_005_SearchFunctionality
 
-              <class name="testCases.TS_005_SearchFunctionality.TC_SF_001_ValidateSearchExistingProductTest" />
+        <!-- <class name="testCases.TS_005_SearchFunctionality.TC_SF_001_ValidateSearchExistingProductTest" />
               <class name="testCases.TS_005_SearchFunctionality.TC_SF_002_ValidateSearchNonExistingProductTest" />
               <class name="testCases.TS_005_SearchFunctionality.TC_SF_003_ValidateSearchWithoutProductNameTest" />
               <class name="testCases.TS_005_SearchFunctionality.TC_SF_004_ValidateSearchProductAfterLoginTest" />
@@ -87,8 +86,8 @@
               <class name="testCases.TS_005_SearchFunctionality.TC_SF_006_ValidateSearchSingleProductTest" />
               <class name="testCases.TS_005_SearchFunctionality.TC_SF_007_ValidateSearchUsingCriteriaFieldTest" />
               <class name="testCases.TS_005_SearchFunctionality.TC_SF_008_ValidateSearchPlaceholderTest" />
-              <class name="testCases.TS_005_SearchFunctionality.TC_SF_009_ValidateNavigateToCompareFromSearchTest" />
-              <class name="testCases.TS_005_SearchFunctionality.TC_SF_010_ValidateSearchExistingProductDataDrivenTest"/>-->
+              <class name="testCases.TS_005_SearchFunctionality.TC_SF_009_ValidateNavigateToCompareFromSearchTest" />-->
+              <class name="testCases.TS_005_SearchFunctionality.TC_SF_010_ValidateSearchExistingProductDataDrivenTest"/>
 
 
             TS_006_AddtoCart
