@@ -66,16 +66,6 @@ This project implements a Hybrid Driven Automation Framework tailored for the Op
 
 •	Full Jenkins and Docker integration to automate Maven builds upon commits, publish test results, and enable continuous regression testing.
 
-### **Generated Extent Report**
-
-![Extent Report](/reports/Screenshot%202025-10-29%20121239.png)
-
-![Extent Report](/reports/Screenshot%202025-10-29%20121217.png)
-
-### **Automatic Screenshot Capture of Failed TestCase**
-
-![Failed Test](screenshots/test_session_persistence_after_browser_close_20251024111441.png)
-
 ### **Technologies Used**
 
 • Java, Selenium WebDriver, TestNG, Maven – Core tech stack for UI automation
@@ -87,6 +77,18 @@ This project implements a Hybrid Driven Automation Framework tailored for the Op
 • Log4j2 + ExtentReports – For logging, diagnostics, and detailed HTML reporting
 
 • Jenkins – For continuous integration and automated test execution
+
+### **Generated Extent Report**
+
+![Extent Report](/reports/Screenshot%202025-10-29%20121239.png)
+
+![Extent Report](/reports/Screenshot%202025-10-29%20121217.png)
+
+### **Automatic Screenshot Capture of Failed TestCase**
+
+![Failed Test](screenshots/test_session_persistence_after_browser_close_20251024111441.png)
+
+
 
 
 
