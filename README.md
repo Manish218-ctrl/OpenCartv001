@@ -78,15 +78,15 @@ This project implements a Hybrid Driven Automation Framework tailored for the Op
 
 ### **Technologies Used**
 
-•	Java, Selenium WebDriver, TestNG, Maven
+• Java, Selenium WebDriver, TestNG, Maven – Core tech stack for UI automation
 
-•	Apache POI for data-driven tests via Excel
+• Apache POI – For data-driven testing using Excel
 
-•	Selenium Grid and Docker for parallel and cross-browser execution
+• Selenium Grid + Docker – For parallel execution and cross-browser testing
 
-•	Log4j2 and ExtentReports for diagnostics and reports
+• Log4j2 + ExtentReports – For logging, diagnostics, and detailed HTML reporting
 
-•	Jenkins for continuous integration and deployment
+• Jenkins – For continuous integration and automated test execution
 
 
 
