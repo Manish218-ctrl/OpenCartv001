@@ -82,13 +82,15 @@ This project implements a Hybrid Driven Automation Framework tailored for the Op
 
 ### **Generated Extent Report**
 
-![Extent Report](/reports/Screenshot%202025-10-29%20121239.png)
+![Extent Report](reports/ExtentReport.png)
 
-![Extent Report](/reports/Screenshot%202025-10-29%20121217.png)
+![Extent Report](reports/ExtentReports.png)
 
 ### **Automatic Screenshot Capture of Failed TestCase**
 
 ![Failed Test](screenshots/test_session_persistence_after_browser_close_20251024111441.png)
+
+
 
 
 
