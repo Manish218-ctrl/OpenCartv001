@@ -82,7 +82,7 @@ This project implements a Hybrid Driven Automation Framework tailored for the Op
 
 ### **Generated Extent Report**
 
-![Extent Report](reports/Extent_Reports.png)
+![Extent Report](reports/ExtentReport.png)
 
 ![Extent Report](reports/Extent_Reports.png)
 
