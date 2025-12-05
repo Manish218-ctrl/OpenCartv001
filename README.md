@@ -12,7 +12,7 @@ This project implements a Hybrid Driven Automation Framework tailored for the Op
 
 ### **Test Coverage & Automation**
 
-[**OpenCartv001-TestCases.xlsx**](https://1drv.ms/x/c/fc18120534c56ab2/IQC8KsyaszGYQ7xNtYgNarIbAVWzdyvljmaZsfl_nnIxEBA?e=a9YFFA) contains 230+ manual test cases; most critical flows are automated and traceable to these cases.
+[OpenCartv001-TestCases.xlsx](https://1drv.ms/x/c/fc18120534c56ab2/IQC8KsyaszGYQ7xNtYgNarIbAVWzdyvljmaZsfl_nnIxEBA?e=a9YFFA) contains 230+ manual test cases; most critical flows are automated and traceable to these cases.
 
 •	Home page functionality
 
