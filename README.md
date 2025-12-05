@@ -1,4 +1,4 @@
-# ***OpenCartv001 Automation Framework***
+# ***OpenCart Automation Framework***
 
 This project implements a Hybrid Driven Automation Framework tailored for the OpenCart platform. It leverages Java, TestNG, Selenium, and Maven technologies to deliver a highly reusable and maintainable UI test suite
 
@@ -12,7 +12,7 @@ This project implements a Hybrid Driven Automation Framework tailored for the Op
 
 ### **Test Coverage & Automation**
 
-[OpenCartv001-TestCases.xlsx](https://1drv.ms/x/c/fc18120534c56ab2/IQC8KsyaszGYQ7xNtYgNarIbAVWzdyvljmaZsfl_nnIxEBA?e=a9YFFA) contains 230+ manual test cases; most critical flows are automated and traceable to these cases.
+[OpenCart-TestCases.xlsx](https://1drv.ms/x/c/fc18120534c56ab2/IQC8KsyaszGYQ7xNtYgNarIbAWWlx7n9poQ7ktKc6j9g-xQ?e=oVLRVL) contains 230+ manual test cases; most critical flows are automated and traceable to these cases.
 
 •	Home page functionality
 
