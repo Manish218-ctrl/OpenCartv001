@@ -12,7 +12,7 @@ This project implements a Hybrid Driven Automation Framework tailored for the Op
 
 ### **Test Coverage & Automation**
 
-[OpenCart-TestCases.xlsx](https://1drv.ms/x/c/fc18120534c56ab2/IQC8KsyaszGYQ7xNtYgNarIbAWWlx7n9poQ7ktKc6j9g-xQ?e=oVLRVL) contains 230+ manual test cases; most critical flows are automated and traceable to these cases.
+[OpenCart-TestCases.xlsx](https://1drv.ms/x/c/fc18120534c56ab2/IQC8KsyaszGYQ7xNtYgNarIbAWWlx7n9poQ7ktKc6j9g-xQ?e=oVLRVL) contains 230+ test cases; critical flows are automated and traceable to these cases.
 
 •	Home page functionality
 
