@@ -1,6 +1,6 @@
 # ***OpenCart Automation Framework*** 
 
-This project implements a Hybrid Driven Automation Framework tailored for the OpenCart platform. It leverages Java, TestNG, Selenium, and Maven technologies to deliver a highly reusable and maintainable UI test suite
+This project implements a Hybrid Driven Automation Framework tailored for the OpenCart platform. It leverages Java, TestNG, Selenium, Page Object Model and Maven technologies to deliver a highly reusable and maintainable UI test suite
 
 ##  **Features**
 
