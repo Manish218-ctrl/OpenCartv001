@@ -25,37 +25,48 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.*;
 
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import pageObjects.HomePage;
 import pageObjects.LoginPage;
 
 public class BaseClass {
 
+    // =====================================================
+    // CORE OBJECTS
+    // =====================================================
     protected WebDriver driver;
     protected Properties p;
     protected ResourceBundle rb;
+    public static Logger logger = LogManager.getLogger(BaseClass.class);
 
+    // =====================================================
+    // SHARED TEST DATA (⚠️ REQUIRED BY TEST CASES)
+    // =====================================================
     protected String browserName;
     protected String osName;
     protected String appURL;
     protected String username;
     protected String password;
 
+    protected String productName;
+    protected String searchProduct;
+    protected String searchProductName;
+    protected String nonExistingSearchProduct;
+    protected String multiProductSearchKeyword;
+    protected String singleProductSearchKeyword;
+
+    // =====================================================
+    // REPORTING
+    // =====================================================
     public static ExtentReports extent;
     public static ExtentTest test;
-    public static Logger logger = LogManager.getLogger(BaseClass.class);
 
     // =====================================================
     // SUITE SETUP
@@ -88,15 +99,18 @@ public class BaseClass {
         this.browserName = br;
         this.osName = os;
 
-        this.appURL = p.getProperty("appURL");
-        this.username = p.getProperty("username");
-        this.password = p.getProperty("password");
+        // ---- Load ALL test data ----
+        appURL = p.getProperty("appURL");
+        username = p.getProperty("username");
+        password = p.getProperty("password");
+        productName = p.getProperty("productName");
+        searchProduct = p.getProperty("searchProduct");
+        searchProductName = p.getProperty("searchProductName");
+        nonExistingSearchProduct = p.getProperty("nonExistingSearchProduct");
+        multiProductSearchKeyword = p.getProperty("multiProductSearchKeyword");
+        singleProductSearchKeyword = p.getProperty("singleProductSearchKeyword");
 
-        try {
-            initializeDriver(br);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("WebDriver initialization failed", e);
-        }
+        initializeDriver(br, os);
 
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -105,14 +119,18 @@ public class BaseClass {
     }
 
     // =====================================================
-    // DRIVER INITIALIZATION (LOCAL + CI SAFE)
+    // BACKWARD-COMPATIBLE DRIVER METHODS
     // =====================================================
+    public void initializeDriver(String br, String os) throws MalformedURLException {
+        initializeDriver(br); // backward compatibility
+    }
+
     public void initializeDriver(String br) throws MalformedURLException {
 
         String env = p.getProperty("execution_env", "remote");
 
         // ==========================
-        // REMOTE (CI / SELENIUM GRID)
+        // REMOTE (CI / GRID)
         // ==========================
         if (env.equalsIgnoreCase("remote")) {
 
@@ -120,58 +138,47 @@ public class BaseClass {
 
             switch (br.toLowerCase()) {
 
-                case "chrome": {
-                    ChromeOptions options = new ChromeOptions();
-                    options.addArguments(
+                case "chrome":
+                    ChromeOptions chrome = new ChromeOptions();
+                    chrome.addArguments(
                             "--headless=new",
                             "--no-sandbox",
                             "--disable-dev-shm-usage",
                             "--window-size=1920,1080"
                     );
-                    driver = new RemoteWebDriver(gridUrl, options);
+                    driver = new RemoteWebDriver(gridUrl, chrome);
                     break;
-                }
 
-                case "firefox": {
-                    FirefoxOptions options = new FirefoxOptions();
-                    options.addArguments("-headless");
-                    driver = new RemoteWebDriver(gridUrl, options);
+                case "firefox":
+                    FirefoxOptions firefox = new FirefoxOptions();
+                    firefox.addArguments("-headless");
+                    driver = new RemoteWebDriver(gridUrl, firefox);
                     break;
-                }
 
-                case "edge": {
-                    EdgeOptions options = new EdgeOptions();
-                    options.addArguments(
+                case "edge":
+                    EdgeOptions edge = new EdgeOptions();
+                    edge.addArguments(
                             "--headless=new",
                             "--no-sandbox",
                             "--disable-dev-shm-usage"
                     );
-                    driver = new RemoteWebDriver(gridUrl, options);
+                    driver = new RemoteWebDriver(gridUrl, edge);
                     break;
-                }
 
                 default:
                     throw new IllegalArgumentException("Unsupported browser: " + br);
             }
         }
-
         // ==========================
-        // LOCAL EXECUTION
+        // LOCAL
         // ==========================
         else {
-
             switch (br.toLowerCase()) {
-                case "chrome":
-                    driver = new ChromeDriver();
-                    break;
-                case "firefox":
-                    driver = new FirefoxDriver();
-                    break;
-                case "edge":
-                    driver = new EdgeDriver();
-                    break;
+                case "chrome": driver = new ChromeDriver(); break;
+                case "firefox": driver = new FirefoxDriver(); break;
+                case "edge": driver = new EdgeDriver(); break;
                 default:
-                    throw new IllegalArgumentException("Invalid browser name: " + br);
+                    throw new IllegalArgumentException("Invalid browser: " + br);
             }
         }
     }
@@ -184,17 +191,15 @@ public class BaseClass {
         home.clickMyAccount();
         home.clickLogin();
 
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.login(username, password);
+        LoginPage login = new LoginPage(driver);
+        login.login(username, password);
 
         logger.info("Login successful");
     }
 
     @AfterClass
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        if (driver != null) driver.quit();
     }
 
     // =====================================================
@@ -202,18 +207,14 @@ public class BaseClass {
     // =====================================================
     public void initExtentReport() {
 
-        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String reportPath = System.getProperty("user.dir")
-                + "/reports/ExtentReport_" + timestamp + ".html";
+        String ts = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String path = System.getProperty("user.dir") + "/reports/Extent_" + ts + ".html";
 
-        ExtentSparkReporter reporter = new ExtentSparkReporter(reportPath);
+        ExtentSparkReporter reporter = new ExtentSparkReporter(path);
         reporter.config().setReportName("OpenCart Automation Report");
-        reporter.config().setDocumentTitle("Test Execution Report");
 
         extent = new ExtentReports();
         extent.attachReporter(reporter);
-        extent.setSystemInfo("OS", osName);
-        extent.setSystemInfo("Browser", browserName);
     }
 
     // =====================================================
@@ -225,15 +226,14 @@ public class BaseClass {
             TakesScreenshot ts = (TakesScreenshot) driver;
             File src = ts.getScreenshotAs(OutputType.FILE);
 
-            String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-            String path = System.getProperty("user.dir")
-                    + "/screenshots/" + testName + "_" + timestamp + ".png";
+            String path = System.getProperty("user.dir") +
+                    "/screenshots/" + testName + "_" + System.currentTimeMillis() + ".png";
 
             FileHandler.copy(src, new File(path));
             return path;
 
         } catch (Exception e) {
-            logger.error("Screenshot capture failed", e);
+            logger.error("Screenshot failed", e);
             return null;
         }
     }
@@ -260,53 +260,8 @@ public class BaseClass {
     public String randomCustomString() {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         StringBuilder sb = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < 5; i++) {
-            sb.append(chars.charAt(random.nextInt(chars.length())));
-        }
+        Random r = new Random();
+        for (int i = 0; i < 5; i++) sb.append(chars.charAt(r.nextInt(chars.length())));
         return sb.toString();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
