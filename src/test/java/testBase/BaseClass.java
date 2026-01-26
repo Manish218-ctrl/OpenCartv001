@@ -1,5 +1,3 @@
-
-
 package testBase;
 
 import java.io.File;
@@ -16,7 +14,6 @@ import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,7 +23,6 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.io.FileHandler;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
@@ -42,34 +38,28 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
-import pageObjects.BasePage;
 import pageObjects.HomePage;
 import pageObjects.LoginPage;
 
-public class BaseClass  {
+public class BaseClass {
 
-    public WebDriver driver;
-    //public Logger logger;
-    public Properties p;
+    protected WebDriver driver;
+    protected Properties p;
     protected ResourceBundle rb;
+
     protected String browserName;
     protected String osName;
     protected String appURL;
     protected String username;
     protected String password;
-    protected String productName;
-    protected String searchProduct;
-    protected String searchProductName;
-    protected String nonExistingSearchProduct;
-    protected String multiProductSearchKeyword;
-    protected String singleProductSearchKeyword;
 
-    // ExtentReports objects
     public static ExtentReports extent;
     public static ExtentTest test;
+    public static Logger logger = LogManager.getLogger(BaseClass.class);
 
-
-
+    // =====================================================
+    // SUITE SETUP
+    // =====================================================
     @BeforeSuite
     public void beforeSuite() {
         initExtentReport();
@@ -82,15 +72,14 @@ public class BaseClass  {
         }
     }
 
-    public static Logger logger = LogManager.getLogger(BaseClass.class);
-
+    // =====================================================
+    // TEST SETUP
+    // =====================================================
     @BeforeClass
     @Parameters({"os", "browser"})
     public void setup(String os, String br) throws IOException {
-        // Logger setup
 
-        // Load properties
-        FileReader file = new FileReader(".//src//test//resources//config.properties");
+        FileReader file = new FileReader("./src/test/resources/config.properties");
         p = new Properties();
         p.load(file);
 
@@ -102,74 +91,94 @@ public class BaseClass  {
         this.appURL = p.getProperty("appURL");
         this.username = p.getProperty("username");
         this.password = p.getProperty("password");
-        this.productName = p.getProperty("productName");
-        this.searchProduct = p.getProperty("searchProduct");
-        this.searchProductName = p.getProperty("searchProductName");
-        this.nonExistingSearchProduct = p.getProperty("nonExistingSearchProduct");
-        this.multiProductSearchKeyword = p.getProperty("multiProductSearchKeyword");
-        this.singleProductSearchKeyword = p.getProperty("singleProductSearchKeyword");
 
-        // Initialize WebDriver
         try {
-            initializeDriver(br, os);
+            initializeDriver(br);
         } catch (MalformedURLException e) {
-            logger.error("Failed to initialize WebDriver: Remote URL is malformed.", e);
-            throw new RuntimeException("WebDriver initialization failed due to configuration error.", e);
+            throw new RuntimeException("WebDriver initialization failed", e);
         }
 
-        // Browser setup
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
-        driver.get(rb.getString("appURL"));
+        driver.get(appURL);
     }
 
-    public void initializeDriver(String br, String os) throws MalformedURLException {
+    // =====================================================
+    // DRIVER INITIALIZATION (LOCAL + CI SAFE)
+    // =====================================================
+    public void initializeDriver(String br) throws MalformedURLException {
+
         String env = p.getProperty("execution_env", "remote");
 
+        // ==========================
+        // REMOTE (CI / SELENIUM GRID)
+        // ==========================
         if (env.equalsIgnoreCase("remote")) {
-            URL grid = new URL("http://localhost:4444/wd/hub"); 
+
+            URL gridUrl = new URL("http://localhost:4444/wd/hub");
 
             switch (br.toLowerCase()) {
+
                 case "chrome": {
-                    ChromeOptions co = new ChromeOptions();
-                    chromeOptions.addArguments(
-                     "--headless=new",
-                      "--no-sandbox",
-                      "--disable-dev-shm-usage",
-                      "--window-size=1920,1080"
-                        );
-                    driver = new RemoteWebDriver(grid, co);
+                    ChromeOptions options = new ChromeOptions();
+                    options.addArguments(
+                            "--headless=new",
+                            "--no-sandbox",
+                            "--disable-dev-shm-usage",
+                            "--window-size=1920,1080"
+                    );
+                    driver = new RemoteWebDriver(gridUrl, options);
                     break;
                 }
-                case "firefox": {
-                    FirefoxOptions fo = new FirefoxOptions();
-                    firefoxOptions.addArguments("-headless");
-                    driver = new RemoteWebDriver(grid, fo);
-                    break;
-                }
-                case "edge": {
-                    EdgeOptions eo = new EdgeOptions();
-                    driver = new RemoteWebDriver(grid, eo);
-                    break;
-                }
-                default:
-                    throw new IllegalArgumentException("Unsupported browser for remote: " + br);
-            }
 
-        } else { 
+                case "firefox": {
+                    FirefoxOptions options = new FirefoxOptions();
+                    options.addArguments("-headless");
+                    driver = new RemoteWebDriver(gridUrl, options);
+                    break;
+                }
+
+                case "edge": {
+                    EdgeOptions options = new EdgeOptions();
+                    options.addArguments(
+                            "--headless=new",
+                            "--no-sandbox",
+                            "--disable-dev-shm-usage"
+                    );
+                    driver = new RemoteWebDriver(gridUrl, options);
+                    break;
+                }
+
+                default:
+                    throw new IllegalArgumentException("Unsupported browser: " + br);
+            }
+        }
+
+        // ==========================
+        // LOCAL EXECUTION
+        // ==========================
+        else {
+
             switch (br.toLowerCase()) {
-                case "chrome":  driver = new ChromeDriver();  break;
-                case "firefox": driver = new FirefoxDriver(); break;
-                case "edge":    driver = new EdgeDriver();    break;
-                default: throw new IllegalArgumentException("Invalid browser name: " + br);
+                case "chrome":
+                    driver = new ChromeDriver();
+                    break;
+                case "firefox":
+                    driver = new FirefoxDriver();
+                    break;
+                case "edge":
+                    driver = new EdgeDriver();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid browser name: " + br);
             }
         }
     }
 
-
-
-
+    // =====================================================
+    // COMMON ACTIONS
+    // =====================================================
     public void performLogin() {
         HomePage home = new HomePage(driver);
         home.clickMyAccount();
@@ -178,93 +187,64 @@ public class BaseClass  {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login(username, password);
 
-        logger.info("User logged in successfully.");
-        if (test != null) test.pass("Login successful");
+        logger.info("Login successful");
     }
 
     @AfterClass
     public void tearDown() {
         if (driver != null) {
             driver.quit();
-            driver = null;
         }
     }
 
+    // =====================================================
+    // EXTENT REPORT
+    // =====================================================
     public void initExtentReport() {
-        try {
-            String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
-            String reportDir = System.getProperty("user.dir") + "/reports/";
-            File reportsFolder = new File(reportDir);
-            if (!reportsFolder.exists()) {
-                reportsFolder.mkdir();
-            }
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String reportPath = System.getProperty("user.dir")
+                + "/reports/ExtentReport_" + timestamp + ".html";
 
-            String reportPath = reportDir + "ExtentReport_" + timestamp + ".html";
+        ExtentSparkReporter reporter = new ExtentSparkReporter(reportPath);
+        reporter.config().setReportName("OpenCart Automation Report");
+        reporter.config().setDocumentTitle("Test Execution Report");
 
-            ExtentSparkReporter sparkReporter = new ExtentSparkReporter(reportPath);
-            sparkReporter.config().setReportName("OpenCart Test Automation Report");
-            sparkReporter.config().setDocumentTitle("Automation Report");
-
-            extent = new ExtentReports();
-            extent.attachReporter(sparkReporter);
-            extent.setSystemInfo("OS", osName);
-            extent.setSystemInfo("Browser", browserName);
-            extent.setSystemInfo("Tester", "Automation Tester");
-        } catch (Exception e) {
-            System.out.println("Failed to initialize ExtentReports: " + e.getMessage());
-        }
+        extent = new ExtentReports();
+        extent.attachReporter(reporter);
+        extent.setSystemInfo("OS", osName);
+        extent.setSystemInfo("Browser", browserName);
     }
 
-    public void createTest(String testName) {
-        if (extent != null) {
-            test = extent.createTest(testName);
-        }
-    }
-
-   public String captureScreenshot(String testName) {
-
-
-        if (driver == null) {
-            System.out.println("️WebDriver is null. Cannot take screenshot.");
-            return null;
-        }
+    // =====================================================
+    // SCREENSHOT
+    // =====================================================
+    public String captureScreenshot(String testName) {
 
         try {
             TakesScreenshot ts = (TakesScreenshot) driver;
             File src = ts.getScreenshotAs(OutputType.FILE);
 
             String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+            String path = System.getProperty("user.dir")
+                    + "/screenshots/" + testName + "_" + timestamp + ".png";
 
+            FileHandler.copy(src, new File(path));
+            return path;
 
-            String screenshotsDir = System.getProperty("user.dir") + File.separator + "screenshots" + File.separator;
-            File screenshotsFolder = new File(screenshotsDir);
-            if (!screenshotsFolder.exists()) {
-                screenshotsFolder.mkdir();
-            }
-
-            String screenshotPath = screenshotsDir + testName + "_" + timestamp + ".png";
-
-            FileHandler.copy(src, new File(screenshotPath));
-            logger.info("Screenshot captured: " + screenshotPath);
-
-            if (test != null) {
-                test.addScreenCaptureFromPath(screenshotPath);
-            }
-
-
-            return screenshotPath;
-
-        } catch (IOException e) {
-            logger.error("Failed to capture screenshot: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Screenshot capture failed", e);
             return null;
         }
     }
 
+    // =====================================================
+    // UTILITIES
+    // =====================================================
+    protected WebDriverWait waitShort() {
+        return new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
 
-
-
-    // Random data generators
     public String randomString() {
         return RandomStringUtils.randomAlphabetic(5);
     }
@@ -278,17 +258,13 @@ public class BaseClass  {
     }
 
     public String randomCustomString() {
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < 5; i++) {
-            sb.append(characters.charAt(random.nextInt(characters.length())));
+            sb.append(chars.charAt(random.nextInt(chars.length())));
         }
         return sb.toString();
-    }
-
-    protected WebDriverWait waitShort() {
-        return new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 }
 
