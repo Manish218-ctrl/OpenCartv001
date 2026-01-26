@@ -125,19 +125,26 @@ public class BaseClass  {
     }
 
     public void initializeDriver(String br, String os) throws MalformedURLException {
-        String env = p.getProperty("execution_env", "local");
+        String env = p.getProperty("execution_env", "remote");
 
-        if (env.equalsIgnoreCase("local")) {
-            URL grid = new URL("http://localhost:4444"); 
+        if (env.equalsIgnoreCase("remote")) {
+            URL grid = new URL("http://localhost:4444/wd/hub"); 
 
             switch (br.toLowerCase()) {
                 case "chrome": {
                     ChromeOptions co = new ChromeOptions();
+                    chromeOptions.addArguments(
+                     "--headless=new",
+                      "--no-sandbox",
+                      "--disable-dev-shm-usage",
+                      "--window-size=1920,1080"
+                        );
                     driver = new RemoteWebDriver(grid, co);
                     break;
                 }
                 case "firefox": {
                     FirefoxOptions fo = new FirefoxOptions();
+                    firefoxOptions.addArguments("-headless");
                     driver = new RemoteWebDriver(grid, fo);
                     break;
                 }
@@ -326,217 +333,4 @@ public class BaseClass  {
 
 
 
-
-/*package testBase;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.util.Date;
-import java.util.Properties;
-import java.util.Random;
-
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Platform;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.io.FileHandler;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Parameters;
-
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-
-import utilities.ExtentManager;
-import pageObjects.HomePage;
-import pageObjects.LoginPage;
-
-public class BaseClass {
-
-    public WebDriver driver;
-    public Properties p;
-    protected String browserName;
-    protected String osName;
-    protected String appURL;
-    protected String username;
-    protected String password;
-
-    public static ExtentReports extent;
-    public static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
-
-    public static Logger logger = LogManager.getLogger(BaseClass.class);
-
-    // ---------------------------------------------------------
-    // 🔹 SUITE SETUP / TEARDOWN
-    // ---------------------------------------------------------
-    @BeforeSuite(alwaysRun = true)
-    public void beforeSuite() {
-        extent = ExtentManager.createInstance();
-        logger.info("ExtentReports initialized.");
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void afterSuite() {
-        if (extent != null) {
-            extent.flush();
-            logger.info("ExtentReports flushed successfully.");
-        }
-    }
-
-    // ---------------------------------------------------------
-    // 🔹 CLASS SETUP / TEARDOWN
-    // ---------------------------------------------------------
-    @BeforeClass(alwaysRun = true)
-    @Parameters({"os", "browser"})
-    public void setup(String os, String br) throws IOException {
-        loadProperties();
-        this.browserName = br;
-        this.osName = os;
-
-        logger.info("Setting up driver for browser: " + browserName + " on OS: " + osName);
-        initializeDriver(br, os);
-
-        driver.manage().deleteAllCookies();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-        driver.get(p.getProperty("appURL"));
-
-        // Update system info in ExtentReport
-        if (extent != null) {
-            extent.setSystemInfo("OS", osName);
-            extent.setSystemInfo("Browser", browserName);
-            extent.setSystemInfo("Tester", "Automation QA");
-        }
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-            driver = null;
-            logger.info("WebDriver closed successfully for " + browserName);
-        }
-    }
-
-    // ---------------------------------------------------------
-    // 🔹 DRIVER INITIALIZATION
-    // ---------------------------------------------------------
-    public void initializeDriver(String br, String os) throws MalformedURLException {
-
-        String execEnv = p.getProperty("execution_env", "local");
-
-        if (execEnv.equalsIgnoreCase("remote")) {
-            DesiredCapabilities caps = new DesiredCapabilities();
-
-            if (os.equalsIgnoreCase("windows")) {
-                caps.setPlatform(Platform.WINDOWS);
-            } else if (os.equalsIgnoreCase("mac")) {
-                caps.setPlatform(Platform.MAC);
-            } else {
-                throw new IllegalArgumentException("Unsupported OS: " + os);
-            }
-
-            switch (br.toLowerCase()) {
-                case "chrome": caps.setBrowserName("chrome"); break;
-                case "firefox": caps.setBrowserName("firefox"); break;
-                case "edge": caps.setBrowserName("MicrosoftEdge"); break;
-                default: throw new IllegalArgumentException("Invalid browser: " + br);
-            }
-
-            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), caps);
-        } else {
-            switch (br.toLowerCase()) {
-                case "chrome": driver = new ChromeDriver(); break;
-                case "firefox": driver = new FirefoxDriver(); break;
-                case "edge": driver = new EdgeDriver(); break;
-                default: throw new IllegalArgumentException("Invalid browser: " + br);
-            }
-        }
-    }
-
-    // ---------------------------------------------------------
-    // 🔹 UTILITY METHODS
-    // ---------------------------------------------------------
-    private void loadProperties() throws IOException {
-        FileReader file = new FileReader(".//src//test//resources//config.properties");
-        p = new Properties();
-        p.load(file);
-    }
-
-    public void performLogin() {
-        HomePage home = new HomePage(driver);
-        home.clickMyAccount();
-        home.clickLogin();
-
-        LoginPage login = new LoginPage(driver);
-        login.login(p.getProperty("username"), p.getProperty("password"));
-
-        logger.info("User logged in successfully.");
-        if (test.get() != null) test.get().pass("Login successful");
-    }
-
-    public String captureScreenshot(String testName) {
-        if (driver == null) {
-            logger.error("WebDriver is null. Cannot capture screenshot.");
-            return null;
-        }
-
-        testName = testName.replaceAll("[^a-zA-Z0-9_-]", "_");
-
-        try {
-            File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            String path = System.getProperty("user.dir") + "/screenshots/" + testName + "_" + timestamp + ".png";
-
-            File dest = new File(path);
-            dest.getParentFile().mkdirs();
-            FileHandler.copy(src, dest);
-
-            logger.info("Screenshot captured: " + path);
-            if (test.get() != null) test.get().addScreenCaptureFromPath(path);
-
-            return path;
-        } catch (IOException e) {
-            logger.error("Screenshot capture failed: " + e.getMessage());
-            return null;
-        }
-    }
-
-    // ---------------------------------------------------------
-    // 🔹 RANDOM DATA GENERATORS
-    // ---------------------------------------------------------
-    public String randomString() { return RandomStringUtils.randomAlphabetic(5); }
-    public String randomNumber() { return RandomStringUtils.randomNumeric(10); }
-    public String randomAlphaNumeric() {
-        return RandomStringUtils.randomAlphabetic(3) + "@" + RandomStringUtils.randomNumeric(3);
-    }
-    public String randomCustomString() {
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        StringBuilder sb = new StringBuilder();
-        Random rand = new Random();
-        for (int i = 0; i < 5; i++) sb.append(chars.charAt(rand.nextInt(chars.length())));
-        return sb.toString();
-    }
-
-    protected WebDriverWait waitShort() {
-        return new WebDriverWait(driver, Duration.ofSeconds(10));
-    }
-}*/
 
