@@ -1,31 +1,69 @@
-version: 3
+version: "3.8"
+
 
 services:
   selenium-hub:
-    image: selenium/hub
+    image: selenium/hub:4.20.0
+    container_name: selenium-hub
     ports:
-      - "4442-4444:4442-4444"
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:4444/status || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     networks:
       - grid
 
   node-chrome:
-    image: selenium/node-chrome
+    image: selenium/node-chrome:4.20.0
+    container_name: node-chrome
+    shm_size: 2g
+    depends_on:
+      selenium-hub:
+        condition: service_healthy
     environment:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=2
+      - SE_NODE_SESSION_TIMEOUT=300
     networks:
       - grid
 
   node-firefox:
-    image: selenium/node-firefox
+    image: selenium/node-firefox:4.20.0
+    container_name: node-firefox
+    shm_size: 2g
+    depends_on:
+      selenium-hub:
+        condition: service_healthy
     environment:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=2
+      - SE_NODE_SESSION_TIMEOUT=300
     networks:
       - grid
 
+  node-edge:
+    image: selenium/node-edge:4.20.0
+    container_name: node-edge
+    shm_size: 2g
+    depends_on:
+      selenium-hub:
+        condition: service_healthy
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=2
+      - SE_NODE_SESSION_TIMEOUT=300
+    networks:
+      - grid
 
 networks:
   grid:
