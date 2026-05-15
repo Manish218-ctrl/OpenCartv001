@@ -64,7 +64,6 @@ public class BaseClass {
         return extentTest.get();
     }
 
-    // MUST be called from listener
     public static void setTest(ExtentTest t) {
         extentTest.set(t);
     }
@@ -96,7 +95,6 @@ public class BaseClass {
         this.browserName = br;
         this.osName = os;
 
-        // Load config
         appURL = p.getProperty("appURL");
         username = p.getProperty("username");
         password = p.getProperty("password");
@@ -110,9 +108,16 @@ public class BaseClass {
 
         initializeDriver(br);
 
+        logger.info("Driver initialized: " + getDriver().getClass().getSimpleName());
+
         getDriver().manage().deleteAllCookies();
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        getDriver().manage().window().maximize();
+
+        // Avoid maximize in headless CI
+        if (!p.getProperty("execution_env", "local").equalsIgnoreCase("remote")) {
+            getDriver().manage().window().maximize();
+        }
+
         getDriver().get(appURL);
     }
 
@@ -121,10 +126,15 @@ public class BaseClass {
 
         String env = p.getProperty("execution_env", "local");
 
+        logger.info("Execution Environment: " + env);
+        logger.info("Browser: " + br);
+
         if (env.equalsIgnoreCase("remote")) {
 
-            String grid = p.getProperty("grid_url");
+            String grid = p.getProperty("grid_url", "http://localhost:4444/wd/hub");
             URL gridUrl = new URL(grid);
+
+            logger.info("Using Selenium Grid: " + gridUrl);
 
             switch (br.toLowerCase()) {
 
@@ -141,7 +151,11 @@ public class BaseClass {
 
                 case "firefox":
                     FirefoxOptions firefox = new FirefoxOptions();
-                    firefox.addArguments("-headless");
+                    firefox.addArguments(
+                            "--headless",
+                            "--width=1920",
+                            "--height=1080"
+                    );
                     driverThread.set(new RemoteWebDriver(gridUrl, firefox));
                     break;
 
@@ -150,7 +164,8 @@ public class BaseClass {
                     edge.addArguments(
                             "--headless=new",
                             "--no-sandbox",
-                            "--disable-dev-shm-usage"
+                            "--disable-dev-shm-usage",
+                            "--window-size=1920,1080"
                     );
                     driverThread.set(new RemoteWebDriver(gridUrl, edge));
                     break;
@@ -160,6 +175,8 @@ public class BaseClass {
             }
 
         } else {
+
+            logger.info("Running in LOCAL mode");
 
             switch (br.toLowerCase()) {
                 case "chrome":
@@ -218,7 +235,6 @@ public class BaseClass {
 
     // ================= SCREENSHOT (FILE) =================
     public String captureScreenshot(String testName) {
-
         try {
             TakesScreenshot ts = (TakesScreenshot) getDriver();
             File src = ts.getScreenshotAs(OutputType.FILE);
@@ -250,7 +266,7 @@ public class BaseClass {
         return new WebDriverWait(getDriver(), Duration.ofSeconds(10));
     }
 
-    // --- Modern Random (no deprecated APIs) ---
+    // ================= RANDOM UTILS =================
     private static final Random RANDOM = new Random();
 
     public String randomString() {
