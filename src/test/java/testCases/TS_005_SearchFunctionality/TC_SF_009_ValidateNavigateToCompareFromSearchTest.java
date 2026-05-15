@@ -14,7 +14,7 @@ import testBase.BaseClass;
         @Test(description = "TC_SF_013: Validate navigating to Product Compare Page from Search Results page")
         public void navigateToCompareFromSearch() {
 
-            SearchPage sp = new SearchPage(driver);
+            SearchPage sp = new SearchPage(getDriver());
 
             sp.enterSearchKeyword(PRODUCT_NAME);
             sp.clickSearchButton();

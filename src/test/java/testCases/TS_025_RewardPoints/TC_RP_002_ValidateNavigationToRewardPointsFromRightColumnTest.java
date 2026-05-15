@@ -11,20 +11,20 @@ import testBase.BaseClass;
 
         @Test
         public void verifyNavigationToRewardPoints() {
-            // Step 1: Login to the application
+            //Login to the application
             performLogin();
 
-            // Step 2: Click on 'Reward Points' from Right Column options
-            HomePage home = new HomePage(driver);
+            //Click on Reward Points from Right Column options
+            HomePage home = new HomePage(getDriver());
             home.clickRewardPoints();
 
-            // Step 3: Verify navigation to 'Your Reward Points' page
+            //Verify navigation to Your Reward Points page
             String expectedTitle = "Your Reward Points"; // adjust exact title if needed
             String actualTitle = home.getPageTitle();
             Assert.assertTrue(actualTitle.contains(expectedTitle),
                     "Navigation failed! Expected page title: " + expectedTitle + " but found: " + actualTitle);
 
-            logger.info("TC_RP_002 passed: Navigated to 'Your Reward Points' page successfully.");
+            logger.info("TC_RP_002 passed: Navigated to Your Reward Points page successfully.");
         }
     }
 

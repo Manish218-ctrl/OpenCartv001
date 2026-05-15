@@ -10,70 +10,136 @@ import testBase.BaseClass;
 
 public class TC_LG_008_ValidateAccountValidateLogoutPageTest extends BaseClass {
 
-    @Test(groups = {"sanity", "regression", "master"}) // Assigning groups for test categorization
+    @Test(groups = {"sanity", "regression", "master"})
     public void test_validate_account_logout_page() {
-        logger.info("Starting TC_LG_008_ValidateAccountValidateLogoutPageTest: Validate Account Logout page elements.");
+
+        logger.info(
+                "Starting TC_LG_008_ValidateAccountValidateLogoutPageTest: Validate Account Logout page elements."
+        );
 
         try {
-            // 1. Open the Application URL (handled by BaseClass setup)
 
-            // Step 2: User is logged in - Initial Login
-            HomePage hp = new HomePage(driver);
+            HomePage hp = new HomePage(getDriver());
+
             hp.clickMyAccount();
-            logger.info("Clicked 'My Account' dropdown.");
+
+            logger.info(
+                    "Clicked My Account dropdown."
+            );
+
             hp.clickLogin();
-            logger.info("Clicked 'Login' link to navigate to login page.");
 
-            LoginPage lp = new LoginPage(driver);
-            lp.setEmail(p.getProperty("email")); // Using email from config.properties
-            logger.info("Entering login email: " + p.getProperty("email"));
-            lp.setPassword(p.getProperty("password")); // Using password from config.properties
-            logger.info("Entering login password.");
+            logger.info(
+                    "Clicked Login link to navigate to login page."
+            );
+
+            LoginPage lp = new LoginPage(getDriver());
+
+            lp.setEmail(p.getProperty("email"));
+
+            logger.info(
+                    "Entering login email: "
+                            + p.getProperty("email")
+            );
+
+            lp.setPassword(p.getProperty("password"));
+
+            logger.info(
+                    "Entering login password."
+            );
+
             lp.clickLogin();
-            logger.info("Attempting login.");
 
+            logger.info(
+                    "Attempting login."
+            );
 
-
-            // Step 1 (of test case steps): Click on My Account Dropmenu
             hp.clickMyAccount();
-            logger.info("Re-clicked 'My Account' to open dropdown for logout.");
 
-            // Step 2 (of test case steps): Select Logout option
+            logger.info(
+                    "Re-clicked My Account to open dropdown for logout."
+            );
+
             hp.clickLogoutFromDropdown();
-            logger.info("Selected 'Logout' from the dropdown menu.");
 
-            // Step 3 (of test case steps): Check the Page Heading, Page Title, Page URL and Breadcrumb
+            logger.info(
+                    "Selected Logout from the dropdown menu."
+            );
 
-            AccountSuccessPage accSuccess = new AccountSuccessPage(driver);
+            AccountSuccessPage accSuccess =
+                    new AccountSuccessPage(getDriver());
 
-            // Verify Page Heading
-            String pageHeading = accSuccess.getConfirmationMsg(); // This method returns the heading which can be "Account Logout"
-            Assert.assertTrue(pageHeading.contains("Account Logout"), "Page Heading 'Account Logout' is not displayed.");
-            logger.info("Verified Page Heading: '" + pageHeading + "'");
+            String pageHeading =
+                    accSuccess.getConfirmationMsg();
 
-            // Verify Page Title
-            String pageTitle = driver.getTitle();
-            Assert.assertTrue(pageTitle.contains("Account Logout"), "Page Title is not 'Account Logout'. Actual: " + pageTitle);
-            logger.info("Verified Page Title: '" + pageTitle + "'");
+            Assert.assertTrue(
+                    pageHeading.contains("Account Logout"),
+                    "Page Heading Account Logout is not displayed."
+            );
 
-            // Verify Page URL
-            String currentUrl = driver.getCurrentUrl();
-            Assert.assertTrue(currentUrl.contains("account/logout"), "Page URL does not contain 'account/logout'. Actual: " + currentUrl);
-            logger.info("Verified Page URL: '" + currentUrl + "'");
+            logger.info(
+                    "Verified Page Heading: " + pageHeading + ""
+            );
 
+            String pageTitle =
+                    getDriver().getTitle();
 
-            LoginPage logoutPage = new LoginPage(driver);
-            String breadcrumbText = logoutPage.getBreadcrumb();
-            // Changed assertion to expect "Logout" as per the actual value in the logs
-            Assert.assertTrue(breadcrumbText.contains("Logout"), "Breadcrumb does not contain 'Logout'. Actual: " + breadcrumbText);
-            logger.info("Verified Breadcrumb: '" + breadcrumbText + "'");
+            Assert.assertTrue(
+                    pageTitle.contains("Account Logout"),
+                    "Page Title is not Account Logout. Actual: "
+                            + pageTitle
+            );
 
+            logger.info(
+                    "Verified Page Title: " + pageTitle + ""
+            );
+
+            String currentUrl =
+                    getDriver().getCurrentUrl();
+
+            Assert.assertTrue(
+                    currentUrl.contains("account/logout"),
+                    "Page URL does not contain account/logout. Actual: "
+                            + currentUrl
+            );
+
+            logger.info(
+                    "Verified Page URL: " + currentUrl + ""
+            );
+
+            LoginPage logoutPage =
+                    new LoginPage(getDriver());
+
+            String breadcrumbText =
+                    logoutPage.getBreadcrumb();
+
+            Assert.assertTrue(
+                    breadcrumbText.contains("Logout"),
+                    "Breadcrumb does not contain Logout. Actual: "
+                            + breadcrumbText
+            );
+
+            logger.info(
+                    "Verified Breadcrumb: " + breadcrumbText + ""
+            );
 
         } catch (Exception e) {
-            logger.error("Test execution failed for TC_LG_008_ValidateAccountValidateLogoutPageTest: " + e.getMessage());
-            Assert.fail("Test failed due to an exception: " + e.getMessage());
+
+            logger.error(
+                    "Test execution failed for TC_LG_008_ValidateAccountValidateLogoutPageTest: "
+                            + e.getMessage()
+            );
+
+            Assert.fail(
+                    "Test failed due to an exception: "
+                            + e.getMessage()
+            );
+
         } finally {
-            logger.info("Finished TC_LG_008_ValidateAccountValidateLogoutPageTest.");
+
+            logger.info(
+                    "Finished TC_LG_008_ValidateAccountValidateLogoutPageTest."
+            );
         }
     }
 }

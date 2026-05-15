@@ -11,27 +11,27 @@ import testBase.BaseClass;
 
         @Test
         public void validateRewardPointsBreadcrumb() {
-            logger.info("Starting test: Validate breadcrumb on 'Your Reward Points' page.");
+            logger.info("Starting test: Validate breadcrumb on Your Reward Points page.");
 
-            // Step 1: Login
+            //Login
 
             performLogin();
 
-            HomePage home = new HomePage(driver);
+            HomePage home = new HomePage(getDriver());
 
-            // Step 2: Click on 'Reward Points' in right column
+            //Click on Reward Points in right column
             home.clickRewardPoints();
-            logger.info("Clicked on 'Your Reward Points' link.");
+            logger.info("Clicked on Your Reward Points link.");
 
-            RewardPointsPage rewardPage = new RewardPointsPage(driver);
+            RewardPointsPage rewardPage = new RewardPointsPage(getDriver());
 
-            // Step 3: Validate breadcrumb
+            //Validate breadcrumb
             String actualBreadcrumb = home.getBreadcrumb();  // Using the method in HomePage
             logger.info("Breadcrumb displayed: " + actualBreadcrumb);
 
             String expectedBreadcrumb = "Reward Points";  // Expected breadcrumb text
             Assert.assertEquals(actualBreadcrumb.trim(), expectedBreadcrumb,
-                    "Breadcrumb is not displayed correctly on 'Your Reward Points' page.");
+                    "Breadcrumb is not displayed correctly on Your Reward Points page.");
 
             logger.info("Breadcrumb validation successful.");
 

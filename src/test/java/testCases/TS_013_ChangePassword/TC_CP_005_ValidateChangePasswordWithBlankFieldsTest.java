@@ -18,26 +18,26 @@ public class TC_CP_005_ValidateChangePasswordWithBlankFieldsTest extends BaseCla
         logger.info("***** Starting TC_CP_005_ValidateChangePasswordWithBlankFieldsTest *****");
 
         try {
-            // Step 1: Login to application
-            logger.info("Step 1: Logging in...");
+            //Login to application
+            logger.info("Logging in...");
             performLogin(); // BaseClass method
             logger.info("Login successful.");
 
-            // Step 2: Navigate to 'Change Password' page
-            logger.info("Step 2: Navigating to Change Password page...");
-            HomePage home = new HomePage(driver);
+            //Navigate to Change Password page
+            logger.info("Navigating to Change Password page...");
+            HomePage home = new HomePage(getDriver());
             home.clickMyAccountFromDropdown();
-            logger.info("Clicked 'My Account' dropdown.");
+            logger.info("Clicked My Account dropdown.");
             home.clickChangePasswordLink();
-            logger.info("Clicked 'Change Password' link.");
+            logger.info("Clicked Change Password link.");
 
-            // Step 3: Initialize ChangePasswordPage
-            ChangePasswordPage changePasswordPage = new ChangePasswordPage(driver);
+            //Initialize ChangePasswordPage
+            ChangePasswordPage changePasswordPage = new ChangePasswordPage(getDriver());
             logger.info("Initialized ChangePasswordPage object.");
 
-            // Step 4: Wait for password fields to be visible
-            logger.info("Step 4: Waiting for password fields to be visible...");
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            //Wait for password fields to be visible
+            logger.info("Waiting for password fields to be visible...");
+            WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
             WebElement newPasswordField = wait.until(
                     ExpectedConditions.visibilityOf(changePasswordPage.getNewPasswordField())
             );
@@ -46,15 +46,15 @@ public class TC_CP_005_ValidateChangePasswordWithBlankFieldsTest extends BaseCla
             );
             logger.info("Password fields are visible.");
 
-            // Step 5: Leave fields blank and click 'Continue'
-            logger.info("Step 5: Leaving fields blank and clicking 'Continue'.");
+            //Leave fields blank and click Continue
+            logger.info("Leaving fields blank and clicking Continue.");
             newPasswordField.clear();
             confirmPasswordField.clear();
             changePasswordPage.clickContinue();
-            logger.info("'Continue' clicked with blank fields.");
+            logger.info("Continue clicked with blank fields.");
 
-            // Step 6: Validate warning message
-            logger.info("Step 6: Waiting for warning message...");
+            //Validate warning message
+            logger.info("Waiting for warning message...");
             WebElement warningElement = wait.until(
                     ExpectedConditions.visibilityOf(changePasswordPage.getWarningMessageElement())
             );

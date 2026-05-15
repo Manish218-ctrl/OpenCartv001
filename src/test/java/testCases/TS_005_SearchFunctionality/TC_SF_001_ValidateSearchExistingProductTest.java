@@ -17,11 +17,11 @@ public class TC_SF_001_ValidateSearchExistingProductTest extends BaseClass {
         try {
             // 1. Open the Application URL in any supported browser (handled by BaseClass setup)
 
-            HomePage hp = new HomePage(driver);
+            HomePage hp = new HomePage(getDriver());
 
-            SearchPage searchPage = new SearchPage(driver);
+            SearchPage searchPage = new SearchPage(getDriver());
 
-            // 1. Enter any existing product name into the 'Search' text box field - <Refer Test Data>
+            // 1. Enter any existing product name into the Search text box field - <Refer Test Data>
             String productName = p.getProperty("searchProduct");
 
             searchPage.enterSearchKeyword(productName); // Use method from SearchPage
@@ -35,11 +35,11 @@ public class TC_SF_001_ValidateSearchExistingProductTest extends BaseClass {
             // Verify the search results heading contains the product name (e.g., "Search - MacBook")
             String searchResultsHeading = searchPage.getSearchResultsHeading();
             Assert.assertTrue(searchResultsHeading.contains(productName), "Search results heading does not contain the searched product name.");
-            logger.info("Verified search results heading: '" + searchResultsHeading + "'");
+            logger.info("Verified search results heading: " + searchResultsHeading + "");
 
             // Verify the product itself is displayed in the search results
-            Assert.assertTrue(searchPage.isProductDisplayed(productName), "Searched product '" + productName + "' is not displayed in the search results.");
-            logger.info("Verified that the product '" + productName + "' is displayed in the search results.");
+            Assert.assertTrue(searchPage.isProductDisplayed(productName), "Searched product " + productName + " is not displayed in the search results.");
+            logger.info("Verified that the product " + productName + " is displayed in the search results.");
 
         } catch (Exception e) {
             logger.error("Test execution failed for TC_SF_001_ValidateSearchExistingProductTest: " + e.getMessage());

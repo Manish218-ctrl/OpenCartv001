@@ -1,154 +1,370 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
-public class CheckoutPage {
-
-    private WebDriver driver;
-    private WebDriverWait wait;
+public class CheckoutPage extends BasePage {
 
     public CheckoutPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        super(driver);
+
+        
     }
 
-    //  Billing & Delivery using existing address
+    // LOCATORS
+
+    @FindBy(id = "input-payment-firstname")
+    private WebElement txtPaymentFirstName;
+
+    @FindBy(id = "input-payment-lastname")
+    private WebElement txtPaymentLastName;
+
+    @FindBy(id = "input-payment-address-1")
+    private WebElement txtPaymentAddress1;
+
+    @FindBy(id = "input-payment-city")
+    private WebElement txtPaymentCity;
+
+    @FindBy(id = "input-payment-postcode")
+    private WebElement txtPaymentPostcode;
+
+    @FindBy(id = "input-payment-country")
+    private WebElement dropdownPaymentCountry;
+
+    @FindBy(id = "input-payment-zone")
+    private WebElement dropdownPaymentZone;
+
+    @FindBy(id = "input-shipping-firstname")
+    private WebElement txtShippingFirstName;
+
+    @FindBy(id = "input-shipping-lastname")
+    private WebElement txtShippingLastName;
+
+    @FindBy(id = "input-shipping-address-1")
+    private WebElement txtShippingAddress1;
+
+    @FindBy(id = "input-shipping-city")
+    private WebElement txtShippingCity;
+
+    @FindBy(id = "input-shipping-postcode")
+    private WebElement txtShippingPostcode;
+
+    @FindBy(xpath =
+            "//input[@name='payment_address' and @value='new']")
+    private WebElement radioNewBillingAddress;
+
+    @FindBy(id = "button-payment-address")
+    private WebElement btnBillingAddressContinue;
+
+    @FindBy(id = "button-shipping-address")
+    private WebElement btnShippingAddressContinue;
+
+    @FindBy(id = "button-shipping-method")
+    private WebElement btnShippingMethodContinue;
+
+    @FindBy(xpath =
+            "//input[@type='checkbox' and @name='agree']")
+    private WebElement chkTermsConditions;
+
+    @FindBy(id = "button-payment-method")
+    private WebElement btnPaymentMethodContinue;
+
+    @FindBy(id = "button-confirm")
+    private WebElement btnConfirmOrder;
+
+    @FindBy(xpath =
+            "//div[@id='content']//h1[contains(normalize-space(),'Your order has been placed')]")
+    private WebElement headingOrderSuccess;
+
+    @FindBy(xpath =
+            "//div[@id='content']//p[1]")
+    private WebElement txtOrderSuccess;
+
+    @FindBy(xpath =
+            "//div[@id='content']//a[contains(@class,'btn-primary') and normalize-space()='Continue']")
+    private WebElement btnOrderSuccessContinue;
+
+    // ACTION METHODS
+
+    public void selectNewBillingAddress() {
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        radioNewBillingAddress
+                )
+        ).click();
+    }
+
     public void fillExistingBillingDetails() {
-        driver.findElement(By.id("input-payment-firstname")).clear();
-        driver.findElement(By.id("input-payment-firstname")).sendKeys("John");
-        driver.findElement(By.id("input-payment-lastname")).clear();
-        driver.findElement(By.id("input-payment-lastname")).sendKeys("Doe");
-        driver.findElement(By.id("input-payment-address-1")).clear();
-        driver.findElement(By.id("input-payment-address-1")).sendKeys("123 Main St");
-        driver.findElement(By.id("input-payment-city")).clear();
-        driver.findElement(By.id("input-payment-city")).sendKeys("New York");
-        driver.findElement(By.id("input-payment-postcode")).clear();
-        driver.findElement(By.id("input-payment-postcode")).sendKeys("10001");
+
+        wait.until(
+                ExpectedConditions.visibilityOf(
+                        txtPaymentFirstName
+                )
+        ).clear();
+
+        txtPaymentFirstName.sendKeys("John");
+
+        txtPaymentLastName.clear();
+
+        txtPaymentLastName.sendKeys("Doe");
+
+        txtPaymentAddress1.clear();
+
+        txtPaymentAddress1.sendKeys("123 Main St");
+
+        txtPaymentCity.clear();
+
+        txtPaymentCity.sendKeys("New York");
+
+        txtPaymentPostcode.clear();
+
+        txtPaymentPostcode.sendKeys("10001");
     }
 
     public void fillExistingDeliveryDetails() {
-        driver.findElement(By.id("input-shipping-firstname")).clear();
-        driver.findElement(By.id("input-shipping-firstname")).sendKeys("John");
-        driver.findElement(By.id("input-shipping-lastname")).clear();
-        driver.findElement(By.id("input-shipping-lastname")).sendKeys("Doe");
-        driver.findElement(By.id("input-shipping-address-1")).clear();
-        driver.findElement(By.id("input-shipping-address-1")).sendKeys("123 Main St");
-        driver.findElement(By.id("input-shipping-city")).clear();
-        driver.findElement(By.id("input-shipping-city")).sendKeys("New York");
-        driver.findElement(By.id("input-shipping-postcode")).clear();
-        driver.findElement(By.id("input-shipping-postcode")).sendKeys("10001");
+
+        wait.until(
+                ExpectedConditions.visibilityOf(
+                        txtShippingFirstName
+                )
+        ).clear();
+
+        txtShippingFirstName.sendKeys("John");
+
+        txtShippingLastName.clear();
+
+        txtShippingLastName.sendKeys("Doe");
+
+        txtShippingAddress1.clear();
+
+        txtShippingAddress1.sendKeys("123 Main St");
+
+        txtShippingCity.clear();
+
+        txtShippingCity.sendKeys("New York");
+
+        txtShippingPostcode.clear();
+
+        txtShippingPostcode.sendKeys("10001");
     }
 
-    //  Region selection
+    public void enterNewBillingAddress(
+            String firstName,
+            String lastName,
+            String address1,
+            String city,
+            String postcode,
+            String country,
+            String region
+    ) {
+
+        wait.until(
+                ExpectedConditions.visibilityOf(
+                        txtPaymentFirstName
+                )
+        ).sendKeys(firstName);
+
+        txtPaymentLastName.sendKeys(lastName);
+
+        txtPaymentAddress1.sendKeys(address1);
+
+        txtPaymentCity.sendKeys(city);
+
+        txtPaymentPostcode.sendKeys(postcode);
+
+        Select countryDropdown =
+                new Select(dropdownPaymentCountry);
+
+        countryDropdown.selectByVisibleText(country);
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        dropdownPaymentZone
+                )
+        );
+
+        Select zoneDropdown =
+                new Select(dropdownPaymentZone);
+
+        zoneDropdown.selectByVisibleText(region);
+    }
+
+    public void fillBillingDetails(
+            String firstName,
+            String lastName,
+            String address,
+            String city,
+            String postcode,
+            String country,
+            String region
+    ) {
+
+        enterNewBillingAddress(
+                firstName,
+                lastName,
+                address,
+                city,
+                postcode,
+                country,
+                region
+        );
+
+        continueBillingAddress();
+    }
+
     public void selectRandomRegion() {
-        WebElement regionDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.id("input-payment-zone")));
-        Select select = new Select(regionDropdown);
-        select.selectByIndex(1); // Choose first available region
+
+        Select select =
+                new Select(
+                        wait.until(
+                                ExpectedConditions.elementToBeClickable(
+                                        dropdownPaymentZone
+                                )
+                        )
+                );
+
+        select.selectByIndex(1);
     }
 
-    //  Continue buttons
-    public void clickOrderSuccessContinueButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='content']/div/div/a"))).click();
+    public void continueBillingAddress() {
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        btnBillingAddressContinue
+                )
+        ).click();
     }
 
     public void continueBillingDetails() {
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"button-payment-address\"]"))).click();
+
+        continueBillingAddress();
+    }
+
+    public void continueShippingAddress() {
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        btnShippingAddressContinue
+                )
+        ).click();
     }
 
     public void continueDeliveryDetails() {
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"button-shipping-address\"]"))).click();
+
+        continueShippingAddress();
+    }
+
+    public void continueShippingMethod() {
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        btnShippingMethodContinue
+                )
+        ).click();
     }
 
     public void continueDeliveryMethod() {
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"button-shipping-method\"]"))).click();
+
+        continueShippingMethod();
     }
 
     public void acceptTermsAndConditions() {
-        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div/div/div/div[5]/div[2]/div/div[2]/div/input[1]")));
+
+        WebElement checkbox =
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(
+                                chkTermsConditions
+                        )
+                );
+
         if (!checkbox.isSelected()) {
+
             checkbox.click();
         }
     }
 
     public void continuePaymentMethod() {
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"button-payment-method\"]"))).click();
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        btnPaymentMethodContinue
+                )
+        ).click();
+    }
+
+    public void acceptTermsAndContinuePayment() {
+
+        acceptTermsAndConditions();
+
+        continuePaymentMethod();
     }
 
     public void confirmOrder() {
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"button-confirm\"]"))).click();
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        btnConfirmOrder
+                )
+        ).click();
     }
 
-    // ---------- Order success ----------
+    public void completeCheckout() {
+
+        continueBillingAddress();
+
+        continueShippingAddress();
+
+        continueShippingMethod();
+
+        acceptTermsAndConditions();
+
+        continuePaymentMethod();
+
+        confirmOrder();
+    }
+
     public boolean isOrderSuccessDisplayed() {
+
         try {
-            return driver.findElement(By.xpath("/html/body/div[2]/div/div/h1")).getText().contains("Your order has been placed!");
+
+            return wait.until(
+                    ExpectedConditions.visibilityOf(
+                            headingOrderSuccess
+                    )
+            ).isDisplayed();
+
         } catch (Exception e) {
+
             return false;
         }
     }
 
+    public boolean isOrderSuccessPageDisplayed() {
+
+        return isOrderSuccessDisplayed();
+    }
+
     public String getOrderSuccessText() {
-        return driver.findElement(By.xpath("/html/body/div[2]/div/div/p[1]")).getText();
+
+        return wait.until(
+                ExpectedConditions.visibilityOf(
+                        txtOrderSuccess
+                )
+        ).getText();
     }
 
+    public void clickOrderSuccessContinueButton() {
 
-
-
-
-    // Step 2: Billing Details
-    public void fillBillingDetails(String firstName, String lastName, String address,
-                                   String city, String postcode, String country, String region) {
-        driver.findElement(By.id("input-payment-firstname")).sendKeys(firstName);
-        driver.findElement(By.id("input-payment-lastname")).sendKeys(lastName);
-        driver.findElement(By.id("input-payment-address-1")).sendKeys(address);
-        driver.findElement(By.id("input-payment-city")).sendKeys(city);
-        driver.findElement(By.id("input-payment-postcode")).sendKeys(postcode);
-        new Select(driver.findElement(By.id("input-payment-country"))).selectByVisibleText(country);
-        new Select(driver.findElement(By.id("input-payment-zone"))).selectByVisibleText(region);
-
-        driver.findElement(By.id("button-payment-address")).click();
+        wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        btnOrderSuccessContinue
+                )
+        ).click();
     }
-
-
-
-
-
-    // Step 5: Payment Method
-    public void acceptTermsAndContinuePayment() {
-        WebElement termsCheckbox = wait.until(
-                ExpectedConditions.elementToBeClickable(By.name("agree"))
-        );
-        if (!termsCheckbox.isSelected()) {
-            termsCheckbox.click();
-        }
-
-        WebElement continueBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(By.id("button-payment-method"))
-        );
-        continueBtn.click();
-    }
-
-
-
-    public void completeCheckout() {
-        driver.findElement(By.id("button-payment-address")).click();
-        driver.findElement(By.id("button-shipping-address")).click();
-        driver.findElement(By.id("button-shipping-method")).click();
-        driver.findElement(By.name("agree")).click(); // agree to terms
-        driver.findElement(By.id("button-payment-method")).click();
-        driver.findElement(By.id("button-confirm")).click();
-    }
-
-
-
-
-
 }
-

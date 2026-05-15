@@ -12,25 +12,25 @@ import testBase.BaseClass;
 
         @Test
         public void validateContactUsPage() {
-            // Step 1: Navigate to the Home Page
-            driver.get(appURL);
+            //Navigate to the Home Page
+            getDriver().get(appURL);
             logger.info("Application URL opened: " + appURL);
 
-            // Step 2: Click on 'Contact Us' from the homepage
-            HomePage homePage = new HomePage(driver);
+            //Click on Contact Us from the homepage
+            HomePage homePage = new HomePage(getDriver());
             homePage.clickContactUsHeaderOption();
-            logger.info("Navigated to 'Contact Us' page.");
+            logger.info("Navigated to Contact Us page.");
 
-            // Step 3: Verify Page Title
-            ContactUsPage contactUsPage = new ContactUsPage(driver);
+            //Verify Page Title
+            ContactUsPage contactUsPage = new ContactUsPage(getDriver());
             String pageTitle = contactUsPage.getPageTitle();
             Assert.assertEquals(pageTitle, "Contact Us", "Page Title mismatch.");
 
-            // Step 4: Verify Page URL
-            String currentUrl = driver.getCurrentUrl();
+            //Verify Page URL
+            String currentUrl = getDriver().getCurrentUrl();
             Assert.assertTrue(currentUrl.contains("route=information/contact"), "Page URL mismatch. Current URL: " + currentUrl);
 
-            // Step 5: Verify Page Heading
+            //Verify Page Heading
             String pageHeading = contactUsPage.getPageTitle();
             Assert.assertEquals(pageHeading, "Contact Us", "Page Heading mismatch.");
 

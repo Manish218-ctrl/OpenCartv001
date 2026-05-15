@@ -15,31 +15,28 @@ public class TC_LF_007_ValidateBackButtonLoginTest extends BaseClass {
         logger.info("***** Starting TC_LF_007_ValidateBackButtonLoginTest *****");
 
         try {
-            driver.get(rb.getString("appURL"));
+            getDriver().get(p.getProperty("appURL"));
             logger.info("URL opened");
 
-            HomePage hp = new HomePage(driver);
+            HomePage hp = new HomePage(getDriver());
             hp.clickMyAccount();
             hp.clickLogin();
 
-            LoginPage lp = new LoginPage(driver);
-            lp.setEmail(rb.getString("email"));
-            lp.setPassword(rb.getString("password"));
+            LoginPage lp = new LoginPage(getDriver());
+            lp.setEmail(p.getProperty("email"));
+            lp.setPassword(p.getProperty("password"));
             lp.clickLogin();
 
-            MyAccountPage myAcc = new MyAccountPage(driver);
+            MyAccountPage myAcc = new MyAccountPage(getDriver());
             Assert.assertTrue(myAcc.isUserLoggedIn(), "Login failed - My Account page not displayed!");
 
-            // press back button
-            driver.navigate().back();
+            getDriver().navigate().back();
             logger.info("Pressed browser back button");
 
-            // Navigate forward again (to return to MyAccountPage)
-            driver.navigate().forward();
-            driver.navigate().refresh();
+            getDriver().navigate().forward();
+            getDriver().navigate().refresh();
             logger.info("Navigated forward and refreshed");
 
-            // Verify user is still logged in (session should persist)
             Assert.assertTrue(myAcc.isUserLoggedIn(), "User got logged out after pressing back button!");
 
         } catch (Exception e) {

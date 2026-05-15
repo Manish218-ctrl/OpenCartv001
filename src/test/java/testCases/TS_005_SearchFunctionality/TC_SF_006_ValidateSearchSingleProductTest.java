@@ -19,11 +19,11 @@ import org.openqa.selenium.WebElement; // Import for WebElement
 
             try {
 
-                HomePage hp = new HomePage(driver);
+                HomePage hp = new HomePage(getDriver());
 
-                SearchPage searchPage = new SearchPage(driver);
+                SearchPage searchPage = new SearchPage(getDriver());
 
-                // 1. Enter the search criteria in the 'Search' text box field which can result in single product - <Refer Test Data>
+                // 1. Enter the search criteria in the Search text box field which can result in single product - <Refer Test Data>
                 String searchKeyword = p.getProperty("singleProductSearchKeyword");
 
                 searchPage.enterSearchKeyword(searchKeyword);
@@ -36,12 +36,12 @@ import org.openqa.selenium.WebElement; // Import for WebElement
                 // Expected Result: 1. Only one product should be displayed in the search results page
                 List<WebElement> productResults = searchPage.productResultCards; // Directly accessing the @FindBy list
 
-                Assert.assertEquals(productResults.size(), 1, "Expected exactly one product, but found " + productResults.size() + " for the search keyword '" + searchKeyword + "'.");
-                logger.info("Verified: Exactly one product (" + productResults.size() + ") is displayed in the search results for '" + searchKeyword + "'.");
+                Assert.assertEquals(productResults.size(), 1, "Expected exactly one product, but found " + productResults.size() + " for the search keyword " + searchKeyword + ".");
+                logger.info("Verified: Exactly one product (" + productResults.size() + ") is displayed in the search results for " + searchKeyword + ".");
 
                 String searchResultsHeading = searchPage.getSearchResultsHeading();
                 Assert.assertTrue(searchResultsHeading.contains(searchKeyword), "Search results heading does not contain the search keyword.");
-                logger.info("Verified search results heading: '" + searchResultsHeading + "'");
+                logger.info("Verified search results heading: " + searchResultsHeading + "");
 
             } catch (Exception e) {
                 logger.error("Test execution failed for TC_SF_006_ValidateSearchSingleProductTest: " + e.getMessage());

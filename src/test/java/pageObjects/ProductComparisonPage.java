@@ -5,295 +5,570 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.List;
 
 public class ProductComparisonPage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductComparisonPage.class);
-
-    private WebDriver driver;
-    private WebDriverWait wait;
-
     public ProductComparisonPage(WebDriver driver) {
+
         super(driver);
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        
+
+        wait =
+                new WebDriverWait(
+                        driver,
+                        Duration.ofSeconds(20)
+                );
     }
 
-    // ----- WebElements -----
-    @FindBy(xpath = "//div[@id='content']//h1")
-    public WebElement headingComparePage;
+    //LOCATORS
 
-    @FindBy(xpath = "//a[contains(text(),'Continue')]")
-    public WebElement btnContinue;
+    @FindBy(xpath = "//div[@id='content']//h1[normalize-space()='Product Comparison']")
+    private WebElement headingComparePage;
 
-    @FindBy(xpath = "/html/body/div[2]/div/div/div[2]/div[1]/div/div[2]/div[2]/button[3]")
-    public WebElement productcomparelink;
+    @FindBy(xpath = "//a[contains(normalize-space(),'Continue')]")
+    private WebElement btnContinue;
 
-    @FindBy (xpath = "/html/body/div[2]/div/div/table/tbody[4]/tr/td[2]/input")
-    public WebElement addtocartbtn1;
+    @FindBy(xpath = "//button[contains(@onclick,'compare.add')]")
+    private WebElement btnProductCompare;
 
-    @FindBy (xpath = "/html/body/div[2]/div/div/table/tbody[4]/tr/td[3]/input")
-    public WebElement addtocartbtn2;
+    @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[contains(normalize-space(),'shopping cart')]")
+    private WebElement linkShoppingCartInSuccessMessage;
 
-    @FindBy (xpath = "/html/body/div[2]/div[1]/a[2]")
-    public WebElement cartlinkinsuccessmsg;
+    @FindBy(xpath = "//div[@id='content']//p[contains(normalize-space(),'You have not chosen any products to compare')]")
+    private WebElement txtEmptyComparisonMessage;
 
+    @FindBy(xpath = "//div[@id='content']//table//tbody//tr[1]//td[position()>1]//strong")
+    private List<WebElement> comparedProductNames;
 
+    @FindBy(xpath = "//a[contains(normalize-space(),'Remove')]")
+    private List<WebElement> removeLinks;
 
-    // Locator for all product names in the comparison table
-    public By productNameLinks = By.xpath(
-            "//*[@id=\"content\"]/table/tbody[1]/tr[1]/td[2]/a/strong");
+    @FindBy(xpath = "//div[@id='content']//table[contains(@class,'table-bordered')]")
+    private WebElement comparisonTable;
 
-    public By removeLinks = By.xpath("//a[text()='Remove']");
+    //DYNAMIC LOCATORS
 
+    private By productNameBy(String productName) {
 
-    public static final String PRODUCT_NAME_LINK_XPATH =
-            "//*[@id='content']/table/tbody[1]/tr[1]/td[2]/a/strong";
+        return By.xpath(
+                "//div[@id='content']//table//tbody//tr[1]" +
+                        "//strong[normalize-space()='"
+                        + productName +
+                        "']"
+        );
+    }
 
+    private By addToCartButtonByProduct(String productName) {
+
+        return By.xpath(
+                "//div[@id='content']//table//tbody//tr[td[normalize-space()='Product']]" +
+                        "//td[.//strong[normalize-space()='"
+                        + productName +
+                        "']]" +
+                        "/ancestor::table//tr[td[normalize-space()='']]" +
+                        "//td[count(//tr[td[normalize-space()='Product']]//td[.//strong[normalize-space()='"
+                        + productName +
+                        "']]/preceding-sibling::td)+1]" +
+                        "//input[@value='Add to Cart']"
+        );
+    }
+
+    private By removeButtonByProduct(String productName) {
+
+        return By.xpath(
+                "//div[@id='content']//table//tbody//tr[td[normalize-space()='Product']]" +
+                        "//td[.//strong[normalize-space()='"
+                        + productName +
+                        "']]" +
+                        "/ancestor::table//tr[td[normalize-space()='']]" +
+                        "//td[count(//tr[td[normalize-space()='Product']]//td[.//strong[normalize-space()='"
+                        + productName +
+                        "']]/preceding-sibling::td)+1]" +
+                        "//a[contains(normalize-space(),'Remove')]"
+        );
+    }
+
+    private By cartProductByName(String productName) {
+
+        return By.xpath(
+                "//div[@id='content']//table//a[normalize-space()='"
+                        + productName +
+                        "']"
+        );
+    }
+
+    //ACTION METHODS
 
     public void clickContinue() {
-        wait.until(ExpectedConditions.elementToBeClickable(btnContinue)).click();
-    }
 
-    public void clickproductcomparelink(){
-        productcomparelink.click();
-    }
+        WebElement continueButton =
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(
+                                btnContinue
+                        )
+                );
 
-    public void clickaddtocartbtn1(){
-        addtocartbtn1.click();
-    }
-
-    public void clickaddtocartbtn2(){
-        addtocartbtn2.click();
-    }
-
-    public void clickcartlinkinsuccessmsg(){
-        cartlinkinsuccessmsg.click();
-    }
-
-
-
-
-    public boolean waitForProductToBeListed(String productName) {
         try {
-            // 1. Ensure the table structure is present first
-            waitForComparisonTableToLoad();
 
-            // 2. Wait for the specific product link to become visible using the targeted XPath
-            WebElement product = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath(String.format(PRODUCT_NAME_LINK_XPATH, productName))
-            ));
+            continueButton.click();
 
-            // Check that the product link is both visible and enabled
-            return product != null && product.isDisplayed();
-
-        } catch (TimeoutException e) {
-            // Log the failure to debug
-            logger.error("Timed out (20s) waiting for product to be listed in comparison: " + productName);
-            return false;
         } catch (Exception e) {
-            // Catch any other exceptions (e.g., NoSuchElementException)
-            logger.error("Error checking for product in comparison: " + productName + ". Message: " + e.getMessage());
+
+            jsClick(continueButton);
+        }
+
+        logger.info("Clicked Continue button");
+    }
+
+    public void clickProductCompareLink() {
+
+        WebElement compareLink =
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(
+                                btnProductCompare
+                        )
+                );
+
+        try {
+
+            compareLink.click();
+
+        } catch (Exception e) {
+
+            jsClick(compareLink);
+        }
+
+        logger.info("Clicked Product Compare link");
+    }
+
+    public void clickShoppingCartLinkInSuccessMessage() {
+
+        WebElement cartLink =
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(
+                                linkShoppingCartInSuccessMessage
+                        )
+                );
+
+        try {
+
+            cartLink.click();
+
+        } catch (Exception e) {
+
+            jsClick(cartLink);
+        }
+
+        logger.info(
+                "Clicked Shopping Cart link from success message"
+        );
+    }
+
+    public boolean isOnComparisonPage() {
+
+        try {
+
+            boolean headingDisplayed =
+                    wait.until(
+                            ExpectedConditions.visibilityOf(
+                                    headingComparePage
+                            )
+                    ).isDisplayed();
+
+            boolean urlContains =
+                    driver.getCurrentUrl()
+                            .contains("route=product/compare");
+
+            logger.info(
+                    "Comparison page validation result: {}",
+                    headingDisplayed && urlContains
+            );
+
+            return headingDisplayed && urlContains;
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Failed to validate Product Comparison page: {}",
+                    e.getMessage()
+            );
+
+            return false;
+        }
+    }
+
+    public boolean isOnHomePage() {
+
+        try {
+
+            return wait.until(
+                    ExpectedConditions.urlContains(
+                            "route=common/home"
+                    )
+            );
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Failed to validate Home page navigation: {}",
+                    e.getMessage()
+            );
+
             return false;
         }
     }
 
     public void waitForComparisonTableToLoad() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//table[contains(@class,'table') and contains(@class,'table-bordered')]")));
+
+        wait.until(
+                ExpectedConditions.visibilityOf(
+                        comparisonTable
+                )
+        );
+
+        logger.info(
+                "Comparison table loaded successfully"
+        );
     }
 
+    public boolean waitForProductToBeListed(String productName) {
 
-    // Method to check product presence (used by many tests)
-    public boolean isProductPresent(String productName) {
         try {
-            List<WebElement> products = wait.until(
-                    ExpectedConditions.presenceOfAllElementsLocatedBy(productNameLinks));
-            for (WebElement product : products) {
-                if (product.getText().trim().equalsIgnoreCase(productName)) {
+
+            waitForComparisonTableToLoad();
+
+            WebElement product =
+                    wait.until(
+                            ExpectedConditions.visibilityOfElementLocated(
+                                    productNameBy(productName)
+                            )
+                    );
+
+            return product.isDisplayed();
+
+        } catch (TimeoutException e) {
+
+            logger.error(
+                    "Timed out waiting for product {} in comparison table",
+                    productName
+            );
+
+            return false;
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Error validating product {} in comparison table: {}",
+                    productName,
+                    e.getMessage()
+            );
+
+            return false;
+        }
+    }
+
+    public boolean isProductPresent(String productName) {
+
+        try {
+
+            wait.until(
+                    ExpectedConditions.visibilityOfAllElements(
+                            comparedProductNames
+                    )
+            );
+
+            for (WebElement product : comparedProductNames) {
+
+                String actualName =
+                        product.getText().trim();
+
+                logger.info(
+                        "Compared product found: {}",
+                        actualName
+                );
+
+                if (actualName.equalsIgnoreCase(productName)) {
+
                     return true;
                 }
             }
+
         } catch (Exception e) {
-            logger.error("Error while checking product in comparison: {}", e.getMessage());
+
+            logger.error(
+                    "Error while checking compared product: {}",
+                    e.getMessage()
+            );
         }
+
         return false;
     }
 
-    // Method to get count (used by TC_PC_014, TC_PC_013)
-    public int getComparedProductCount() {
+    public boolean isProductInComparisonTable(String productName) {
+
         try {
-            List<WebElement> products = wait.until(
-                    ExpectedConditions.presenceOfAllElementsLocatedBy(productNameLinks));
-            return products.size();
+
+            wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            productNameBy(productName)
+                    )
+            );
+
+            logger.info(
+                    "Product {} found in comparison table",
+                    productName
+            );
+
+            return true;
+
         } catch (Exception e) {
+
+            logger.warn(
+                    "Product {} NOT found in comparison table",
+                    productName
+            );
+
+            return false;
+        }
+    }
+
+    public int getComparedProductCount() {
+
+        try {
+
+            wait.until(
+                    ExpectedConditions.visibilityOfAllElements(
+                            comparedProductNames
+                    )
+            );
+
+            int count =
+                    comparedProductNames.size();
+
+            logger.info(
+                    "Compared product count: {}",
+                    count
+            );
+
+            return count;
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Failed to get compared product count: {}",
+                    e.getMessage()
+            );
+
             return 0;
         }
     }
 
+    public void addProductToCart(String productName) {
 
+        logger.info(
+                "Attempting to add product {} to cart",
+                productName
+        );
 
-    public boolean isOnComparisonPage() {
+        WebElement addToCartButton =
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(
+                                addToCartButtonByProduct(productName)
+                        )
+                );
+
+        scrollIntoView(addToCartButton);
+
         try {
-            // Use a high-visibility element unique to the Comparison page (the main heading)
-            WebElement heading = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//div[@id='content']//h1[normalize-space()='Product Comparison']")
-            ));
 
-            // Also check the URL as a secondary confirmation
-            boolean urlCheck = driver.getCurrentUrl().contains("route=product/compare");
-
-            return heading.isDisplayed() && urlCheck;
+            addToCartButton.click();
 
         } catch (Exception e) {
-            logger.error("Failed to confirm navigation to Product Comparison page: {}", e.getMessage());
-            return false;
-        }
-    }
 
-
-
-    // Method to check if navigated back to the homepage
-    public boolean isOnHomePage() {
-        try {
-            return wait.until(ExpectedConditions.urlMatches(".*/index.php.*"));
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public void logAllComparedProducts() {
-        try {
-            List<WebElement> products = wait.until(
-                    ExpectedConditions.presenceOfAllElementsLocatedBy(productNameLinks)
+            logger.warn(
+                    "Normal click failed for Add to Cart of {}. Using JS click.",
+                    productName
             );
 
-            logger.info("Products listed in comparison table:");
-            for (WebElement product : products) {
-                String name = product.getText().trim();
-                logger.info(" - " + name);
-            }
-        } catch (Exception e) {
-            logger.error("Failed to log compared products: " + e.getMessage());
+            jsClick(addToCartButton);
         }
-    }
 
-
-
-    public boolean isProductInComparisonTable(String productName) {
-        // Construct the full dynamic XPath
-        By productLinkLocator = By.xpath(String.format(PRODUCT_NAME_LINK_XPATH, productName));
-
-        try {
-            // Wait for the specific product link to be visible in the table.
-            wait.until(ExpectedConditions.visibilityOfElementLocated(productLinkLocator));
-            logger.info("Product '{}' successfully found in the comparison table.", productName);
-            return true;
-        } catch (Exception e) {
-            // If not found after the timeout, return false.
-            logger.warn("Product '{}' NOT found in the comparison table after waiting.", productName);
-            return false;
-        }
-    }
-
-
-    public void addProductToCart(String productName) {
-        logger.info("Attempting to add product '{}' to cart from comparison page.", productName);
-
-
-        By productHeaderLinkLocator = By.xpath(
-                "//table[@class='table table-bordered']//thead//a[normalize-space()='" + productName + "']"
+        logger.info(
+                "Successfully added product {} to cart",
+                productName
         );
-        WebElement productLinkInHeader = wait.until(ExpectedConditions.visibilityOfElementLocated(productHeaderLinkLocator));
-
-
-        WebElement headerCell = productLinkInHeader.findElement(By.xpath("./ancestor::th[1]"));
-
-
-        int columnIndex = driver.findElements(By.xpath(
-                "//table[@class='table table-bordered']//thead//th[preceding-sibling::th]"
-        )).size() + 1;
-
-        List<WebElement> allHeaderThs = driver.findElements(By.xpath("//table[@class='table table-bordered']//thead//th"));
-        int productActualColumnIndex = -1;
-        for (int i = 0; i < allHeaderThs.size(); i++) {
-            if (allHeaderThs.get(i).equals(headerCell)) {
-                productActualColumnIndex = i + 1; // 1-based index of the product's TH
-                break;
-            }
-        }
-
-        if (productActualColumnIndex == -1) {
-            throw new NoSuchElementException("Failed to find column index for product: " + productName + " in the comparison table header.");
-        }
-
-
-        By addToCartBtnLocator = By.xpath(
-                "//td[normalize-space()='Add to Cart']/following-sibling::td[" + (productActualColumnIndex -1) + "]//button[contains(@onclick, 'cart.add')]"
-        );
-
-
-        WebElement addToCartBtn = wait.until(ExpectedConditions.elementToBeClickable(addToCartBtnLocator));
-
-        // 5. Scroll the 'Add to Cart' button into view before clicking.
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", addToCartBtn
-        );
-        logger.info("Scrolled 'Add to Cart' button for '{}' into view.", productName);
-
-        // 6. Click the button, with a fallback for potential interception issues.
-        try {
-            addToCartBtn.click();
-            logger.info("Successfully clicked 'Add to Cart' for '{}'.", productName);
-        } catch (Exception e) {
-            logger.warn("Standard click failed for 'Add to Cart' button. Attempting JS click for '{}'. Error: {}", productName, e.getMessage());
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", addToCartBtn);
-        }
     }
-
-
 
     public boolean isProductInCart(String productName) {
 
-        logger.warn("isProductInCart on ProductComparisonPage currently assumes checking the actual Shopping Cart page after navigation. Ensure correct context.");
-        return driver.getCurrentUrl().contains("checkout/cart") &&
-                driver.findElements(By.xpath("//td[@class='text-left']//a[normalize-space()='" + productName + "']")).size() > 0;
-    }
+        try {
 
+            boolean urlCheck =
+                    driver.getCurrentUrl()
+                            .contains("checkout/cart");
 
-    public void clearAllComparedProducts() {
-        if (isOnComparisonPage()) {
-            By removeButtonLocator = By.xpath("//a[contains(@href, 'remove')]");
-            List<WebElement> removeButtons = driver.findElements(removeButtonLocator);
-            if (!removeButtons.isEmpty()) {
-                logger.info("Clearing {} products from comparison page.", removeButtons.size());
-                // Click all remove buttons to clear the comparison
-                for (WebElement button : removeButtons) {
-                    try {
-                        wait.until(ExpectedConditions.elementToBeClickable(button)).click();
-                        // Add a small wait for AJAX updates if necessary
-                        Thread.sleep(500); // Bad practice, use explicit waits for visibility of change
-                    } catch (Exception e) {
-                        logger.warn("Failed to click a remove button, attempting JS click. Error: {}", e.getMessage());
-                        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
-                        try { Thread.sleep(500); } catch (InterruptedException ie) { Thread.currentThread().interrupt(); }
-                    }
-                }
-                // Wait for the "no products to compare" message to appear
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[normalize-space()='You have not chosen any products to compare.']")));
-                logger.info("Cleared all products from comparison page.");
-            } else {
-                logger.info("No products to clear on comparison page.");
-            }
-        } else {
-            logger.warn("Not on Product Comparison page, cannot clear products.");
+            boolean productPresent =
+                    wait.until(
+                            ExpectedConditions.visibilityOfElementLocated(
+                                    cartProductByName(productName)
+                            )
+                    ).isDisplayed();
+
+            logger.info(
+                    "Cart validation for {} : {}",
+                    productName,
+                    urlCheck && productPresent
+            );
+
+            return urlCheck && productPresent;
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Failed cart validation for {} : {}",
+                    productName,
+                    e.getMessage()
+            );
+
+            return false;
         }
     }
-}
 
+    public void removeProduct(String productName) {
+
+        WebElement removeButton =
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(
+                                removeButtonByProduct(productName)
+                        )
+                );
+
+        scrollIntoView(removeButton);
+
+        try {
+
+            removeButton.click();
+
+        } catch (Exception e) {
+
+            logger.warn(
+                    "Normal remove click failed for {}. Using JS click.",
+                    productName
+            );
+
+            jsClick(removeButton);
+        }
+
+        logger.info(
+                "Removed product {} from comparison",
+                productName
+        );
+    }
+
+    public void clearAllComparedProducts() {
+
+        if (!isOnComparisonPage()) {
+
+            logger.warn(
+                    "Cannot clear products because current page is not Product Comparison page"
+            );
+
+            return;
+        }
+
+        wait.until(
+                ExpectedConditions.visibilityOfAllElements(
+                        removeLinks
+                )
+        );
+
+        while (!removeLinks.isEmpty()) {
+
+            WebElement removeButton =
+                    removeLinks.get(0);
+
+            scrollIntoView(removeButton);
+
+            try {
+
+                removeButton.click();
+
+            } catch (Exception e) {
+
+                logger.warn(
+                        "Normal remove click failed. Using JS click."
+                );
+
+                jsClick(removeButton);
+            }
+
+            wait.until(
+                    ExpectedConditions.stalenessOf(
+                            removeButton
+                    )
+            );
+        }
+
+        wait.until(
+                ExpectedConditions.visibilityOf(
+                        txtEmptyComparisonMessage
+                )
+        );
+
+        logger.info(
+                "All compared products removed successfully"
+        );
+    }
+
+    public void logAllComparedProducts() {
+
+        try {
+
+            wait.until(
+                    ExpectedConditions.visibilityOfAllElements(
+                            comparedProductNames
+                    )
+            );
+
+            logger.info(
+                    "Products available in comparison table:"
+            );
+
+            for (WebElement product : comparedProductNames) {
+
+                logger.info(
+                        "Compared Product : {}",
+                        product.getText().trim()
+                );
+            }
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Failed to log compared products: {}",
+                    e.getMessage()
+            );
+        }
+    }
+
+    public String getEmptyComparisonMessage() {
+
+        String message =
+                wait.until(
+                        ExpectedConditions.visibilityOf(
+                                txtEmptyComparisonMessage
+                        )
+                ).getText().trim();
+
+        logger.info(
+                "Empty comparison message captured: {}",
+                message
+        );
+
+        return message;
+    }
+}

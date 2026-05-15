@@ -16,37 +16,37 @@ public class TC_PC_013_ValidateProductCompareSingleProductTest extends BaseClass
         try {
             String productName = "iMac";
 
-            // Step 1: Cleanup any leftover products
-            ProductComparisonPage cmp = new ProductComparisonPage(driver);
+            //Cleanup any leftover products
+            ProductComparisonPage cmp = new ProductComparisonPage(getDriver());
             cmp.clearAllComparedProducts();
 
-            // Step 2: Search for product
-            SearchPage sp = new SearchPage(driver);
+            //Search for product
+            SearchPage sp = new SearchPage(getDriver());
             sp.enterSearchKeyword(productName);
             sp.clickSearchButton();
             Assert.assertTrue(sp.isProductDisplayed(productName),
-                    "ERROR: Product '" + productName + "' not displayed in search results.");
+                    "ERROR: Product " + productName + " not displayed in search results.");
 
-            // Step 3: Click product → PDP
+            //Click product → PDP
             sp.clickFirstProductName();
-            ProductDisplayPage pdp = new ProductDisplayPage(driver);
+            ProductDisplayPage pdp = new ProductDisplayPage(getDriver());
             Assert.assertTrue(pdp.isOnProductDisplayPage(),
                     "ERROR: Did not navigate to Product Display Page.");
 
-            // Step 4: Add product to compare
+            //Add product to compare
             pdp.clickCompareThisProduct();
 
-            // Step 5: Click "Product Comparison" link
+            //Click "Product Comparison" link
             pdp.clickProductComparisonLink();
 
-            // Step 6: Validate only one product listed
+            //Validate only one product listed
             Assert.assertTrue(cmp.isOnComparisonPage(),
                     "ERROR: Not navigated to Product Comparison page.");
             Assert.assertTrue(cmp.waitForProductToBeListed(productName),
                     "ERROR: Expected product not listed in comparison table.");
             Assert.assertEquals(cmp.getComparedProductCount(), 1,
                     "ERROR: More than one product is displayed in comparison.");
-            logger.info("Product '{}' displayed correctly in comparison page.", productName);
+            logger.info("Product {} displayed correctly in comparison page.", productName);
 
         } catch (Exception e) {
             logger.error("Test Failed due to Exception: " + e.getMessage(), e);

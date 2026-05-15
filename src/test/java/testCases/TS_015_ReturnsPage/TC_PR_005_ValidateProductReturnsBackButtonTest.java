@@ -21,16 +21,16 @@ import testBase.BaseClass;
             logger.info("==== TC_PR_005 started ====");
 
             // 1) Login
-            HomePage home = new HomePage(driver);
+            HomePage home = new HomePage(getDriver());
             home.clickMyAccount();
             home.clickLogin();
 
-            LoginPage login = new LoginPage(driver);
+            LoginPage login = new LoginPage(getDriver());
             login.login(username, password);
             logger.info("Logged in as: " + username);
 
             // 2) Ensure we are on My Account page
-            MyAccountPage myAccount = new MyAccountPage(driver);
+            MyAccountPage myAccount = new MyAccountPage(getDriver());
             Assert.assertTrue(myAccount.isMyAccountPageExists(), "My Account page was not displayed after login.");
 
             // 3) Go to Order History (Right column)
@@ -38,17 +38,17 @@ import testBase.BaseClass;
             logger.info("Navigated to Order History page.");
 
             // 4) Click “View” icon on any order (using first row)
-            OrderHistoryPage orderHistory = new OrderHistoryPage(driver);
+            OrderHistoryPage orderHistory = new OrderHistoryPage(getDriver());
             orderHistory.clickFirstOrderViewIcon();
-            logger.info("Opened Order Information page via first order's View icon.");
+            logger.info("Opened Order Information page via first orders View icon.");
 
             // 5) Click “Return” icon on Order Information page
-            OrderInformationPage orderInfo = new OrderInformationPage(driver);
+            OrderInformationPage orderInfo = new OrderInformationPage(getDriver());
             orderInfo.clickReturnIcon();
             logger.info("Clicked Return icon to open Product Returns page.");
 
             // 6) Type/modify details on Product Returns page (not required for Back behavior)
-            ProductReturnsPage returnsPage = new ProductReturnsPage(driver);
+            ProductReturnsPage returnsPage = new ProductReturnsPage(getDriver());
             try {
                 returnsPage.orderIDFieldp.clear();
                 returnsPage.orderIDFieldp.sendKeys("12345");
@@ -60,7 +60,7 @@ import testBase.BaseClass;
 
             // 8) Validate: request NOT processed & user is taken to My Account page
             Assert.assertTrue(myAccount.isMyAccountPageExists(),
-                    "Expected to be on My Account page after clicking Back from Product Returns, but wasn't.");
+                    "Expected to be on My Account page after clicking Back from Product Returns, but wasnt.");
 
             // Additionally ensure we did NOT land on any “success” message page
             logger.info("Validation successful: Back did not submit and navigated to My Account.");

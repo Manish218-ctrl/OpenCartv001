@@ -11,31 +11,31 @@ import testBase.BaseClass;
 
         @Test
         public void validateMyAccountInformationPage() {
-            logger.info("=== TS_014: Validate 'My Account Information' Page Heading, Title, and URL ===");
+            logger.info("=== TS_014: Validate My Account Information Page Heading, Title, and URL ===");
 
-            // Step 1: Login
+            //Login
             performLogin();  // BaseClass method handles login
             logger.info("Login successful.");
 
-            // Step 2: Navigate to 'My Account Information' page
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
+            //Navigate to My Account Information page
+            MyAccountPage myAccountPage = new MyAccountPage(getDriver());
             myAccountPage.clickEditAccountInformation();
-            logger.info("Clicked on 'Edit your account information' link.");
+            logger.info("Clicked on Edit your account information link.");
 
-            // Step 3: Validate Page Heading
+            //Validate Page Heading
             boolean headingDisplayed = myAccountPage.isMyAccountInformationPageDisplayed();
-            Assert.assertTrue(headingDisplayed, "Page Heading 'My Account Information' is NOT displayed.");
+            Assert.assertTrue(headingDisplayed, "Page Heading My Account Information is NOT displayed.");
             logger.info("Page Heading validated successfully.");
 
-            // Step 4: Validate Page Title
-            String actualTitle = driver.getTitle();
+            //Validate Page Title
+            String actualTitle = getDriver().getTitle();
             String expectedTitle = "My Account Information"; // Replace with actual expected title
             Assert.assertEquals(actualTitle, expectedTitle, "Page Title mismatch!");
             logger.info("Page Title validated successfully: " + actualTitle);
 
-            // Step 5: Validate Page URL
-            String actualURL = driver.getCurrentUrl();
-            String expectedURL = rb.getString("appURL") + "index.php?route=account/edit"; // Update with actual URL path
+            //Validate Page URL
+            String actualURL = getDriver().getCurrentUrl();
+            String expectedURL = p.getProperty("appURL") + "index.php?route=account/edit"; // Update with actual URL path
             Assert.assertEquals(actualURL, expectedURL, "Page URL mismatch!");
             logger.info("Page URL validated successfully: " + actualURL);
         }

@@ -16,14 +16,14 @@ public class TC_RF_001_ValidateAccountRegistrationTest extends BaseClass {
         logger.debug("This is a debug log message");
         try
         {
-            HomePage hp=new HomePage(driver);
+            HomePage hp=new HomePage(getDriver());
             hp.clickMyAccount();
             logger.info("Clicked on MyAccount Link.. ");
 
             hp.clickRegister();
             logger.info("Clicked on Register Link.. ");
 
-            AccountRegistrationPage regpage=new AccountRegistrationPage(driver);
+            AccountRegistrationPage regpage=new AccountRegistrationPage(getDriver());
 
             logger.info("Providing customer details...");
             regpage.setFirstName(randomString().toUpperCase());

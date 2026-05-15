@@ -1,0 +1,26 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="OpenCart-Firefox" thread-count="3" parallel="classes">
+
+    <listeners>
+        <listener class-name="utilities.ExtentManager" />
+    </listeners>
+
+    <test name="Firefox Tests" >
+        <parameter name="os" value="Linux" />
+        <parameter name="browser" value="firefox" />
+
+        <classes>
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_001_ValidateAccountRegistrationTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_002_ValidateRegisterAllFieldsTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_003_ValidateRegisterMandatoryFieldsTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_004_ValidateRegisterNewsletterYesTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_005_ValidateRegisterNewsletterNoTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_006_ValidateNavigateRegisterPageTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_007_ValidateRegisterPasswordMismatchTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_009_ValidateMissingPasswordConfirmTest" />
+            <class name="testCases.TS_001_AccountRegistration.TC_RF_010_ValidateMissingPrivacyPolicyTest" />
+            <class name="testCases.TS_005_SearchFunctionality.TC_SF_010_ValidateSearchExistingProductDataDrivenTest" />
+        </classes>
+    </test>
+
+</suite>

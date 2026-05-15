@@ -11,28 +11,28 @@ import testBase.BaseClass;
 
         @Test
         public void validateRewardPointsPage() {
-            // Step 1: Login to the application
+            //Login to the application
             performLogin();
 
-            // Step 2: Navigate to Reward Points page
-            HomePage home = new HomePage(driver);
+            //Navigate to Reward Points page
+            HomePage home = new HomePage(getDriver());
             home.clickRewardPoints();
-            logger.info("Navigated to 'Your Reward Points' page");
+            logger.info("Navigated to Your Reward Points page");
 
-            // Step 3: Initialize RewardPointsPage
-            RewardPointsPage rewardPage = new RewardPointsPage(driver);
+            //Initialize RewardPointsPage
+            RewardPointsPage rewardPage = new RewardPointsPage(getDriver());
 
-            // Step 4: Validate Page URL
-            String currentURL = driver.getCurrentUrl();
+            //Validate Page URL
+            String currentURL = getDriver().getCurrentUrl();
             logger.info("Current URL: " + currentURL);
-            Assert.assertTrue(currentURL.contains("reward"), "URL does not contain 'reward'");
+            Assert.assertTrue(currentURL.contains("reward"), "URL does not contain reward");
 
-            // Step 5: Validate Page Title
+            //Validate Page Title
             String pageTitle = rewardPage.getPageTitle();
             logger.info("Page Title: " + pageTitle);
             Assert.assertEquals(pageTitle, "Your Reward Points", "Page title mismatch");
 
-            // Step 6: Validate Page Heading
+            //Validate Page Heading
             String pageHeading = rewardPage.getTotalRewardPointsText(); // or use custom heading element
             logger.info("Page Heading: " + pageHeading);
             Assert.assertTrue(pageHeading.contains("Your total number of reward points"), "Page heading mismatch");

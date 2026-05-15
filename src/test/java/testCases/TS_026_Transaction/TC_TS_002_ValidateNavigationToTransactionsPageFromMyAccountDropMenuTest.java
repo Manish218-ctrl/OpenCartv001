@@ -1,47 +1,97 @@
 package testCases.TS_026_Transaction;
 
-
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import pageObjects.HomePage;
 import testBase.BaseClass;
 
-    public class TC_TS_002_ValidateNavigationToTransactionsPageFromMyAccountDropMenuTest extends BaseClass {
+import java.time.Duration;
 
-        @Test(groups = {"Regression", "Sanity"})
-        public void verifyNavigateToTransactionsPage() {
-            logger.info("***** Starting TC_TS_002 Transactions Test *****");
+public class TC_TS_002_ValidateNavigationToTransactionsPageFromMyAccountDropMenuTest extends BaseClass {
 
-            try {
-                // Step 1: Login
-                performLogin();
-                logger.info("User logged in successfully.");
+    @Test(groups = {"Regression", "Sanity"})
+    public void verifyNavigateToTransactionsPage() {
 
-                // Step 2: Navigate to 'My Account' dropdown
-                HomePage homePage = new HomePage(driver);
-                homePage.clickMyAccount();
-                logger.info("Clicked on 'My Account' dropmenu.");
+        logger.info(
+                "***** Starting TC_TS_002 Transactions Test *****"
+        );
 
-                // Step 3: Select 'Transactions' option
-                homePage.clickTransactions();
-                logger.info("Clicked on 'Transactions' option from dropdown.");
-                Thread.sleep(2000);
+        try {
 
-                // Step 4: Validate navigation - check breadcrumb or page title
-                String breadcrumb = homePage.getBreadcrumb();
-                Assert.assertTrue(
-                        breadcrumb.contains("Transactions"),
-                        "Breadcrumb does not contain 'Transactions'. Actual: " + breadcrumb
-                );
+            WebDriverWait wait =
+                    new WebDriverWait(getDriver(), Duration.ofSeconds(20));
 
-                logger.info("User successfully navigated to 'Your Transactions' page.");
-            } catch (Exception e) {
-                logger.error("Test Case Failed due to exception: " + e.getMessage());
-                Assert.fail("Test Case Failed due to exception: " + e.getMessage());
-            }
+            performLogin();
 
-            logger.info("***** Finished TC_TS_002 Transactions Test *****");
+            wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath("//div[@id='content']//h2[text()='My Account']")
+                    )
+            );
+
+            logger.info(
+                    "User logged in successfully."
+            );
+
+            HomePage homePage =
+                    new HomePage(getDriver());
+
+            homePage.clickMyAccount();
+
+            wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']")
+                    )
+            );
+
+            logger.info(
+                    "Clicked on My Account dropmenu."
+            );
+
+            homePage.clickTransactions();
+
+            wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath("//div[@id='content']/h1")
+                    )
+            );
+
+            logger.info(
+                    "Clicked on Transactions option from dropdown."
+            );
+
+            String breadcrumb =
+                    homePage.getBreadcrumb();
+
+            Assert.assertTrue(
+                    breadcrumb.contains("Transactions"),
+                    "Breadcrumb does not contain Transactions. Actual: "
+                            + breadcrumb
+            );
+
+            logger.info(
+                    "User successfully navigated to Your Transactions page."
+            );
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Test Case Failed due to exception: "
+                            + e.getMessage()
+            );
+
+            Assert.fail(
+                    "Test Case Failed due to exception: "
+                            + e.getMessage()
+            );
         }
-    }
 
+        logger.info(
+                "***** Finished TC_TS_002 Transactions Test *****"
+        );
+    }
+}

@@ -11,19 +11,19 @@ import pageObjects.SpecialOffersPage;
 
         @Test
         public void validateSpecialOffersPageNavigation() {
-            // Step 1: Navigate to the Site Map page via the footer link
-            HomePage homepage = new HomePage(driver);
+            //Navigate to the Site Map page via the footer link
+            HomePage homepage = new HomePage(getDriver());
             homepage.clickFooterLink("Site Map");
 
-            // Step 2: Validate that the Site Map page is loaded
-            SiteMapPage siteMapPage = new SiteMapPage(driver);
+            //Validate that the Site Map page is loaded
+            SiteMapPage siteMapPage = new SiteMapPage(getDriver());
             Assert.assertTrue(siteMapPage.isOnSiteMapPage(), "User is not on Site Map page");
 
-            // Step 3: Click on the 'Specials' footer link to navigate to Special Offers page
+            //Click on the Specials footer link to navigate to Special Offers page
             siteMapPage.clickFooterLink("Special Offers");
 
-            // Step 4: Validate that the Special Offers page is loaded correctly
-            SpecialOffersPage specialOffersPage = new SpecialOffersPage(driver);
+            //Validate that the Special Offers page is loaded correctly
+            SpecialOffersPage specialOffersPage = new SpecialOffersPage(getDriver());
             Assert.assertTrue(specialOffersPage.getPageTitle().contains("Special Offers"), "User is not on Special Offers page");
             Assert.assertTrue(specialOffersPage.areSpecialOffersDisplayed(), "No special offers found on the page");
         }

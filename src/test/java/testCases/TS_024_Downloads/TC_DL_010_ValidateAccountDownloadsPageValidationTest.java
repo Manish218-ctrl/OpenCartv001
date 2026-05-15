@@ -12,17 +12,17 @@ import testBase.BaseClass;
 
         @Test
         public void validateAccountDownloadsPage() {
-            // Step 1: Perform login
+            //Perform login
             performLogin();
 
-            // Step 2: Navigate to My Account -> Downloads (Right Column)
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
+            //Navigate to My Account -> Downloads (Right Column)
+            MyAccountPage myAccountPage = new MyAccountPage(getDriver());
             myAccountPage.clickDownloadsFromRightColumn();
 
-            // Step 3: Initialize DownloadsPage
-            DownloadsPage downloadsPage = new DownloadsPage(driver);
+            //Initialize DownloadsPage
+            DownloadsPage downloadsPage = new DownloadsPage(getDriver());
 
-            // Step 4: Validation
+            //Validation
 
             // Expected values
             String expectedUrl = "https://tutorialsninja.com/demo/index.php?route=account/download"; // Replace with actual URL
@@ -30,7 +30,7 @@ import testBase.BaseClass;
             String expectedHeading = "Downloads"; // Typically the breadcrumb last item
 
             // Actual values
-            String actualUrl = driver.getCurrentUrl();
+            String actualUrl = getDriver().getCurrentUrl();
             String actualTitle = downloadsPage.getPageTitle();
             String actualHeading = downloadsPage.getBreadcrumbText();
 

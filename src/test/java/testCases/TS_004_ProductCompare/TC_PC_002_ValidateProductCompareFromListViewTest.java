@@ -21,40 +21,40 @@ public class TC_PC_002_ValidateProductCompareFromListViewTest extends BaseClass 
         logger.info("***** Starting TC_PC_002_ValidateProductCompareFromListViewTest *****");
 
         try {
-            HomePage hp = new HomePage(driver);
-            SearchPage sp = new SearchPage(driver);
-            ProductComparisonPage cmp = new ProductComparisonPage(driver);
+            HomePage hp = new HomePage(getDriver());
+            SearchPage sp = new SearchPage(getDriver());
+            ProductComparisonPage cmp = new ProductComparisonPage(getDriver());
 
 
             cmp.clearAllComparedProducts();
             logger.info("Cleared all previously compared products.");
             hp.enterProductNameInSearch( ProductName);
-            logger.info("Entered search keyword: '" +  ProductName + "'");
+            logger.info("Entered search keyword: " +  ProductName + "");
             hp.clickSearchButton();
             logger.info("Clicked global search icon.");
             sp.clickListView();
             logger.info("Clicked List View button.");
             String actualTooltip = sp.getCompareTooltipForFirstProduct();
-            Assert.assertEquals(actualTooltip, EXPECTED_COMPARE_TOOLTIP, "ERROR: Tooltip mismatch for 'Compare this Product'.");
+            Assert.assertEquals(actualTooltip, EXPECTED_COMPARE_TOOLTIP, "ERROR: Tooltip mismatch for Compare this Product.");
             logger.info("Verified tooltip: " + actualTooltip);
             sp.clickCompareProductForFirstProduct();
-            logger.info("Clicked 'Compare this Product' for the first product.");
+            logger.info("Clicked Compare this Product for the first product.");
             String successMsg = sp.getSuccessMessage();
             Assert.assertTrue(successMsg.contains("Success: You have added " +  ProductName), "ERROR: Success message not displayed or product name missing.");
             logger.info("Success message verified: " + successMsg);
-            String originalWindow = driver.getWindowHandle();
+            String originalWindow = getDriver().getWindowHandle();
             sp.clickProductComparisonLinkFromSuccessMessage();
-            logger.info("Clicked 'Product Compare' link from search results.");
-            Set<String> allWindowHandles = driver.getWindowHandles();
+            logger.info("Clicked Product Compare link from search results.");
+            Set<String> allWindowHandles = getDriver().getWindowHandles();
             for (String winHandle : allWindowHandles) {
                 if (!originalWindow.contentEquals(winHandle)) {
-                    driver.switchTo().window(winHandle);
+                    getDriver().switchTo().window(winHandle);
                     break;
                 }
             }
-            logger.info("Switched to window/tab: " + driver.getTitle());
+            logger.info("Switched to window/tab: " + getDriver().getTitle());
 
-            cmp = new ProductComparisonPage(driver);
+            cmp = new ProductComparisonPage(getDriver());
 
             Assert.assertTrue(cmp.isOnComparisonPage(), "ERROR: Did not land on Product Comparison page.");
             logger.info("Verified product comparison page loaded.");
@@ -62,10 +62,10 @@ public class TC_PC_002_ValidateProductCompareFromListViewTest extends BaseClass 
             boolean isProductInTable = cmp.waitForProductToBeListed(ProductName);
 
             if (isProductInTable) {
-                logger.info("Assertion Passed: Product '" +  ProductName + "' successfully found in comparison table.");
+                logger.info("Assertion Passed: Product " +  ProductName + " successfully found in comparison table.");
             } else {
-                logger.error("ERROR: Product '" +  ProductName + "' not found in comparison table.");
-                Assert.fail("ERROR: Product '" +  ProductName + "' not found in comparison table.");
+                logger.error("ERROR: Product " +  ProductName + " not found in comparison table.");
+                Assert.fail("ERROR: Product " +  ProductName + " not found in comparison table.");
             }
 
         } catch (Exception e) {

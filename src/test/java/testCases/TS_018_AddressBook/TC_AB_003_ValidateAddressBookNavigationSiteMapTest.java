@@ -17,29 +17,29 @@ public class TC_AB_003_ValidateAddressBookNavigationSiteMapTest extends BaseClas
         try {
             logger.info("=== TC_AB_003: Validate Address Book Navigation via Footer Link START ===");
 
-            // Step 1: Login to application
-            logger.info("Step 1: Performing login");
+            //Login to application
+            logger.info("Performing login");
             performLogin();
             logger.info("Login successful");
 
-            // Step 2: Initialize HomePage object
-            logger.info("Step 2: Initializing HomePage page object");
-            HomePage homePage = new HomePage(driver);
+            //Initialize HomePage object
+            logger.info("Initializing HomePage page object");
+            HomePage homePage = new HomePage(getDriver());
 
-            // Step 3: Click 'Site Map' footer link
-            logger.info("Step 3: Clicking 'Site Map' footer link");
+            //Click Site Map footer link
+            logger.info("Clicking Site Map footer link");
             homePage.clickFooterLink("Site Map");
-            logger.info("'Site Map' footer link clicked successfully");
+            logger.info("Site Map footer link clicked successfully");
 
-            // Step 4: Click 'Address Book' link from Site Map page
-            logger.info("Step 4: Clicking 'Address Book' link from Site Map page");
-            SiteMapPage siteMapPage = new SiteMapPage(driver);
+            //Click Address Book link from Site Map page
+            logger.info("Clicking Address Book link from Site Map page");
+            SiteMapPage siteMapPage = new SiteMapPage(getDriver());
             siteMapPage.clickAddressBook();
-            logger.info("'Address Book' link clicked successfully");
+            logger.info("Address Book link clicked successfully");
 
-            // Step 5: Verify Address Book Page
-            logger.info("Step 5: Verifying Address Book page is displayed");
-            AddressBookPage addressBookPage = new AddressBookPage(driver);
+            //Verify Address Book Page
+            logger.info("Verifying Address Book page is displayed");
+            AddressBookPage addressBookPage = new AddressBookPage(getDriver());
             addressBookPage.verifyAddressBookPage();
             logger.info("Address Book page is displayed successfully");
 

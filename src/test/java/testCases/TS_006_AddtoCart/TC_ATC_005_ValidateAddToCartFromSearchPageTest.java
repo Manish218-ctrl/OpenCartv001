@@ -1,54 +1,70 @@
 package testCases.TS_006_AddtoCart;
 
-
-
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
+import pageObjects.ProductDisplayPage;
 import pageObjects.ShoppingCartPage;
 import testBase.BaseClass;
 
-    public class TC_ATC_005_ValidateAddToCartFromSearchPageTest extends BaseClass {
+public class TC_ATC_005_ValidateAddToCartFromSearchPageTest extends BaseClass {
 
-        @Test
-        public void verifyAddToCartFromCategoryPage() {
-            try {
-                logger.info("***** Starting TC_ATC_005_ValidateAddToCartFromSearchPageTest *****");
+    @Test
+    public void verifyAddToCartFromCategoryPage() {
 
-                // Step 1: Initialize HomePage
-                HomePage home = new HomePage(driver);
+        try {
 
-                // Step 2: Hover on 'Desktops' -> Click 'Show All Desktops'
-                home.clickLogo();
+            logger.info("***** Starting TC_ATC_005_ValidateAddToCartFromSearchPageTest *****");
 
-                // Navigate to Mac subcategory
-                driver.navigate().to(appURL + "/index.php?route=product/product&path=18&product_id=47"); // Direct URL for "Mac"
-                logger.info("Navigated to HP LP3065 subcategory page.");
+            HomePage home = new HomePage(getDriver());
 
-                // Step 3: Add Product to Cart
-                String expectedProduct = "HP LP3065";
-                //home.clickAddToCart(expectedProduct);
-                driver.findElement(By.xpath("//*[@id=\"button-cart\"]")).click();
+            ProductDisplayPage pdp = new ProductDisplayPage(getDriver());
 
-                // Step 4: Validate success message and click Shopping Cart link
-                home.clickViewCartFromSuccessAlert();
-                logger.info("Clicked 'shopping cart' link from success alert.");
+            ShoppingCartPage cartPage = new ShoppingCartPage(getDriver());
 
-                // Step 5: Verify product is displayed in Shopping Cart
-                ShoppingCartPage cartPage = new ShoppingCartPage(driver);
-                Assert.assertTrue(cartPage.isOnShoppingCartPage(), "Not on Shopping Cart page!");
+            String expectedProduct = "HP LP3065";
 
-                boolean productExists = cartPage.isProductDisplayedInCart(expectedProduct);
-                Assert.assertTrue(productExists, "Product not found in cart!");
+            // Navigate directly to PDP
+            getDriver().navigate().to(
+                    appURL + "/index.php?route=product/product&path=18&product_id=47"
+            );
 
-                logger.info("Product successfully added and verified in Shopping Cart.");
+            logger.info("Navigated to HP LP3065 Product Display Page.");
 
-                logger.info("***** Finished TC_ATC_005_ValidateAddToCartFromSearchPageTest  *****");
+            // Add product to cart
+            pdp.addToCart();
 
-            } catch (Exception e) {
-                logger.error("Test failed due to exception: " + e.getMessage(), e);
-                Assert.fail("Test failed: " + e.getMessage());
-            }
+            logger.info("Clicked Add To Cart button.");
+
+            // Open Shopping Cart from success message
+            pdp.clickShoppingCartLinkInSuccessMessage();
+
+            logger.info("Clicked Shopping Cart link from success message.");
+
+            // Validate Shopping Cart page
+            Assert.assertTrue(
+                    cartPage.isOnShoppingCartPage(),
+                    "Not on Shopping Cart page!"
+            );
+
+            // Validate product exists in cart
+            Assert.assertTrue(
+                    cartPage.isProductDisplayedInCart(expectedProduct),
+                    "Product not found in cart!"
+            );
+
+            logger.info("Product successfully added and verified in Shopping Cart.");
+
+            logger.info("***** Finished TC_ATC_005_ValidateAddToCartFromSearchPageTest *****");
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Test failed due to exception: " + e.getMessage(),
+                    e
+            );
+
+            Assert.fail("Test failed: " + e.getMessage());
         }
     }
+}

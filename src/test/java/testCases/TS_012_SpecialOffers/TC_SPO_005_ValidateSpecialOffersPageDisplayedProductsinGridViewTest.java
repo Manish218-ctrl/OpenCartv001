@@ -13,7 +13,7 @@ public class TC_SPO_005_ValidateSpecialOffersPageDisplayedProductsinGridViewTest
         public void validateSpecialOffersGridView() {
 
 
-            SpecialOffersPage specialOffersPage = new SpecialOffersPage(driver);
+            SpecialOffersPage specialOffersPage = new SpecialOffersPage(getDriver());
 
             // Open the Special Offers page
             specialOffersPage.clickSpecialsLink();

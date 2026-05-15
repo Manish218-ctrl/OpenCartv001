@@ -8,49 +8,75 @@ import pageObjects.LoginPage;
 import pageObjects.RegisterPage;
 import testBase.BaseClass;
 
-    public class TC_RF_006_ValidateNavigateRegisterPageTest extends BaseClass {
+public class TC_RF_006_ValidateNavigateRegisterPageTest extends BaseClass {
 
-        @Test
-        public void verify_navigation_to_register_page() {
-            logger.info("***** Starting TC_RF_006_ValidateNavigateRegisterPageTest *****");
+    @Test
+    public void verify_navigation_to_register_page() {
 
-            try {
-                HomePage hp = new HomePage(driver);
-                RegisterPage regPage = new RegisterPage(driver);
+        logger.info(
+                "***** Starting TC_RF_006_ValidateNavigateRegisterPageTest *****"
+        );
 
-                // Path 1: My Account → Register
-                hp.clickMyAccount();
-                hp.clickRegister();
-                Assert.assertTrue(regPage.isRegisterPageDisplayed(),
-                        "Register page not opened via My Account → Register");
+        try {
 
-                driver.navigate().back();
+            HomePage hp = new HomePage(getDriver());
 
-                // Path 2: My Account → Login → Continue (New Customer)
-                hp.clickMyAccount();
-                hp.clickLogin();
-                LoginPage login = new LoginPage(driver);
-                login.clickContinueButtonNewCustomer();
-                Assert.assertTrue(regPage.isRegisterPageDisplayed(),
-                        "Register page not opened via Login → Continue (New Customer)");
+            RegisterPage regPage =
+                    new RegisterPage(getDriver());
 
-                driver.navigate().back();
-                driver.navigate().back(); // back to Home page
+            hp.clickMyAccount();
+            hp.clickRegister();
 
-                // Path 3: Right Column → Register (first go to Login page to see the right column)
-                hp.clickMyAccount();
-                hp.clickLogin();
-                hp.clickRightColumnRegister();
-                Assert.assertTrue(regPage.isRegisterPageDisplayed(),
-                        "Register page not opened via Right Column Register");
+            Assert.assertTrue(
+                    regPage.isRegisterPageDisplayed(),
+                    "Register page not opened via My Account → Register"
+            );
 
-                logger.info("Test Passed: All navigation paths to Register Account page validated.");
-            }
-            catch (Exception e) {
-                logger.error("Test failed: " + e.getMessage());
-                Assert.fail("Test failed: " + e.getMessage());
-            }
+            getDriver().navigate().back();
 
-            logger.info("***** Finished TC_RF_006_ValidateNavigateRegisterPageTest *****");
+            hp.clickMyAccount();
+            hp.clickLogin();
+
+            LoginPage login =
+                    new LoginPage(getDriver());
+
+            login.clickContinueButtonNewCustomer();
+
+            Assert.assertTrue(
+                    regPage.isRegisterPageDisplayed(),
+                    "Register page not opened via Login → Continue (New Customer)"
+            );
+
+            getDriver().navigate().back();
+            getDriver().navigate().back();
+
+            hp.clickMyAccount();
+            hp.clickLogin();
+
+            hp.clickRightColumnRegister();
+
+            Assert.assertTrue(
+                    regPage.isRegisterPageDisplayed(),
+                    "Register page not opened via Right Column Register"
+            );
+
+            logger.info(
+                    "Test Passed: All navigation paths to Register Account page validated."
+            );
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Test failed: " + e.getMessage()
+            );
+
+            Assert.fail(
+                    "Test failed: " + e.getMessage()
+            );
         }
+
+        logger.info(
+                "***** Finished TC_RF_006_ValidateNavigateRegisterPageTest *****"
+        );
     }
+}

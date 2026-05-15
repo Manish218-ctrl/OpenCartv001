@@ -17,33 +17,33 @@ public class TC_CP_001_ValidateChangePasswordPageNavigationValidationTest extend
         logger.info("***** Starting TC_CP_001_ValidateChangePasswordPageNavigationValidationTest *****");
 
         try {
-            // Step 1: Login using BaseClass helper
+            //Login using BaseClass helper
             performLogin();
             logger.info("Login successful.");
 
-            // Step 2: Navigate to My Account page
-            HomePage homePage = new HomePage(driver);
+            //Navigate to My Account page
+            HomePage homePage = new HomePage(getDriver());
             homePage.clickMyAccount();
-            logger.info("Clicked on 'My Account' dropdown.");
+            logger.info("Clicked on My Account dropdown.");
             homePage.selectMyAccountOption();
-            logger.info("Selected 'My Account' option from dropdown.");
+            logger.info("Selected My Account option from dropdown.");
 
-            // Step 3: Verify My Account page and click Change Password
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
+            //Verify My Account page and click Change Password
+            MyAccountPage myAccountPage = new MyAccountPage(getDriver());
             Assert.assertTrue(myAccountPage.isMyAccountPageExists(),
                     "My Account page is not displayed.");
             logger.info("User is on My Account page.");
 
             myAccountPage.clickChangeYourPassword();
-            logger.info("Clicked on 'Change your password' link.");
+            logger.info("Clicked on Change your password link.");
 
-            // Step 4: Validate navigation (breadcrumb or URL)
+            //Validate navigation (breadcrumb or URL)
             String breadcrumb = myAccountPage.getBreadcrumbText();
             logger.info("Breadcrumb text after navigation: " + breadcrumb);
 
             Assert.assertTrue(
                     breadcrumb.contains("Change Password") ||
-                            driver.getCurrentUrl().contains("password"),
+                            getDriver().getCurrentUrl().contains("password"),
                     "Navigation to Change Password page failed."
             );
             logger.info("Successfully navigated to Change Password page.");

@@ -22,22 +22,22 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_CP_004_ValidateChangePasswordTest *****");
 
             try {
-                // Step 1: Login
-                HomePage home = new HomePage(driver);
+                //Login
+                HomePage home = new HomePage(getDriver());
                 home.clickMyAccount();
                 home.clickLogin();
 
-                LoginPage loginPage = new LoginPage(driver);
+                LoginPage loginPage = new LoginPage(getDriver());
                 loginPage.login(username, password);
                 logger.info("User logged in successfully.");
 
-                // Step 2: Navigate to Password page
-                MyAccountPage myAccount = new MyAccountPage(driver);
+                //Navigate to Password page
+                MyAccountPage myAccount = new MyAccountPage(getDriver());
                 myAccount.clickPassword();
 
-                ChangePasswordPage changePwdPage = new ChangePasswordPage(driver);
+                ChangePasswordPage changePwdPage = new ChangePasswordPage(getDriver());
 
-                // Step 3: Enter New Password
+                //Enter New Password
                 String newPassword = randomAlphaNumeric();  // random new password
                 changePwdPage.setNewPassword(newPassword);
                 changePwdPage.setConfirmPassword(newPassword);
@@ -49,11 +49,11 @@ import testBase.BaseClass;
                         "Password change success message not displayed.");
                 logger.info("Password updated successfully.");
 
-                // Step 4: Logout
+                //Logout
                 home.clickMyAccount();
                 home.clickLogout();
 
-                // Step 5: Try login with old password (should fail)
+                //Try login with old password (should fail)
                 home.clickMyAccount();
                 home.clickLogin();
                 loginPage.login(username, password); // old password
@@ -61,12 +61,12 @@ import testBase.BaseClass;
                 Assert.assertTrue(warningMsg.contains("Warning: No match for E-Mail Address and/or Password."),
                         "Expected warning message not displayed for old password.");
 
-                // Step 6: Login with new password
+                //Login with new password
                 home.clickMyAccount();
                 home.clickLogin();
                 loginPage.login(username, newPassword);
 
-                String pageTitle = driver.getTitle();
+                String pageTitle = getDriver().getTitle();
                 Assert.assertTrue(pageTitle.contains("My Account"), "Login with new password failed.");
                 logger.info("User logged in with new password successfully.");
 

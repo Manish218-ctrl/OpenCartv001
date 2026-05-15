@@ -27,38 +27,38 @@ public class TC_NLT_007_ValidateNewsletterSubscriptionUpdateTest extends BaseCla
 
            performLogin();
 
-            HomePage homepage = new HomePage(driver);
+            HomePage homepage = new HomePage(getDriver());
 
-            // Step 2: Click on 'Newsletter' Right Column option
+            //Click on Newsletter Right Column option
             homepage.clickRightColumnNewsletter();
-            logger.info("Navigating to 'Newsletter Subscription' page.");
+            logger.info("Navigating to Newsletter Subscription page.");
 
-            // Step 3: Check and select 'Yes' or 'No' radio option based on the current selection
-            NewsletterPage newsletterPage = new NewsletterPage(driver);
+            //Check and select Yes or No radio option based on the current selection
+            NewsletterPage newsletterPage = new NewsletterPage(getDriver());
             if (newsletterPage.isNoOptionSelected()) {
                 newsletterPage.selectYesOption();
-                logger.info("'Yes' option selected.");
+                logger.info("Yes option selected.");
             } else if (newsletterPage.isYesOptionSelected()) {
                 newsletterPage.selectNoOption();
-                logger.info("'No' option selected.");
+                logger.info("No option selected.");
             }
 
-            // Step 4: Click on 'Continue' button
+            //Click on Continue button
             newsletterPage.clickContinue();
-            logger.info("Clicked on 'Continue' button.");
+            logger.info("Clicked on Continue button.");
 
-            // Step 5: Verify success message
+            //Verify success message
             String successMessage = newsletterPage.getSuccessMessage();
             Assert.assertEquals(successMessage, "Success: Your newsletter subscription has been successfully updated!", "Success message not displayed.");
             logger.info("Success message displayed as expected.");
 
-            // Step 6: Verify the user is redirected to 'My Account' page
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
-            Assert.assertTrue(myAccountPage.isMyAccountPageExists(), "User is not redirected to 'My Account' page.");
-            logger.info("Successfully redirected to 'My Account' page.");
+            //Verify the user is redirected to My Account page
+            MyAccountPage myAccountPage = new MyAccountPage(getDriver());
+            Assert.assertTrue(myAccountPage.isMyAccountPageExists(), "User is not redirected to My Account page.");
+            logger.info("Successfully redirected to My Account page.");
 
 
-            // Step 7: Click on 'Newsletter' Right Column option to verify updated selection
+            //Click on Newsletter Right Column option to verify updated selection
             homepage.clickRightColumnNewsletter();
 
             // Determine the expected option (based on what was selected)
@@ -73,8 +73,8 @@ public class TC_NLT_007_ValidateNewsletterSubscriptionUpdateTest extends BaseCla
         public void tearDown() {
             // Close the browser after the test is complete
             logger.info("Test completed. Closing the browser.");
-            if (driver != null) {
-                driver.quit();
+            if (getDriver() != null) {
+                getDriver().quit();
             }
         }
     }

@@ -15,16 +15,16 @@ import testBase.BaseClass;
 
             try {
                 // 1) Login
-                HomePage hp = new HomePage(driver);
+                HomePage hp = new HomePage(getDriver());
                 hp.clickMyAccount();
                 hp.clickLogin();
 
-                LoginPage lp = new LoginPage(driver);
-                lp.login(rb.getString("email"), rb.getString("password"));
+                LoginPage lp = new LoginPage(getDriver());
+                lp.login(p.getProperty("email"), p.getProperty("password"));
                 logger.info("Logged in successfully.");
 
                 // 2) Search for product
-                SearchPage sp = new SearchPage(driver);
+                SearchPage sp = new SearchPage(getDriver());
                 sp.enterSearchKeyword(productName);
                 sp.clickSearchButton();
                 Assert.assertTrue(sp.isProductDisplayed(productName),
@@ -32,7 +32,7 @@ import testBase.BaseClass;
 
                 // 3) Open PDP
                 sp.clickFirstProductName();
-                ProductDisplayPage pdp = new ProductDisplayPage(driver);
+                ProductDisplayPage pdp = new ProductDisplayPage(getDriver());
                 Assert.assertTrue(pdp.isOnProductDisplayPage(), "Not on Product Display Page as expected");
 
                 // 4) Add product to Wish List
@@ -42,7 +42,7 @@ import testBase.BaseClass;
                 logger.info("Product added to Wish List. Success Msg: {}", successMsg);
 
                 // 5) Click on "Wish List" header option
-                WishListPage wlp = new WishListPage(driver);
+                WishListPage wlp = new WishListPage(getDriver());
                 wlp.clickWishListHeader();
                 logger.info("Clicked Wish List header option.");
 
@@ -53,7 +53,7 @@ import testBase.BaseClass;
 
                 Assert.assertTrue(wlp.isProductInWishList(productName),
                         "Product not found in My Wish List: " + productName);
-                logger.info("Validation Passed: '{}' is present in My Wish List", productName);
+                logger.info("Validation Passed: {} is present in My Wish List", productName);
 
             } catch (Exception e) {
                 logger.error("Test Failed due to exception: {}", e.getMessage());

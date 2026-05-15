@@ -7,9 +7,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import pageObjects.HomePage;
 import pageObjects.MyAccountPage;
+import pageObjects.OrderHistoryPage;
 import testBase.BaseClass;
 
 import java.time.Duration;
@@ -21,51 +21,43 @@ public class TC_PR_009_ValidatePageURLTitleAndHeadingTest extends BaseClass {
         logger.info("===== TC_PR_009: Validate Page URL, Title, and Heading =====");
 
         try {
-            // Step 1: Login
-            logger.info("Step 1: Logging in with user: " + username);
+            logger.info("Logging in with user: " + username);
             performLogin();
             logger.info("Login successful.");
 
-            // Step 2: Navigate to My Account -> Order History (or Returns)
-            HomePage home = new HomePage(driver);
-            logger.info("Step 2: Navigating to My Account dropdown");
+            HomePage home = new HomePage(getDriver());
+            WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(20));
+
+            logger.info("Navigating to My Account dropdown");
             home.clickMyAccount();
-            Thread.sleep(2000); // dropdown animation wait
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']")));
+
             home.clickMyAccountFromDropdown();
-            logger.info("Clicked 'My Account' from dropdown");
+            logger.info("Clicked My Account from dropdown");
 
-            MyAccountPage myAccount = new MyAccountPage(driver);
+            MyAccountPage myAccount = new MyAccountPage(getDriver());
 
-            // Wait until Order History link is visible & clickable
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
             WebElement orderHistoryLink = wait.until(
-                    ExpectedConditions.elementToBeClickable(By.linkText("Order History"))
-            );
-
-            // Scroll and click
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", orderHistoryLink);
+                    ExpectedConditions.elementToBeClickable(By.linkText("Order History")));
+            ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", orderHistoryLink);
             orderHistoryLink.click();
-            logger.info("Clicked 'Order History' link");
+            logger.info("Clicked Order History link");
 
-            // Step 3: Validate URL
-            String currentURL = driver.getCurrentUrl();
-            String expectedURL = rb.getString("appURL") + "index.php?route=account/order"; // adjust if needed
+            String currentURL = getDriver().getCurrentUrl();
+            String expectedURL = p.getProperty("appURL") + "index.php?route=account/order";
             logger.info("Validating URL. Actual: " + currentURL + " | Expected: " + expectedURL);
             Assert.assertEquals(currentURL, expectedURL, "URL validation failed");
 
-            // Step 4: Validate Page Title
-            String pageTitle = driver.getTitle();
-            String expectedTitle = "Order History"; // adjust for Returns page if needed
+            String pageTitle = getDriver().getTitle();
+            String expectedTitle = "Order History";
             logger.info("Validating Page Title. Actual: " + pageTitle + " | Expected: " + expectedTitle);
             Assert.assertEquals(pageTitle, expectedTitle, "Page Title validation failed");
 
-            // Step 5: Validate Page Heading (h1)
-            WebElement headingElement = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[2]/div/div/h1"))
-            );
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", headingElement);
-            String headingText = headingElement.getText().trim();
-            String expectedHeading = "Order History"; // adjust for Returns page if needed
+            OrderHistoryPage orderHistoryPage = new OrderHistoryPage(getDriver());
+            String headingText = orderHistoryPage.getPageHeading();
+            String expectedHeading = "Order History";
             logger.info("Validating Page Heading. Actual: " + headingText + " | Expected: " + expectedHeading);
             Assert.assertEquals(headingText, expectedHeading, "Page Heading validation failed");
 

@@ -1,82 +1,112 @@
 package testCases.TS_019_MyAccountInformation;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
-import pageObjects.MyAccountPage;
 import pageObjects.LoginPage;
+import pageObjects.MyAccountPage;
 import testBase.BaseClass;
 
 public class TC_MAI_004_ValidateUpdateAccountInformationTest extends BaseClass {
 
     @Test
-    public void TC_MAI_004_UpdateAccountInformationTest() throws InterruptedException {
+    public void TC_MAI_004_UpdateAccountInformationTest() {
+
         logger.info("Starting TS_014: Update Account Information Test");
 
-        // Initialize Page Objects
-        HomePage home = new HomePage(driver);
-        MyAccountPage myAccount = new MyAccountPage(driver);
-        LoginPage login = new LoginPage(driver);
+        HomePage home =
+                new HomePage(getDriver());
 
-        // Step 1: Login
+        MyAccountPage myAccount =
+                new MyAccountPage(getDriver());
+
+        LoginPage login =
+                new LoginPage(getDriver());
+
         home.clickMyAccount();
+
         home.clickLogin();
+
         login.login(username, password);
-        logger.info("Logged in with username: " + username);
 
-        // Verify user is logged in
-        Assert.assertTrue(myAccount.isUserLoggedIn(), "User should be logged in");
+        logger.info(
+                "Logged in with username: {}",
+                username
+        );
 
-        // Step 2: Navigate to Edit Account Information
+        Assert.assertTrue(
+                myAccount.isUserLoggedIn(),
+                "User should be logged in"
+        );
+
         myAccount.clickEditAccountInformation();
-        Assert.assertTrue(myAccount.isMyAccountInformationPageDisplayed(),
-                "My Account Information page should be displayed");
 
-        //Step 3: Update Account Information
-        String newFirstName = "AutoFirst" + randomString();
-        String newLastName = "AutoLast" + randomString();
-        String newEmail = "auto" + randomAlphaNumeric() + "example.com";
-        String newTelephone = randomNumber();
+        Assert.assertTrue(
+                myAccount.isMyAccountInformationPageDisplayed(),
+                "My Account Information page should be displayed"
+        );
 
-        // Update Account Information using XPath
-        driver.findElement(By.xpath("//input[@id='input-firstname']")).clear();
-        driver.findElement(By.xpath("//input[@id='input-firstname']")).sendKeys(newFirstName);
+        String newFirstName =
+                "AutoFirst" + randomString();
 
-        driver.findElement(By.xpath("//input[@id='input-lastname']")).clear();
-        driver.findElement(By.xpath("//input[@id='input-lastname']")).sendKeys(newLastName);
+        String newLastName =
+                "AutoLast" + randomString();
 
-        driver.findElement(By.xpath("//input[@id='input-email']")).clear();
-        driver.findElement(By.xpath("//input[@id='input-email']")).sendKeys(newEmail);
+        String newEmail =
+                "auto" + randomAlphaNumeric() + "@example.com";
 
-        driver.findElement(By.xpath("//input[@id='input-telephone']")).clear();
-        driver.findElement(By.xpath("//input[@id='input-telephone']")).sendKeys(newTelephone);
+        String newTelephone =
+                randomNumber();
+
+        myAccount.updateAccountInformation(
+                newFirstName,
+                newLastName,
+                newEmail,
+                newTelephone
+        );
 
         myAccount.clickContinue();
+
         logger.info("Account details updated successfully");
 
-        //  Step 4: Verify success message
-        String successMessage = driver.findElement(By.xpath("//div[contains(@class,'alert-success')]")).getText();
-        Assert.assertTrue(successMessage.contains("Success: Your account has been successfully updated."),
-                "Success message should be displayed");
+        String successMessage =
+                myAccount.getAccountUpdateSuccessMessage();
 
-        // Step 5: Logout and Login with new Email
+        Assert.assertTrue(
+                successMessage.contains(
+                        "Success: Your account has been successfully updated."
+                ),
+                "Success message should be displayed"
+        );
+
         myAccount.clickLogout();
+
         home.clickMyAccount();
+
         home.clickLogin();
 
         login.login(newEmail, password);
-        Assert.assertTrue(myAccount.isUserLoggedIn(), "User should be able to login with updated email");
+
+        Assert.assertTrue(
+                myAccount.isUserLoggedIn(),
+                "User should be able to login with updated email"
+        );
 
         myAccount.clickLogout();
 
-        //  Step 6: Verify login fails with old email
         home.clickMyAccount();
+
         home.clickLogin();
-        login.login(username, password); // old email
-        String warning = driver.findElement(By.xpath("//div[contains(@class,'alert-danger')]")).getText();
-        Assert.assertTrue(warning.contains("No match for E-Mail Address and/or Password"),
-                "Login should fail with old email");
+
+        login.login(username, password);
+
+        String warning =
+                login.getWarningMessage();
+
+        Assert.assertTrue(
+                warning.contains("No match for E-Mail Address and/or Password"),
+                "Login should fail with old email"
+        );
 
         logger.info("TS_014 executed successfully");
     }

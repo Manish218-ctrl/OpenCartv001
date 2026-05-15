@@ -13,21 +13,21 @@ import testBase.BaseClass;
         @Test
         public void verifyRecurringPaymentsNavigation() {
 
-            // Step 1: Perform login using BaseClass method
+            //Perform login using BaseClass method
             performLogin();
 
-            // Step 2: Navigate to My Account page (optional validation)
-            MyAccountPage myAccount = new MyAccountPage(driver);
+            //Navigate to My Account page (optional validation)
+            MyAccountPage myAccount = new MyAccountPage(getDriver());
             Assert.assertTrue(myAccount.isMyAccountPageExists(), "My Account page not displayed after login");
 
-            // Step 3: Click on 'Recurring Payments' from Right Column
+            //Click on Recurring Payments from Right Column
             myAccount.clickRecurringPayments();
 
-            // Step 4: Verify 'Recurring Payments' page is displayed
-            RecurringPaymentsPage recurringPage = new RecurringPaymentsPage(driver);
-            Assert.assertTrue(recurringPage.isRecurringPaymentsPageDisplayed(), "'Recurring Payments' page heading not displayed");
+            //Verify Recurring Payments page is displayed
+            RecurringPaymentsPage recurringPage = new RecurringPaymentsPage(getDriver());
+            Assert.assertTrue(recurringPage.isRecurringPaymentsPageDisplayed(), "Recurring Payments page heading not displayed");
 
-            Assert.assertTrue(recurringPage.isRecurringPaymentsTableDisplayed(), "'Recurring Payments' table not displayed");
+            Assert.assertTrue(recurringPage.isRecurringPaymentsTableDisplayed(), "Recurring Payments table not displayed");
         }
     }
 

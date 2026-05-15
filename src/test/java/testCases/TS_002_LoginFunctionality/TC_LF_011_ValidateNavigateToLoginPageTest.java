@@ -14,34 +14,29 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_LF_011_ValidateNavigateToLoginPageTest *****");
 
             try {
-                driver.get(rb.getString("appURL"));
+                getDriver().get(p.getProperty("appURL"));
                 logger.info("URL opened");
 
-                HomePage home = new HomePage(driver);
-                LoginPage login = new LoginPage(driver);
-                RegisterPage register = new RegisterPage(driver);
+                HomePage home = new HomePage(getDriver());
+                LoginPage login = new LoginPage(getDriver());
+                RegisterPage register = new RegisterPage(getDriver());
 
-                // --- Way 1: From Register Page ---
                 home.clickMyAccount();
                 home.clickRegister();
                 Assert.assertTrue(register.isRegisterPageDisplayed(), "Register Page not displayed!");
                 logger.info("Navigated to Register Page");
 
-                // Click on Login link inside Register Page
                 register.clickLoginLink();
                 Assert.assertTrue(login.isLoginPageDisplayed(), "Login Page not displayed via Register Page link!");
                 logger.info("Navigated to Login Page via Register Page link");
 
-                driver.navigate().back();  // back to Register page
-
-                // --- Way 2: From Right Column ---
+                getDriver().navigate().back();
                 login.clickRightColumnLogin();
                 Assert.assertTrue(login.isLoginPageDisplayed(), "Login Page not displayed via Right Column!");
                 logger.info("Navigated to Login Page via Right Column");
 
-                driver.navigate().back();  // back to previous page
+                getDriver().navigate().back();
 
-                // --- Way 3: From My Account Dropmenu ---
                 home.clickMyAccount();
                 home.clickLogin();
                 Assert.assertTrue(login.isLoginPageDisplayed(), "Login Page not displayed via My Account dropmenu!");

@@ -1,50 +1,55 @@
 package testCases.TS_026_Transaction;
 
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 import pageObjects.TransactionsPage;
 import testBase.BaseClass;
 
-    public class TC_TS_009_ValidateTransactionsPageURLTitleHeadingTest extends BaseClass {
+import java.time.Duration;
 
-        @Test
-        public void validateTransactionsPageURLTitleHeading() {
-            logger.info("***** Starting TC_TS_009 Validate Page URL, Title, and Heading *****");
+public class TC_TS_009_ValidateTransactionsPageURLTitleHeadingTest extends BaseClass {
 
-            try {
-                // Step 1: Login to the application
-                performLogin();
-                logger.info("User logged in successfully.");
+    @Test
+    public void validateTransactionsPageURLTitleHeading() {
+        logger.info("***** Starting TC_TS_009 Validate Page URL, Title, and Heading *****");
 
-                // Step 2: Navigate to 'Your Transactions' page
-                HomePage home = new HomePage(driver);
-                Thread.sleep(20000);
-                home.clicktransactionsrightcolumn();
-                logger.info("Navigated to 'Your Transactions' page.");
+        try {
+            performLogin();
+            logger.info("User logged in successfully.");
 
-                // Step 3: Validate the Page URL
-                String currentURL = driver.getCurrentUrl();
-                Assert.assertTrue(currentURL.contains("transaction"), "Page URL does not contain 'transactions'. Current URL: " + currentURL);
-                logger.info("Page URL is valid: " + currentURL);
+            WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@id='content']//h2[text()='My Account']")));
 
-                // Step 4: Validate the Page Title
-                String pageTitle = driver.getTitle();
-                Assert.assertTrue(pageTitle.contains("Your Transactions"), "Page title does not contain 'Your Transactions'. Current Title: " + pageTitle);
-                logger.info("Page Title is valid: " + pageTitle);
+            HomePage home = new HomePage(getDriver());
+            home.clicktransactionsrightcolumn();
+            logger.info("Navigated to Your Transactions page.");
 
-                // Step 5: Validate the Page Heading
-                TransactionsPage transactionsPage = new TransactionsPage(driver);
-                String pageHeading = transactionsPage.headingYourTransactions.getText().trim();
-                Assert.assertEquals(pageHeading,  "Your Transactions", "Page Heading mismatch. Expected: 'Your Transactions', Found: " + pageHeading);
-                logger.info("Page Heading is valid: " + pageHeading);
+            String currentURL = getDriver().getCurrentUrl();
+            Assert.assertTrue(currentURL.contains("transaction"),
+                    "Page URL does not contain transactions. Current URL: " + currentURL);
+            logger.info("Page URL is valid: " + currentURL);
 
-            } catch (Exception e) {
-                logger.error("Test failed due to exception: " + e.getMessage(), e);
-                Assert.fail("Test case failed due to exception: " + e.getMessage());
-            }
+            String pageTitle = getDriver().getTitle();
+            Assert.assertTrue(pageTitle.contains("Your Transactions"),
+                    "Page title does not contain Your Transactions. Current Title: " + pageTitle);
+            logger.info("Page Title is valid: " + pageTitle);
 
-            logger.info("***** Finished TC_TS_009 Validate Page URL, Title, and Heading *****");
+            TransactionsPage transactionsPage = new TransactionsPage(getDriver());
+            String pageHeading = transactionsPage.headingYourTransactions.getText().trim();
+            Assert.assertEquals(pageHeading, "Your Transactions",
+                    "Page Heading mismatch. Expected: Your Transactions, Found: " + pageHeading);
+            logger.info("Page Heading is valid: " + pageHeading);
+
+        } catch (Exception e) {
+            logger.error("Test failed due to exception: " + e.getMessage(), e);
+            Assert.fail("Test case failed due to exception: " + e.getMessage());
         }
+
+        logger.info("***** Finished TC_TS_009 Validate Page URL, Title, and Heading *****");
     }
+}

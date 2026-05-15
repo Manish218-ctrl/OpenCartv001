@@ -16,19 +16,19 @@ import testBase.BaseClass;
             try {
                 String productName = "iMac";  // Test Data
 
-                // Step 1: Search for product
-                SearchPage sp = new SearchPage(driver);
+                //Search for product
+                SearchPage sp = new SearchPage(getDriver());
                 sp.enterSearchKeyword(productName);
                 sp.clickSearchButton();
 
                 Assert.assertTrue(sp.isProductDisplayed(productName),
-                        "ERROR: Product '" + productName + "' not displayed in search results.");
+                        "ERROR: Product " + productName + " not displayed in search results.");
 
-                // Step 2: Click Product Compare link
+                //Click Product Compare link
                 sp.clickProductCompareLink();
 
-                // Step 3: Verify navigation to Product Comparison page
-                ProductComparisonPage cmp = new ProductComparisonPage(driver);
+                //Verify navigation to Product Comparison page
+                ProductComparisonPage cmp = new ProductComparisonPage(getDriver());
                 Assert.assertTrue(cmp.isOnComparisonPage(),
                         "ERROR: Not navigated to Product Comparison page.");
 

@@ -1,79 +1,124 @@
 package testCases.TS_008_ShoppingCart;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageObjects.*;
+
+import pageObjects.HomePage;
+import pageObjects.LoginPage;
+import pageObjects.ShoppingCartPage;
+import pageObjects.SiteMapPage;
 import testBase.BaseClass;
 
 public class TC_SC_003_ValidateNavigateToCartFromSiteMapTest extends BaseClass {
 
-    private static final Logger log = LogManager.getLogger(TC_SC_003_ValidateNavigateToCartFromSiteMapTest.class);
-
     @Test
     public void test_NavigateToCart_From_SiteMap() {
+
         String productName = "HP LP3065";
 
         try {
-            // --- Step 1: Open application URL ---
-            driver.get("https://tutorialsninja.com/demo/");
-            log.info("Application opened at URL: https://tutorialsninja.com/demo/");
 
-            // --- Step 2: Login if required ---
-            HomePage homePage = new HomePage(driver);
-            LoginPage loginPage = new LoginPage(driver);
+            getDriver().get(appURL);
+
+            logger.info(
+                    "Application opened at URL: " + appURL
+            );
+
+            HomePage homePage =
+                    new HomePage(getDriver());
+
+            LoginPage loginPage =
+                    new LoginPage(getDriver());
 
             homePage.clickMyAccount();
-            log.info("Clicked 'My Account' link on homepage.");
+
+            logger.info(
+                    "Clicked My Account link on homepage."
+            );
+
             homePage.clickLogin();
-            log.info("Clicked 'Login' link.");
+
+            logger.info(
+                    "Clicked Login link."
+            );
 
             if (loginPage.isLoginPageDisplayed()) {
-                loginPage.login("dekew75582@lorkex.com", "?.7LfLfn).}PCge");
-                log.info("User logged in successfully.");
+
+                loginPage.login(
+                        username,
+                        password
+                );
+
+                logger.info(
+                        "User logged in successfully."
+                );
             }
 
-            // --- Step 3: Search for product ---
+            HomePage home =
+                    new HomePage(getDriver());
 
-
-            // --- Step 4: Add product to cart ---
-
-            HomePage home = new HomePage(driver);
             home.enterSearchText(productName);
+
             home.clickSearchButton();
+
             home.addProductToCart(productName);
+
             home.clickaddtocart();
+
             home.clickshoppingcartbtnmsg();
-            log.info("Clicked 'Add to Cart' for product: {}", productName);
 
-            Thread.sleep(2800);
-            // --- Step 5: Navigate to Site Map ---
-            driver.findElement(By.xpath("//footer//a[text()='Site Map']")).click();
-            log.info("Clicked 'Site Map' footer link.");
+            logger.info(
+                    "Clicked Add to Cart for product: "
+                            + productName
+            );
 
+            home.clickSiteMapFooterLink();
 
-                Thread.sleep(2800);
+            logger.info(
+                    "Clicked Site Map footer link."
+            );
 
-            // --- Step 6: Click Shopping Cart link ---
-            SiteMapPage siteMapPage = new SiteMapPage(driver);
-            Assert.assertTrue(siteMapPage.isOnSiteMapPage(), "Not on Site Map page.");
-            log.info("Verified Site Map page is displayed.");
+            SiteMapPage siteMapPage =
+                    new SiteMapPage(getDriver());
+
+            Assert.assertTrue(
+                    siteMapPage.isOnSiteMapPage(),
+                    "Not on Site Map page."
+            );
+
+            logger.info(
+                    "Verified Site Map page is displayed."
+            );
+
             siteMapPage.clickShoppingCartLink();
-            log.info("Clicked 'Shopping Cart' link from Site Map.");
 
-            // --- Step 7: Verify Shopping Cart page ---
-            ShoppingCartPage cartPage = new ShoppingCartPage(driver);
+            logger.info(
+                    "Clicked Shopping Cart link from Site Map."
+            );
 
+            ShoppingCartPage cartPage =
+                    new ShoppingCartPage(getDriver());
 
-            log.info("Test TC_SC_003 completed successfully.");
+            Assert.assertTrue(
+                    cartPage.isOnShoppingCartPage(),
+                    "Shopping Cart page is not displayed."
+            );
+
+            logger.info(
+                    "Test TC_SC_003 completed successfully."
+            );
 
         } catch (Exception e) {
-            log.error("Test TC_SC_003 failed due to exception: ", e);
-            Assert.fail("Test failed due to exception: " + e.getMessage());
+
+            logger.error(
+                    "Test TC_SC_003 failed due to exception: ",
+                    e
+            );
+
+            Assert.fail(
+                    "Test failed due to exception: "
+                            + e.getMessage()
+            );
         }
     }
 }

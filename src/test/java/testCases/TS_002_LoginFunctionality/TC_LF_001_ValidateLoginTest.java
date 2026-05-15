@@ -16,21 +16,18 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_LF_001_ValidateLoginTest *****");
 
             try {
-                // Step 1: Open HomePage
-                HomePage hp = new HomePage(driver);
+                HomePage hp = new HomePage(getDriver());
                 hp.clickMyAccount();
                 hp.clickLogin();
                 logger.info("Navigated to Login Page");
 
-                // Step 2: Enter login credentials
-                LoginPage lp = new LoginPage(driver);
+                LoginPage lp = new LoginPage(getDriver());
                 lp.setEmail(p.getProperty("email"));   // from config.properties
                 lp.setPassword(p.getProperty("password")); // from config.properties
                 lp.clickLogin();
                 logger.info("Entered valid credentials and clicked Login");
 
-                // Step 3: Validate navigation to My Account Page
-                MyAccountPage myAcc = new MyAccountPage(driver);
+                MyAccountPage myAcc = new MyAccountPage(getDriver());
                 boolean targetPage = myAcc.isMyAccountPageExists();
 
                 Assert.assertTrue(targetPage, "Login failed! My Account Page not displayed.");

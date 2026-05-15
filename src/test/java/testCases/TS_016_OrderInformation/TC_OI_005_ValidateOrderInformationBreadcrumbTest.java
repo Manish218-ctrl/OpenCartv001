@@ -13,25 +13,25 @@ public class TC_OI_005_ValidateOrderInformationBreadcrumbTest extends BaseClass 
     public void validateBreadcrumbInOrderInformationPage() {
         logger.info("Test started: TC_OI_005_ValidateOrderInformationBreadcrumbTest");
 
-        // Step 1: Perform login
-        logger.info("Step 1: Performing login...");
+        //Perform login
+        logger.info("Performing login...");
         performLogin();
         logger.info("Login successful. User is logged in.");
 
-        MyAccountPage myAccountPage = new MyAccountPage(driver);
+        MyAccountPage myAccountPage = new MyAccountPage(getDriver());
         myAccountPage.clickOrderHistory();
 
-        // Step 2: Navigate to Order History page
-        logger.info("Step 2: Navigating to Order History page...");
-        OrderHistoryPage orderHistoryPage = new OrderHistoryPage(driver);
-        orderHistoryPage.clickFirstOrderViewIcon();  // Click 'View' icon for the first order
+        //Navigate to Order History page
+        logger.info("Navigating to Order History page...");
+        OrderHistoryPage orderHistoryPage = new OrderHistoryPage(getDriver());
+        orderHistoryPage.clickFirstOrderViewIcon();  // Click View icon for the first order
         logger.info("Navigated to Order Information page from Order History.");
 
-        // Step 3: Navigate to Order Information Page
-        logger.info("Step 3: Verifying breadcrumb on the Order Information page...");
-        OrderInformationPage orderInformationPage = new OrderInformationPage(driver);
+        //Navigate to Order Information Page
+        logger.info("Verifying breadcrumb on the Order Information page...");
+        OrderInformationPage orderInformationPage = new OrderInformationPage(getDriver());
 
-        // Step 4: Get the breadcrumb and validate its functionality
+        //Get the breadcrumb and validate its functionality
         String breadcrumbText = orderInformationPage.getBreadcrumbText();
         logger.info("Breadcrumb text retrieved: " + breadcrumbText);
 

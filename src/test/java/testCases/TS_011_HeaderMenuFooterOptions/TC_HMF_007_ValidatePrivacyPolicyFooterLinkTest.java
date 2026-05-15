@@ -14,34 +14,34 @@ import testBase.BaseClass;
 
         @Test
         public void validatePrivacyPolicyFooterLink() {
-            logger.info("Test Case TC_HMF_007 - Validate 'Privacy Policy' Footer Link Started");
+            logger.info("Test Case TC_HMF_007 - Validate Privacy Policy Footer Link Started");
 
             try {
                 // Open the application URL
-                logger.info("Opening the application URL: " + rb.getString("appURL"));
-                driver.get(rb.getString("appURL"));
+                logger.info("Opening the application URL: " + p.getProperty("appURL"));
+                getDriver().get(p.getProperty("appURL"));
 
                 // Initialize the HomePage object
-                HomePage homepage = new HomePage(driver);
+                HomePage homepage = new HomePage(getDriver());
 
-                // Step 1: Click on the 'Privacy Policy' footer link
-                logger.info("Clicking on the 'Privacy Policy' footer link");
+                //Click on the Privacy Policy footer link
+                logger.info("Clicking on the Privacy Policy footer link");
                 homepage.clickPrivacyPolicyFooterLink();
 
-                // Step 2: Verify that the page redirects to the 'Privacy Policy' page and displays the correct information
-                logger.info("Verifying the 'Privacy Policy' page title...");
+                //Verify that the page redirects to the Privacy Policy page and displays the correct information
+                logger.info("Verifying the Privacy Policy page title...");
                 String pageTitle = homepage.getPageTitle();
 
-                // Expected title of the 'Privacy Policy' page (adjust as per actual title of the page)
+                // Expected title of the Privacy Policy page (adjust as per actual title of the page)
 
                 String expectedPageTitle = "Privacy Policy";
 
-                Assert.assertEquals(pageTitle, expectedPageTitle, "The 'Privacy Policy' page did not load correctly.");
+                Assert.assertEquals(pageTitle, expectedPageTitle, "The Privacy Policy page did not load correctly.");
 
-                logger.info("Test Case TC_HMF_007 - Validate 'Privacy Policy' Footer Link Completed Successfully");
+                logger.info("Test Case TC_HMF_007 - Validate Privacy Policy Footer Link Completed Successfully");
 
             } catch (Exception e) {
-                logger.error("Test Case TC_HMF_007 - Error occurred during validation of 'Privacy Policy' Footer link: " + e.getMessage());
+                logger.error("Test Case TC_HMF_007 - Error occurred during validation of Privacy Policy Footer link: " + e.getMessage());
                 Assert.fail("Test failed due to an error: " + e.getMessage());
             }
         }

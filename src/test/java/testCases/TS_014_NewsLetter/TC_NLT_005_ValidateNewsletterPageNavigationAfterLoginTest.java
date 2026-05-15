@@ -27,26 +27,26 @@ import java.io.IOException;
             performLogin();
 
 
-            // Step 2: Click on 'Newsletter' link in the Footer after login
-            HomePage homepage=new HomePage(driver);
+            //Click on Newsletter link in the Footer after login
+            HomePage homepage=new HomePage(getDriver());
 
             homepage.clickFooterNewsletterLink();
-            logger.info("Clicked on 'Newsletter' link from the Footer.");
+            logger.info("Clicked on Newsletter link from the Footer.");
 
-            // Step 3: Validate the user is redirected to the 'Newsletter Subscription' page
-            NewsletterPage newsletterPage = new NewsletterPage(driver);
+            //Validate the user is redirected to the Newsletter Subscription page
+            NewsletterPage newsletterPage = new NewsletterPage(getDriver());
             String actualPageTitle = newsletterPage.getPageTitle();
             String expectedPageTitle = "Newsletter Subscription"; // Modify if needed
             Assert.assertEquals(actualPageTitle, expectedPageTitle, "User is not redirected to the Newsletter Subscription page.");
-            logger.info("Successfully redirected to the 'Newsletter Subscription' page.");
+            logger.info("Successfully redirected to the Newsletter Subscription page.");
         }
 
         @AfterClass
         public void tearDown() {
             // Close the browser after the test is complete
             logger.info("Test completed. Closing the browser.");
-            if (driver != null) {
-                driver.quit();
+            if (getDriver() != null) {
+                getDriver().quit();
             }
         }
     }

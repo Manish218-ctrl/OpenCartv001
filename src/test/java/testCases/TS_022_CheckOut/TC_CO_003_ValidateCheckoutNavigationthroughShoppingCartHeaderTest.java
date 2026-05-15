@@ -1,54 +1,56 @@
 package testCases.TS_022_CheckOut;
 
-
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 import testBase.BaseClass;
 
-    public class TC_CO_003_ValidateCheckoutNavigationthroughShoppingCartHeaderTest extends BaseClass {
+import java.time.Duration;
 
-        @Test
-        public void validateCheckoutNavigation() {
-            logger.info("***** Starting TC_CO_003 - Checkout Test *****");
+public class TC_CO_003_ValidateCheckoutNavigationthroughShoppingCartHeaderTest extends BaseClass {
 
-            try {
-                HomePage home = new HomePage(driver);
+    @Test
+    public void validateCheckoutNavigation() {
+        logger.info("***** Starting TC_CO_003 - Checkout Test *****");
 
-                // Step 1: Search for product
-                home.enterSearchText(productName);   // iMac from config.properties
-                home.clickSearchButton();
-                logger.info("Searched for product: " + productName);
+        try {
+            HomePage home = new HomePage(getDriver());
 
-                // Step 2: Add product to cart
-                home.addProductToCart(productName);
-                Thread.sleep(20000);
-                home.clickaddtocarthpbtn();
-                logger.info("Added product to cart: " + productName);
+            home.enterSearchText(productName);
+            home.clickSearchButton();
+            logger.info("Searched for product: " + productName);
 
-                // Step 3: Navigate to Shopping Cart page
-                home.clickViewCartOption();  // from success alert OR dropdown
+            home.addProductToCart(productName);
 
-                // Step 4: Click Checkout option
-                home.clickcheckoutfromcart();
+            new WebDriverWait(getDriver(), Duration.ofSeconds(10))
+                    .until(ExpectedConditions.visibilityOfElementLocated(
+                            By.cssSelector("div.alert-success")));
 
-                // Step 5: Validate user is on Checkout Page
-                String actualBreadcrumb = home.getBreadcrumb();
-                logger.info("Breadcrumb after Checkout navigation: " + actualBreadcrumb);
+            home.clickaddtocarthpbtn();
+            logger.info("Added product to cart: " + productName);
 
-                Assert.assertTrue(
-                        actualBreadcrumb.contains("Checkout"),
-                        " User is not on the Checkout page. Actual breadcrumb: " + actualBreadcrumb
-                );
+            home.clickViewCartOption();
 
-                logger.info(" User successfully navigated to Checkout page.");
+            home.clickcheckoutfromcart();
 
-            } catch (Exception e) {
-                logger.error(" Test failed due to exception: " + e.getMessage(), e);
-                Assert.fail("Test failed due to exception: " + e.getMessage());
-            }
+            String actualBreadcrumb = home.getBreadcrumb();
+            logger.info("Breadcrumb after Checkout navigation: " + actualBreadcrumb);
 
-            logger.info("***** Finished TC_CO_003 - Checkout Test *****");
+            Assert.assertTrue(
+                    actualBreadcrumb.contains("Checkout"),
+                    "User is not on the Checkout page. Actual breadcrumb: " + actualBreadcrumb
+            );
+
+            logger.info("User successfully navigated to Checkout page.");
+
+        } catch (Exception e) {
+            logger.error("Test failed due to exception: " + e.getMessage(), e);
+            Assert.fail("Test failed due to exception: " + e.getMessage());
         }
+
+        logger.info("***** Finished TC_CO_003 - Checkout Test *****");
     }
+}

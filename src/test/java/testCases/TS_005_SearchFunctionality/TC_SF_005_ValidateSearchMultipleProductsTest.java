@@ -17,10 +17,10 @@ import java.util.List; // Import for List
 
             try {
 
-                HomePage hp = new HomePage(driver);
-                SearchPage searchPage = new SearchPage(driver);
+                HomePage hp = new HomePage(getDriver());
+                SearchPage searchPage = new SearchPage(getDriver());
 
-                // 1. Enter the search criteria in the 'Search' text box field which can result in multiple products - <Refer Test Data>
+                // 1. Enter the search criteria in the Search text box field which can result in multiple products - <Refer Test Data>
                 String searchKeyword = p.getProperty("multiProductSearchKeyword");
 
                 searchPage.enterSearchKeyword(searchKeyword);
@@ -33,13 +33,13 @@ import java.util.List; // Import for List
                 // Get the list of product result cards
                 List<WebElement> productResults = searchPage.productResultCards;
 
-                Assert.assertTrue(productResults.size() > 1, "Less than two products are displayed for the search keyword '" + searchKeyword + "'. Actual count: " + productResults.size());
-                logger.info("Verified: More than one product (" + productResults.size() + ") is displayed in the search results for '" + searchKeyword + "'.");
+                Assert.assertTrue(productResults.size() > 1, "Less than two products are displayed for the search keyword " + searchKeyword + ". Actual count: " + productResults.size());
+                logger.info("Verified: More than one product (" + productResults.size() + ") is displayed in the search results for " + searchKeyword + ".");
 
                 // Optional: You might also want to verify the search results heading for consistency
                 String searchResultsHeading = searchPage.getSearchResultsHeading();
                 Assert.assertTrue(searchResultsHeading.contains(searchKeyword), "Search results heading does not contain the search keyword.");
-                logger.info("Verified search results heading: '" + searchResultsHeading + "'");
+                logger.info("Verified search results heading: " + searchResultsHeading + "");
 
             } catch (Exception e) {
                 logger.error("Test execution failed for TC_SF_005_ValidateSearchMultipleProductsTest: " + e.getMessage());

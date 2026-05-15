@@ -15,23 +15,23 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_MAI_001_ValidateMyAccountInformationTest *****");
 
             try {
-                // Step 1: Login
+                //Login
                 performLogin();
                 logger.info("User logged in successfully.");
 
-                // Step 2: Navigate to My Account page
-                HomePage home = new HomePage(driver);
+                //Navigate to My Account page
+                HomePage home = new HomePage(getDriver());
                 home.clickMyAccount();   // Click dropdown
                 logger.info("Clicked on My Account dropdown.");
 
                 home.lnkMyAccount.click();  // Click My Account link
                 logger.info("Navigated to My Account page.");
 
-                // Step 3: Click 'Edit your account information'
-                MyAccountPage myAccPage = new MyAccountPage(driver);
+                //Click Edit your account information
+                MyAccountPage myAccPage = new MyAccountPage(getDriver());
                 myAccPage.clickEditAccountInformation();
 
-                // Step 4: Validate navigation
+                //Validate navigation
                 boolean result = myAccPage.isMyAccountInformationPageDisplayed();
                 Assert.assertTrue(result, "Failed to navigate to My Account Information page.");
 

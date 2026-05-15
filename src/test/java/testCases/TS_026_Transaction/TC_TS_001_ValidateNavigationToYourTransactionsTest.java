@@ -16,19 +16,19 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_TS_001 - Validate Transactions Navigation *****");
 
             try {
-                // Step 1: Perform login
+                //Perform login
                 performLogin();
                 logger.info("User logged in successfully");
 
-                // Step 2: Navigate to "My Account"
-                HomePage home = new HomePage(driver);
+                //Navigate to "My Account"
+                HomePage home = new HomePage(getDriver());
                 home.clickMyAccount();
 
-                // Step 3: Click "Order History" or "Transactions" link
+                //Click "Order History" or "Transactions" link
                 home.clickOrderHistory();  // Adjust if your UI has "Transactions" link differently
-                logger.info("Clicked on 'Your Transactions' link");
+                logger.info("Clicked on Your Transactions link");
 
-                // Step 4: Validate navigation
+                //Validate navigation
                 String actualBreadcrumb = home.getBreadcrumb();  // method already in HomePage.java
                 logger.info("Breadcrumb found: " + actualBreadcrumb);
 

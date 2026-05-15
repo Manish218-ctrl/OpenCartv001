@@ -1,7 +1,5 @@
 package testCases.TS_001_AccountRegistration;
 
-
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -11,60 +9,83 @@ import pageObjects.MyAccountPage;
 import pageObjects.NewsletterPage;
 import testBase.BaseClass;
 
-    public class TC_RF_004_ValidateRegisterNewsletterYesTest extends BaseClass {
+public class TC_RF_004_ValidateRegisterNewsletterYesTest extends BaseClass {
 
-        @Test
-        public void verify_register_with_newsletter_yes() {
-            logger.info("***** Starting TC_RF_004_ValidateRegisterNewsletterYesTest *****");
+    @Test
+    public void verify_register_with_newsletter_yes() {
 
-            try {
-                // Step 1: Navigate to Register Page
-                HomePage hp = new HomePage(driver);
-                hp.clickMyAccount();
-                hp.clickRegister();
+        logger.info(
+                "***** Starting TC_RF_004_ValidateRegisterNewsletterYesTest *****"
+        );
 
-                // Step 2: Fill Registration form with Newsletter = Yes
-                AccountRegistrationPage regPage = new AccountRegistrationPage(driver);
-                String email = randomString() + "@gmail.com";
-                String password = randomAlphaNumeric();
+        try {
 
-                regPage.setFirstName(randomString());
-                regPage.setLastName(randomString());
-                regPage.setEmail(email);
-                regPage.setTelephone(randomNumber());
-                regPage.setPassword(password);
-                regPage.setConfirmPassword(password);
+            HomePage hp = new HomePage(getDriver());
 
-                regPage.setNewsletterYes();   // Newsletter subscription = Yes
-                regPage.setPrivacyPolicy();
-                regPage.clickContinue();      // ER-1
+            hp.clickMyAccount();
+            hp.clickRegister();
 
-                // Step 3: Click Continue on Account Success Page (ER-2)
-                regPage.clickContinueOnSuccessPage();
+            AccountRegistrationPage regPage =
+                    new AccountRegistrationPage(getDriver());
 
-                // Step 4: Validate user is on My Account page
-                MyAccountPage myAcc = new MyAccountPage(driver);
-                Assert.assertTrue(myAcc.isMyAccountPageExists(), "User is not on My Account page!");
+            String email =
+                    randomString() + "@gmail.com";
 
-                // Step 5: Go to Subscribe/Unsubscribe Newsletter page (ER-3)
-                driver.navigate().to("https://tutorialsninja.com/demo/index.php?route=account/newsletter");
+            String password =
+                    randomAlphaNumeric();
 
-                NewsletterPage newsPage = new NewsletterPage(driver);
+            regPage.setFirstName(randomString());
+            regPage.setLastName(randomString());
+            regPage.setEmail(email);
+            regPage.setTelephone(randomNumber());
+            regPage.setPassword(password);
+            regPage.setConfirmPassword(password);
 
-                // Step 6: Validate "Yes" is selected by default
-                Assert.assertTrue(newsPage.isYesOptionSelected(),
-                        "'Yes' option was not selected by default in Newsletter page!");
+            regPage.setNewsletterYes();
 
-                logger.info("Test Passed: Newsletter 'Yes' option correctly retained after registration.");
-            }
-            catch (Exception e) {
-                logger.error("Test failed: " + e.getMessage());
-                Assert.fail("Test failed: " + e.getMessage());
-            }
+            regPage.setPrivacyPolicy();
 
-            logger.info("***** Finished TC_RF_004_ValidateRegisterNewsletterYesTest *****");
+            regPage.clickContinue();
+
+            regPage.clickContinueOnSuccessPage();
+
+            MyAccountPage myAcc =
+                    new MyAccountPage(getDriver());
+
+            Assert.assertTrue(
+                    myAcc.isMyAccountPageExists(),
+                    "User is not on My Account page!"
+            );
+
+            getDriver().navigate().to(
+                    "https://tutorialsninja.com/demo/index.php?route=account/newsletter"
+            );
+
+            NewsletterPage newsPage =
+                    new NewsletterPage(getDriver());
+
+            Assert.assertTrue(
+                    newsPage.isYesOptionSelected(),
+                    "Yes option was not selected by default in Newsletter page!"
+            );
+
+            logger.info(
+                    "Test Passed: Newsletter Yes option correctly retained after registration."
+            );
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Test failed: " + e.getMessage()
+            );
+
+            Assert.fail(
+                    "Test failed: " + e.getMessage()
+            );
         }
+
+        logger.info(
+                "***** Finished TC_RF_004_ValidateRegisterNewsletterYesTest *****"
+        );
     }
-
-
-
+}

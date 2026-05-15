@@ -15,21 +15,21 @@ import testBase.BaseClass;
             performLogin();
 
             // 2. Navigate to My Account
-            HomePage home = new HomePage(driver);
+            HomePage home = new HomePage(getDriver());
             home.clickMyAccount(); // Click on My Account dropdown
 
-            // 3. Click 'My Account' option
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
+            // 3. Click My Account option
+            MyAccountPage myAccountPage = new MyAccountPage(getDriver());
 
 
             // Validate My Account page loaded
             assert myAccountPage.isMyAccountPageExists() : "My Account page is not displayed!";
 
-            // 4. Click 'Modify your address book entries' link
+            // 4. Click Modify your address book entries link
             myAccountPage.clickAddressBookLink();
 
             // 5. Verify navigation to Address Book page
-            AddressBookPage addressBookPage = new AddressBookPage(driver);
+            AddressBookPage addressBookPage = new AddressBookPage(getDriver());
             addressBookPage.verifyAddressBookPage();
 
             logger.info("Navigation to Address Book page validated successfully.");

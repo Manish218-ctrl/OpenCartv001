@@ -1,7 +1,5 @@
 package pageObjects;
 
-
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,8 +10,12 @@ import org.openqa.selenium.support.FindBy;
             super(driver);
         }
 
-        @FindBy(xpath = "//h1[text()='Forgot Your Password?']")
+        // LOCATORS
+
+        @FindBy(xpath = "//h1[text()=Forgot Your Password?]")
         WebElement forgotPasswordHeading;
+
+        //ACTION METHODS
 
         public boolean isForgotPasswordPageDisplayed() {
             try {

@@ -16,28 +16,28 @@ public class TC_PC_014_ValidateProductCompareSuccessMessageTest extends BaseClas
         try {
             String productName = "iMac";
 
-            // Step 1: Cleanup any leftover products in comparison
-            ProductComparisonPage cmp = new ProductComparisonPage(driver);
+            //Cleanup any leftover products in comparison
+            ProductComparisonPage cmp = new ProductComparisonPage(getDriver());
             cmp.clearAllComparedProducts();
 
-            // Step 2: Search for product
-            SearchPage sp = new SearchPage(driver);
+            //Search for product
+            SearchPage sp = new SearchPage(getDriver());
             sp.enterSearchKeyword(productName);
             sp.clickSearchButton();
             Assert.assertTrue(sp.isProductDisplayed(productName),
-                    "ERROR: Product '" + productName + "' not displayed in search results.");
-            logger.info("Product '{}' found in search results.", productName);
+                    "ERROR: Product " + productName + " not displayed in search results.");
+            logger.info("Product {} found in search results.", productName);
 
-            // Step 3: Click on Product → Navigate to PDP
+            //Click on Product → Navigate to PDP
             sp.clickFirstProductName();
-            ProductDisplayPage pdp = new ProductDisplayPage(driver);
+            ProductDisplayPage pdp = new ProductDisplayPage(getDriver());
             Assert.assertTrue(pdp.isOnProductDisplayPage(),
                     "ERROR: Did not navigate to Product Display Page.");
 
-            // Step 4: Add to Compare
+            //Add to Compare
             pdp.clickCompareThisProduct();
 
-            // Step 5: Validate Success Message
+            //Validate Success Message
             String successMsg = pdp.getSuccessMessage();
             Assert.assertTrue(successMsg.contains("Success: You have added"),
                     "ERROR: Success message not displayed.");
@@ -45,13 +45,13 @@ public class TC_PC_014_ValidateProductCompareSuccessMessageTest extends BaseClas
                     "ERROR: Success message does not contain product name.");
             logger.info("Success message validated: {}", successMsg);
 
-            // Step 6: Click Product Name link inside success message
+            //Click Product Name link inside success message
             pdp.clickProductNameLinkInSuccessMessage();
             Assert.assertTrue(pdp.isOnProductDisplayPage(),
                     "ERROR: Clicking Product Name link did not navigate to PDP.");
             logger.info("Successfully navigated to PDP via product link in success message.");
 
-            // Step 7: Navigate to Product Comparison Page
+            //Navigate to Product Comparison Page
             pdp.clickCompareThisProduct();  // Add again if needed
             pdp.clickProductComparisonLink();
 
@@ -61,7 +61,7 @@ public class TC_PC_014_ValidateProductCompareSuccessMessageTest extends BaseClas
                     "ERROR: Product not listed in comparison table.");
             Assert.assertEquals(cmp.getComparedProductCount(), 1,
                     "ERROR: Unexpected number of products in comparison.");
-            logger.info("Product '{}' successfully listed in Product Comparison page.", productName);
+            logger.info("Product {} successfully listed in Product Comparison page.", productName);
 
         } catch (Exception e) {
             logger.error("Test Failed due to Exception: " + e.getMessage(), e);

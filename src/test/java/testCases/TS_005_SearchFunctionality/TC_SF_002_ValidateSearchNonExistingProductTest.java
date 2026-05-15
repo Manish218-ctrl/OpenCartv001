@@ -18,10 +18,10 @@ import testBase.BaseClass;
 
             try {
 
-                HomePage hp = new HomePage(driver);
-                SearchPage searchPage = new SearchPage(driver);
+                HomePage hp = new HomePage(getDriver());
+                SearchPage searchPage = new SearchPage(getDriver());
 
-                // 1. Enter non-existing product name into the 'Search' text box field - <Refer Test Data>
+                // 1. Enter non-existing product name into the Search text box field - <Refer Test Data>
                 String nonExistingProductName = p.getProperty("nonExistingSearchProduct");
 
                 searchPage.enterSearchKeyword(nonExistingProductName); // Use method from SearchPage
@@ -32,8 +32,8 @@ import testBase.BaseClass;
                 logger.info("Clicked search icon button.");
 
                 // 1. There is no product that matches the search criteria should be displayed in the Search Results page
-                Assert.assertTrue(searchPage.isNoProductMessageDisplayed(), "The 'No product' message is not displayed for a non-existing product search.");
-                logger.info("Verified: 'No product' message is displayed for non-existing product search.");
+                Assert.assertTrue(searchPage.isNoProductMessageDisplayed(), "The No product message is not displayed for a non-existing product search.");
+                logger.info("Verified: No product message is displayed for non-existing product search.");
 
 
             } catch (Exception e) {

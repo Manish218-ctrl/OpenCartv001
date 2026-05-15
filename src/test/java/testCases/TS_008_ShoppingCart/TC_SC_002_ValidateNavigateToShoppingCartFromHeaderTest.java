@@ -13,25 +13,25 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_SC_002: Navigate to Shopping Cart from Header *****");
 
             try {
-                // Step 1: Search for "iMac"
-                SearchPage sp = new SearchPage(driver);
+                //Search for "iMac"
+                SearchPage sp = new SearchPage(getDriver());
                 sp.enterSearchKeyword("iMac");
                 sp.clickSearchButton();
-                logger.info("Searched for 'iMac'");
+                logger.info("Searched for iMac");
 
-                // Step 2: Validate iMac is displayed in results
+                //Validate iMac is displayed in results
                 Assert.assertTrue(sp.isProductDisplayed("iMac"), "iMac not found in search results");
 
-                // Step 3: Click Add to Cart directly from search results
+                //Click Add to Cart directly from search results
                 sp.clickAddToCartFromSearchResults("iMac");
-                logger.info("Clicked 'Add to Cart' for iMac in search results");
+                logger.info("Clicked Add to Cart for iMac in search results");
 
-                // Step 4: Click Shopping Cart header link
+                //Click Shopping Cart header link
                 sp.clickShoppingCartHeaderLink();
                 logger.info("Clicked Shopping Cart header link");
 
-                // Step 5: Validate user is on Shopping Cart page
-                ShoppingCartPage scp = new ShoppingCartPage(driver);
+                //Validate user is on Shopping Cart page
+                ShoppingCartPage scp = new ShoppingCartPage(getDriver());
                 Assert.assertTrue(scp.isOnShoppingCartPage(), "User is not on Shopping Cart page");
                 Assert.assertTrue(scp.isProductInCart("iMac"), "iMac is not present in Shopping Cart");
 

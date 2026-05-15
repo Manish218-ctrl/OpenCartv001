@@ -20,13 +20,13 @@ import testBase.BaseClass;
 
             try {
 
-                HomePage hp = new HomePage(driver);
+                HomePage hp = new HomePage(getDriver());
                 hp.clickMyAccount();
-                logger.info("Clicked 'My Account' dropdown.");
+                logger.info("Clicked My Account dropdown.");
                 hp.clickLogin();
-                logger.info("Clicked 'Login' link to navigate to login page.");
+                logger.info("Clicked Login link to navigate to login page.");
 
-                LoginPage lp = new LoginPage(driver);
+                LoginPage lp = new LoginPage(getDriver());
                 lp.setEmail(p.getProperty("email")); // Using email from config.properties
                 logger.info("Entering login email: " + p.getProperty("email"));
                 lp.setPassword(p.getProperty("password")); // Using password from config.properties
@@ -34,13 +34,13 @@ import testBase.BaseClass;
                 lp.clickLogin();
                 logger.info("Attempting login.");
 
-                MyAccountPage macc = new MyAccountPage(driver);
+                MyAccountPage macc = new MyAccountPage(getDriver());
                 Assert.assertTrue(macc.isMyAccountPageExists(), "Login failed: My Account page not displayed.");
                 logger.info("Login successful. User is on My Account page.");
 
-                // 3. Enter any existing product name into the 'Search' text box field - <Refer Test Data>
-                SearchPage searchPage = new SearchPage(driver);
-                String productName = p.getProperty("searchProduct"); // Reusing 'searchProduct' from config.properties
+                // 3. Enter any existing product name into the Search text box field - <Refer Test Data>
+                SearchPage searchPage = new SearchPage(getDriver());
+                String productName = p.getProperty("searchProduct"); // Reusing searchProduct from config.properties
 
                 searchPage.enterSearchKeyword(productName);
                 logger.info("Entered product name into search box: " + productName);
@@ -52,11 +52,11 @@ import testBase.BaseClass;
                 // Expected Result: 1. Searched product should be displayed in the search results
                 String searchResultsHeading = searchPage.getSearchResultsHeading();
                 Assert.assertTrue(searchResultsHeading.contains(productName), "Search results heading does not contain the searched product name.");
-                logger.info("Verified search results heading: '" + searchResultsHeading + "'");
+                logger.info("Verified search results heading: " + searchResultsHeading + "");
 
                 // Verify the product itself is displayed in the search results
-                Assert.assertTrue(searchPage.isProductDisplayed(productName), "Searched product '" + productName + "' is not displayed in the search results.");
-                logger.info("Verified that the product '" + productName + "' is displayed in the search results.");
+                Assert.assertTrue(searchPage.isProductDisplayed(productName), "Searched product " + productName + " is not displayed in the search results.");
+                logger.info("Verified that the product " + productName + " is displayed in the search results.");
 
             } catch (Exception e) {
                 logger.error("Test execution failed for TC_SF_004_ValidateSearchProductAfterLoginTest: " + e.getMessage());

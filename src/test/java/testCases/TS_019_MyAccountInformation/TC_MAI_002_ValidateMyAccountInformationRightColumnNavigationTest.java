@@ -15,26 +15,26 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_MI_001_MyAccountInformationNavigationTest *****");
 
             try {
-                // Step 1: Perform login
-                HomePage home = new HomePage(driver);
+                //Perform login
+                HomePage home = new HomePage(getDriver());
                 home.clickMyAccount();
                 home.clickLogin();
 
-                LoginPage loginPage = new LoginPage(driver);
+                LoginPage loginPage = new LoginPage(getDriver());
                 loginPage.login(username, password);  // username & password from config.properties
 
-                // Step 2: Navigate to My Account Page
-                MyAccountPage myAccountPage = new MyAccountPage(driver);
+                //Navigate to My Account Page
+                MyAccountPage myAccountPage = new MyAccountPage(getDriver());
 
                 // Click on "Edit your account information" link in Right Column
                 myAccountPage.clickEditAccountInformation();
 
-                // Step 3: Validate navigation to "My Account Information" page
+                //Validate navigation to "My Account Information" page
                 boolean isInfoPageDisplayed = myAccountPage.isMyAccountInformationPageDisplayed();
                 Assert.assertTrue(isInfoPageDisplayed,
-                        "User is NOT navigated to 'My Account Information' page!");
+                        "User is NOT navigated to My Account Information page!");
 
-                logger.info("User successfully navigated to 'My Account Information' page.");
+                logger.info("User successfully navigated to My Account Information page.");
             } catch (Exception e) {
                 logger.error("Test failed due to exception: " + e.getMessage());
                 Assert.fail("Test Case failed: " + e.getMessage());

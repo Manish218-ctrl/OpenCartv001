@@ -15,27 +15,21 @@ public class TC_LF_004_ValidateKeyboardLoginTest extends BaseClass {
         logger.info("***** Starting TC_LF_004_ValidateKeyboardLoginTest *****");
 
         try {
-            // Step 1: Open HomePage and go to Login Page
-            HomePage hp = new HomePage(driver);
+            HomePage hp = new HomePage(getDriver());
             hp.clickMyAccount();
             hp.clickLogin();
 
-            LoginPage lp = new LoginPage(driver);
+            LoginPage lp = new LoginPage(getDriver());
 
-            // Step 2: Navigate with TAB to Email field and enter email
             lp.getEmailField().sendKeys(Keys.TAB); // Focus on email
-            lp.getEmailField().sendKeys(rb.getString("email")); // From config.properties
+            lp.getEmailField().sendKeys(p.getProperty("email")); // From config.properties
 
-            // Step 3: Navigate with TAB to Password field and enter password
             lp.getPasswordField().sendKeys(Keys.TAB);
-            lp.getPasswordField().sendKeys(rb.getString("password"));
+            lp.getPasswordField().sendKeys(p.getProperty("password"));
 
-            // Step 4: Navigate with TAB to Login button and press ENTER
             lp.getLoginButton().sendKeys(Keys.ENTER);
 
-            // Step 5: Validate successful login
-
-            MyAccountPage myAcc = new MyAccountPage(driver);
+            MyAccountPage myAcc = new MyAccountPage(getDriver());
             boolean loginStatus = myAcc.isMyAccountPageExists();
 
             Assert.assertTrue(loginStatus, "Login failed using keyboard keys");

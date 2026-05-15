@@ -1,6 +1,5 @@
 package pageObjects;
 
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -8,86 +7,94 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
-import java.time.Duration;
 
 public class SiteMapPage extends BasePage {
 
-        private static WebDriver driver;
+    public SiteMapPage(WebDriver driver) {
+        super(driver);
+        
+    }
 
-        public SiteMapPage(WebDriver driver) {
-            super(driver);
-            this.driver = driver;
-            PageFactory.initElements(driver, this);
+    //LOCATORS
+
+    @FindBy(xpath = "//div[@id='content']//a[normalize-space()='Address Book']")
+    private WebElement lnkAddressBook;
+
+    @FindBy(xpath = "//div[@id='content']//h1[normalize-space()='Site Map']")
+    private WebElement headingSiteMap;
+
+    @FindBy(xpath = "//div[@id='content']//a[normalize-space()='Shopping Cart']")
+    private WebElement linkShoppingCart;
+
+    @FindBy(xpath = "//div[@id='content']//a[normalize-space()='My Account']/following-sibling::ul//a[normalize-space()='Order History']")
+    private WebElement linkOrderHistory;
+
+    @FindBy(xpath = "//div[@id='content']//a[normalize-space()='My Account']/following-sibling::ul//a[normalize-space()='Account Information']")
+    private WebElement linkAccountInformation;
+
+    @FindBy(xpath = "//div[@id='content']//a[normalize-space()='My Account']/following-sibling::ul//a[normalize-space()='Password']")
+    private WebElement lnkPassword;
+
+    //DYNAMIC LOCATORS
+
+    private By footerLink(String linkText) {
+        return By.xpath("//footer//a[normalize-space()='" + linkText + "']");
+    }
+
+    //ACTION METHODS
+
+    public boolean isOnSiteMapPage() {
+
+        try {
+            return wait.until(ExpectedConditions.visibilityOf(headingSiteMap)).isDisplayed();
+        } catch (Exception e) {
+            return false;
         }
+    }
 
+    public void clickShoppingCartLink() {
+        clickElement(linkShoppingCart);
+        logger.info("Clicked Shopping Cart link.");
+    }
 
-            public By headingSiteMap = By.xpath("/html/body/div[2]/div/div/h1");
-            private By linkShoppingCart = By.xpath("/html/body/div[2]/div/div/div/div[2]/ul/li[3]/a");
-            private By linkOrderHistory = By.xpath("/html/body/div[2]/div/div/div/div[2]/ul/li[2]/ul/li[4]/a");
+    public void clickFooterLink(String linkText) {
 
+        WebElement footerLinkElement =
+                wait.until(ExpectedConditions.elementToBeClickable(footerLink(linkText)));
 
-            public boolean isOnSiteMapPage () {
-                try {
-                    return wait.until(ExpectedConditions.visibilityOfElementLocated(headingSiteMap)).isDisplayed();
-                } catch (Exception e) {
-                    return false;
-                }
-            }
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView(true);",
+                footerLinkElement
+        );
 
-            public void clickShoppingCartLink () {
-                WebElement cartLink = wait.until(ExpectedConditions.elementToBeClickable(linkShoppingCart));
-                cartLink.click();
-            }
+        footerLinkElement.click();
 
-            public static void clickFooterLink (String linkText){
-                WebElement footerLink = driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div[2]/ul/li[1]/a"));
-                wait.until(ExpectedConditions.elementToBeClickable(footerLink)).click();
-            }
+        logger.info("Clicked footer link: {}", linkText);
+    }
 
+    public void clickOrderHistoryLink() {
+        clickElement(linkOrderHistory);
+        logger.info("Clicked Order History link.");
+    }
 
-            public void clickOrderHistoryLink () {
-                wait.until(ExpectedConditions.elementToBeClickable(linkOrderHistory)).click();
-            }
+    public void clickAddressBook() {
 
+        try {
+            clickElement(lnkAddressBook);
+            logger.info("Clicked Address Book link.");
+        } catch (Exception e) {
+            Assert.fail("Unable to click Address Book link: " + e.getMessage());
+        }
+    }
 
-            @FindBy(xpath = "//a[normalize-space()='Address Book']")
-            public WebElement lnkAddressBook;
+    public void clickAccountInformation() {
+        clickElement(linkAccountInformation);
+        logger.info("Clicked Account Information link.");
+    }
 
-            public void clickAddressBook () {
-                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-                try {
-                    WebElement addressBookLink = wait.until(ExpectedConditions.elementToBeClickable(lnkAddressBook));
-
-                    ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addressBookLink);
-
-                    addressBookLink.click();
-                } catch (Exception e) {
-                    Assert.fail("Unable to click 'Address Book' link: " + e.getMessage());
-                }
-            }
-
-
-            private By linkAccountInformation = By.xpath("//div[@id='content']//a[normalize-space()='Account Information']");
-
-            public void clickAccountInformation () {
-                WebElement element = wait.until(ExpectedConditions.elementToBeClickable(linkAccountInformation));
-
-                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-
-                element.click();
-            }
-
-            private By lnkPassword = By.xpath("//div[@id='content']//a[normalize-space()='Password']");
-
-
-            public void clickPasswordLink () {
-                WebElement passwordLink = driver.findElement(lnkPassword);
-                passwordLink.click();
-            }
-
+    public void clickPasswordLink() {
+        clickElement(lnkPassword);
+        logger.info("Clicked Password link.");
+    }
 }
-
-

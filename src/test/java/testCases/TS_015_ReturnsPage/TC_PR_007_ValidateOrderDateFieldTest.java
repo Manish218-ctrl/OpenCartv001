@@ -26,50 +26,50 @@ public class TC_PR_007_ValidateOrderDateFieldTest extends BaseClass {
         try {
             logger.info("===== TC_PR_007: Validate Order Date field in Product Returns Page =====");
 
-            // Step 1: Navigate to homepage and login
-            driver.get(appURL);
+            //Navigate to homepage and login
+            getDriver().get(appURL);
             logger.info("Navigated to Application URL: " + appURL);
             performLogin();
             logger.info("Login successful for user: " + username);
 
-            // Step 2: Navigate to Order History page
-            HomePage homepage = new HomePage(driver);
+            //Navigate to Order History page
+            HomePage homepage = new HomePage(getDriver());
             homepage.clickMyAccount();
             homepage.clickOrderHistory();
             logger.info("Navigated to Order History page");
 
-            // Step 3: Click on View icon for the first order
-            OrderHistoryPage orderHistoryPage = new OrderHistoryPage(driver);
+            //Click on View icon for the first order
+            OrderHistoryPage orderHistoryPage = new OrderHistoryPage(getDriver());
             orderHistoryPage.clickFirstOrderViewIcon();
-            logger.info("Clicked 'View' for the first order");
+            logger.info("Clicked View for the first order");
 
-            // Step 4: Click on Return icon
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            //Click on Return icon
+            WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(15));
             WebElement returnIcon = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//a[contains(@href,'return') and contains(@data-original-title,'Return')]")
+                    By.xpath("//a[contains(@href,return) and contains(@data-original-title,Return)]")
             ));
             returnIcon.click();
-            logger.info("Clicked 'Return' icon");
+            logger.info("Clicked Return icon");
 
-            // Step 5: Enter future date in Order Date field
-            ProductReturnsPage productReturnsPage = new ProductReturnsPage(driver);
+            //Enter future date in Order Date field
+            ProductReturnsPage productReturnsPage = new ProductReturnsPage(getDriver());
             String futureDate = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             productReturnsPage.orderDateField.clear();
             productReturnsPage.orderDateField.sendKeys(futureDate);
             logger.info("Entered future date in Order Date field: " + futureDate);
 
-            // Step 6: Submit the Return form
+            //Submit the Return form
             productReturnsPage.clickSubmit();
-            logger.info("Clicked 'Submit' button on Product Returns page");
+            logger.info("Clicked Submit button on Product Returns page");
 
-            // Step 7: Wait for and validate error message
+            //Wait for and validate error message
             WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
                     By.cssSelector("div.text-danger, span.text-danger")
             ));
 
             String actualError = errorMessage.getText().trim();
             Assert.assertTrue(actualError.toLowerCase().contains("future"),
-                    "Error message does not mention 'future'. Actual: " + actualError);
+                    "Error message does not mention future. Actual: " + actualError);
 
             logger.info("Error message displayed correctly: " + actualError);
             logger.info("===== TC_PR_007 completed successfully =====");

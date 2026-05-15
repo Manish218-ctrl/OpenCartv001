@@ -1,78 +1,155 @@
 package testCases.TS_017_OrderHistory;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import pageObjects.HomePage;
 import pageObjects.OrderHistoryPage;
 import testBase.BaseClass;
 
-public class TC_OH_002_ValidateOrderHistoryPageFromMyAccountTest extends BaseClass {
+import java.time.Duration;
 
-    private static final Logger logger = LogManager.getLogger(TC_OH_002_ValidateOrderHistoryPageFromMyAccountTest.class);
+public class TC_OH_002_ValidateOrderHistoryPageFromMyAccountTest extends BaseClass {
 
     private HomePage homepage;
     private OrderHistoryPage orderHistoryPage;
 
+    private WebDriverWait wait;
+
     @BeforeClass
     public void setup() {
-        // Initializing the HomePage and OrderHistoryPage
-        homepage = new HomePage(driver);
-        orderHistoryPage = new OrderHistoryPage(driver);
 
-        // Login to the application
+        homepage = new HomePage(getDriver());
+
+        orderHistoryPage =
+                new OrderHistoryPage(getDriver());
+
+        wait =
+                new WebDriverWait(getDriver(), Duration.ofSeconds(20));
+
         performLogin();
-        logger.info("Logged in successfully.");
+
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//div[@id='content']//h2[text()='My Account']")
+                )
+        );
+
+        logger.info(
+                "Logged in successfully."
+        );
     }
 
     @Test(priority = 1)
     public void verifyOrderHistoryPageTitle() {
+
         homepage.clickMyAccount();
-        homepage.clickOrderHistory();  // Navigate to Order History Page
-        logger.info("Navigated to Order History Page.");
 
-        String pageTitle = orderHistoryPage.getTitle();
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']")
+                )
+        );
 
-        // Validate the title of the Order History page
-        Assert.assertEquals(pageTitle, "Order History", "Order History Page title is incorrect.");
-        logger.info("Order History Page title is validated.");
+        homepage.clickOrderHistory();
+
+        logger.info(
+                "Navigated to Order History Page."
+        );
+
+        String pageTitle =
+                orderHistoryPage.getTitle();
+
+        Assert.assertEquals(
+                pageTitle,
+                "Order History",
+                "Order History Page title is incorrect."
+        );
+
+        logger.info(
+                "Order History Page title is validated."
+        );
     }
 
     @Test(priority = 2)
     public void verifyAllOrdersDisplayed() {
+
         homepage.clickMyAccount();
-        homepage.clickOrderHistory();  // Navigate to Order History Page
-        logger.info("Navigated to Order History Page.");
 
-        // Check if the first order's 'View' icon is visible
-        boolean isFirstOrderVisible = orderHistoryPage.isFirstOrderViewIconVisible();
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']")
+                )
+        );
 
-        // Assert that the first order is visible (indicating orders are displayed)
-        Assert.assertTrue(isFirstOrderVisible, "Order History is empty or first order is not visible.");
-        logger.info("First order's 'View' icon visibility checked.");
+        homepage.clickOrderHistory();
+
+        logger.info(
+                "Navigated to Order History Page."
+        );
+
+        boolean isFirstOrderVisible =
+                orderHistoryPage.isFirstOrderViewIconVisible();
+
+        Assert.assertTrue(
+                isFirstOrderVisible,
+                "Order History is empty or first order is not visible."
+        );
+
+        logger.info(
+                "First orders View icon visibility checked."
+        );
     }
 
     @Test(priority = 3)
-    public void verifyOrderDetails() throws InterruptedException {
-        homepage.clickMyAccount();
-        homepage.clickOrderHistory();  // Navigate to Order History Page
-        logger.info("Navigated to Order History Page.");
+    public void verifyOrderDetails() {
 
-        // Click the first order's view icon
+        homepage.clickMyAccount();
+
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']")
+                )
+        );
+
+        homepage.clickOrderHistory();
+
+        logger.info(
+                "Navigated to Order History Page."
+        );
+
         orderHistoryPage.clickFirstOrderViewIcon();
 
-        // Add a brief delay to allow the page to load (not ideal, but necessary for some applications)
-        Thread.sleep(20000);
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//div[@id='content']/h1")
+                )
+        );
 
-        // Fetch the actual order ID
-        String actualOrderId = orderHistoryPage.getOrderId();  // Fetch order ID from the page
-        logger.info("Actual Order ID fetched: " + actualOrderId);
+        String actualOrderId =
+                orderHistoryPage.getOrderId();
 
-        // Validate the details of the order in the 'Order History'
-        String expectedOrderId = "Order ID:";  // Example expected order ID
-        Assert.assertEquals(actualOrderId, expectedOrderId, "Order ID does not match.");
-        logger.info("Order ID validation successful: " + actualOrderId);
+        logger.info(
+                "Actual Order ID fetched: "
+                        + actualOrderId
+        );
+
+        String expectedOrderId =
+                "Order ID:";
+
+        Assert.assertEquals(
+                actualOrderId,
+                expectedOrderId,
+                "Order ID does not match."
+        );
+
+        logger.info(
+                "Order ID validation successful: "
+                        + actualOrderId
+        );
     }
 }

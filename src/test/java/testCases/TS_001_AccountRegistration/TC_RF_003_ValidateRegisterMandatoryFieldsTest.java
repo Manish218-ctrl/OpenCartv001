@@ -15,17 +15,14 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_RF_003_ValidateRegisterMandatoryFieldsTest *****");
 
             try {
-                // Step 1: Navigate to Register Page
-                HomePage hp = new HomePage(driver);
+                HomePage hp = new HomePage(getDriver());
                 hp.clickMyAccount();
                 hp.clickRegister();
 
-                AccountRegistrationPage regPage = new AccountRegistrationPage(driver);
+                AccountRegistrationPage regPage = new AccountRegistrationPage(getDriver());
 
-                // Step 2: Don't enter anything, just click Continue
                 regPage.clickContinue();
 
-                // Step 3: Validate Warning messages
                 Assert.assertEquals(regPage.getPrivacyPolicyWarning().trim(),
                         "Warning: You must agree to the Privacy Policy!", "Privacy Policy warning mismatch");
 

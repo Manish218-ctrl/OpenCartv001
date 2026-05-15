@@ -14,29 +14,29 @@ import testBase.BaseClass;
 
         @Test
         public void validatePhoneNumberForContactUs() {
-            logger.info("Test Case TC_HMF_001 - Validate correct Phone number for 'Contact Us' Header option Started");
+            logger.info("Test Case TC_HMF_001 - Validate correct Phone number for Contact Us Header option Started");
 
             try {
                 // Open the application URL
-                logger.info("Opening the application URL: " + rb.getString("appURL"));
-                driver.get(rb.getString("appURL"));
+                logger.info("Opening the application URL: " + p.getProperty("appURL"));
+                getDriver().get(p.getProperty("appURL"));
 
                 // Initialize the HomePage object
-                HomePage homepage = new HomePage(driver);
+                HomePage homepage = new HomePage(getDriver());
 
-                // Step 1: Click on 'Contact Us' header option
-                logger.info("Clicking on 'Contact Us' header option");
+                //Click on Contact Us header option
+                logger.info("Clicking on Contact Us header option");
                 homepage.clickContactUsHeaderOption();
 
-                // Step 2: Get the phone number displayed next to the phone icon
+                //Get the phone number displayed next to the phone icon
                 logger.info("Getting the phone number displayed in the header");
                 String phoneNumber = homepage.getPhoneNumber();
 
-                // Step 3: Validate that the phone number is displayed in the correct format (for example: +1 (800) 123-4567)
+                //Validate that the phone number is displayed in the correct format (for example: +1 (800) 123-4567)
                 String expectedPhoneNumberFormat = "123456789";
                 Assert.assertEquals(phoneNumber, expectedPhoneNumberFormat, "Phone number displayed is incorrect.");
 
-                logger.info("Test Case TC_HMF_001 - Validate correct Phone number for 'Contact Us' Header option Completed Successfully");
+                logger.info("Test Case TC_HMF_001 - Validate correct Phone number for Contact Us Header option Completed Successfully");
 
             } catch (Exception e) {
                 // Handle any errors and log the exception

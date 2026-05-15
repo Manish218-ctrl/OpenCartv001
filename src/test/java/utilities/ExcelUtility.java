@@ -23,7 +23,7 @@ public class ExcelUtility {
             is = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
 
             if (is == null) {
-                System.err.println("Error: Excel file '" + fileName + "' not found in the classpath (e.g., src/test/resources).");
+                System.err.println("Error: Excel file " + fileName + " not found in the classpath (e.g., src/test/resources).");
                 throw new RuntimeException("Excel file not found: " + fileName);
             }
 
@@ -32,7 +32,7 @@ public class ExcelUtility {
             XSSFSheet sheet = workbook.getSheet(sheetName);
 
             if (sheet == null) {
-                System.err.println("Error: Sheet '" + sheetName + "' not found in the Excel file.");
+                System.err.println("Error: Sheet " + sheetName + " not found in the Excel file.");
                 throw new IllegalArgumentException("Sheet not found: " + sheetName);
             }
 

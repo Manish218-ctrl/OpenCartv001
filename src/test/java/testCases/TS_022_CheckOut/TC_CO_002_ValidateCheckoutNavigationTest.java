@@ -14,7 +14,7 @@ import testBase.BaseClass;
             try {
                 logger.info("***** Starting TC_CO_002 - Validate Checkout Navigation *****");
 
-                HomePage home = new HomePage(driver);
+                HomePage home = new HomePage(getDriver());
 
                 home.enterSearchText(productName);
                 home.clickSearchButton();

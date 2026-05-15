@@ -12,15 +12,15 @@ import testBase.BaseClass;
         @Test(priority = 1)
         public void validateContinueButtonOnRewardPointsPage() {
 
-            // Step 1: Login to the application
+            //Login to the application
             performLogin();
 
-            HomePage home = new HomePage(driver);
+            HomePage home = new HomePage(getDriver());
 
-            // Step 2: Navigate to 'Your Reward Points' from Right Column
+            //Navigate to Your Reward Points from Right Column
             home.clickRewardPoints();
 
-            RewardPointsPage rewardPointsPage = new RewardPointsPage(driver);
+            RewardPointsPage rewardPointsPage = new RewardPointsPage(getDriver());
 
             try {
                 String pointsText = rewardPointsPage.getTotalRewardPointsText();
@@ -30,17 +30,17 @@ import testBase.BaseClass;
                 logger.info("No Reward Points Message: " + noPointsMsg);
             }
 
-            // Step 3: Click 'Continue' button
+            //Click Continue button
             rewardPointsPage.clickContinueRewardPoints();
 
-            // Step 4: Verify user is redirected to 'My Account' page
-            String actualTitle = driver.getTitle();
+            //Verify user is redirected to My Account page
+            String actualTitle = getDriver().getTitle();
             String expectedTitle = "My Account";
 
             Assert.assertTrue(actualTitle.contains(expectedTitle),
-                    "User is not navigated to 'My Account' page. Current page title: " + actualTitle);
+                    "User is not navigated to My Account page. Current page title: " + actualTitle);
 
-            logger.info("Test Case TC_RP_005 Passed: User navigated to 'My Account' after clicking Continue.");
+            logger.info("Test Case TC_RP_005 Passed: User navigated to My Account after clicking Continue.");
         }
     }
 

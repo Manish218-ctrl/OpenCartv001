@@ -1,130 +1,160 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);  // Initialize elements
+        
     }
 
-    @FindBy(xpath = "//*[@id=\"input-email\"]")
+    //LOCATORS
+
+    @FindBy(id = "input-email")
     WebElement txtEmailAddress;
 
-    @FindBy(xpath = "//*[@id=\"input-password\"]")
+    @FindBy(id = "input-password")
     WebElement txtPassword;
 
-    @FindBy(xpath = "/html/body/div[2]/div/div/div/div[2]/div/form/input")
+    @FindBy(xpath = "//form[contains(@action,'account/login')]//input[@value='Login']")
     WebElement btnLogin;
 
-    @FindBy(xpath="//a[normalize-space()='Continue']")
+    @FindBy(xpath = "//div[@id='content']//a[contains(@class,'btn-primary') and normalize-space()='Continue']")
     public WebElement btnContinueNewCustomer;
 
-    @FindBy(xpath = "//div[contains(@class,'alert-dismissible')]")
+    @FindBy(xpath = "//div[contains(@class,'alert-danger') or contains(@class,'alert-dismissible')]")
     WebElement warningMessage;
 
-    @FindBy(linkText = "Forgotten Password")
+    @FindBy(xpath = "//form[contains(@action,'account/login')]//a[contains(normalize-space(),'Forgotten Password')]")
     WebElement lnkForgotPassword;
 
-    @FindBy(xpath = "//input[@value='Login']")
+    @FindBy(xpath = "//input[@value='Login' and contains(@class,'btn-primary')]")
     private WebElement loginButton;
 
-    // Right Column -> Login link
-    @FindBy(xpath = "//aside//a[normalize-space()='Login']")
+    @FindBy(xpath = "//aside[@id='column-right']//a[normalize-space()='Login']")
     WebElement rightColumnLogin;
 
-    public void clickRightColumnLogin() {
-        rightColumnLogin.click();
-    }
-
-    // Breadcrumb
-    @FindBy(xpath = "//ul[@class='breadcrumb']//li[last()]")
+    @FindBy(xpath = "//ul[contains(@class,'breadcrumb')]//li[last()]")
     WebElement breadcrumb;
 
-    // Page Heading
-    @FindBy(xpath = "//h2[normalize-space()='Returning Customer']")
+    @FindBy(xpath = "//div[@id='content']//h2[normalize-space()='Returning Customer']")
     WebElement pageHeading;
 
+    @FindBy(xpath = "//h1[normalize-space()='Forgot Your Password?']")
+    WebElement forgotPasswordHeading;
+
+    //ACTION METHODS
 
     public void login(String email, String password) {
+
         setEmail(email);
+
         setPassword(password);
+
         clickLogin();
     }
 
+    public void clickRightColumnLogin() {
 
+        clickElement(rightColumnLogin);
+    }
 
     public String getBreadcrumb() {
+
         try {
-            WebElement breadcrumbElement = driver.findElement(By.xpath("//ul[@class='breadcrumb']//li[last()]"));
-            return breadcrumbElement.getText().trim().replaceAll("\\s+", " "); // normalize spaces
+
+            return getElementText(breadcrumb)
+                    .replaceAll("\\s+", " ");
+
         } catch (Exception e) {
+
             return "";
         }
     }
-
 
     public String getPageHeading() {
+
         try {
-            return pageHeading.getText();
+
+            return getElementText(pageHeading);
+
         } catch (Exception e) {
+
             return "";
         }
     }
 
-
-
-
-    // --- Getters ---
     public WebElement getLoginButton() {
         return loginButton;
     }
-    public WebElement getEmailField() { return txtEmailAddress; }
-    public WebElement getPasswordField() { return txtPassword; }
 
-    // --- Actions ---
+    public WebElement getEmailField() {
+        return txtEmailAddress;
+    }
+
+    public WebElement getPasswordField() {
+        return txtPassword;
+    }
+
     public RegisterPage clickContinueButtonNewCustomer() {
-        btnContinueNewCustomer.click();
+
+        clickElement(btnContinueNewCustomer);
+
         return new RegisterPage(driver);
     }
 
     public void clickForgotPassword() {
-        lnkForgotPassword.click();
+
+        clickElement(lnkForgotPassword);
     }
 
     public boolean isLoginPageDisplayed() {
+
         try {
-            return (txtEmailAddress.isDisplayed() && txtPassword.isDisplayed());
+
+            return txtEmailAddress.isDisplayed()
+                    && txtPassword.isDisplayed();
+
         } catch (Exception e) {
+
             return false;
         }
     }
 
     public void setEmail(String email) {
-        txtEmailAddress.sendKeys(email);
+
+        typeText(txtEmailAddress, email);
     }
 
     public void setPassword(String pwd) {
-        txtPassword.sendKeys(pwd);
+
+        typeText(txtPassword, pwd);
     }
 
     public void clickLogin() {
-        btnLogin.click();
+
+        clickElement(btnLogin);
     }
 
     public String getWarningMessage() {
+
         try {
-            return warningMessage.getText();
+
+            return getElementText(warningMessage);
+
         } catch (Exception e) {
-            return null;
+
+            return "";
         }
     }
 
+    public boolean isForgotPasswordPageDisplayed() {
 
+        return isElementDisplayed(forgotPasswordHeading);
+    }
 
 }

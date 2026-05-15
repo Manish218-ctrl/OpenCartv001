@@ -28,24 +28,24 @@ import java.io.IOException;
 
             performLogin();
 
-            MyAccountPage accountPage=new MyAccountPage(driver);
+            MyAccountPage accountPage=new MyAccountPage(getDriver());
 
             accountPage.clicknewsletterfooterlnk();
 
 
             logger.info("Verifying that the user is redirected to the Newsletter Subscription page.");
-            NewsletterPage newsletterPage = new NewsletterPage(driver);
+            NewsletterPage newsletterPage = new NewsletterPage(getDriver());
             String actualPageTitle = newsletterPage.getPageTitle();
             String expectedPageTitle = "Newsletter Subscription"; // Modify if necessary
             Assert.assertEquals(actualPageTitle, expectedPageTitle, "User is not redirected to the Newsletter Subscription page.");
-            logger.info("Successfully redirected to the 'Newsletter Subscription' page.");
+            logger.info("Successfully redirected to the Newsletter Subscription page.");
         }
 
         @AfterClass
         public void tearDown() {
             logger.info("Test execution completed. Closing the browser.");
-            if (driver != null) {
-                driver.quit();
+            if (getDriver() != null) {
+                getDriver().quit();
             }
         }
     }

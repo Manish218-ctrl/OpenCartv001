@@ -1,67 +1,63 @@
 package testCases.TS_026_Transaction;
 
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 import pageObjects.TransactionsPage;
 import testBase.BaseClass;
 
-    public class TC_TS_007_ValidateTransactionsPageTest extends BaseClass {
+import java.time.Duration;
 
-        @Test
-        public void validateTransactionsPage() {
-            logger.info("***** Starting TC_TS_007 Validate Transactions Page *****");
+public class TC_TS_007_ValidateTransactionsPageTest extends BaseClass {
 
-            try {
-                // Step 1: Perform login
-                performLogin();
-                logger.info("User logged in successfully.");
+    @Test
+    public void validateTransactionsPage() {
+        logger.info("***** Starting TC_TS_007 Validate Transactions Page *****");
 
-                // Step 2: Navigate to Transactions page
-                HomePage home = new HomePage(driver);
-                Thread.sleep(20000);
-                home.clicktransactionsrightcolumn();
-                logger.info("Navigated to Transactions page.");
+        try {
+            performLogin();
+            logger.info("User logged in successfully.");
 
-                // Step 3: Validate Transactions page
-                TransactionsPage transactionsPage = new TransactionsPage(driver);
+            new WebDriverWait(getDriver(), Duration.ofSeconds(10))
+                    .until(ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath("//div[@id='content']//h2[text()='My Account']")));
 
-                // Validate breadcrumb
-                String breadcrumb = transactionsPage.getBreadcrumbText();
-                Assert.assertEquals(breadcrumb, "Account Your Transactions", "Breadcrumb mismatch!");
+            HomePage home = new HomePage(getDriver());
+            home.clicktransactionsrightcolumn();
+            logger.info("Navigated to Transactions page.");
 
-                // Validate page heading
-                Assert.assertTrue(transactionsPage.isTransactionsHeadingDisplayed(),
-                        "Your Transactions heading not displayed.");
+            TransactionsPage transactionsPage = new TransactionsPage(getDriver());
 
-                // Validate Balance Text
-                String balanceText = transactionsPage.getBalanceText();
-                Assert.assertTrue(balanceText.contains("Your current balance"),
-                        "Balance text not displayed correctly.");
+            String breadcrumb = transactionsPage.getBreadcrumbText();
+            Assert.assertEquals(breadcrumb, "Account Your Transactions", "Breadcrumb mismatch!");
 
-                // Validate Table Headers
-                String[] headers = transactionsPage.getTableHeaders();
-                Assert.assertEquals(headers[0], "Date Added", "First column should be Date Added");
-                Assert.assertEquals(headers[1], "Description", "Second column should be Description");
-                Assert.assertEquals(headers[2], "Amount (USD)", "Third column should be Amount");
+            Assert.assertTrue(transactionsPage.isTransactionsHeadingDisplayed(),
+                    "Your Transactions heading not displayed.");
 
-                // Validate transaction rows present
-                int rowCount = transactionsPage.getTableRowCount();
-                Assert.assertTrue(rowCount > 0, "No transactions found in table!");
+            String balanceText = transactionsPage.getBalanceText();
+            Assert.assertTrue(balanceText.contains("Your current balance"),
+                    "Balance text not displayed correctly.");
 
-                logger.info("Transactions page validated successfully with " + rowCount + " rows.");
+            String[] headers = transactionsPage.getTableHeaders();
+            Assert.assertEquals(headers[0], "Date Added", "First column should be Date Added");
+            Assert.assertEquals(headers[1], "Description", "Second column should be Description");
+            Assert.assertEquals(headers[2], "Amount (USD)", "Third column should be Amount");
 
-                // Step 4: Continue button check
-                transactionsPage.clickContinueButton();
-                logger.info("Clicked Continue button on Transactions page.");
+            int rowCount = transactionsPage.getTableRowCount();
+            Assert.assertTrue(rowCount > 0, "No transactions found in table!");
+            logger.info("Transactions page validated successfully with " + rowCount + " rows.");
 
-            } catch (Exception e) {
-                logger.error("Test failed due to exception: " + e.getMessage(), e);
-                Assert.fail("Test case failed due to exception: " + e.getMessage());
-            }
+            transactionsPage.clickContinueButton();
+            logger.info("Clicked Continue button on Transactions page.");
 
-            logger.info("***** Finished TC_TS_007 Validate Transactions Page *****");
+        } catch (Exception e) {
+            logger.error("Test failed due to exception: " + e.getMessage(), e);
+            Assert.fail("Test case failed due to exception: " + e.getMessage());
         }
-    }
 
+        logger.info("***** Finished TC_TS_007 Validate Transactions Page *****");
+    }
+}

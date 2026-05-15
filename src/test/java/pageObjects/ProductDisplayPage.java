@@ -5,237 +5,274 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.List;
-
-import static pageObjects.HomePage.logger;
 
 public class ProductDisplayPage extends BasePage {
 
-    WebDriver driver;
-    WebDriverWait wait;
-
     public ProductDisplayPage(WebDriver driver) {
         super(driver);
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        
     }
 
-    // --- Locators ---
-    @FindBy(xpath = "//button[@data-original-title='Compare this Product'] | //button[contains(@aria-label,'Compare')]")
-    public WebElement btnCompareProduct;
+    //LOCATORS
+
+    @FindBy(xpath = "//div[@id='content']//h1")
+    private WebElement productName;
+
+    @FindBy(xpath = "//div[@id='content']//ul[contains(@class,'list-unstyled')][1]/li/a")
+    private WebElement productBrand;
+
+    @FindBy(xpath = "//div[@id='content']//ul[contains(@class,'list-unstyled')][1]/li[contains(normalize-space(),'Product Code')]")
+    private WebElement productCode;
+
+    @FindBy(xpath = "//div[@id='content']//ul[contains(@class,'list-unstyled')][1]/li[contains(normalize-space(),'Availability')]")
+    private WebElement productAvailability;
+
+    @FindBy(xpath = "//a[normalize-space()='Description']")
+    private WebElement tabDescription;
+
+    @FindBy(id = "tab-description")
+    private WebElement productDescriptionText;
+
+    @FindBy(id = "button-cart")
+    private WebElement addToCartBtn;
+
+    @FindBy(xpath = "//a[contains(@href,'checkout/checkout') and contains(text(),'Checkout')]")
+    private WebElement checkoutLink;
+
+    @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[contains(@href,'checkout/checkout')]")
+    private WebElement checkoutLinkInSuccessMessage;
 
     @FindBy(xpath = "//div[contains(@class,'alert-success')]")
-    public WebElement successMessage;
+    private WebElement successMessage;
 
-    @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[contains(@href,'compare')]")
-    public WebElement linkProductComparison;
+    @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[contains(@href,'product/compare')]")
+    private WebElement linkProductComparison;
 
-    @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[not(contains(@href,'compare'))]")
-    public WebElement linkProductNameInSuccessMessage;
+    @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[contains(@href,'product/product')]")
+    private WebElement linkProductNameInSuccessMessage;
 
+    @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[contains(@href,'checkout/cart')]")
+    private WebElement linkShoppingCartInSuccessMessage;
 
+    @FindBy(xpath = "//button[contains(@onclick,'compare.add')]")
+    private WebElement btnCompareProduct;
 
-    @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[contains(text(),'shopping cart')]")
-    public WebElement linkShoppingCartInSuccessMessage;
+    @FindBy(xpath = "//button[contains(@onclick,'wishlist.add')]")
+    private WebElement btnAddToWishList;
 
+    @FindBy(xpath = "//a[contains(@href,'account/wishlist')]")
+    private WebElement linkWishList;
 
-    @FindBy(xpath = "(//div[@class='product-thumb'])[1]//button[contains(@onclick,'wishlist.add')]")
-    public WebElement firstRelatedAddToWishListBtn;
+    @FindBy(xpath = "(//div[contains(@class,'product-thumb')])[1]//button[contains(@onclick,'wishlist.add')]")
+    private WebElement firstRelatedAddToWishListBtn;
 
-    @FindBy (xpath = "/html/body/div[2]/div/div/div[2]/div[1]/div/div[3]/button[1]")
-    public WebElement firstRelatedAddToCartBtn;
+    @FindBy(xpath = "//h3[normalize-space()='Related Products']/following-sibling::div//button[contains(@onclick,'cart.add')][1]")
+    private WebElement firstRelatedAddToCartBtn;
 
+    @FindBy(css = "div#content img.img-responsive")
+    private WebElement mainThumbnail;
 
+    @FindBy(css = "button.mfp-close")
+    private WebElement btnCloseLightbox;
 
+    @FindBy(css = "button.mfp-arrow-left")
+    private WebElement btnPrevThumbnail;
 
-    @FindBy(xpath = "//a[text()='wish list']")
-    public WebElement linkWishList;
+    @FindBy(css = "button.mfp-arrow-right")
+    private WebElement btnNextThumbnail;
 
-    public void clickWishListLink() {
-        wait.until(ExpectedConditions.elementToBeClickable(linkWishList)).click();
+    @FindBy(css = "ul.thumbnails img")
+    private List<WebElement> smallThumbnails;
+
+    @FindBy(xpath = "//table[contains(@class,'table-bordered')]//tr")
+    private List<WebElement> bulkPriceRows;
+
+    @FindBy(id = "input-quantity")
+    private WebElement quantityField;
+
+    @FindBy(xpath = "//div[contains(@class,'alert-success')]")
+    private WebElement successAlert;
+
+    @FindBy(xpath = "//div[@id='tab-review']//p[contains(normalize-space(),'There are no reviews for this product.')]")
+    private WebElement noReviewsMessage;
+
+    @FindBy(id = "input-quantity")
+    private WebElement txtQuantity;
+
+    @FindBy(xpath = "//div[contains(@class,'alert-success')]")
+    private WebElement alertSuccessMessage;
+
+    @FindBy(xpath = "//div[contains(@class,'alert-danger') or contains(@class,'alert-warning')] | //div[@id='product']//div[contains(@class,'input-group')]//span[contains(@class,'text-danger')] | //span[contains(@class,'text-danger')] | //p[contains(@class,'text-danger')] | //div[@class='modal-dialog']//*[contains(@class,'text-danger')]")
+    private WebElement quantityValidationMessage;
+
+    @FindBy(xpath = "//div[@id='content']//h3[normalize-space()='Related Products']")
+    private WebElement relatedProductsSection;
+
+    @FindBy(xpath = "//h3[normalize-space()='Related Products']/following-sibling::div//h4/a")
+    private WebElement firstRelatedProductName;
+
+    @FindBy(xpath = "(//h3[normalize-space()='Related Products']/following-sibling::div//button[contains(@onclick,'wishlist.add')])[1]")
+    private WebElement firstRelatedProductWishlistBtn;
+
+    @FindBy(xpath = "//div[@id='content']//ul[contains(@class,'list-unstyled')]//h2")
+    private WebElement priceWithTax;
+
+    @FindBy(xpath = "//ul[contains(@class,'list-unstyled')]/li[contains(normalize-space(),'Ex Tax')]")
+    private WebElement priceExTax;
+
+    @FindBy(xpath = "//div[@id='content']//h1")
+    private WebElement mainProductName;
+
+    @FindBy(xpath = "//div[@id='product']//table[contains(@class,'table-bordered')]")
+    private WebElement bulkPriceTable;
+
+    @FindBy(xpath = "//h3[normalize-space()='Related Products']")
+    private WebElement relatedProductsHeader;
+
+    @FindBy(xpath = "//h3[normalize-space()='Related Products']/following-sibling::div//div[contains(@class,'product-layout')]")
+    private List<WebElement> relatedProductCards;
+
+    @FindBy(xpath = "//div[@id='content']//h3[normalize-space()='Related Products']")
+    private WebElement relatedProductsHeading;
+
+    @FindBy(xpath = "//a[@href='#tab-review']")
+    private WebElement tabReviews;
+
+    @FindBy(id = "input-name")
+    private WebElement txtReviewName;
+
+    @FindBy(id = "input-review")
+    private WebElement txtReviewText;
+
+    @FindBy(xpath = "//input[@type='radio' and @value='5']")
+    private WebElement ratingFiveStar;
+
+    @FindBy(id = "button-review")
+    private WebElement btnSubmitReview;
+
+    @FindBy(css = "div.alert-success")
+    private WebElement reviewSuccessMessage;
+
+    @FindBy(css = ".modal .close, .popup-close")
+    private List<WebElement> popupCloseButtons;
+
+    //DYNAMIC LOCATORS
+
+    private By relatedProductWishlistButton(String productName) {
+        return By.xpath("//div[contains(@class,'caption')]//h4/a[contains(normalize-space(),'" + productName + "')]/ancestor::div[contains(@class,'product-thumb')]//button[contains(@onclick,'wishlist.add')]");
     }
 
-    //Methods
-
-    public void clickProductNameLinkInSuccessMessage() {
-        wait.until(ExpectedConditions.elementToBeClickable(linkProductNameInSuccessMessage)).click();
+    private By productSearchResult(String productName) {
+        return By.xpath("//div[contains(@class,'product-thumb')]//h4/a[normalize-space()='" + productName + "']");
     }
 
-    public void hoverOnCompareButton() {
-        wait.until(ExpectedConditions.visibilityOf(btnCompareProduct));
-        new Actions(driver).moveToElement(btnCompareProduct).perform();
+    //ACTION METHODS
+
+    public void addToCart() {
+        clickElement(addToCartBtn);
+        logger.info("Product added to cart.");
     }
 
-    public boolean isCompareTooltipDisplayed() {
-        try {
-            String tooltipText = btnCompareProduct.getAttribute("data-original-title");
-            return tooltipText != null && tooltipText.trim().equalsIgnoreCase("Compare this Product");
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public void clickCompareThisProduct() {
-        wait.until(ExpectedConditions.elementToBeClickable(btnCompareProduct)).click();
+    public void goToCheckout() {
+        clickElement(checkoutLinkInSuccessMessage);
+        logger.info("Clicked Checkout link.");
     }
 
     public String getSuccessMessage() {
+
         try {
-            return wait.until(ExpectedConditions.visibilityOf(successMessage)).getText().trim();
+            return getElementText(successMessage);
         } catch (Exception e) {
+            logger.error("Unable to fetch success message.", e);
             return "";
         }
     }
 
+    public void clickProductNameLinkInSuccessMessage() {
+        clickElement(linkProductNameInSuccessMessage);
+    }
+
+    public void clickShoppingCartLinkInSuccessMessage() {
+
+        scrollIntoView(linkShoppingCartInSuccessMessage);
+
+        clickElement(linkShoppingCartInSuccessMessage);
+
+        wait.until(ExpectedConditions.urlContains("route=checkout/cart"));
+    }
+
+    public void clickCompareThisProduct() {
+        clickElement(btnCompareProduct);
+    }
+
     public void clickProductComparisonLink() {
-        wait.until(ExpectedConditions.elementToBeClickable(linkProductComparison)).click();
+        clickElement(linkProductComparison);
     }
 
-
-    // Related products section heading
-    private By relatedProductsSection = By.xpath("/html/body/div[2]/div/div/h3");
-
-    // First related product name
-    private By firstRelatedProductName = By.xpath("/html/body/div[2]/div/div/div[2]/div/div/div[2]/h4/a");
-
-    // Add to wishlist button for first related product
-    private By firstRelatedProductWishlistBtn = By.xpath("/html/body/div[2]/div/div/div[2]/div/div/div[3]/button[2]");
-
-
-
-    // Inside ProductDisplayPage.java
-    @FindBy(xpath = "//button[@data-original-title='Add to Wish List']")
-    private WebElement btnAddToWishList;
-
-    // Method to click Add to Wish List button
-    public void clickAddToWishListButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(btnAddToWishList)).click();
+    public void hoverOnCompareButton() {
+        hoverElement(btnCompareProduct);
     }
 
-    public void addRelatedProductToWishList(String productName) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//h3[text()='Related Products']")
-        ));
+    public boolean isCompareTooltipDisplayed() {
 
-        By addToWishListBtn = By.xpath("//div[@class='caption']/h4/a[contains(text(),'"
-                + productName + "')]/../..//button[contains(@onclick,'wishlist.add')]");
-
-        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(addToWishListBtn));
-        btn.click();
-    }
-
-
-    // Get name of first related product
-    public String getFirstRelatedProductName() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(relatedProductsSection));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(firstRelatedProductName)).getText().trim();
-    }
-
-    // Add first related product to wish list
-    public void addFirstRelatedProductToWishList() {
-        wait.until(ExpectedConditions.elementToBeClickable(firstRelatedProductWishlistBtn)).click();
-    }
-
-
-    //Locators
-    @FindBy(css = "div#content img.img-responsive")  // Main Product Image
-    private WebElement mainThumbnail;
-
-    @FindBy(css = "button.mfp-close")   // Close button in Lightbox
-    private WebElement btnCloseLightbox;
-
-    @FindBy(css = "button.mfp-arrow-left")   // Prev
-    private WebElement btnPrevThumbnail;
-
-    @FindBy(css = "button.mfp-arrow-right")  // Next
-    private WebElement btnNextThumbnail;
-
-    @FindBy(css = "ul.thumbnails img")   // List of thumbnails
-    private java.util.List<WebElement> smallThumbnails;
-
-    //Actions
-
-    // Click main thumbnail to open Lightbox
-    public void openLightboxFromMainThumbnail() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        wait.until(ExpectedConditions.elementToBeClickable(mainThumbnail)).click();
-
-    }
-
-    public void clickNextThumbnail() {
-        wait.until(ExpectedConditions.elementToBeClickable(btnNextThumbnail)).click();
-    }
-
-    public void clickPrevThumbnail() {
-        wait.until(ExpectedConditions.elementToBeClickable(btnPrevThumbnail)).click();
-    }
-
-    public void closeLightbox() {
-        wait.until(ExpectedConditions.elementToBeClickable(btnCloseLightbox)).click();
-    }
-
-    public void pressEscapeKey() {
-        Actions actions = new Actions(driver);
-        actions.sendKeys(Keys.ESCAPE).perform();
-    }
-
-    public void clickSmallThumbnail(int index) {
-        if (index < smallThumbnails.size()) {
-            wait.until(ExpectedConditions.elementToBeClickable(smallThumbnails.get(index))).click();
-        } else {
-            throw new IllegalArgumentException("Thumbnail index out of range!");
-        }
-    }
-
-    public boolean isLightboxDisplayed() {
         try {
-            return btnCloseLightbox.isDisplayed();
-        } catch (NoSuchElementException e) {
+
+            String tooltipText = btnCompareProduct.getAttribute("title");
+
+            return tooltipText != null
+                    && tooltipText.trim().equalsIgnoreCase("Compare this Product");
+
+        } catch (Exception e) {
+
             return false;
         }
     }
 
-    //Product Details
-    @FindBy(xpath = "//div[@id='content']//h1")
-    private WebElement productName;   // Product Name
+    public void clickAddToWishListButton() {
+        clickElement(btnAddToWishList);
+    }
 
-    @FindBy(xpath = "//div[@id='content']//ul[@class='list-unstyled']/li/a")
-    private WebElement productBrand;  // Brand (first link in list)
+    public void clickWishListLink() {
+        clickElement(linkWishList);
+    }
 
-    @FindBy(xpath = "//div[@id='content']//ul[@class='list-unstyled']/li[contains(text(),'Product Code')]")
-    private WebElement productCode;   // Product Code
+    public void addRelatedProductToWishList(String productName) {
 
-    //Getter Methods
+        wait.until(ExpectedConditions.visibilityOf(relatedProductsSection));
+
+        clickElement(
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(
+                                relatedProductWishlistButton(productName)
+                        )
+                )
+        );
+    }
+
+    public void addFirstRelatedProductToWishList() {
+        clickElement(firstRelatedAddToWishListBtn);
+    }
 
     public String getProductName() {
-        return wait.until(ExpectedConditions.visibilityOf(productName)).getText().trim();
+        return getElementText(productName);
     }
 
     public String getProductBrand() {
-        return wait.until(ExpectedConditions.visibilityOf(productBrand)).getText().trim();
+        return getElementText(productBrand);
     }
 
     public String getProductCode() {
-        return wait.until(ExpectedConditions.visibilityOf(productCode)).getText().replace("Product Code: ", "").trim();
+
+        return getElementText(productCode)
+                .replace("Product Code:", "")
+                .trim();
     }
 
     public String getProductAvailability() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        WebElement availabilityElement = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//*[contains(text(),'Availability')]")
-                )
-        );
-
-        String rawText = availabilityElement.getText().trim();
+        String rawText = getElementText(productAvailability);
 
         if (rawText.contains(":")) {
             rawText = rawText.split(":", 2)[1].trim();
@@ -244,276 +281,293 @@ public class ProductDisplayPage extends BasePage {
         return rawText;
     }
 
-
-
-
-    private By priceWithTax = By.xpath("//ul[@class='list-unstyled']//h2");
-
-
-    private By priceExTax = By.xpath("//ul[@class='list-unstyled']/li[contains(text(),'Ex Tax')]");
-
-    // Method to get Price With Tax
     public String getPriceWithTax() {
-        return driver.findElement(priceWithTax).getText();
+        return getElementText(priceWithTax);
     }
 
-    // Method to get Price Ex Tax
     public String getPriceExTax() {
-        return driver.findElement(priceExTax).getText();
+        return getElementText(priceExTax);
     }
 
-    // Inside ProductDisplayPage.java
-    @FindBy(xpath = "//a[normalize-space()='Description']")
-    private WebElement tabDescription;
-
-    @FindBy(xpath = "//div[@id='tab-description']")
-    private WebElement productDescriptionText;
-
-    // Method to click on Description tab
     public void clickDescriptionTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(tabDescription)).click();
+        clickElement(tabDescription);
     }
 
-    // Method to get product description text
     public String getProductDescription() {
-        return wait.until(ExpectedConditions.visibilityOf(productDescriptionText)).getText().trim();
+        return getElementText(productDescriptionText);
     }
 
+    public void openLightboxFromMainThumbnail() {
+        clickElement(mainThumbnail);
+    }
 
+    public void clickNextThumbnail() {
+        clickElement(btnNextThumbnail);
+    }
 
-    @FindBy(xpath = "//table[@class='table table-bordered']//tr")
-    private java.util.List<WebElement> bulkPriceRows;
+    public void clickPrevThumbnail() {
+        clickElement(btnPrevThumbnail);
+    }
 
+    public void closeLightbox() {
+        clickElement(btnCloseLightbox);
+    }
 
-    public void clickShoppingCartLinkInSuccessMessage() {
-        By cartLinkLocator = By.xpath("/html/body/div[2]/div[1]/a[2]");
+    public void pressEscapeKey() {
+        new Actions(driver).sendKeys(Keys.ESCAPE).perform();
+    }
+
+    public void clickSmallThumbnail(int index) {
+
+        if (index < smallThumbnails.size()) {
+            clickElement(smallThumbnails.get(index));
+        } else {
+            throw new IllegalArgumentException("Thumbnail index out of range!");
+        }
+    }
+
+    public boolean isLightboxDisplayed() {
+
         try {
-            // Wait for the element to be present and visible
-            WebElement cartLink = wait.until(ExpectedConditions.visibilityOfElementLocated(cartLinkLocator));
+            return btnCloseLightbox.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
 
-            // Scroll into view
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", cartLink);
+    public String getFirstRelatedProductName() {
+        return getElementText(firstRelatedProductName);
+    }
 
-            // Attempt normal click
-            try {
-                cartLink.click();
-            } catch (Exception e) {
-                // Fallback to JavaScript click if normal click fails
-                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", cartLink);
-            }
+    public boolean hasRelatedProducts() {
+
+        try {
+
+            wait.until(ExpectedConditions.visibilityOf(relatedProductsHeader));
+
+            scrollIntoView(relatedProductsHeader);
+
+            return !relatedProductCards.isEmpty();
 
         } catch (Exception e) {
-            throw new RuntimeException("Failed to click 'shopping cart' link in success message: " + e.getMessage());
+
+            logger.warn("Related Products section or products did not load.", e);
+
+            return false;
         }
     }
-    @FindBy(xpath = "//button[@id='button-cart']")
-    private WebElement btnAddToCart;
-
-
-    public void clickAddToCartButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(btnAddToCart)).click();
-    }
-
-
-    // PDP title (h1)
-    @FindBy(css = "#content h1")
-    private WebElement pdpTitle;
-
-    // Success alert after adding to cart
-    private By successAlert = By.xpath("/html/body/div[2]/div[1]");
-
-    // "shopping cart" link inside success alert
-    private By shoppingCartLinkInAlert = By.xpath("//div[contains(@class,'alert-success')]//a[contains(.,'shopping cart')]");
-
-    /** Get PDP header/title text */
-    public String getPdpTitle() {
-        return wait.until(ExpectedConditions.visibilityOf(pdpTitle)).getText().trim();
-    }
-
-
-    /** Wait for success message and return its full text */
-    public String getSuccessMessageText() {
-        WebElement alert = wait.until(ExpectedConditions.visibilityOfElementLocated(successAlert));
-        return alert.getText().trim();
-    }
-
-    /** Click the 'shopping cart' link in success message */
-    public void clickShoppingCartLinkInSuccess() {
-        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(shoppingCartLinkInAlert));
-        link.click();
-        // Optional: wait until URL contains checkout/cart
-        wait.until(ExpectedConditions.urlContains("route=checkout/cart"));
-
-    }
-
-
-    @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[contains(@href,'checkout/checkout')]")
-    private WebElement checkoutLinkInSuccessMessage;
-
-    // The addToCart() method should already be implemented
-    public void addToCart() {
-        addToCartBtn.click();
-        logger.info("Product added to cart.");
-    }
-
-    // Update the goToCheckout method to wait for the element
-    public void goToCheckout() {
-        logger.info("Attempting to click Checkout link from success notification...");
-        // Use WebDriverWait to explicitly wait for the checkout link in the success banner
-        wait.until(ExpectedConditions.visibilityOf(checkoutLinkInSuccessMessage)).click();
-        logger.info("Clicked the Checkout link.");
-    }
-
-
-    // --- Related Products Section ---
-
-
-    // Heading
-    public By relatedProductsHeading = By.xpath("/html/body/div[2]/div/div/h3");
-
-
-
-    @FindBy(id = "button-cart")
-    private WebElement addToCartBtn;
-
-    @FindBy(xpath = "//a[contains(text(),'Checkout')]")
-    private WebElement checkoutLink;
-
-
-    public void addRelatedProductToCartByIndex(int index) {
-        // Ensure products have loaded before finding them
-        if (!hasRelatedProducts()) {
-            throw new IllegalArgumentException("Invalid related product index: " + index +
-                    ". Related Products section did not load or is empty.");
-        }
-
-        List<WebElement> cards = driver.findElements(relatedProductCards);
-
-        if (index >= cards.size()) {
-            throw new IllegalArgumentException("Invalid related product index: " + index +
-                    ". Found only " + cards.size() + " products.");
-        }
-
-        WebElement productCard = cards.get(index);
-
-        // Scroll the specific card into view
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", productCard);
-
-        // Locate and click the Add to Cart button
-        WebElement addBtn = productCard.findElement(By.xpath(".//button[contains(@onclick,'cart.add')]"));
-        waitShort().until(ExpectedConditions.elementToBeClickable(addBtn)).click();
-    }
-
-
 
     public String getRelatedProductName(int index) {
-        // Ensure products have loaded before finding them
+
         if (!hasRelatedProducts()) {
-            throw new IllegalArgumentException("Invalid related product index: " + index +
-                    ". Related Products section did not load or is empty.");
+            throw new IllegalArgumentException("Related products section is empty.");
         }
 
-        // Find elements again (they should be attached now after the wait)
-        List<WebElement> cards = driver.findElements(relatedProductCards);
-
-        if (index >= cards.size()) {
-            throw new IllegalArgumentException("Invalid related product index: " + index +
-                    ". Found only " + cards.size() + " products.");
+        if (index >= relatedProductCards.size()) {
+            throw new IllegalArgumentException("Invalid related product index: " + index);
         }
 
-        // Locate the name link within the specific card
-        return cards.get(index).findElement(By.cssSelector(".caption h4 a")).getText().trim();
+        return relatedProductCards.get(index)
+                .findElement(By.cssSelector(".caption h4 a"))
+                .getText()
+                .trim();
     }
 
+    public void addRelatedProductToCartByIndex(int index) {
 
-
-    // Locators
-    private final By mainProductName = By.xpath("//div[@id='content']//h1");
-    private final By bulkPriceTableLocator = By.xpath("//div[@id='product']//table[@class='table table-bordered']");
-
-
-    public boolean isOnProductDisplayPage() {
-        try {
-            return driver.findElement(mainProductName).isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
+        if (!hasRelatedProducts()) {
+            throw new IllegalArgumentException("Related products section is empty.");
         }
-    }
 
+        if (index >= relatedProductCards.size()) {
+            throw new IllegalArgumentException("Invalid related product index: " + index);
+        }
+
+        WebElement productCard = relatedProductCards.get(index);
+
+        scrollIntoView(productCard);
+
+        WebElement addBtn =
+                productCard.findElement(
+                        By.xpath(".//button[contains(@onclick,'cart.add')]")
+                );
+
+        clickElement(addBtn);
+    }
 
     public boolean isBulkPriceTablePresent() {
+
         try {
-            // Check if the table element is present and displayed
-            return driver.findElement(bulkPriceTableLocator).isDisplayed();
-        } catch (NoSuchElementException e) {
+            return wait.until(ExpectedConditions.visibilityOf(bulkPriceTable)).isDisplayed();
+        } catch (Exception e) {
             return false;
         }
     }
-
 
     public String getBulkPrice(int quantity) {
 
-        String xpath = bulkPriceTableLocator.toString().replace("By.xpath: ", "") +
-                "//tr/td[contains(text(), '" + quantity + "+')]/following-sibling::td[1]";
+        String xpath =
+                "//div[@id='product']//table[contains(@class,'table-bordered')]//tr/td[contains(normalize-space(),'"
+                        + quantity +
+                        "')]/following-sibling::td[1]";
 
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)))
+                .getText()
+                .trim();
+    }
 
-        WebElement priceElement = driver.findElement(By.xpath(xpath));
+    public boolean isOnProductDisplayPage() {
 
-        if (priceElement != null) {
+        try {
+            return wait.until(ExpectedConditions.visibilityOf(mainProductName)).isDisplayed();
+        } catch (Exception e) {
+            return false;
         }
-
-        return priceElement.getText().trim();
     }
 
     public void clickProductFromSearchResults(String productName) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        By productLinkLocator = By.linkText(productName);
 
-        WebElement productLink = wait.until(ExpectedConditions.elementToBeClickable(productLinkLocator));
+        WebElement productLink =
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(
+                                productSearchResult(productName)
+                        )
+                );
 
         try {
             productLink.click();
         } catch (Exception e) {
-            // Fallback to JS click if standard click fails (due to potential overlay issues)
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", productLink);
         }
     }
 
+    public String getProductQuantity() {
+        return quantityField.getAttribute("value");
+    }
 
-    public final By relatedProductsHeader = By.xpath("//h3[normalize-space()='Related Products']");
-    public final By relatedProductCards = By.xpath("//h3[normalize-space()='Related Products']/following-sibling::div//div[contains(@class,'product-layout')]");
+    public void updateProductQuantity(String quantity) {
 
+        quantityField.clear();
 
-    public boolean hasRelatedProducts() {
+        quantityField.sendKeys(quantity);
+    }
+
+    public boolean isSuccessMessageDisplayed() {
+        return wait.until(ExpectedConditions.visibilityOf(successAlert)).isDisplayed();
+    }
+
+    public void clickAddToCartButton() {
+        addToCart();
+    }
+
+    public String getPdpTitle() {
+        return getProductName();
+    }
+
+    public String getSuccessMessageText() {
+        return getSuccessMessage();
+    }
+
+    public void clickShoppingCartLinkInSuccess() {
+        clickShoppingCartLinkInSuccessMessage();
+    }
+
+    public void clickfirstRelatedAddToCartBtn() {
+        clickElement(firstRelatedAddToCartBtn);
+    }
+
+    public void closePopupIfPresent() {
+
         try {
-            WebElement header = driver.findElement(relatedProductsHeader);
 
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", header);
+            if (!popupCloseButtons.isEmpty()) {
+                clickElement(popupCloseButtons.get(0));
+            }
 
-            WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        } catch (Exception e) {
 
-
-            longWait.until(
-                    ExpectedConditions.numberOfElementsToBeMoreThan(relatedProductCards, 0)
-            );
-
-            // Re-find and check if the list is not empty
-            List<WebElement> cards = this.driver.findElements(relatedProductCards);
-            return !cards.isEmpty();
-
-        } catch (TimeoutException | NoSuchElementException e) {
-            // Use logger.error or logger.info based on your standard, but warn is fine
-            logger.warn("Related Products section or products did not load.", e);
-            return false;
+            logger.warn("No popup found to close.");
         }
     }
 
-    public void clickfirstRelatedAddToCartBtn(){
-        firstRelatedAddToCartBtn.click();
+    public void clickReviewsTab() {
+
+        scrollIntoView(tabReviews);
+
+        clickElement(tabReviews);
     }
 
+    public void enterReviewName(String reviewName) {
+
+        txtReviewName.clear();
+
+        txtReviewName.sendKeys(reviewName);
+    }
+
+    public void enterReviewText(String reviewText) {
+
+        txtReviewText.clear();
+
+        txtReviewText.sendKeys(reviewText);
+    }
+
+    public void selectFiveStarRating() {
+        clickElement(ratingFiveStar);
+    }
+
+    public void clickSubmitReview() {
+        clickElement(btnSubmitReview);
+    }
+
+    public String getReviewSuccessMessage() {
+        return getElementText(reviewSuccessMessage);
+    }
+
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    public String getCurrentPageURL() {
+        return driver.getCurrentUrl();
+    }
+
+    public String getNoReviewsMessage() {
+        return getElementText(noReviewsMessage);
+    }
+
+    public void updateQuantity(String quantity) {
+
+        txtQuantity.clear();
+
+        if (!quantity.isEmpty()) {
+            txtQuantity.sendKeys(quantity);
+        }
+    }
+
+    public String getSuccessAlertMessage() {
+
+        try {
+            return getElementText(alertSuccessMessage);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public String getQuantityValidationMessage() {
+
+        try {
+            return getElementText(quantityValidationMessage);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public boolean isValidationMessageDisplayed() {
+
+        try {
+            return quantityValidationMessage.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
-
-
-
-

@@ -8,7 +8,7 @@ import testBase.BaseClass;
 
 public class TC_WL_002_ValidateWishListPageForSingleProductTest extends BaseClass {
 
-    @Test(description = "Validate the 'My Wish List' page when only one product is added to it (TS_009)")
+    @Test(description = "Validate the My Wish List page when only one product is added to it (TS_009)")
     public void test_ValidateWishListPageForSingleProduct() {
         logger.info("***** Starting TC_WL_014: Validate Wish List page with a single product *****");
 
@@ -17,24 +17,24 @@ public class TC_WL_002_ValidateWishListPageForSingleProductTest extends BaseClas
        // WishListPage wl;
         try {
             // 1. Login
-            HomePage hp = new HomePage(driver);
+            HomePage hp = new HomePage(getDriver());
             hp.clickMyAccount();
             hp.clickLogin();
 
-            LoginPage lp = new LoginPage(driver);
-            lp.login(rb.getString("username"), rb.getString("password"));
+            LoginPage lp = new LoginPage(getDriver());
+            lp.login(p.getProperty("username"), p.getProperty("password"));
             logger.info("Login successful.");
 
-            MyAccountPage my = new MyAccountPage(driver);
+            MyAccountPage my = new MyAccountPage(getDriver());
             Assert.assertTrue(my.isMyAccountPageExists(), "My Account page not displayed after login.");
 
             // Cleanup: Ensure the Wish List is empty before starting the test
             my.clickWishListFromMyAccount();
-           WishListPage wl = new WishListPage(driver);
+           WishListPage wl = new WishListPage(getDriver());
 
             wl.clickRemoveButtonForProduct("iPhone");
             wl.waitForModificationSuccessMessage();
-            logger.info("Clicked remove and success message appeared for 'iPhone'");
+            logger.info("Clicked remove and success message appeared for iPhone");
 
             //  Remove all products from the wishlist
             wl.removeAllProductsIndividually();
@@ -50,7 +50,7 @@ public class TC_WL_002_ValidateWishListPageForSingleProductTest extends BaseClas
 
             // 8) Validate wishlist is empty
             Assert.assertTrue(wl.isWishListEmptyMessageDisplayed(),
-                    "Expected 'Your wish list is empty.' message not displayed.");
+                    "Expected Your wish list is empty. message not displayed.");
 
 
             logger.info("Validation Passed: Wish List is empty after removal");
@@ -59,10 +59,10 @@ public class TC_WL_002_ValidateWishListPageForSingleProductTest extends BaseClas
 
 
             // 2. Add a product to Wish List
-            driver.navigate().to(rb.getString("appURL")); // Go back home
-            SearchPage sp = new SearchPage(driver);
+            getDriver().navigate().to(p.getProperty("appURL")); // Go back home
+            SearchPage sp = new SearchPage(getDriver());
 
-            HomePage home = new HomePage(driver);
+            HomePage home = new HomePage(getDriver());
 
 
 
@@ -71,7 +71,7 @@ public class TC_WL_002_ValidateWishListPageForSingleProductTest extends BaseClas
 
 
             home.clickAddToWishListIconForProduct();
-            logger.info("Added product '" + PRODUCT_NAME + "' to Wish List.");
+            logger.info("Added product " + PRODUCT_NAME + " to Wish List.");
 
 
             sp.clickWishListLinkInSuccessMessage();
@@ -85,7 +85,7 @@ public class TC_WL_002_ValidateWishListPageForSingleProductTest extends BaseClas
 
             // Validate ER-2: The single added product is present
             Assert.assertTrue(wl.isProductInWishList(PRODUCT_NAME), PRODUCT_NAME + " is not displayed in the Wish List.");
-            logger.info("Validation Passed: The added product '" + PRODUCT_NAME + "' is present in the Wish List.");
+            logger.info("Validation Passed: The added product " + PRODUCT_NAME + " is present in the Wish List.");
 
 
             logger.info("***** TC_WL_014 PASSED *****");
@@ -95,7 +95,7 @@ public class TC_WL_002_ValidateWishListPageForSingleProductTest extends BaseClas
             Assert.fail("Test failed due to an exception: " + e.getMessage());
         } finally {
             try {
-                WishListPage wl = new WishListPage(driver);
+                WishListPage wl = new WishListPage(getDriver());
                 // Ensure we are on the wishlist page before attempting cleanup
                 wl.clickWishListHeader();
                 if (wl.getTotalProductsInWishList() > 0) {

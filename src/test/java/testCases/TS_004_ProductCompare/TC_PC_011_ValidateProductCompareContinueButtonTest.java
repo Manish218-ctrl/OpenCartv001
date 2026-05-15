@@ -14,23 +14,23 @@ public class TC_PC_011_ValidateProductCompareContinueButtonTest extends BaseClas
         logger.info("***** Starting TC_PC_011_ValidateProductCompareContinueButtonTest *****");
 
         try {
-            // Step 1: Navigate to "Show All Desktops"
-            CategoryPage categoryPage = new CategoryPage(driver);
+            //Navigate to "Show All Desktops"
+            CategoryPage categoryPage = new CategoryPage(getDriver());
             categoryPage.hoverOnDesktopsMenu();
             categoryPage.clickShowAllDesktops();
             logger.info("Navigated to Desktops category page.");
 
-            // Step 2: Click "Product Compare (0)" link
-            SearchPage sp = new SearchPage(driver);
+            //Click "Product Compare (0)" link
+            SearchPage sp = new SearchPage(getDriver());
             sp.clickProductCompareLink();
             logger.info("Clicked on Product Compare link without adding any products.");
 
-            // Step 3: Click Continue button
-            ProductComparisonPage cmp = new ProductComparisonPage(driver);
+            //Click Continue button
+            ProductComparisonPage cmp = new ProductComparisonPage(getDriver());
             cmp.clickContinue();
             logger.info("Clicked Continue button on Product Compare page.");
 
-            // Step 4: Verify navigation to Home Page
+            //Verify navigation to Home Page
             Assert.assertTrue(cmp.isOnHomePage(),
                     "ERROR: User was not navigated to Home Page after clicking Continue button.");
 

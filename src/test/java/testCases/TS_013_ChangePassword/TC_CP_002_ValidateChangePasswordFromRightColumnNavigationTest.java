@@ -16,28 +16,28 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_CP_002_ChangePasswordNavigationTest *****");
 
             try {
-                // Step 1: Perform Login
-                HomePage home = new HomePage(driver);
+                //Perform Login
+                HomePage home = new HomePage(getDriver());
                 home.clickMyAccount();
                 home.clickLogin();
 
-                LoginPage loginPage = new LoginPage(driver);
+                LoginPage loginPage = new LoginPage(getDriver());
                 loginPage.login(username, password);
                 logger.info("User logged in successfully.");
 
-                // Step 2: Navigate to Change Password Page
-                MyAccountPage myAccount = new MyAccountPage(driver);
+                //Navigate to Change Password Page
+                MyAccountPage myAccount = new MyAccountPage(getDriver());
                 Assert.assertTrue(myAccount.isUserLoggedIn(), "Login was not successful, Logout link missing.");
 
                 myAccount.clickChangeYourPassword();
-                logger.info("Clicked on 'Change your password' link.");
+                logger.info("Clicked on Change your password link.");
 
-                // Step 3: Validate navigation
+                //Validate navigation
                 String breadcrumb = myAccount.getBreadcrumb();
                 Assert.assertEquals(breadcrumb, "Change Password",
-                        "User was not navigated to 'Change Password' page. Found breadcrumb: " + breadcrumb);
+                        "User was not navigated to Change Password page. Found breadcrumb: " + breadcrumb);
 
-                logger.info("Successfully navigated to 'Change Password' page.");
+                logger.info("Successfully navigated to Change Password page.");
             } catch (Exception e) {
                 logger.error("Test Failed due to exception: ", e);
                 Assert.fail("Test execution failed: " + e.getMessage());

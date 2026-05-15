@@ -2,52 +2,93 @@ package testCases.TS_011_HeaderMenuFooterOptions;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 import testBase.BaseClass;
 
-public class TC_HMF_011_ValidateBrandPageInGridViewTest extends BaseClass {
+public class TC_HMF_011_ValidateBrandPageInGridViewTest
+        extends BaseClass {
 
-    private static final Logger logger = LogManager.getLogger(TC_HMF_011_ValidateBrandPageInGridViewTest.class);
+    private static final Logger logger =
+            LogManager.getLogger(
+                    TC_HMF_011_ValidateBrandPageInGridViewTest.class
+            );
 
     @Test
     public void validateViewingProductsInGridView() {
-        logger.info("Test Case TC_HMF_011 - Validate viewing products in 'Brand' page in Grid view Started");
+
+        logger.info(
+                "Test Case TC_HMF_011 Started"
+        );
 
         try {
-            // Open the application URL
-            logger.info("Opening the application URL: " + rb.getString("appURL"));
-            driver.get(rb.getString("appURL"));
 
+            // Open application
+            logger.info(
+                    "Opening application URL: "
+                            + p.getProperty("appURL")
+            );
 
-            HomePage homepage = new HomePage(driver);
+            getDriver().get(
+                    p.getProperty("appURL")
+            );
 
-            // Step 1: Click on the 'Brands' footer link
-            logger.info("Clicking on the 'Brands' footer link");
+            // Initialize HomePage
+            HomePage homepage =
+                    new HomePage(getDriver());
+
+            // Click Brands footer link
+            logger.info(
+                    "Clicking Brands footer link"
+            );
+
             homepage.clickBrandsFooterLink();
 
-            // Step 2: Click on a brand (example brand: 'Apple')
-            logger.info("Clicking on the 'Apple' brand");
+            // Click Apple brand
+            logger.info(
+                    "Clicking Apple brand"
+            );
+
             homepage.clickBrandByName("Apple");
 
-            // Step 3: Select the 'Grid' view for the brand page
-            logger.info("Selecting 'Grid' view option");
+            // Select Grid view
+            logger.info(
+                    "Selecting Grid View"
+            );
+
             homepage.selectGridView();
 
-            // Step 4: Validate that the products are displayed in Grid view
+            // Validate products displayed
+            logger.info(
+                    "Validating products are displayed in Grid View"
+            );
 
-            logger.info("Validating that products are displayed in Grid view");
-            WebElement firstProduct = driver.findElement(By.xpath("/html/body/div[2]/div/div/div[2]/div[1]/div/div[2]/div[1]/h4/a"));
-            Assert.assertTrue(firstProduct.isDisplayed(), "The product is not displayed in Grid view.");
+            Assert.assertTrue(
+                    homepage.isBrandProductDisplayed(),
+                    "Products are not displayed in Grid View."
+            );
 
-            logger.info("Test Case TC_HMF_011 - Validate viewing products in 'Brand' page in Grid view Completed Successfully");
+            logger.info(
+                    "Products displayed successfully in Grid View."
+            );
+
+            logger.info(
+                    "Test Case TC_HMF_011 Completed Successfully"
+            );
 
         } catch (Exception e) {
-            logger.error("Test Case TC_HMF_011 - Error occurred during validation of 'Brand' page in Grid view: " + e.getMessage());
-            Assert.fail("Test failed due to an error: " + e.getMessage());
+
+            logger.error(
+                    "Error during Grid View validation: "
+                            + e.getMessage(),
+                    e
+            );
+
+            Assert.fail(
+                    "Test failed due to exception: "
+                            + e.getMessage()
+            );
         }
     }
 }

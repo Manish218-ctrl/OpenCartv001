@@ -1,0 +1,72 @@
+version: "3.8"
+# ────────────────────────────────────────────────────────────
+#  Selenium Grid 4 — Chrome + Firefox + Edge
+#  Used by both local development and the GitHub Actions CI
+# ────────────────────────────────────────────────────────────
+services:
+  selenium-hub:
+    image: selenium/hub:4.20.0
+    container_name: selenium-hub
+    ports:
+      - "4442:4442"   # Event-bus publish
+      - "4443:4443"   # Event-bus subscribe
+      - "4444:4444"   # Grid UI + WebDriver endpoint
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:4444/status"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - grid
+
+  node-chrome:
+    image: selenium/node-chrome:4.20.0
+    container_name: node-chrome
+    shm_size: 2g
+    depends_on:
+      selenium-hub:
+        condition: service_healthy
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=3
+      - SE_NODE_SESSION_TIMEOUT=300
+    networks:
+      - grid
+
+  node-firefox:
+    image: selenium/node-firefox:4.20.0
+    container_name: node-firefox
+    shm_size: 2g
+    depends_on:
+      selenium-hub:
+        condition: service_healthy
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=3
+      - SE_NODE_SESSION_TIMEOUT=300
+    networks:
+      - grid
+
+  node-edge:
+    image: selenium/node-edge:4.20.0
+    container_name: node-edge
+    shm_size: 2g
+    depends_on:
+      selenium-hub:
+        condition: service_healthy
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=3
+      - SE_NODE_SESSION_TIMEOUT=300
+    networks:
+      - grid
+
+networks:
+  grid:
+    driver: bridge

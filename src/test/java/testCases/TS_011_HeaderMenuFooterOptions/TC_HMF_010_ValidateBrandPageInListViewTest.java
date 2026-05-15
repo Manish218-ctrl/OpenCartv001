@@ -1,56 +1,93 @@
 package testCases.TS_011_HeaderMenuFooterOptions;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 import testBase.BaseClass;
 
-    public class TC_HMF_010_ValidateBrandPageInListViewTest extends BaseClass {
+public class TC_HMF_010_ValidateBrandPageInListViewTest extends BaseClass {
 
-        private static final Logger logger = LogManager.getLogger(TC_HMF_010_ValidateBrandPageInListViewTest.class);
+    private static final Logger logger =
+            LogManager.getLogger(
+                    TC_HMF_010_ValidateBrandPageInListViewTest.class
+            );
 
-        @Test
-        public void validateViewingProductsInListView() {
-            logger.info("Test Case TC_HMF_010 - Validate viewing products in 'Brand' page in List view Started");
+    @Test
+    public void validateViewingProductsInListView() {
 
-            try {
-                // Open the application URL
-                logger.info("Opening the application URL: " + rb.getString("appURL"));
-                driver.get(rb.getString("appURL"));
+        logger.info(
+                "Test Case TC_HMF_010 Started"
+        );
 
-                // Initialize the HomePage object
-                HomePage homepage = new HomePage(driver);
+        try {
 
-                // Step 1: Click on the 'Brands' footer link
-                logger.info("Clicking on the 'Brands' footer link");
-                homepage.clickBrandsFooterLink();
+            // Open application
+            logger.info(
+                    "Opening application URL: "
+                            + p.getProperty("appURL")
+            );
 
-                // Step 2: Click on a brand (example brand: 'Apple')
-                logger.info("Clicking on the 'Apple' brand");
-                homepage.clickBrandByName("Apple");
+            getDriver().get(
+                    p.getProperty("appURL")
+            );
 
-                // Step 3: Select the 'List' view for the brand page
-                logger.info("Selecting 'List' view option");
-                homepage.selectListView();
+            // Initialize HomePage
+            HomePage homepage =
+                    new HomePage(getDriver());
 
-                // Step 4: Validate that the products are displayed in List view
-                logger.info("Validating that products are displayed in List view");
-                WebElement firstProduct = driver.findElement(By.xpath("/html/body/div[2]/div/div/div[2]/div[1]/div/div[2]/div[1]/h4/a"));
-                Assert.assertTrue(firstProduct.isDisplayed(), "The product is not displayed in List view.");
+            // Click Brands footer link
+            logger.info(
+                    "Clicking Brands footer link"
+            );
 
-                logger.info("Test Case TC_HMF_010 - Validate viewing products in 'Brand' page in List view Completed Successfully");
+            homepage.clickBrandsFooterLink();
 
-            } catch (Exception e) {
-                logger.error("Test Case TC_HMF_010 - Error occurred during validation of 'Brand' page in List view: " + e.getMessage());
-                Assert.fail("Test failed due to an error: " + e.getMessage());
-            }
+            // Click Apple brand
+            logger.info(
+                    "Clicking Apple brand"
+            );
+
+            homepage.clickBrandByName("Apple");
+
+            // Select List View
+            logger.info(
+                    "Selecting List View"
+            );
+
+            homepage.selectListView();
+
+            // Validate product displayed
+            logger.info(
+                    "Validating products displayed in List View"
+            );
+
+            Assert.assertTrue(
+                    homepage.isBrandProductDisplayed(),
+                    "Product is not displayed in List View."
+            );
+
+            logger.info(
+                    "Products displayed successfully in List View."
+            );
+
+            logger.info(
+                    "Test Case TC_HMF_010 Completed Successfully"
+            );
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Error during test execution: "
+                            + e.getMessage(),
+                    e
+            );
+
+            Assert.fail(
+                    "Test failed due to exception: "
+                            + e.getMessage()
+            );
         }
     }
-
-
-
+}

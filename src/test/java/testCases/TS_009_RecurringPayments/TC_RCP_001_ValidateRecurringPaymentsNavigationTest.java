@@ -14,21 +14,21 @@ import testBase.BaseClass;
             try {
                 logger.info("***** Starting TC_RCP_001: Recurring Payments Navigation *****");
 
-                // Step 1: Login
+                // Login
                 performLogin();
                 logger.info("User logged in successfully.");
 
-                // Step 2: Navigate to 'My Account' page
-                MyAccountPage myAccountPage = new MyAccountPage(driver);
+                // Navigate to My Account page
+                MyAccountPage myAccountPage = new MyAccountPage(getDriver());
                 Assert.assertTrue(myAccountPage.isMyAccountPageExists(), "My Account page is displayed.");
 
-                // Step 3: Click on 'Recurring Payments'
+                // Click on Recurring Payments
                 myAccountPage.clickRecurringPayments();
 
-                // Step 4: Verify 'Recurring Payments' page
-                RecurringPaymentsPage recurringPage = new RecurringPaymentsPage(driver);
+                // Verify Recurring Payments page
+                RecurringPaymentsPage recurringPage = new RecurringPaymentsPage(getDriver());
                 Assert.assertTrue(recurringPage.isRecurringPaymentsPageDisplayed(),
-                        "'Recurring Payments' page is displayed successfully.");
+                        "Recurring Payments page is displayed successfully.");
 
                 Assert.assertTrue(recurringPage.isRecurringPaymentsTableDisplayed(),
                         "Recurring Payments table is displayed.");

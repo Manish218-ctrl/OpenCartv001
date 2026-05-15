@@ -1,105 +1,154 @@
 package pageObjects;
 
-
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import java.util.List;
 
-import java.time.Duration;
+public class AddressBookPage extends BasePage {
 
-    public class AddressBookPage extends BasePage {
+    public AddressBookPage(WebDriver driver) {
 
-        public AddressBookPage(WebDriver driver) {
-            super(driver);
-            PageFactory.initElements(driver, this);
+        super(driver);
+
+        
+    }
+
+    // LOCATORS
+
+    @FindBy(xpath = "//div[@id='content']//h2[normalize-space()='Address Book Entries']")
+    private WebElement headingAddressBook;
+
+    @FindBy(xpath = "//input[@name='default' and @value='1']")
+    private WebElement chkDefaultAddress;
+
+    @FindBy(xpath = "//div[contains(@class,'alert-danger')]")
+    private WebElement warningMessage;
+
+    @FindBy(xpath =
+            "//table[contains(@class,'table-bordered')]//tbody//tr[1]" +
+                    "//a[normalize-space()='Edit']")
+    private WebElement firstEditAddressButton;
+
+    @FindBy(xpath =
+            "//div[contains(@class,'buttons')]//a[contains(@class,'btn-primary')]")
+    private WebElement btnNewAddress;
+
+    @FindBy(xpath =
+            "//div[contains(@class,'buttons')]//a[normalize-space()='Back']")
+    private WebElement btnBack;
+
+    @FindBy(xpath = "//a[normalize-space()='Edit']")
+    private java.util.List<WebElement> editAddressButtons;
+
+    // ACTION METHODS
+
+    public void clickEditFirstAddress() {
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(firstEditAddressButton)
+        ).click();
+    }
+
+    public void verifyAddressBookPage() {
+
+        Assert.assertTrue(
+                wait.until(
+                        ExpectedConditions.visibilityOf(headingAddressBook)
+                ).isDisplayed(),
+                "Address Book page is not displayed!"
+        );
+    }
+
+    public void uncheckDefaultAddress() {
+
+        if (chkDefaultAddress.isSelected()) {
+
+            chkDefaultAddress.click();
         }
+    }
 
-        @FindBy(xpath = "/html/body/div[2]/div/aside/div/a[4]")
-        public WebElement headingAddressBook;
+    public void verifyWarningMessage() {
 
-        @FindBy(xpath = "//*[@id=\"content\"]/form/fieldset/div[10]/div/label[1]/input")
-        public WebElement chkDefaultAddress;
+        String expected =
+                "Warning: You cannot update the Default Address status as there is only one address in your address book";
 
-        @FindBy(xpath = "//button[@type='submit']")
-        public WebElement btnContinue;
+        Assert.assertEquals(
+                wait.until(
+                        ExpectedConditions.visibilityOf(warningMessage)
+                ).getText().trim(),
+                expected,
+                "Warning message mismatch!"
+        );
+    }
 
-        @FindBy(xpath = "/html/body/div[2]/div[1]")
-        public WebElement warningMessage;
+    public boolean isDefaultAddressSelected() {
 
-        @FindBy(xpath = "/html/body/div[2]/div/div/div[1]/table/tbody/tr[2]/td[2]/a[1]")
-          public WebElement editaddressbook;
+        return wait.until(
+                ExpectedConditions.visibilityOf(chkDefaultAddress)
+        ).isSelected();
+    }
 
-                public void clickeditaddressbook(){
-            editaddressbook.click();
-                }
-        // Verify if Address Book page is displayed
-        public void verifyAddressBookPage() {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement heading = wait.until(ExpectedConditions.visibilityOf(headingAddressBook));
-            Assert.assertTrue(heading.isDisplayed(), "Address Book page is not displayed!");
-        }
+    public void clickNewAddress() {
 
-        // Attempt to uncheck Default Address
-        public void uncheckDefaultAddress() {
-            if (chkDefaultAddress.isSelected()) {
-                chkDefaultAddress.click();
-            }
-            btnContinue.click();
-        }
+        wait.until(
+                ExpectedConditions.elementToBeClickable(btnNewAddress)
+        ).click();
+    }
 
-        // Verify warning message
-        public void verifyWarningMessage() {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement warning = wait.until(ExpectedConditions.visibilityOf(warningMessage));
-            String expected = "Warning: You cannot update the Default Address status as there is only one address in your address book";
-            Assert.assertEquals(warning.getText().trim(), expected, "Warning message mismatch!");
-        }
+    public void clickBackButton() {
 
-        public boolean isDefaultAddressSelected() {
-            return chkDefaultAddress.isSelected();
-        }
+        wait.until(
+                ExpectedConditions.elementToBeClickable(btnBack)
+        ).click();
+    }
 
+    public void addNewAddress(
+            String fname,
+            String lname,
+            String company,
+            String address1,
+            String address2,
+            String city,
+            String postcode,
+            String country,
+            String region
+    ) {
 
-        // AddressBookPage.java
-        public void addNewAddress(String fname, String lname, String company,
-                                  String address1, String address2, String city,
-                                  String postcode, String country, String region) {
+        clickNewAddress();
 
-            // Click "New Address" button
-            driver.findElement(By.xpath("//a[text()='New Address']")).click();
+        EditAddressPage editAddress =
+                new EditAddressPage(driver);
 
-            // Fill out the address form
-            EditAddressPage editAddress = new EditAddressPage(driver);
-            editAddress.updateAddress(fname, lname, company, address1, address2, city, postcode, country, region);
+        editAddress.updateAddress(
+                fname,
+                lname,
+                company,
+                address1,
+                address2,
+                city,
+                postcode,
+                country,
+                region
+        );
 
-            // Click Continue
-            editAddress.clickContinue();
+        editAddress.clickContinue();
 
-            // Verify success
-            editAddress.verifySuccessMessage();
-        }
+        editAddress.verifySuccessMessage();
+    }
 
+    public boolean hasEditableAddress() {
 
-            By defaultAddressNo = By.xpath("//input[@name='default'][@value='0']");
-            By continueButton = By.xpath("//input[@value='Continue']");
+        return !editAddressButtons.isEmpty();
+    }
 
+    public void clickFirstEditAddress() {
 
-
-            // Click Continue
-            public void clickContinue() {
-                driver.findElement(continueButton).click();
-            }
-        }
-
-
-
-
-
-
-
+        wait.until(
+                ExpectedConditions.elementToBeClickable(editAddressButtons.get(0))
+        ).click();
+    }
+}

@@ -11,18 +11,18 @@ import testBase.BaseClass;
         public void validateOrderHistoryBreadcrumb() {
             logger.info("====== TC_OH_009: Validate Order History Breadcrumb ======");
 
-            // Step 1: Login to the application
+            //Login to the application
             performLogin();
             logger.info("Logged in successfully");
 
-            // Step 2: Navigate to Order History page
-            HomePage homePage = new HomePage(driver);
+            //Navigate to Order History page
+            HomePage homePage = new HomePage(getDriver());
             homePage.clickMyAccount(); // Click My Account dropdown
-            homePage.clickOrderHistory(); // Click 'Order History' link
+            homePage.clickOrderHistory(); // Click Order History link
 
             logger.info("Navigated to Order History page");
 
-            // Step 3: Validate breadcrumb
+            //Validate breadcrumb
             String actualBreadcrumb = homePage.getBreadcrumb();
             logger.info("Breadcrumb on Order History page: " + actualBreadcrumb);
 

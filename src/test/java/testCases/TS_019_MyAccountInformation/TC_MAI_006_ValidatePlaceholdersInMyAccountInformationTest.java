@@ -12,23 +12,23 @@ import testBase.BaseClass;
 
         @Test
         public void validatePlaceholdersInMyAccountInformation() {
-            // Step 1: Login
+            //Login
             performLogin();
 
-            // Step 2: Navigate to My Account Information page
-            HomePage home = new HomePage(driver);
+            //Navigate to My Account Information page
+            HomePage home = new HomePage(getDriver());
             home.clickMyAccount();
 
-            MyAccountPage myAccount = new MyAccountPage(driver);
+            MyAccountPage myAccount = new MyAccountPage(getDriver());
             myAccount.clickEditAccountInformation();
 
             Assert.assertTrue(myAccount.isMyAccountInformationPageDisplayed(),
                     "My Account Information page is not displayed");
 
-            // Step 3: Clear all fields
+            //Clear all fields
             myAccount.clearAllFields();
 
-            // Step 4: Validate placeholders
+            //Validate placeholders
             String firstNamePlaceholder = myAccount.getFirstNamePlaceholder();
             String lastNamePlaceholder = myAccount.getLastNamePlaceholder();
             String emailPlaceholder = myAccount.getEmailPlaceholder();

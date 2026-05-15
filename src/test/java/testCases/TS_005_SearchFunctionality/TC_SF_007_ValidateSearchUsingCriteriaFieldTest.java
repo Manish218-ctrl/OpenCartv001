@@ -18,8 +18,8 @@ import testBase.BaseClass;
 
             try {
 
-                HomePage hp = new HomePage(driver); // Changed to HomePage
-                SearchPage searchPage = new SearchPage(driver);
+                HomePage hp = new HomePage(getDriver()); // Changed to HomePage
+                SearchPage searchPage = new SearchPage(getDriver());
 
 
                 //Do not enter anything into the Search text box field.
@@ -36,7 +36,7 @@ import testBase.BaseClass;
 
                 //Enter any existing product name into the Search Criteria text box field (Refer Test Data).
                 searchPage.enterSearchKeyword(existingProductName);
-                logger.info("Entered '" + existingProductName + "' into the Search Criteria text box field.");
+                logger.info("Entered " + existingProductName + " into the Search Criteria text box field.");
 
                 //Click on the Search button.
                 searchPage.clickSearchButton();
@@ -44,13 +44,13 @@ import testBase.BaseClass;
 
                 // Expected Result (ER-1): The searched product should be displayed in the search results.
                 Assert.assertTrue(searchPage.isProductDisplayed(existingProductName),
-                        "The searched product '" + existingProductName + "' is not displayed in the search results after using the Search Criteria field.");
-                logger.info("Verified: The searched product '" + existingProductName + "' is displayed in the search results.");
+                        "The searched product " + existingProductName + " is not displayed in the search results after using the Search Criteria field.");
+                logger.info("Verified: The searched product " + existingProductName + " is displayed in the search results.");
 
                 String searchResultsHeading = searchPage.getSearchResultsHeading();
                 Assert.assertTrue(searchResultsHeading.contains(existingProductName),
                         "Search results heading does not contain the searched product name. Actual: " + searchResultsHeading);
-                logger.info("Verified search results heading contains: '" + existingProductName + "'.");
+                logger.info("Verified search results heading contains: " + existingProductName + ".");
 
             } catch (Exception e) {
                 logger.error("Test execution failed for TC_SF_007_ValidateSearchUsingCriteriaFieldTest: " + e.getMessage());

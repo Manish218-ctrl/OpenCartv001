@@ -19,37 +19,37 @@ public class TC_NLT_003_ValidateNewsletterPageNavigationFromRightColumnBeforeLog
     public void validateNewsletterPageNavigation() {
         logger.info("Starting test: validateNewsletterPageNavigation");
 
-        // Step 1: Open the application URL and ensure the user is not logged in
+        //Open the application URL and ensure the user is not logged in
         logger.info("Opening application URL: https://tutorialsninja.com/demo/index.php?route=common/home");
-        driver.get("https://tutorialsninja.com/demo/index.php?route=common/home");
+        getDriver().get("https://tutorialsninja.com/demo/index.php?route=common/home");
 
 
-        HomePage hp = new HomePage(driver);
-        HomePage homepage = new HomePage(driver);
+        HomePage hp = new HomePage(getDriver());
+        HomePage homepage = new HomePage(getDriver());
 
         hp.clickMyAccount();
         hp.clickLogin();
         logger.info("Navigated to Login Page");
 
-        // Step 2: Enter login credentials
-        LoginPage lp = new LoginPage(driver);
+        //Enter login credentials
+        LoginPage lp = new LoginPage(getDriver());
         lp.setEmail(p.getProperty("email"));   // from config.properties
         lp.setPassword(p.getProperty("password")); // from config.properties
         lp.clickLogin();
         logger.info("Entered valid credentials and clicked Login");
 
-        // Step 2: Click on 'Newsletter' link in Right Column
-        logger.info("Clicking on the 'Newsletter' link in the Right Column.");
+        //Click on Newsletter link in Right Column
+        logger.info("Clicking on the Newsletter link in the Right Column.");
         homepage.clickRightColumnNewsletter();
 
 
-        // Step 5: Verify the user is redirected to the Newsletter Subscription page
+        //Verify the user is redirected to the Newsletter Subscription page
         logger.info("Verifying that the user is redirected to the Newsletter Subscription page.");
-        NewsletterPage newsletterPage = new NewsletterPage(driver);
+        NewsletterPage newsletterPage = new NewsletterPage(getDriver());
         String actualPageTitle = newsletterPage.getPageTitle();
         String expectedPageTitle = "Newsletter Subscription"; // Modify if necessary
         Assert.assertEquals(actualPageTitle, expectedPageTitle, "User is not redirected to the Newsletter Subscription page.");
-        logger.info("Successfully redirected to the 'Newsletter Subscription' page.");
+        logger.info("Successfully redirected to the Newsletter Subscription page.");
 
     }
 

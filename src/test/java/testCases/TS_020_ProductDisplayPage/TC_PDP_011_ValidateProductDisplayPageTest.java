@@ -1,58 +1,52 @@
 package testCases.TS_020_ProductDisplayPage;
 
-
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 import pageObjects.ProductDisplayPage;
 import testBase.BaseClass;
 
-    public class TC_PDP_011_ValidateProductDisplayPageTest extends BaseClass {
+public class TC_PDP_011_ValidateProductDisplayPageTest extends BaseClass {
 
-        @Test
-        public void validateProductDisplayPage() {
+    @Test
+    public void validateProductDisplayPage() {
 
-            logger.info("=== TC_PDP_035 Started ===");
+        logger.info("=== TC_PDP_035 Started ===");
 
-            //  Navigate to HomePage
-            HomePage home = new HomePage(driver);
+        HomePage home = new HomePage(getDriver());
+        ProductDisplayPage pdp = new ProductDisplayPage(getDriver());
 
-            //  Enter product in search box
-            String productToSearch = rb.getString("productName"); // e.g., "iMac"
-            logger.info("Searching for product: " + productToSearch);
-            home.enterSearchText(productToSearch);
-            home.clickSearchButton();
+        String productToSearch = p.getProperty("productName");
 
-            //  Click on the product link from search results
-            try {
-                driver.findElement(
-                        org.openqa.selenium.By.linkText(productToSearch)
-                ).click();
-            } catch (Exception e) {
-                logger.error("Product not found in search results: " + productToSearch);
-                Assert.fail("Product not found in search results");
-            }
+        logger.info("Searching for product: {}", productToSearch);
 
-            //  Switch to Product Display Page
-            ProductDisplayPage pdp = new ProductDisplayPage(driver);
+        home.enterSearchText(productToSearch);
+        home.clickSearchButton();
+        home.clickProductByName(productToSearch);
 
-            //  Validate Page Title
-            String actualTitle = driver.getTitle();
-            logger.info("Page Title: " + actualTitle);
-            Assert.assertTrue(actualTitle.contains(productToSearch), "Page title does not contain product name.");
+        logger.info("Clicked on product link: {}", productToSearch);
 
-            //  Validate Page Heading (Product Name)
-            String actualHeading = pdp.getProductName();
-            logger.info("Page Heading: " + actualHeading);
-            Assert.assertEquals(actualHeading, productToSearch, "Product heading mismatch.");
+        String actualTitle = pdp.getPageTitle();
 
-            //  Validate Page URL
-            String currentURL = driver.getCurrentUrl();
-            logger.info("Current Page URL: " + currentURL);
-            Assert.assertTrue(currentURL.contains("product_id"), "URL does not contain 'product_id'.");
+        logger.info("Page Title: {}", actualTitle);
 
-            logger.info("=== TC_PDP_035 Completed Successfully ===");
-        }
+        Assert.assertTrue(actualTitle.contains(productToSearch),
+                "Page title does not contain product name.");
+
+        String actualHeading = pdp.getProductName();
+
+        logger.info("Page Heading: {}", actualHeading);
+
+        Assert.assertEquals(actualHeading, productToSearch,
+                "Product heading mismatch.");
+
+        String currentURL = pdp.getCurrentPageURL();
+
+        logger.info("Current Page URL: {}", currentURL);
+
+        Assert.assertTrue(currentURL.contains("product_id"),
+                "URL does not contain product_id.");
+
+        logger.info("=== TC_PDP_035 Completed Successfully ===");
     }
-
+}

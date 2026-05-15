@@ -1,5 +1,8 @@
 package testCases.TS_006_AddtoCart;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -7,6 +10,8 @@ import pageObjects.BasePage;
 import pageObjects.HomePage;
 import pageObjects.WishListPage;
 import testBase.BaseClass;
+
+import java.time.Duration;
 
 public class TC_ATC_002_ValidateAddToCartFromWishListTest extends BaseClass {
 
@@ -20,54 +25,46 @@ public class TC_ATC_002_ValidateAddToCartFromWishListTest extends BaseClass {
         logger.info("***** Starting TC_ATC_002_ValidateAddToCartFromWishListTest *****");
 
         try {
+            WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
 
-Thread.sleep(3000);
+            wait.until(ExpectedConditions.urlContains("account"));
 
+            String expectedProduct = "MacBook";
+            HomePage home = new HomePage(getDriver());
 
-            // Step 1 Add product to Wish List
-            String expectedProduct ="MacBook" ;
-            HomePage home = new HomePage(driver);
-
-            // Search for product
             home.searchProduct(expectedProduct);
             logger.info("Searched for product: " + expectedProduct);
 
-            // Add product to Wish List
             home.clickAddToWishList(expectedProduct);
             logger.info("Clicked Add to Wish List for product: " + expectedProduct);
 
-Thread.sleep(3000);
-            // Validate success message
+            wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.cssSelector("div.alert-success")));
+
             String wishListSuccessMsg = home.getSuccessMessage();
             Assert.assertTrue(wishListSuccessMsg.contains("Success: You have added"),
                     "Success message for adding to Wish List not displayed.");
 
-
-            //  Step 2: Navigate to Wish List page via success message link
             home.clickWishListLinkFromSuccessMessage();
             logger.info("Navigated to Wish List page from success message.");
 
-            Thread.sleep(3000);
-            // Step 3: Validate product exists in Wish List
-           WishListPage wishListPage = new WishListPage(driver);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@id='wishlist-total']")));
 
+            WishListPage wishListPage = new WishListPage(getDriver());
 
-            // Step 4: Add product to Cart from Wish List
             wishListPage.clickAddToCartIcon(expectedProduct);
 
+            wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.cssSelector("div.alert-success")));
 
-            Thread.sleep(3000);
-
-
-            // Step 6: Navigate to Shopping Cart
             wishListPage.clickShoppingCartHeader();
 
-            // Step 7: Verify product is in Shopping Cart
-            String pageTitle = new BasePage(driver).getPageTitle();
+            String pageTitle = new BasePage(getDriver()).getPageTitle();
             Assert.assertTrue(pageTitle.contains("Shopping Cart"),
                     "Shopping Cart page not opened.");
-            Assert.assertTrue(driver.getPageSource().contains(expectedProduct),
-                    "Product '" + expectedProduct + "' not found in Shopping Cart.");
+            Assert.assertTrue(getDriver().getPageSource().contains(expectedProduct),
+                    "Product " + expectedProduct + " not found in Shopping Cart.");
 
             logger.info("Product successfully moved from Wish List to Shopping Cart.");
 

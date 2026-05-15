@@ -14,25 +14,21 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_LF_006_ValidateForgottenPasswordLinkTest *****");
 
             try {
-                // Step 1: Navigate to Home page and click My Account -> Login
-                HomePage hp = new HomePage(driver);
+                HomePage hp = new HomePage(getDriver());
                 hp.clickMyAccount();
                 hp.clickLogin();
                 logger.info("Clicked on My Account -> Login");
 
-                // Step 2: Verify Login page is displayed
-                LoginPage lp = new LoginPage(driver);
+                LoginPage lp = new LoginPage(getDriver());
                 Assert.assertTrue(lp.isLoginPageDisplayed(),
                         "Login page should be displayed");
                 logger.info("Login page displayed successfully");
 
-                // Step 3: Click Forgotten Password link
                 lp.clickForgotPassword();
                 logger.info("Clicked on Forgotten Password link");
 
-                // Step 4: Verify Forgotten Password page is displayed
-                ForgotPasswordPage fp = new ForgotPasswordPage(driver);
-                Assert.assertTrue(fp.isForgotPasswordPageDisplayed(),
+                ForgotPasswordPage fp = new ForgotPasswordPage(getDriver());
+                Assert.assertTrue(lp.isForgotPasswordPageDisplayed(),
                         "Forgotten Password page should be displayed");
                 logger.info("Forgotten Password page displayed successfully");
 

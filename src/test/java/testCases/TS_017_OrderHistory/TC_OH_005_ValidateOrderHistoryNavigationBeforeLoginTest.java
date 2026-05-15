@@ -16,32 +16,32 @@ import testBase.BaseClass;
             try {
                 logger.info("********* Starting  TC_OH_005_ValidateOrderHistoryNavigationBeforeLoginTest *********");
 
-                HomePage home = new HomePage(driver);
+                HomePage home = new HomePage(getDriver());
 
-                // Step 1: Click on My Account → Register
+                //Click on My Account → Register
                 home.clickMyAccount();
                 home.clickRegister();
                 logger.info("Clicked My Account > Register");
 
-                // Step 2: Click on Order History from Right Column options
+                //Click on Order History from Right Column options
                 home.clickorderhistory0();
-                logger.info("Clicked 'Order History' link from Right Column");
+                logger.info("Clicked Order History link from Right Column");
 
-                // Step 3: Enter credentials on Login Page
-                LoginPage loginPage = new LoginPage(driver);
+                //Enter credentials on Login Page
+                LoginPage loginPage = new LoginPage(getDriver());
                 loginPage.login(username, password);
                 logger.info("Entered credentials and clicked Login");
 
                 // Validate user logged in
-                MyAccountPage myAcc = new MyAccountPage(driver);
+                MyAccountPage myAcc = new MyAccountPage(getDriver());
                 Assert.assertTrue(myAcc.isUserLoggedIn(), "Login failed. User not logged in.");
 
                 // Validate navigation to Order History page
-                String pageTitle = driver.getTitle();
+                String pageTitle = getDriver().getTitle();
                 Assert.assertTrue(pageTitle.contains("Order History"),
-                        "Navigation failed! Expected 'Order History' page but got: " + pageTitle);
+                        "Navigation failed! Expected Order History page but got: " + pageTitle);
 
-                logger.info("Successfully navigated to 'Order History' page after login.");
+                logger.info("Successfully navigated to Order History page after login.");
                 logger.info("********* Finished TC_OH_005_OrderHistoryNavigationTest *********");
 
             } catch (Exception e) {

@@ -1,59 +1,110 @@
 package testCases.TS_012_SpecialOffers;
 
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import pageObjects.ProductComparisonPage;
 import pageObjects.SpecialOffersPage;
 import testBase.BaseClass;
 
+import java.time.Duration;
 
 public class TC_SPO_006_ValidateSpecialOffersPageNavigationFromSpecialsTest extends BaseClass {
 
     private SpecialOffersPage specialOffersPage;
 
+    private WebDriverWait wait;
+
     @BeforeClass
     public void setup() {
-        // Initialize the SpecialOffersPage page object
-        specialOffersPage = new SpecialOffersPage(driver);
+
+        specialOffersPage =
+                new SpecialOffersPage(getDriver());
+
+        wait =
+                new WebDriverWait(getDriver(), Duration.ofSeconds(20));
     }
 
     @Test
     public void validateProductCompareLinkNavigation() {
-        logger.info("Starting TC_SPO_006_ValidateSpecialOffersPageNavigationFromSpecialsTest...");
+
+        logger.info(
+                "Starting TC_SPO_006_ValidateSpecialOffersPageNavigationFromSpecialsTest..."
+        );
 
         try {
+
             specialOffersPage.clickSpecialsLink();
-            logger.info("Navigated to Special Offers page.");
 
-            logger.info("Attempting robust click on 'Product Compare' link...");
+            logger.info(
+                    "Navigated to Special Offers page."
+            );
 
-            Thread.sleep(2800);
+            logger.info(
+                    "Attempting robust click on Product Compare link..."
+            );
 
-            ProductComparisonPage productComparisonpage=new ProductComparisonPage(driver);
+            wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath("//div[contains(@class,'alert-success')]")
+                    )
+            );
 
-            productComparisonpage.clickproductcomparelink();
+            ProductComparisonPage productComparisonpage =
+                    new ProductComparisonPage(getDriver());
 
-           SpecialOffersPage specialoffers=new SpecialOffersPage(driver);
+            productComparisonpage.clickProductCompareLink();
 
-           specialoffers.clickproductcomparisonmsg();
+            SpecialOffersPage specialoffers =
+                    new SpecialOffersPage(getDriver());
 
+            specialoffers.clickproductcomparisonmsg();
 
-            logger.info("Clicked 'Product Compare' using JavaScript.");
+            logger.info(
+                    "Clicked Product Compare using JavaScript."
+            );
 
-            String currentUrl = driver.getCurrentUrl();
-            Assert.assertTrue(currentUrl.contains("product/compare"), "The user was not redirected to the Product Comparison page. Current URL: " + currentUrl);
+            String currentUrl =
+                    getDriver().getCurrentUrl();
 
-            String pageTitle = driver.getTitle();
-            Assert.assertTrue(pageTitle.contains("Product Comparison"), "The page title does not contain 'Product Comparison'. Actual title: " + pageTitle);
+            Assert.assertTrue(
+                    currentUrl.contains("product/compare"),
+                    "The user was not redirected to the Product Comparison page. Current URL: "
+                            + currentUrl
+            );
 
-            logger.info("Product Compare link navigation validated successfully.");
-            logger.info("***** TC_SPO_006_ValidateSpecialOffersPageNavigationFromSpecialsTest Passed *****");
+            String pageTitle =
+                    getDriver().getTitle();
+
+            Assert.assertTrue(
+                    pageTitle.contains("Product Comparison"),
+                    "The page title does not contain Product Comparison. Actual title: "
+                            + pageTitle
+            );
+
+            logger.info(
+                    "Product Compare link navigation validated successfully."
+            );
+
+            logger.info(
+                    "TC_SPO_006_ValidateSpecialOffersPageNavigationFromSpecialsTest Passed"
+            );
 
         } catch (Exception e) {
-            logger.error("Test failed due to exception: " + e.getMessage());
-            Assert.fail("Test failed due to exception: " + e.getMessage());
+
+            logger.error(
+                    "Test failed due to exception: "
+                            + e.getMessage()
+            );
+
+            Assert.fail(
+                    "Test failed due to exception: "
+                            + e.getMessage()
+            );
         }
     }
 }

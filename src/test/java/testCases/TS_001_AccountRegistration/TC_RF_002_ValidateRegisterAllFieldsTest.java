@@ -17,13 +17,12 @@ import testBase.BaseClass;
             logger.info("***** Starting  TC_RF_002_ValidateRegisterAllFieldsTest *****");
 
             try {
-                // Step 1: Navigate to Register page
-                HomePage hp = new HomePage(driver);
+
+                HomePage hp = new HomePage(getDriver());
                 hp.clickMyAccount();
                 hp.clickRegister();
 
-                // Step 2: Fill Registration Form (all fields)
-                AccountRegistrationPage regPage = new AccountRegistrationPage(driver);
+                AccountRegistrationPage regPage = new AccountRegistrationPage(getDriver());
                 String email = randomString() + "@gmail.com";
                 String password = randomAlphaNumeric();
 
@@ -33,16 +32,14 @@ import testBase.BaseClass;
                 regPage.setTelephone(randomNumber());
                 regPage.setPassword(password);
                 regPage.setConfirmPassword(password);
-                regPage.setNewsletterYes();  // Newsletter subscription
+                regPage.setNewsletterYes();
                 regPage.setPrivacyPolicy();
 
                 regPage.clickContinue();  // ER-1
 
-                // Step 3: Continue on Success page (ER-2)
                 regPage.clickContinueOnSuccessPage();
 
-                // Step 4: Validate MyAccount page
-                MyAccountPage myAcc = new MyAccountPage(driver);
+                MyAccountPage myAcc = new MyAccountPage(getDriver());
                 boolean targetPage = myAcc.isMyAccountPageExists();
                 Assert.assertTrue(targetPage, "User is not on My Account page!");
 

@@ -1,57 +1,59 @@
 package testCases.TS_020_ProductDisplayPage;
 
-
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 import pageObjects.ProductDisplayPage;
 import testBase.BaseClass;
 
-    public class TC_PDP_006_ValidateProductDescriptionTest extends BaseClass {
+public class TC_PDP_006_ValidateProductDescriptionTest extends BaseClass {
 
-        @Test
-        public void validateProductDescription() {
-            try {
-                logger.info("==== TC_PDP_008: Product Description Validation Started ====");
+    @Test
+    public void validateProductDescription() {
 
-                //  Navigate to Application
-                driver.get(appURL);
-                logger.info("Navigated to URL: " + appURL);
+        try {
 
-                //  Search for product
-                HomePage homePage = new HomePage(driver);
-                homePage.enterSearchText("iMac");   // or use productName variable
-                homePage.clickSearchButton();
-                logger.info("Searched for product: iMac");
+            logger.info("==== TC_PDP_008: Product Description Validation Started ====");
 
-                //  Click on product in search results
-                driver.findElement(By.linkText("iMac")).click();
-                logger.info("Clicked on product link: iMac");
+            HomePage homePage = new HomePage(getDriver());
+            ProductDisplayPage pdp = new ProductDisplayPage(getDriver());
 
-                ProductDisplayPage pdp = new ProductDisplayPage(driver);
+            String productName = "iMac";
 
-                // Validate we are on PDP
-                Assert.assertTrue(pdp.isOnProductDisplayPage(), "Not on Product Display Page");
-                logger.info("On Product Display Page successfully");
+            homePage.enterSearchText(productName);
+            homePage.clickSearchButton();
 
-                //  Click Description tab
-                pdp.clickDescriptionTab();
-                logger.info("Clicked on Description tab");
+            logger.info("Searched for product: {}", productName);
 
-                //  Validate product description
-                String description = pdp.getProductDescription();
-                logger.info("Product Description displayed: " + description);
+            homePage.clickProductByName(productName);
 
-                Assert.assertTrue(!description.isEmpty(), "Product description is empty!");
-                logger.info("Product description validation passed");
+            logger.info("Clicked on product link: {}", productName);
 
-                logger.info("==== TC_PDP_008: Product Description Validation Completed ====");
+            Assert.assertTrue(pdp.isOnProductDisplayPage(),
+                    "Not on Product Display Page");
 
-            } catch (Exception e) {
-                logger.error("Error in TC_PDP_008: " + e.getMessage(), e);
-                Assert.fail("Test case TC_PDP_008 failed: " + e.getMessage());
-            }
+            logger.info("On Product Display Page successfully");
+
+            pdp.clickDescriptionTab();
+
+            logger.info("Clicked on Description tab");
+
+            String description = pdp.getProductDescription();
+
+            logger.info("Product Description displayed: {}", description);
+
+            Assert.assertFalse(description.isEmpty(),
+                    "Product description is empty!");
+
+            logger.info("Product description validation passed");
+
+            logger.info("==== TC_PDP_008: Product Description Validation Completed ====");
+
+        } catch (Exception e) {
+
+            logger.error("Error in TC_PDP_008: {}", e.getMessage(), e);
+
+            Assert.fail("Test case TC_PDP_008 failed: " + e.getMessage());
         }
     }
-
+}

@@ -15,15 +15,15 @@ import testBase.BaseClass;
 
             try {
                 // 1. Login
-                HomePage hp = new HomePage(driver);
+                HomePage hp = new HomePage(getDriver());
                 hp.clickMyAccount();
                 hp.clickLogin();
 
-                LoginPage lp = new LoginPage(driver);
-                lp.login(rb.getString("email"), rb.getString("password"));
+                LoginPage lp = new LoginPage(getDriver());
+                lp.login(p.getProperty("email"), p.getProperty("password"));
 
                 // 2. Search Product (iMac)
-                SearchPage sp = new SearchPage(driver);
+                SearchPage sp = new SearchPage(getDriver());
                 String productName = "iMac";
                 sp.enterSearchKeyword(productName);
                 sp.clickSearchButton();
@@ -37,13 +37,13 @@ import testBase.BaseClass;
                 Assert.assertTrue(successMsg.contains("Success: You have added"), "Success message not shown");
                 logger.info("Validation Passed: Success message displayed -> " + successMsg);
 
-                // 4. Click 'wish list!' link
+                // 4. Click wish list! link
                 sp.clickWishListLinkInSuccessMessage();
 
                 // 5. Verify product in My Wish List page
-                WishListPage wlp = new WishListPage(driver);
+                WishListPage wlp = new WishListPage(getDriver());
                 Assert.assertTrue(wlp.isProductInWishList(productName), "Product not found in wishlist");
-                logger.info("Validation Passed: Product '" + productName + "' is in wishlist");
+                logger.info("Validation Passed: Product " + productName + " is in wishlist");
 
             } catch (Exception e) {
                 logger.error("Test Failed: " + e.getMessage());

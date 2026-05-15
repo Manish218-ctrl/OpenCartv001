@@ -1,54 +1,70 @@
 package testCases.TS_001_AccountRegistration;
 
-
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import pageObjects.HomePage;
 import pageObjects.RegisterPage;
 import testBase.BaseClass;
 
-    public class TC_RF_010_ValidateMissingPrivacyPolicyTest extends BaseClass {
+public class TC_RF_010_ValidateMissingPrivacyPolicyTest extends BaseClass {
 
-        @Test
-        public void verify_registration_without_privacy_policy() {
-            logger.info("***** Starting TC_RF_010_ValidateMissingPrivacyPolicyTest *****");
+    @Test
+    public void verify_registration_without_privacy_policy() {
 
-            try {
-                driver.get(p.getProperty("appURL"));
+        logger.info(
+                "***** Starting TC_RF_010_ValidateMissingPrivacyPolicyTest *****"
+        );
 
-                // Navigate to Register page
-                HomePage hp = new HomePage(driver);
-                hp.clickMyAccount();
-                hp.clickRegister();
+        try {
 
-                RegisterPage rp = new RegisterPage(driver);
+            getDriver().get(
+                    p.getProperty("appURL")
+            );
 
-                // Fill registration details, but DO NOT accept Privacy Policy
-                rp.setFirstName(randomString());
-                rp.setLastName(randomString());
-                rp.setEmail(randomString() + "@gmail.com");
-                rp.setTelephone(randomNumber());
-                rp.setPassword("test123");
-                rp.setConfirmPassword("test123");
+            HomePage hp = new HomePage(getDriver());
 
+            hp.clickMyAccount();
+            hp.clickRegister();
 
-                rp.clickContinue();
+            RegisterPage rp =
+                    new RegisterPage(getDriver());
 
-                // Verify expected warning message
-                String actualWarning = rp.getWarningMessage();
-                String expectedWarning = "Warning: You must agree to the Privacy Policy!";
+            rp.setFirstName(randomString());
+            rp.setLastName(randomString());
+            rp.setEmail(randomString() + "@gmail.com");
+            rp.setTelephone(randomNumber());
+            rp.setPassword("test123");
+            rp.setConfirmPassword("test123");
 
-                Assert.assertTrue(actualWarning.contains(expectedWarning),
-                        "Expected warning message not displayed! Actual: " + actualWarning);
+            rp.clickContinue();
 
-            } catch (Exception e) {
-                logger.error("Test Failed: " + e.getMessage());
-                Assert.fail("Test Failed due to exception: " + e.getMessage());
-            }
+            String actualWarning =
+                    rp.getWarningMessage();
 
-            logger.info("***** Finished TC_RF_010_ValidateMissingPrivacyPolicyTest *****");
+            String expectedWarning =
+                    "Warning: You must agree to the Privacy Policy!";
+
+            Assert.assertTrue(
+                    actualWarning.contains(expectedWarning),
+                    "Expected warning message not displayed! Actual: "
+                            + actualWarning
+            );
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Test Failed: " + e.getMessage()
+            );
+
+            Assert.fail(
+                    "Test Failed due to exception: "
+                            + e.getMessage()
+            );
         }
+
+        logger.info(
+                "***** Finished TC_RF_010_ValidateMissingPrivacyPolicyTest *****"
+        );
     }
-
-
+}

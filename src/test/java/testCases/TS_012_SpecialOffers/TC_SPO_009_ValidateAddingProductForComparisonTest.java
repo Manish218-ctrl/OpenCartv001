@@ -21,39 +21,39 @@ public class TC_SPO_009_ValidateAddingProductForComparisonTest extends BaseClass
     public void validateAddingProductForComparison() {
         logger.info("Starting the test: validateAddingProductForComparison");
 
-        // Step 1: Open the application URL
+        //Open the application URL
         String applicationUrl = "https://tutorialsninja.com/demo/index.php?route=common/home";
         logger.info("Opening application URL: " + applicationUrl);
 
-        driver.get(applicationUrl);
+        getDriver().get(applicationUrl);
 
 
-        // Step 2: Navigate to the Special Offers page and select product
-        HomePage homepage = new HomePage(driver);
+        //Navigate to the Special Offers page and select product
+        HomePage homepage = new HomePage(getDriver());
         logger.info("Navigating to the Special Offers page...");
-        homepage.clickFooterSpecialsLink();  // Click on 'Specials' footer link
+        homepage.clickFooterSpecialsLink();  // Click on Specials footer link
 
-        SpecialOffersPage specialOffersPage = new SpecialOffersPage(driver);
+        SpecialOffersPage specialOffersPage = new SpecialOffersPage(getDriver());
         logger.info("Selecting product for comparison: " + "Canon EOS 5D");
 
 
              specialOffersPage.clickproductcomparebtn();
 
 
-        // Step 3: Verify the success message
+        //Verify the success message
         specialOffersPage.clickproductcomparisonmsg();
 
 
-        // Step 4: Open the Product Comparison page
-        ProductComparisonPage productComparisonPage = new ProductComparisonPage(driver);
+        //Open the Product Comparison page
+        ProductComparisonPage productComparisonPage = new ProductComparisonPage(getDriver());
 
         logger.info("Opening Product Comparison page...");
 
 
-        // Step 5: Verify that the product is added to the comparison list
+        //Verify that the product is added to the comparison list
         boolean isProductInComparisonList = productComparisonPage.isProductPresent("Canon EOS 5D");
         logger.info("Product found in comparison list: " + isProductInComparisonList);
-        Assert.assertTrue(isProductInComparisonList, "Product '" + "Canon EOS 5D" + "' not found in the comparison list.");
+        Assert.assertTrue(isProductInComparisonList, "Product " + "Canon EOS 5D" + " not found in the comparison list.");
 
         logger.info("Test completed successfully.");
     }

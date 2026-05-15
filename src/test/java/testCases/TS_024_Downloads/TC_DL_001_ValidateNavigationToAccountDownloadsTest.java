@@ -13,11 +13,11 @@ import testBase.BaseClass;
 
         @Test
         public void verifyNavigationToAccountDownloads() {
-            logger.info("=== TC_DL_001: Validate navigation to 'Account Downloads' from 'My Account' page ===");
+            logger.info("=== TC_DL_001: Validate navigation to Account Downloads from My Account page ===");
 
-            HomePage home = new HomePage(driver);
-            LoginPage login = new LoginPage(driver);
-            MyAccountPage myAccount = new MyAccountPage(driver);
+            HomePage home = new HomePage(getDriver());
+            LoginPage login = new LoginPage(getDriver());
+            MyAccountPage myAccount = new MyAccountPage(getDriver());
 
             //  Login to the application
             home.clickMyAccount();
@@ -25,7 +25,7 @@ import testBase.BaseClass;
             login.login(username, password);
             logger.info("User logged in successfully.");
 
-            //  Click 'Downloads' in My Account page
+            //  Click Downloads in My Account page
             myAccount.clickDownloads();
 
             //  Validate landing on Account Downloads page

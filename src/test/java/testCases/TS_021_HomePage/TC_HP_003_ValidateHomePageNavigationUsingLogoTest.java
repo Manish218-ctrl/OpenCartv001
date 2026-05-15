@@ -15,22 +15,22 @@ import testBase.BaseClass;
             try {
                 logger.info("********** Starting TC_HP_003_ValidateHomeNavigation **********");
 
-                HomePage home = new HomePage(driver);
+                HomePage home = new HomePage(getDriver());
 
-                // Step 1: Navigate to another page (e.g., Login Page)
+                //Navigate to another page (e.g., Login Page)
                 home.clickMyAccount();
                 home.clickLogin();
                 logger.info("Navigated to Login Page.");
 
                 // Capture the title of Login Page
-                String loginPageTitle = driver.getTitle();
+                String loginPageTitle = getDriver().getTitle();
                 logger.info("Login Page Title: " + loginPageTitle);
 
-                // Step 2: Click on Logo "Your Store" (Assuming Logo is present in HomePage.java)
+                //Click on Logo "Your Store" (Assuming Logo is present in HomePage.java)
                 home.clickLogo();
-                logger.info("Clicked on 'Your Store' Logo.");
+                logger.info("Clicked on Your Store Logo.");
 
-                // Step 3: Validate navigation to Home Page
+                //Validate navigation to Home Page
                 String expectedTitle = "Your Store";  // Update if your homepage has a different title
                 String actualTitle = home.getPageTitle();
 

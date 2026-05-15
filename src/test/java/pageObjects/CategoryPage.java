@@ -1,107 +1,215 @@
 package pageObjects;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.List;
 
 public class CategoryPage extends BasePage {
 
-    private WebDriver driver;
-    private WebDriverWait wait;
-
     public CategoryPage(WebDriver driver) {
+
         super(driver);
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        
     }
 
-    // --- Top Menu ---
-    @FindBy(xpath = "//a[normalize-space()='Desktops']")
-    public WebElement menuDesktops;
+    // LOCATORS
+    @FindBy(xpath = "//nav[@id='menu']//a[normalize-space()='Desktops']")
+    private WebElement menuDesktops;
 
-    @FindBy(xpath = "/html/body/div[1]/nav/div[2]/ul/li[1]/div/a")
-    public WebElement linkShowAllDesktops;
+    @FindBy(xpath = "//nav[@id='menu']//a[contains(@class,'see-all') and contains(normalize-space(),'Desktops')]")
+    private WebElement linkShowAllDesktops;
 
-    // --- Left Sidebar Subcategories ---
-    @FindBy(xpath = "/html/body/div[2]/div/aside/div[1]/a[3]")
-    public WebElement linkMacSubCategory;
+    @FindBy(xpath = "//a[contains(@href,'path=20_27') and contains(normalize-space(),'Mac')]")
+    private WebElement linkMacSubCategory;
 
-    // --- Products ---
     @FindBy(xpath = "//div[contains(@class,'product-layout')]")
-    public List<WebElement> productCards;
+    private List<WebElement> productCards;
+
+    @FindBy(xpath = "//div[contains(@class,'alert-success')]")
+    private WebElement successMessage;
+
+    @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[contains(normalize-space(),'shopping cart')]")
+    private WebElement linkShoppingCart;
+
+    @FindBy(xpath = "//a[normalize-space()='Continue']")
+    private WebElement btnContinue;
+
+    // DYNAMIC LOCATORS
 
     private By addToCartButton(String productName) {
-        return By.xpath("//a[normalize-space()='" + productName + "']/ancestor::div[contains(@class,'product-thumb')]//button[contains(@onclick,'cart.add')]");
+
+        return By.xpath(
+                "//div[contains(@class,'product-thumb')]" +
+                        "[.//div[contains(@class,'caption')]//a[normalize-space()='"
+                        + productName +
+                        "']]//button[contains(@onclick,'cart.add')]"
+        );
     }
 
-    // --- Success Message ---
-    @FindBy(xpath = "//div[contains(@class,'alert-success')]")
-    public WebElement successMessage;
+    private By addToWishListButton(String productName) {
 
-    @FindBy(xpath = "//div[contains(@class,'alert-success')]//a[normalize-space()='shopping cart']")
-    public WebElement linkShoppingCart;
+        return By.xpath(
+                "//div[contains(@class,'product-thumb')]" +
+                        "[.//div[contains(@class,'caption')]//a[normalize-space()='"
+                        + productName +
+                        "']]//button[contains(@onclick,'wishlist.add')]"
+        );
+    }
 
-    // --- Actions ---
+    // ACTION METHODS
 
-    /** Hover over Desktops menu */
     public void hoverOnDesktopsMenu() {
+
+        wait.until(
+                ExpectedConditions.visibilityOf(menuDesktops)
+        );
+
         Actions actions = new Actions(driver);
-        actions.moveToElement(menuDesktops).perform();
-        wait.until(ExpectedConditions.visibilityOf(linkShowAllDesktops));
+
+        actions.moveToElement(menuDesktops)
+                .perform();
+
+        wait.until(
+                ExpectedConditions.visibilityOf(linkShowAllDesktops)
+        );
+
+        logger.info("Hovered on Desktops menu");
     }
 
-    /** Click on Show All Desktops */
     public void clickShowAllDesktops() {
+
         try {
-            wait.until(ExpectedConditions.elementToBeClickable(linkShowAllDesktops)).click();
+
+            wait.until(
+                    ExpectedConditions.elementToBeClickable(linkShowAllDesktops)
+            ).click();
+
         } catch (Exception e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", linkShowAllDesktops);
+
+            logger.warn("Normal click failed for Show All Desktops. Using JavaScript fallback.");
+
+            ((JavascriptExecutor) driver).executeScript(
+                    "arguments[0].click();",
+                    linkShowAllDesktops
+            );
         }
-        wait.until(ExpectedConditions.urlContains("path=20"));
+
+        wait.until(
+                ExpectedConditions.urlContains("path=20")
+        );
+
+        logger.info("Navigated to Show All Desktops page");
     }
 
-    /** Click Mac subcategory */
     public void clickMacSubCategory() {
-        wait.until(ExpectedConditions.elementToBeClickable(linkMacSubCategory)).click();
-        wait.until(ExpectedConditions.urlContains("path=20_27"));
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(linkMacSubCategory)
+        ).click();
+
+        wait.until(
+                ExpectedConditions.urlContains("path=20_27")
+        );
+
+        logger.info("Navigated to Mac subcategory page");
     }
 
-    /** Add product to cart by product name */
     public void addProductToCart(String productName) {
-        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(addToCartButton(productName)));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
+
+        WebElement btn = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        addToCartButton(productName)
+                )
+        );
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();",
+                btn
+        );
+
+        logger.info("Added product to cart: {}", productName);
     }
 
-    /** Get success message text */
+    public void addProductToWishList(String productName) {
+
+        try {
+
+            WebElement btn = wait.until(
+                    ExpectedConditions.elementToBeClickable(
+                            addToWishListButton(productName)
+                    )
+            );
+
+            btn.click();
+
+        } catch (Exception e) {
+
+            logger.warn("Normal click failed for wishlist button. Using JavaScript fallback.");
+
+            WebElement btn = driver.findElement(
+                    addToWishListButton(productName)
+            );
+
+            ((JavascriptExecutor) driver).executeScript(
+                    "arguments[0].click();",
+                    btn
+            );
+        }
+
+        logger.info("Added product to wishlist: {}", productName);
+    }
+
     public String getSuccessMessage() {
-        return wait.until(ExpectedConditions.visibilityOf(successMessage)).getText();
+
+        return wait.until(
+                ExpectedConditions.visibilityOf(successMessage)
+        ).getText().trim();
     }
 
-    /** Click Shopping Cart link inside success message */
     public ShoppingCartPage clickShoppingCartLinkInSuccessMessage() {
-        wait.until(ExpectedConditions.elementToBeClickable(linkShoppingCart)).click();
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(linkShoppingCart)
+        ).click();
+
+        logger.info("Clicked Shopping Cart link from success message");
+
         return new ShoppingCartPage(driver);
     }
 
-    /** Get list of displayed products */
     public List<WebElement> getDisplayedProducts() {
-        return wait.until(ExpectedConditions.visibilityOfAllElements(productCards));
+
+        return wait.until(
+                ExpectedConditions.visibilityOfAllElements(productCards)
+        );
     }
 
-    // --- Continue Button on empty category page ---
-    @FindBy(xpath = "//a[normalize-space()='Continue']")
-    public  WebElement btnContinue;
+    public String getFirstDisplayedProductName() {
 
-    /** Click the Continue button (used when category is empty) */
+        String productName = getDisplayedProducts()
+                .get(0)
+                .findElement(By.cssSelector(".caption a"))
+                .getText()
+                .trim();
+
+        logger.info("First displayed product: {}", productName);
+
+        return productName;
+    }
+
     public void clickContinue() {
-        wait.until(ExpectedConditions.elementToBeClickable(btnContinue)).click();
-    }
 
+        wait.until(
+                ExpectedConditions.elementToBeClickable(btnContinue)
+        ).click();
+
+        logger.info("Clicked Continue button");
+    }
 }

@@ -1,54 +1,82 @@
 package testCases.TS_013_ChangePassword;
 
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.ChangePasswordPage;
 import testBase.BaseClass;
 
-    public class TC_CP_009_ValidateChangePasswordBackButtonTest extends BaseClass {
+public class TC_CP_009_ValidateChangePasswordBackButtonTest extends BaseClass {
 
-        @Test
-        public void validateBackButtonFunctionality() {
-            logger.info("===== Starting Test: TC_CP_009 – Change Password Back Button =====");
+    @Test
+    public void validateBackButtonFunctionality() {
 
-            // Step 1: Login
-            performLogin();
-            logger.info("User logged in successfully.");
+        logger.info("===== Starting Test: TC_CP_009 – Change Password Back Button =====");
 
-            // Step 2: Navigate to 'Change Password' page
-            ChangePasswordPage cpPage = new ChangePasswordPage(driver);
-            driver.get(appURL + "/index.php?route=account/password"); // Adjust if needed
-            logger.info("Navigated to Change Password page.");
+        // Login
+        performLogin();
 
-            // Step 3: Enter new password and confirm password
-            String newPassword = "Test@123";
-            cpPage.setNewPassword(newPassword);
-            cpPage.setConfirmPassword(newPassword);
-            logger.info("Entered new password and confirm password.");
+        logger.info("User logged in successfully.");
 
-            // Step 4: Click Back button
-            WebElement backButton = driver.findElement(By.xpath("/html/body/div[2]/div/div/form/div/div[1]/a")); // Update XPath if needed
-            backButton.click();
-            logger.info("Clicked on Back button.");
+        // Navigate to Change Password page
+        getDriver().get(appURL + "/index.php?route=account/password");
 
-            // Step 5: Validate navigation to 'My Account' page
-            String expectedTitle = "My Account"; // Update to actual title of My Account page
-            String actualTitle = driver.getTitle();
-            logger.info("Actual page title after Back button: " + actualTitle);
-            Assert.assertTrue(actualTitle.contains(expectedTitle), "Back button did not navigate to My Account page!");
+        ChangePasswordPage cpPage =
+                new ChangePasswordPage(getDriver());
 
-            // Step 6: Navigate back to Change Password page
-            driver.get(appURL + "/index.php?route=account/password"); // Or click Change Password link from My Account page
-            logger.info("Navigated back to Change Password page.");
+        logger.info("Navigated to Change Password page.");
 
-            // Step 7: Validate password fields are cleared
-            Assert.assertEquals(cpPage.getNewPasswordField().getAttribute("value"), "", "New Password field is not empty!");
-            Assert.assertEquals(cpPage.getConfirmPasswordField().getAttribute("value"), "", "Confirm Password field is not empty!");
+        // Enter password values
+        String newPassword = "Test@123";
 
-            logger.info("===== Test Completed Successfully – Back button functionality validated =====");
-        }
+        cpPage.setNewPassword(newPassword);
+
+        cpPage.setConfirmPassword(newPassword);
+
+        logger.info("Entered new password and confirm password.");
+
+        // Click Back button
+        cpPage.clickBackButton();
+
+        logger.info("Clicked on Back button.");
+
+        // Validate navigation to My Account page
+        String actualTitle =
+                getDriver().getTitle();
+
+        logger.info(
+                "Actual page title after Back button: "
+                        + actualTitle
+        );
+
+        Assert.assertTrue(
+                actualTitle.contains("My Account"),
+                "Back button did not navigate to My Account page!"
+        );
+
+        // Navigate back to Change Password page
+        getDriver().get(appURL + "/index.php?route=account/password");
+
+        logger.info("Navigated back to Change Password page.");
+
+        // Reinitialize page object after navigation
+        cpPage =
+                new ChangePasswordPage(getDriver());
+
+        // Validate fields are cleared
+        Assert.assertEquals(
+                cpPage.getNewPasswordField().getAttribute("value"),
+                "",
+                "New Password field is not empty!"
+        );
+
+        Assert.assertEquals(
+                cpPage.getConfirmPasswordField().getAttribute("value"),
+                "",
+                "Confirm Password field is not empty!"
+        );
+
+        logger.info(
+                "===== Test Completed Successfully – Back button functionality validated ====="
+        );
     }
-
+}

@@ -10,22 +10,22 @@ import testBase.BaseClass;
 
         @Test
         public void validateDownloadsPage() {
-            logger.info("Starting TC_DL_008: Validate 'Account Downloads' page");
+            logger.info("Starting TC_DL_008: Validate Account Downloads page");
 
-            // Step 1: Perform login
+            //Perform login
             performLogin();
             logger.info("Login successful");
 
-            // Step 2: Navigate to My Account Page
-            MyAccountPage myAccount = new MyAccountPage(driver);
+            //Navigate to My Account Page
+            MyAccountPage myAccount = new MyAccountPage(getDriver());
 
             Assert.assertTrue(myAccount.isMyAccountPageExists(), "My Account page is not displayed");
 
-            // Step 3: Click 'Downloads' from right column
+            //Click Downloads from right column
             myAccount.clickDownloadsFromRightColumn();
-            logger.info("Clicked on 'Downloads' link from Right Column");
+            logger.info("Clicked on Downloads link from Right Column");
 
-            // Step 4: Validate page title or breadcrumbs
+            //Validate page title or breadcrumbs
             String pageTitle = myAccount.getPageTitle();
             logger.info("Downloads Page Title: " + pageTitle);
             Assert.assertTrue(pageTitle.contains("Downloads"), "Downloads page title is not correct");

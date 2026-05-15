@@ -14,29 +14,24 @@ public class TC_LF_010_ValidateNavigationFromLoginPageTest extends BaseClass {
         logger.info("***** Starting TC_LF_010_ValidateNavigationFromLoginPageTest *****");
 
         try {
-            // Step 1: Open homepage
-            driver.get(rb.getString("appURL"));
+            getDriver().get(p.getProperty("appURL"));
             logger.info("URL opened");
 
-            HomePage hp = new HomePage(driver);
+            HomePage hp = new HomePage(getDriver());
             hp.clickMyAccount();
             hp.clickLogin();
 
-            // Step 2: Navigate to LoginPage
-            LoginPage lp = new LoginPage(driver);
+            LoginPage lp = new LoginPage(getDriver());
             Assert.assertTrue(lp.isLoginPageDisplayed(), "Login page not displayed!");
 
-            // Step 3: Click on Continue under New Customer section
             RegisterPage rp = lp.clickContinueButtonNewCustomer();
             Assert.assertTrue(rp.isRegisterPageDisplayed(), "Register Account page not displayed!");
 
-            // Step 4: Navigate back to Login page
-            driver.navigate().back();
+            getDriver().navigate().back();
             Assert.assertTrue(lp.isLoginPageDisplayed(), "Login page not displayed after navigating back!");
 
-            // Step 5: Validate navigation options (example: Footer, Header etc.)
-            hp.clickMyAccount();   // Example navigation
-            hp.clickLogin();       // Back to login again
+            hp.clickMyAccount();
+            hp.clickLogin();
             Assert.assertTrue(lp.isLoginPageDisplayed(), "Login page not displayed after navigating via header!");
 
             logger.info("***** Finished TC_LF_010_ValidateNavigationFromLoginPageTest *****");

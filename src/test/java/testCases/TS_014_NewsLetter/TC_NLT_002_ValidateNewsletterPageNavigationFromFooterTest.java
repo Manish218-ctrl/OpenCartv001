@@ -16,15 +16,15 @@ public class TC_NLT_002_ValidateNewsletterPageNavigationFromFooterTest extends B
 
         @Test
         public void validateNewsletterSubscriptionPageNavigation() {
-            // Step 1: Perform Login
+            //Perform Login
             performLogin();
 
-            // Step 2: Click on 'Newsletter' link in Right Column
-            HomePage homepage = new HomePage(driver);
+            //Click on Newsletter link in Right Column
+            HomePage homepage = new HomePage(getDriver());
             homepage.clickRightColumnNewsletter();
 
-            // Step 3: Wait for the 'Newsletter Subscription' page and verify the page heading
-            NewsletterPage newsletterPage = new NewsletterPage(driver);
+            //Wait for the Newsletter Subscription page and verify the page heading
+            NewsletterPage newsletterPage = new NewsletterPage(getDriver());
             String actualPageTitle = newsletterPage.getPageTitle();
             String expectedPageTitle = "Newsletter Subscription";  // Modify if actual title differs
 

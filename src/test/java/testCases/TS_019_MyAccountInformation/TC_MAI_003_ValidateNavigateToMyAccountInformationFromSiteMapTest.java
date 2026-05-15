@@ -14,29 +14,29 @@ public class TC_MAI_003_ValidateNavigateToMyAccountInformationFromSiteMapTest ex
         try {
             logger.info("***** Starting Test: TC_SI_001_NavigateToMyAccountInformationFromSiteMap *****");
 
-            // Step 1: Perform login
+            //Perform login
             performLogin();
             logger.info("User logged in successfully.");
 
-            // Step 2: Navigate to Site Map page using HomePage footer
-            HomePage home = new HomePage(driver);
-            SiteMapPage siteMapPage = new SiteMapPage(driver);
+            //Navigate to Site Map page using HomePage footer
+            HomePage home = new HomePage(getDriver());
+            SiteMapPage siteMapPage = new SiteMapPage(getDriver());
             siteMapPage.clickFooterLink("Site Map");
-            logger.info("Clicked on 'Site Map' footer link.");
+            logger.info("Clicked on Site Map footer link.");
 
-            // Step 3: Validate Site Map page is displayed
+            //Validate Site Map page is displayed
             Assert.assertTrue(siteMapPage.isOnSiteMapPage(), "Site Map page was not displayed.");
             logger.info("Site Map page is displayed successfully.");
 
-            // Step 4: Click on 'Account Information' link
+            //Click on Account Information link
             siteMapPage.clickAccountInformation();
-            logger.info("Clicked on 'Account Information' link from Site Map page.");
+            logger.info("Clicked on Account Information link from Site Map page.");
 
-            // Step 5: Validate user is navigated to My Account Information page
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
+            //Validate user is navigated to My Account Information page
+            MyAccountPage myAccountPage = new MyAccountPage(getDriver());
             Assert.assertTrue(myAccountPage.isMyAccountInformationPageDisplayed(),
                     "Failed to navigate to My Account Information page.");
-            logger.info("Successfully navigated to 'My Account Information' page.");
+            logger.info("Successfully navigated to My Account Information page.");
 
             logger.info("***** Test Completed: TC_SI_001_NavigateToMyAccountInformationFromSiteMap *****");
 

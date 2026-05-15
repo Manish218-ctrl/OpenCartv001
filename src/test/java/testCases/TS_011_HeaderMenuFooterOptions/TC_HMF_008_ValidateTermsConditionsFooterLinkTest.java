@@ -14,33 +14,33 @@ import testBase.BaseClass;
 
         @Test
         public void validateTermsConditionsFooterLink() {
-            logger.info("Test Case TC_HMF_008 - Validate 'Terms & Conditions' Footer Link Started");
+            logger.info("Test Case TC_HMF_008 - Validate Terms & Conditions Footer Link Started");
 
             try {
                 // Open the application URL
-                logger.info("Opening the application URL: " + rb.getString("appURL"));
-                driver.get(rb.getString("appURL"));
+                logger.info("Opening the application URL: " + p.getProperty("appURL"));
+                getDriver().get(p.getProperty("appURL"));
 
                 // Initialize the HomePage object
-                HomePage homepage = new HomePage(driver);
+                HomePage homepage = new HomePage(getDriver());
 
-                // Step 1: Click on the 'Terms & Conditions' footer link
-                logger.info("Clicking on the 'Terms & Conditions' footer link");
+                //Click on the Terms & Conditions footer link
+                logger.info("Clicking on the Terms & Conditions footer link");
                 homepage.clickTermsConditionsFooterLink();
 
-                // Step 2: Verify that the page redirects to the 'Terms & Conditions' page and displays the correct information
-                logger.info("Verifying the 'Terms & Conditions' page title...");
+                //Verify that the page redirects to the Terms & Conditions page and displays the correct information
+                logger.info("Verifying the Terms & Conditions page title...");
                 String pageTitle = homepage.getPageTitle();
 
-                // Expected title of the 'Terms & Conditions' page (adjust as per actual title of the page)
+                // Expected title of the Terms & Conditions page (adjust as per actual title of the page)
                 String expectedPageTitle = "Terms & Conditions";
 
-                Assert.assertEquals(pageTitle, expectedPageTitle, "The 'Terms & Conditions' page did not load correctly.");
+                Assert.assertEquals(pageTitle, expectedPageTitle, "The Terms & Conditions page did not load correctly.");
 
-                logger.info("Test Case TC_HMF_008 - Validate 'Terms & Conditions' Footer Link Completed Successfully");
+                logger.info("Test Case TC_HMF_008 - Validate Terms & Conditions Footer Link Completed Successfully");
 
             } catch (Exception e) {
-                logger.error("Test Case TC_HMF_008 - Error occurred during validation of 'Terms & Conditions' Footer link: " + e.getMessage());
+                logger.error("Test Case TC_HMF_008 - Error occurred during validation of Terms & Conditions Footer link: " + e.getMessage());
                 Assert.fail("Test failed due to an error: " + e.getMessage());
             }
         }

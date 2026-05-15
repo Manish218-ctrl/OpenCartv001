@@ -39,7 +39,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.m2
-          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          key: maven-${{ runner.os }}-${{ hashFiles(**/pom.xml) }}
 
       # --------------------------------------------------
       # Start Selenium Grid
@@ -54,7 +54,7 @@ jobs:
         run: |
           echo "Waiting for Selenium Grid..."
           for i in {1..15}; do
-            if curl -s http://localhost:4444/status | grep -q '"ready":true'; then
+            if curl -s http://localhost:4444/status | grep -q "ready":true; then
               echo "Selenium Grid is ready"
               break
             fi

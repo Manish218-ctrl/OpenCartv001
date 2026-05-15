@@ -1,57 +1,82 @@
 package testCases.TS_020_ProductDisplayPage;
 
-
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 import pageObjects.ProductDisplayPage;
 import testBase.BaseClass;
 
-    public class TC_PDP_002_ValidateProductAvailabilityStatusTest extends BaseClass {
+public class TC_PDP_002_ValidateProductAvailabilityStatusTest extends BaseClass {
 
-        @Test
-        public void verifyProductAvailabilityStatus() {
-            logger.info("***** Starting TC_PDP_003_ProductAvailabilityTest *****");
+    @Test
+    public void verifyProductAvailabilityStatus() {
 
-            try {
-                // Step 1: Navigate to homepage is already handled by BaseClass setup()
+        logger.info("***** Starting TC_PDP_003_ProductAvailabilityTest *****");
 
-                HomePage home = new HomePage(driver);
+        try {
 
-                // Step 2: Enter Product name in search box
-                home.enterSearchText(productName); // productName comes from config.properties (iMac)
-                logger.info("Entered product name: " + productName);
+            HomePage home =
+                    new HomePage(getDriver());
 
-                // Step 3: Click search button
-                home.clickSearchButton();
-                logger.info("Clicked on search button.");
+            home.enterSearchText(productName);
 
-                // Step 4: Click on the product in results
-                driver.findElement(org.openqa.selenium.By.linkText(productName)).click();
-                logger.info("Clicked on product link: " + productName);
+            logger.info(
+                    "Entered product name: {}",
+                    productName
+            );
 
-                // Step 5: On Product Display Page, check availability status
-                ProductDisplayPage pdp = new ProductDisplayPage(driver);
-                String availabilityStatus = pdp.getProductAvailability();
-                logger.info("Availability status displayed: " + availabilityStatus);
+            home.clickSearchButton();
 
-                // Step 6: Validate status is one of the expected values
-                boolean isValidStatus = availabilityStatus.equalsIgnoreCase("In Stock")
-                        || availabilityStatus.equalsIgnoreCase("Out Of Stock")
-                        || availabilityStatus.equalsIgnoreCase("Limited Stock");
+            logger.info(
+                    "Clicked on search button."
+            );
 
-                Assert.assertTrue(isValidStatus,
+            home.clickProductByName(productName);
 
-                        "Invalid availability status! Found: " + availabilityStatus);
+            logger.info(
+                    "Clicked on product link: {}",
+                    productName
+            );
 
-            } catch (Exception e) {
-                logger.error("Test failed due to exception: " + e.getMessage());
-                Assert.fail("Test case failed due to exception.");
-            }
+            ProductDisplayPage pdp =
+                    new ProductDisplayPage(getDriver());
 
-            logger.info("***** Finished TC_PDP_003_ProductAvailabilityTest *****");
+            String availabilityStatus =
+                    pdp.getProductAvailability();
+
+            logger.info(
+                    "Availability status displayed: {}",
+                    availabilityStatus
+            );
+
+            boolean isValidStatus =
+                    availabilityStatus.equalsIgnoreCase("In Stock")
+                            || availabilityStatus.equalsIgnoreCase("Out Of Stock")
+                            || availabilityStatus.equalsIgnoreCase("Limited Stock");
+
+            Assert.assertTrue(
+                    isValidStatus,
+                    "Invalid availability status! Found: "
+                            + availabilityStatus
+            );
+
+            logger.info(
+                    "Product availability status validation passed."
+            );
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Test failed due to exception: {}",
+                    e.getMessage(),
+                    e
+            );
+
+            Assert.fail(
+                    "Test case failed due to exception."
+            );
         }
+
+        logger.info("***** Finished TC_PDP_003_ProductAvailabilityTest *****");
     }
-
-
+}

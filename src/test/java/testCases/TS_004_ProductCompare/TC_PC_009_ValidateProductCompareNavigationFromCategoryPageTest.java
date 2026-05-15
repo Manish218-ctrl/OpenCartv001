@@ -14,18 +14,18 @@ public class TC_PC_009_ValidateProductCompareNavigationFromCategoryPageTest exte
         logger.info("***** Starting TC_PC_009_ValidateProductCompareNavigationFromCategoryPageTest *****");
 
         try {
-            // Step 1: Navigate to "Show All Desktops" via CategoryPage
-            CategoryPage categoryPage = new CategoryPage(driver);
+            //Navigate to "Show All Desktops" via CategoryPage
+            CategoryPage categoryPage = new CategoryPage(getDriver());
             categoryPage.hoverOnDesktopsMenu();
             categoryPage.clickShowAllDesktops();
             logger.info("Navigated to Desktops category page.");
 
-            // Step 2: Click Product Compare link from Category/Search results page
-            SearchPage sp = new SearchPage(driver);
+            //Click Product Compare link from Category/Search results page
+            SearchPage sp = new SearchPage(getDriver());
             sp.clickProductCompareLink();
 
-            // Step 3: Verify navigation to Product Comparison page
-            ProductComparisonPage cmp = new ProductComparisonPage(driver);
+            //Verify navigation to Product Comparison page
+            ProductComparisonPage cmp = new ProductComparisonPage(getDriver());
             Assert.assertTrue(cmp.isOnComparisonPage(),
                     "ERROR: Not navigated to Product Comparison page from Category page.");
 

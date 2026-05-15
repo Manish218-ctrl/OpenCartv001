@@ -1,11 +1,16 @@
 package testCases.TS_017_OrderHistory;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageObjects.MyAccountPage;
 import pageObjects.OrderHistoryPage;
 import testBase.BaseClass;
+
+import java.time.Duration;
 
 public class TC_OH_006_ValidateAllOrdersTest extends BaseClass {
 
@@ -17,11 +22,11 @@ public class TC_OH_006_ValidateAllOrdersTest extends BaseClass {
         performLogin();
         logger.info("Login successful.");
 
-        MyAccountPage myAccPage = new MyAccountPage(driver);
+        MyAccountPage myAccPage = new MyAccountPage(getDriver());
         myAccPage.clickOrderHistory();
         logger.info("Navigated to Order History page.");
 
-        orderHistoryPage = new OrderHistoryPage(driver);
+        orderHistoryPage = new OrderHistoryPage(getDriver());
     }
 
     @Test
@@ -29,27 +34,23 @@ public class TC_OH_006_ValidateAllOrdersTest extends BaseClass {
         logger.info("***** Starting TC_OH_006_ValidateAllOrdersTest *****");
 
         try {
-            // Step 1: Verify Order History Page is loaded
             String pageTitle = orderHistoryPage.getTitle();
             Assert.assertTrue(pageTitle.contains("Order History"), "Page title is incorrect!");
             logger.info("Order History page loaded successfully. Title: " + pageTitle);
 
-            // Step 2: Verify at least one order exists
             boolean firstOrderVisible = orderHistoryPage.isFirstOrderViewIconVisible();
             Assert.assertTrue(firstOrderVisible, "No orders found in Order History!");
             logger.info("At least one order is present in the Order History table.");
 
-            // Click the first order's view icon
             orderHistoryPage.clickFirstOrderViewIcon();
 
-            Thread.sleep(20000);
+            new WebDriverWait(getDriver(), Duration.ofSeconds(10))
+                    .until(ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath("//h1[normalize-space()='Order Information']")));
 
-
-            // Fetch the actual order ID
-            String actualOrderId = orderHistoryPage.getOrderId();  // Fetch order ID from the page
+            String actualOrderId = orderHistoryPage.getOrderId();
             logger.info("Actual Order ID fetched: " + actualOrderId);
 
-            // Step 3: Validate Order Details - Order ID
             String orderId = orderHistoryPage.getOrderId();
             Assert.assertNotNull(orderId, "Order Id is missing in order details!");
             logger.info("Order Id found: " + orderId);

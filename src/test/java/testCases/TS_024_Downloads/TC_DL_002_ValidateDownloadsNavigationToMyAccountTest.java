@@ -13,16 +13,16 @@ import testBase.BaseClass;
         public void validateDownloadsNavigation() {
             logger.info("========= Starting TC_DL_002 - Downloads Navigation Test =========");
 
-            // Step 1: Login
+            //Login
             performLogin();
             logger.info("User logged in successfully.");
 
-            // Step 2: Navigate to 'My Account' drop-down (already in performLogin) and click Downloads
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
+            //Navigate to My Account drop-down (already in performLogin) and click Downloads
+            MyAccountPage myAccountPage = new MyAccountPage(getDriver());
             myAccountPage.clickDownloads();
-            logger.info("Clicked on 'Downloads' link.");
+            logger.info("Clicked on Downloads link.");
 
-            // Step 3: Validate navigation by checking page title or breadcrumb
+            //Validate navigation by checking page title or breadcrumb
             String actualTitle = myAccountPage.getPageTitle();
             logger.info("Current page title: " + actualTitle);
 
@@ -30,7 +30,7 @@ import testBase.BaseClass;
             Assert.assertTrue(actualTitle.contains(expectedTitle),
                     "Navigation to Downloads page failed! Expected title: " + expectedTitle + " but found: " + actualTitle);
 
-            logger.info("Navigation to 'Account Downloads' page validated successfully.");
+            logger.info("Navigation to Account Downloads page validated successfully.");
             logger.info("========= TC_DL_002 Completed =========");
         }
     }

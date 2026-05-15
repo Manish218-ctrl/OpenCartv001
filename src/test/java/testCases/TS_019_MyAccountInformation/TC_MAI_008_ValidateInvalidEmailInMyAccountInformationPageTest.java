@@ -13,22 +13,22 @@ import testBase.BaseClass;
         @Test
         public void verifyInvalidEmailValidationMessage() {
 
-            // Step 1: Login
+            //Login
             performLogin();
 
             // Initialize page objects
-            HomePage home = new HomePage(driver);
-            MyAccountPage myAccount = new MyAccountPage(driver);
+            HomePage home = new HomePage(getDriver());
+            MyAccountPage myAccount = new MyAccountPage(getDriver());
 
-            // Step 2: Navigate to "Edit your account information"
+            //Navigate to "Edit your account information"
             home.clickMyAccount();
             myAccount.clickEditAccountInformation();
 
-            // Step 3: Verify "My Account Information" page is displayed
+            //Verify "My Account Information" page is displayed
             Assert.assertTrue(myAccount.isMyAccountInformationPageDisplayed(),
                     "My Account Information page is not displayed.");
 
-            // Step 4: Test multiple invalid email formats
+            //Test multiple invalid email formats
             String[] invalidEmails = {"test@ex", "testauto@com", "automa@gmail.com", "automation@gmail."};
 
             for (String email : invalidEmails) {
@@ -36,7 +36,7 @@ import testBase.BaseClass;
                 myAccount.txtEmail.sendKeys(email); // Set invalid email
                 myAccount.clickContinue(); // Submit
 
-                // Step 5: Verify validation message is displayed
+                //Verify validation message is displayed
                 Assert.assertTrue(myAccount.isValidationMessageDisplayed(),
                         "Validation message not displayed for email: " + email);
 

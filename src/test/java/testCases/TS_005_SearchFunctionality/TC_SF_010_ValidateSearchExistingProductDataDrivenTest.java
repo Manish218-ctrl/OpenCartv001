@@ -20,36 +20,36 @@ public class TC_SF_010_ValidateSearchExistingProductDataDrivenTest extends BaseC
     public void verify_search_existing_product(String searchQuery, String expectedProductTitle)
     {
         logger.info("***** Starting Data-Driven Search Test ****");
-        logger.info("Search Query: '{}', Expected Product: '{}'", searchQuery, expectedProductTitle);
+        logger.info("Search Query: {}, Expected Product: {}", searchQuery, expectedProductTitle);
 
         try
         {
-            HomePage homePage = new HomePage(driver);
+            HomePage homePage = new HomePage(getDriver());
             homePage.searchProduct(searchQuery);
-            logger.info("Executed search for: '{}'", searchQuery);
+            logger.info("Executed search for: {}", searchQuery);
 
-            SearchPage searchPage = new SearchPage(driver);
+            SearchPage searchPage = new SearchPage(getDriver());
             boolean isProductVisible = searchPage.isProductDisplayed(expectedProductTitle);
 
             if (isProductVisible) {
                 String actualProductTitle = searchPage.getActualProductTitleFromResults(expectedProductTitle);
-                logger.info("Product found: '{}'", actualProductTitle);
+                logger.info("Product found: {}", actualProductTitle);
 
                 Assert.assertTrue(
                         actualProductTitle.contains(expectedProductTitle) ||
                                 expectedProductTitle.contains(actualProductTitle),
                         String.format(
-                                "Product title mismatch. Expected (partial): '%s', Actual: '%s'",
+                                "Product title mismatch. Expected (partial): %s, Actual: %s",
                                 expectedProductTitle, actualProductTitle
                         )
                 );
 
-                logger.info("Test PASSED for query: '{}'", searchQuery);
+                logger.info("Test PASSED for query: {}", searchQuery);
             } else {
-                logger.error("Test FAILED: Product '{}' not displayed for query '{}'",
+                logger.error("Test FAILED: Product {} not displayed for query {}",
                         expectedProductTitle, searchQuery);
                 Assert.fail(String.format(
-                        "Product '%s' was not found in search results for query '%s'",
+                        "Product %s was not found in search results for query %s",
                         expectedProductTitle, searchQuery
                 ));
             }
@@ -59,12 +59,12 @@ public class TC_SF_010_ValidateSearchExistingProductDataDrivenTest extends BaseC
         }
         catch (Exception e)
         {
-            logger.error("Test failed for query: '{}'. Error: {}", searchQuery, e.getMessage());
+            logger.error("Test failed for query: {}. Error: {}", searchQuery, e.getMessage());
             Assert.fail("Test failed with exception: " + e.getMessage());
         }
         finally
         {
-            logger.info("***** Finished Search Test for: '{}' *****\n", searchQuery);
+            logger.info("***** Finished Search Test for: {} *****\n", searchQuery);
         }
     }
 }

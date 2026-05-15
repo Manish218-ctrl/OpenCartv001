@@ -13,20 +13,20 @@ import testBase.BaseClass;
         public void validateDownloadsNavigation() {
             logger.info("========= Starting TC_DL_003 - Downloads Navigation Test =========");
 
-            // Step 1: Perform Login
+            //Perform Login
             performLogin();
             logger.info("User logged in successfully.");
 
-            // Step 2: Navigate to 'Downloads' from Right Column
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
+            //Navigate to Downloads from Right Column
+            MyAccountPage myAccountPage = new MyAccountPage(getDriver());
             myAccountPage.clickDownloadsFromRightColumn();
 
-            // Step 3: Validate navigation by page title
+            //Validate navigation by page title
             String actualTitle = myAccountPage.getPageTitle();
             String expectedTitle = "Account Downloads"; // replace with exact title from your application
             Assert.assertTrue(actualTitle.contains(expectedTitle),
                     "Navigation to Downloads page failed! Expected: " + expectedTitle + " but found: " + actualTitle);
-            logger.info("Navigation to 'Account Downloads' page validated successfully.");
+            logger.info("Navigation to Account Downloads page validated successfully.");
 
             String breadcrumb = myAccountPage.getBreadcrumbText();
             Assert.assertTrue(breadcrumb.contains("Downloads"), "Breadcrumb validation failed! Found: " + breadcrumb);

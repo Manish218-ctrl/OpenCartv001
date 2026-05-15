@@ -19,11 +19,11 @@ import testBase.BaseClass;
             try {
                 // 1. Open the Application URL in any supported browser (handled by BaseClass setup)
 
-                HomePage hp = new HomePage(driver);
+                HomePage hp = new HomePage(getDriver());
 
-                SearchPage searchPage = new SearchPage(driver);
+                SearchPage searchPage = new SearchPage(getDriver());
 
-                // 1. Don't enter anything into the 'Search' text box field
+                // 1. Dont enter anything into the Search text box field
                 logger.info("Ensuring search box is empty (no product name entered).");
 
                 // 2. Click on the button having search icon (Validate ER-1)
@@ -31,8 +31,8 @@ import testBase.BaseClass;
                 logger.info("Clicked search icon button without entering a product name.");
 
                 // Expected Result: 1. There is no product that matches the search criteria should be displayed in the Search Results page
-                Assert.assertTrue(searchPage.isNoProductMessageDisplayed(), "The 'No product' message is not displayed when searching with an empty product name.");
-                logger.info("Verified: 'No product' message is correctly displayed for an empty search.");
+                Assert.assertTrue(searchPage.isNoProductMessageDisplayed(), "The No product message is not displayed when searching with an empty product name.");
+                logger.info("Verified: No product' message is correctly displayed for an empty search.");
 
             } catch (Exception e) {
                 logger.error("Test execution failed for TC_SF_003_ValidateSearchWithoutProductNameTest: " + e.getMessage());

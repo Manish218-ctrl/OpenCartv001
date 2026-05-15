@@ -1,123 +1,128 @@
 package pageObjects;
 
-
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import java.time.Duration;
+public class EditAddressPage extends BasePage {
 
-    public class EditAddressPage extends BasePage {
+    public EditAddressPage(WebDriver driver) {
 
-        public EditAddressPage(WebDriver driver) {
-            super(driver);
-            PageFactory.initElements(driver, this);
-        }
+        super(driver);
 
-        @FindBy(name = "firstname")
-        private WebElement txtFirstName;
+        
+    }
 
-        @FindBy(name = "lastname")
-        private WebElement txtLastName;
+    //LOCATORS
 
-        @FindBy(name = "company")
-        private WebElement txtCompany;
+    @FindBy(name = "firstname")
+    private WebElement txtFirstName;
 
-        @FindBy(name = "address_1")
-        private WebElement txtAddress1;
+    @FindBy(name = "lastname")
+    private WebElement txtLastName;
 
-        @FindBy(name = "address_2")
-        private WebElement txtAddress2;
+    @FindBy(name = "company")
+    private WebElement txtCompany;
 
-        @FindBy(name = "city")
-        private WebElement txtCity;
+    @FindBy(name = "address_1")
+    private WebElement txtAddress1;
 
-        @FindBy(name = "postcode")
-        private WebElement txtPostcode;
+    @FindBy(name = "address_2")
+    private WebElement txtAddress2;
 
-        @FindBy(name = "country_id")
-        private WebElement drpCountry;
+    @FindBy(name = "city")
+    private WebElement txtCity;
 
-        @FindBy(name = "zone_id")
-        private WebElement drpRegion;
+    @FindBy(name = "postcode")
+    private WebElement txtPostcode;
 
-        @FindBy(xpath = "//input[@value='Continue']")
-        private WebElement btnContinue;
+    @FindBy(name = "country_id")
+    private WebElement drpCountry;
 
-        @FindBy(xpath = "//div[contains(@class,'alert-success')]")
-        private WebElement msgSuccess;
+    @FindBy(name = "zone_id")
+    private WebElement drpRegion;
 
-        // Fill the Edit Address form
-        public void updateAddress(String firstName, String lastName, String company,
-                                  String address1, String address2, String city,
-                                  String postcode, String country, String region) {
+    @FindBy(xpath = "//input[@value='Continue']")
+    private WebElement btnContinue;
 
-            txtFirstName.clear();
-            txtFirstName.sendKeys(firstName);
+    @FindBy(xpath = "//div[contains(@class,'alert-success')]")
+    private WebElement msgSuccess;
 
-            txtLastName.clear();
-            txtLastName.sendKeys(lastName);
+    @FindBy(xpath = "//input[@name='default' and @value='0']")
+    public WebElement radioDefaultNo;
 
-            txtCompany.clear();
-            txtCompany.sendKeys(company);
+    @FindBy(xpath = "//input[@name='default' and @value='1']")
+    public WebElement radioDefaultYes;
 
-            txtAddress1.clear();
-            txtAddress1.sendKeys(address1);
+    @FindBy(xpath = "//h1[normalize-space()='Edit Address']")
+    private WebElement headingEditAddress;
 
-            txtAddress2.clear();
-            txtAddress2.sendKeys(address2);
+    //ACTION METHODS
 
-            txtCity.clear();
-            txtCity.sendKeys(city);
+    public void updateAddress(
+            String firstName,
+            String lastName,
+            String company,
+            String address1,
+            String address2,
+            String city,
+            String postcode,
+            String country,
+            String region
+    ) {
 
-            txtPostcode.clear();
-            txtPostcode.sendKeys(postcode);
+        typeText(txtFirstName, firstName);
+        typeText(txtLastName, lastName);
+        typeText(txtCompany, company);
+        typeText(txtAddress1, address1);
+        typeText(txtAddress2, address2);
+        typeText(txtCity, city);
+        typeText(txtPostcode, postcode);
 
-            // Select Country
-            org.openqa.selenium.support.ui.Select selectCountry = new org.openqa.selenium.support.ui.Select(drpCountry);
-            selectCountry.selectByVisibleText(country);
+        Select selectCountry = new Select(drpCountry);
+        selectCountry.selectByVisibleText(country);
 
-            // Select Region
-            org.openqa.selenium.support.ui.Select selectRegion = new org.openqa.selenium.support.ui.Select(drpRegion);
-            selectRegion.selectByVisibleText(region);
-        }
+        Select selectRegion = new Select(drpRegion);
+        selectRegion.selectByVisibleText(region);
 
-        // Click Continue
-        public void clickContinue() {
-            btnContinue.click();
-        }
+        logger.info("Updated address details successfully.");
+    }
 
-        // Verify success message
-        public void verifySuccessMessage() {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.visibilityOf(msgSuccess));
-            Assert.assertTrue(msgSuccess.getText().contains("Your address has been successfully updated"),
-                    "Success message not displayed!");
-        }
+    public void clickContinue() {
 
+        clickElement(btnContinue);
 
+        logger.info("Clicked Continue button.");
+    }
 
-            @FindBy(xpath = "//input[@name='default'][@value='0']")
-            public WebElement radioDefaultNo;
+    public void verifySuccessMessage() {
 
-            @FindBy(xpath = "//input[@name='default'][@value='1']")
-            public WebElement radioDefaultYes;
+        Assert.assertTrue(
+                wait.until(
+                        ExpectedConditions.visibilityOf(msgSuccess)
+                ).getText().contains(
+                        "Your address has been successfully updated"
+                ),
+                "Success message not displayed!"
+        );
 
+        logger.info("Address update success message verified.");
+    }
 
-            // Uncheck default (select "No")
-            public void uncheckDefaultAddress() {
-                radioDefaultNo.click();
-            }
+    public void uncheckDefaultAddress() {
 
+        clickElement(radioDefaultNo);
+    }
 
-        }
+    public boolean isEditAddressPageDisplayed() {
 
+        return wait.until(
+                ExpectedConditions.visibilityOf(headingEditAddress)
+        ).isDisplayed();
+    }
 
-
-
-
+}

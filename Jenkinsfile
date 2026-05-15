@@ -2,44 +2,44 @@
     agent any
 
     environment {
-        MAVEN_HOME = 'C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2025.2\\plugins\\maven\\lib\\maven3'
-        JAVA_HOME = 'C:\\Users\\manis\\.jdks\\graalvm-jdk-21.0.8'
+        MAVEN_HOME = C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2025.2\\plugins\\maven\\lib\\maven3
+        JAVA_HOME = C:\\Users\\manis\\.jdks\\graalvm-jdk-21.0.8
         PATH = "${env.MAVEN_HOME}\\bin;${env.JAVA_HOME}\\bin;${env.PATH}"
     }
 
     stages {
-        stage('Checkout') {
+        stage(Checkout) {
             steps {
-                echo 'Checking out code from GitHub...'
+                echo Checking out code from GitHub...
                 checkout scm
             }
         }
 
-        stage('Build') {
+        stage(Build) {
             steps {
-                echo 'Compiling the project...'
-                bat 'mvn clean compile'
+                echo Compiling the project...
+                bat mvn clean compile
             }
         }
 
-        stage('Run Tests') {
+        stage(Run Tests) {
             steps {
-                echo 'Running Selenium tests...'
-                bat 'mvn test -Dsurefire.suiteXmlFiles=testng.xml'
+                echo Running Selenium tests...
+                bat mvn test -Dsurefire.suiteXmlFiles=testng.xml
             }
         }
 
-        stage('Publish Reports') {
+        stage(Publish Reports) {
             steps {
-                echo 'Publishing test reports...'
+                echo Publishing test reports...
                 publishHTML([
                     allowMissing: true,
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
-                    reportDir: 'reports',
-                    reportFiles: 'ExtentReport_*.html',
-                    reportName: 'Extent Test Report',
-                    reportTitles: 'Test Execution Report'
+                    reportDir: reports,
+                    reportFiles: ExtentReport_*.html,
+                    reportName: Extent Test Report,
+                    reportTitles: Test Execution Report
                 ])
             }
         }
@@ -47,15 +47,15 @@
 
     post {
         always {
-            echo 'Archiving artifacts...'
-            archiveArtifacts artifacts: 'screenshots/**/*.png',
+            echo Archiving artifacts...
+            archiveArtifacts artifacts: screenshots/**/*.png,
                              allowEmptyArchive: true
         }
         success {
-            echo 'Build succeeded!'
+            echo Build succeeded!
         }
         failure {
-            echo 'Build failed!'
+            echo Build failed!
         }
     }
 }

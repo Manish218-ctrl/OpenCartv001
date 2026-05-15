@@ -27,30 +27,30 @@ public class TC_NLT_006_ValidateNewsletterBackButtonTest extends BaseClass {
 
            performLogin();
 
-            // Step 2: Click on 'Newsletter' Right Column option
-            HomePage homepage= new HomePage(driver);
+            //Click on Newsletter Right Column option
+            HomePage homepage= new HomePage(getDriver());
 
             homepage.clickRightColumnNewsletter();
-            logger.info("Navigating to 'Newsletter Subscription' page.");
+            logger.info("Navigating to Newsletter Subscription page.");
 
-            // Step 3: Click on the 'Back' button in the Newsletter page
-            NewsletterPage newsletterPage = new NewsletterPage(driver);
-            newsletterPage.clickBackButton(); // Assuming there's a 'Back' button method
-            logger.info("Clicked on 'Back' button in Newsletter page.");
+            //Click on the Back button in the Newsletter page
+            NewsletterPage newsletterPage = new NewsletterPage(getDriver());
+            newsletterPage.clickBackButton(); // Assuming theres a Back button method
+            logger.info("Clicked on Back button in Newsletter page.");
 
-            // Step 4: Verify that the user is redirected to 'My Account' page
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
+            //Verify that the user is redirected to My Account page
+            MyAccountPage myAccountPage = new MyAccountPage(getDriver());
             boolean isMyAccountPageDisplayed = myAccountPage.isMyAccountPageExists();
-            Assert.assertTrue(isMyAccountPageDisplayed, "User is not redirected to 'My Account' page.");
-            logger.info("Successfully redirected to 'My Account' page.");
+            Assert.assertTrue(isMyAccountPageDisplayed, "User is not redirected to My Account page.");
+            logger.info("Successfully redirected to My Account' page.");
         }
 
         @AfterClass
         public void tearDown() {
             // Close the browser after the test is complete
             logger.info("Test completed. Closing the browser.");
-            if (driver != null) {
-                driver.quit();
+            if (getDriver() != null) {
+                getDriver().quit();
             }
         }
     }

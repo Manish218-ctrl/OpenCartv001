@@ -22,21 +22,21 @@ public class TC_OI_006_ValidateOrderInformationPageURLTitleTest extends BaseClas
             performLogin();
 
 
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
+            MyAccountPage myAccountPage = new MyAccountPage(getDriver());
             myAccountPage.clickOrderHistory();
 
             // Initialize the page objects
-            orderHistoryPage = new OrderHistoryPage(driver);
-            orderInformationPage = new OrderInformationPage(driver);
+            orderHistoryPage = new OrderHistoryPage(getDriver());
+            orderInformationPage = new OrderInformationPage(getDriver());
         }
 
-        @Test(priority = 1, description = "Validate the URL, Page Title, and Page Heading of the 'Order Information' page")
+        @Test(priority = 1, description = "Validate the URL, Page Title, and Page Heading of the Order Information page")
         public void testOrderInformationPageValidation() {
             // Navigate to Order History page
             orderHistoryPage.clickFirstOrderViewIcon();
 
             // Get the current URL, Title, and Heading of the Order Information Page
-            String currentURL = driver.getCurrentUrl();
+            String currentURL = getDriver().getCurrentUrl();
             String pageTitle = orderInformationPage.getPageTitle();
             String pageHeading = orderInformationPage.getOrderDetailsText(); // Assuming this represents the page heading
 
@@ -47,7 +47,7 @@ public class TC_OI_006_ValidateOrderInformationPageURLTitleTest extends BaseClas
             Assert.assertEquals(pageTitle, "Order Information", "Page title validation failed. Expected: Order Information, but found: " + pageTitle);
 
             // Validate the Page Heading
-            Assert.assertTrue(pageHeading.contains("Order Details"), "Page heading validation failed. Expected 'Order Details', but found: " + pageHeading);
+            Assert.assertTrue(pageHeading.contains("Order Details"), "Page heading validation failed. Expected Order Details, but found: " + pageHeading);
 
             // Optionally, you can log results
             logger.info("Order Information Page validated successfully with the correct URL, Title, and Heading.");

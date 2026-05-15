@@ -14,16 +14,16 @@ public class TC_HMF_003_ValidateRemoveButtonInShoppingCartTest extends BaseClass
         logger.info("***** Starting TC_HMF_003_ValidateRemoveButtonInShoppingCartTest *****");
 
         try {
-            HomePage homepage = new HomePage(driver);
-            HomePage home=new HomePage(driver);
+            HomePage homepage = new HomePage(getDriver());
+            HomePage home=new HomePage(getDriver());
 
-            // Step 1: Add MacBook
+            //Add MacBook
             homepage.enterSearchText("MacBook");
             homepage.clickSearchButton();
             homepage.clickAddToCart("MacBook");
             homepage.clickViewCartFromSuccessAlert();   //  ensures navigation to cart page
 
-            // Step 2: Add HP LP3065
+            //Add HP LP3065
             homepage.enterSearchText("HP LP3065");
             homepage.clickSearchButton();
             homepage.clickAddToCart("HP LP3065");
@@ -31,8 +31,8 @@ public class TC_HMF_003_ValidateRemoveButtonInShoppingCartTest extends BaseClass
 
             homepage.clickViewCartFromSuccessAlert();   // ensures navigation to cart page
 
-            // Step 3: Validate items in cart
-            ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
+            //Validate items in cart
+            ShoppingCartPage shoppingCartPage = new ShoppingCartPage(getDriver());
 
             Assert.assertTrue(shoppingCartPage.isProductInCart("MacBook"),
                     "MacBook is not in the cart.");
@@ -42,10 +42,10 @@ public class TC_HMF_003_ValidateRemoveButtonInShoppingCartTest extends BaseClass
                     "HP LP3065 is not in the cart.");
             logger.info("HP LP3065 is present in the cart.");
 
-            // Step 4: Remove MacBook from the cart
+            //Remove MacBook from the cart
             shoppingCartPage.removeProduct("MacBook");
 
-            // Step 5: Validate MacBook is removed
+            //Validate MacBook is removed
             Assert.assertFalse(shoppingCartPage.isProductInCart("MacBook"),
                     "MacBook was not removed from the cart.");
             logger.info("MacBook removed successfully from the cart.");
@@ -57,4 +57,6 @@ public class TC_HMF_003_ValidateRemoveButtonInShoppingCartTest extends BaseClass
             Assert.fail("Test failed due to exception: " + e.getMessage());
         }
     }
+
+
 }

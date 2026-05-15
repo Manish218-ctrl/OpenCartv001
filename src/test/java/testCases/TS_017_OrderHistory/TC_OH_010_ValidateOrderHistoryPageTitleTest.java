@@ -15,22 +15,22 @@ import testBase.BaseClass;
         @Test
         public void validateOrderHistoryPage() {
             // Initialize homepage and login
-            HomePage home = new HomePage(driver);
+            HomePage home = new HomePage(getDriver());
             home.clickMyAccount();
             home.clickLogin();
 
             // Perform login
-            LoginPage loginPage = new LoginPage(driver);
+            LoginPage loginPage = new LoginPage(getDriver());
             loginPage.login(username, password);
             logger.info("Login successful.");
 
             // Navigate to My Account Page
-            MyAccountPage myAccount = new MyAccountPage(driver);
+            MyAccountPage myAccount = new MyAccountPage(getDriver());
             myAccount.clickOrderHistory();
             logger.info("Clicked on Order History link.");
 
             // Initialize OrderHistoryPage object
-            OrderHistoryPage orderHistory = new OrderHistoryPage(driver);
+            OrderHistoryPage orderHistory = new OrderHistoryPage(getDriver());
 
             // Validate Page Title
             String expectedPageTitle = "Order History";
@@ -39,8 +39,8 @@ import testBase.BaseClass;
             Assert.assertEquals(actualPageTitle, expectedPageTitle, "Page Title mismatch.");
 
             // Validate URL
-            String currentURL = driver.getCurrentUrl();
-            String expectedURL = rb.getString("appURL") + "index.php?route=account/order"; // Adjust if needed
+            String currentURL = getDriver().getCurrentUrl();
+            String expectedURL = p.getProperty("appURL") + "index.php?route=account/order"; // Adjust if needed
             logger.info("Actual Page URL: " + currentURL);
             Assert.assertEquals(currentURL, expectedURL, "Page URL mismatch.");
 

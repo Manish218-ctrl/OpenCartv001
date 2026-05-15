@@ -18,28 +18,28 @@ import testBase.BaseClass;
                 // 1. Open application is handled in BaseClass (setup)
 
                 // 2. Enter search keyword (iMac)
-                SearchPage sp = new SearchPage(driver);
+                SearchPage sp = new SearchPage(getDriver());
                 sp.enterSearchKeyword("iMac");
                 sp.clickSearchButton();
-                logger.info("Searched for 'iMac'");
+                logger.info("Searched for iMac");
 
                 // 3. Click on the product from results
                 Assert.assertTrue(sp.isProductDisplayed("iMac"), "iMac not found in search results");
                 sp.clickFirstProductName();
-                logger.info("Clicked on 'iMac' product link");
+                logger.info("Clicked on iMac product link");
 
                 // 4. Click "Add to Cart" on product display page
-                ProductDisplayPage pdp = new ProductDisplayPage(driver);
+                ProductDisplayPage pdp = new ProductDisplayPage(getDriver());
                 Assert.assertTrue(pdp.isOnProductDisplayPage(), "Not on Product Display Page");
                 pdp.clickAddToCartButton();
-                logger.info("Clicked 'Add to Cart' button");
+                logger.info("Clicked Add to Cart button");
 
                 // 5. Click "shopping cart!" link in success message
                 pdp.clickShoppingCartLinkInSuccessMessage();
-                logger.info("Clicked 'shopping cart!' link from success message");
+                logger.info("Clicked shopping cart! link from success message");
 
                 // 6. Validate user is on Shopping Cart page
-                String actualTitle = driver.getTitle();
+                String actualTitle = getDriver().getTitle();
                 Assert.assertTrue(actualTitle.contains("Shopping Cart"),
                         "Not navigated to Shopping Cart page. Title is: " + actualTitle);
                 logger.info("Validation Passed: User is on Shopping Cart page");

@@ -14,14 +14,14 @@ public class TC_LF_009_ValidateUnsuccessfulLoginAttemptsTest extends BaseClass {
         logger.info("***** Starting TC_LF_009_ValidateUnsuccessfulLoginAttemptsTest *****");
 
         try {
-            driver.get(rb.getString("appURL")); // opens https://demo.opencart.com
+            getDriver().get(p.getProperty("appURL")); // opens https://demo.opencart.com
             logger.info("URL opened");
 
-            HomePage hp = new HomePage(driver);
+            HomePage hp = new HomePage(getDriver());
             hp.clickMyAccount();
             hp.clickLogin();
 
-            LoginPage lp = new LoginPage(driver);
+            LoginPage lp = new LoginPage(getDriver());
 
             String invalidEmail = "xyzabc123@gmail.com";
             String invalidPassword = "xyzabc123";

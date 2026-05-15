@@ -15,9 +15,9 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_HP_001: Navigate from Shopping Cart to Home Page *****");
 
             try {
-                HomePage home = new HomePage(driver);
+                HomePage home = new HomePage(getDriver());
 
-                // Step 1: Search for product
+                //Search for product
                 home.enterSearchText(productName);
                 home.clickSearchButton();
                 home.selectListView();
@@ -26,17 +26,17 @@ import testBase.BaseClass;
                 home.clickshoppingcartbtnmsg();
                 logger.info("Navigated to checkout page");
 
-                logger.info("Clicked 'Add to Cart' button for: " + productName);
+                logger.info("Clicked Add to Cart button for: " + productName);
 
-                // Step 2: Click 'shopping cart!' link in success message
-                ProductDisplayPage pdp = new ProductDisplayPage(driver);
-                logger.info("Clicked 'shopping cart!' link in success message");
+                //Click shopping cart! link in success message
+                ProductDisplayPage pdp = new ProductDisplayPage(getDriver());
+                logger.info("Clicked shopping cart! link in success message");
 
-                // Step 4: Click 'Continue Shopping' button to go back to home page
+                //Click Continue Shopping button to go back to home page
                 home.clickContinueShopping(); // You can create this method in HomePage if missing
-                logger.info("Clicked 'Continue Shopping' button");
+                logger.info("Clicked Continue Shopping button");
 
-                // Step 5: Validate user is on Home Page
+                //Validate user is on Home Page
                 String pageTitle = home.getPageTitle();
                 logger.info("Current Page Title: " + pageTitle);
                 Assert.assertTrue(pageTitle.contains("Your Store"), "User is not on Home Page");

@@ -20,23 +20,23 @@ import java.time.Duration;
             logger.info("***** Starting TC_CP_006_ValidatePasswordMismatchTest *****");
 
             try {
-                // Step 1: Login
-                logger.info("Step 1: Logging in with valid credentials...");
+                //Login
+                logger.info("Logging in with valid credentials...");
                 performLogin();  // BaseClass login method
                 logger.info("Login successful.");
 
-                // Step 2: Navigate to 'Change Password' page
-                logger.info("Step 2: Navigating to Change Password page...");
-                HomePage home = new HomePage(driver);
+                //Navigate to Change Password page
+                logger.info("Navigating to Change Password page...");
+                HomePage home = new HomePage(getDriver());
                 home.clickMyAccountFromDropdown();
                 home.clickChangePasswordLink();
                 logger.info("Navigated to Change Password page.");
 
-                // Step 3: Initialize ChangePasswordPage
-                ChangePasswordPage changePasswordPage = new ChangePasswordPage(driver);
+                //Initialize ChangePasswordPage
+                ChangePasswordPage changePasswordPage = new ChangePasswordPage(getDriver());
 
-                // Step 4: Enter different passwords
-                logger.info("Step 3: Entering mismatched passwords...");
+                //Enter different passwords
+                logger.info("Entering mismatched passwords...");
                 String newPassword = randomAlphaNumeric();
                 String confirmPassword = randomAlphaNumeric();  // intentionally different
                 logger.info("New Password: " + newPassword + ", Confirm Password: " + confirmPassword);
@@ -44,13 +44,13 @@ import java.time.Duration;
                 changePasswordPage.setNewPassword(newPassword);
                 changePasswordPage.setConfirmPassword(confirmPassword);
 
-                // Step 5: Click 'Continue'
-                logger.info("Step 4: Clicking Continue...");
+                //Click Continue
+                logger.info("Clicking Continue...");
                 changePasswordPage.clickContinue();
 
-                // Step 6: Validate warning message
-                logger.info("Step 5: Validating warning message for password mismatch...");
-                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+                //Validate warning message
+                logger.info("Validating warning message for password mismatch...");
+                WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
                 WebElement warningElement = wait.until(
                         ExpectedConditions.visibilityOf(changePasswordPage.getWarningMessageElement())
                 );

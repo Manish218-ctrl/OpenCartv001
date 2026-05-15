@@ -14,11 +14,11 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_RCP_007 - Validate Page URL, Page Title and Page Heading of Recurring Payments Page *****");
 
             try {
-                // Step 1: Login to the application (already handled in BaseClass)
+                //Login to the application (already handled in BaseClass)
                 performLogin();
 
-                // Step 2: Navigate to "My Account" dropdown and click "Recurring Payments"
-                HomePage homepage = new HomePage(driver);
+                //Navigate to "My Account" dropdown and click "Recurring Payments"
+                HomePage homepage = new HomePage(getDriver());
                 homepage.clickMyAccount();
                 homepage.clickMyAccountFromDropdown();
                 logger.info("Navigated to My Account page from the dropdown.");
@@ -27,15 +27,15 @@ import testBase.BaseClass;
                 homepage.clickRecurringPaymentsLink();
                 logger.info("Navigated to the Recurring Payments page.");
 
-                // Step 3: Verify that the page URL is correct
-                String currentURL = driver.getCurrentUrl();
+                //Verify that the page URL is correct
+                String currentURL = getDriver().getCurrentUrl();
                 Assert.assertTrue(currentURL.contains("recurring"), "Incorrect URL for Recurring Payments page. Current URL: " + currentURL);
                 logger.info("Page URL is correct: " + currentURL);
 
-                // Step 4: Verify the page title
-                RecurringPaymentsPage recurringPaymentsPage = new RecurringPaymentsPage(driver);
+                //Verify the page title
+                RecurringPaymentsPage recurringPaymentsPage = new RecurringPaymentsPage(getDriver());
                 String pageTitle = recurringPaymentsPage.getPageTitle();
-                Assert.assertEquals(pageTitle, "Recurring Payments", "Page Title is incorrect. Expected: 'Recurring Payments', but found: " + pageTitle);
+                Assert.assertEquals(pageTitle, "Recurring Payments", "Page Title is incorrect. Expected: Recurring Payments, but found: " + pageTitle);
                 logger.info("Page title is correct: " + pageTitle);
 
 

@@ -16,18 +16,15 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_LF_003_ValidateInvalidEmailValidPasswordTest *****");
 
             try {
-                // Navigate to Login page
-                HomePage hp = new HomePage(driver);
+                HomePage hp = new HomePage(getDriver());
                 hp.clickMyAccount();
                 hp.clickLogin();
 
-                // Login Page
-                LoginPage lp = new LoginPage(driver);
+                LoginPage lp = new LoginPage(getDriver());
                 lp.setEmail("xyzabc123@gmail.com");   // invalid email
                 lp.setPassword("12345");              // valid password
                 lp.clickLogin();
 
-                // Capture warning message
                 String warningMsg = lp.getWarningMessage();
                 logger.info("Captured Warning: " + warningMsg);
 

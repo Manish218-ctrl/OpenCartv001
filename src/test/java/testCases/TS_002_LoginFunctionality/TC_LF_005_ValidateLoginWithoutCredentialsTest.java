@@ -16,18 +16,14 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_LF_005_ValidateLoginWithoutCredentialsTest *****");
 
             try {
-                // Navigate to Login Page
-                HomePage hp = new HomePage(driver);
+                HomePage hp = new HomePage(getDriver());
                 hp.clickMyAccount();
                 hp.clickLogin();
 
-                // LoginPage
-                LoginPage lp = new LoginPage(driver);
+                LoginPage lp = new LoginPage(getDriver());
 
-                // Do not enter email & password (leave blank)
-                lp.clickLogin();  // click Login directly
+                lp.clickLogin();
 
-                // Validate expected warning
                 String actWarning = lp.getWarningMessage();
                 String expWarning = "Warning: No match for E-Mail Address and/or Password.";
 

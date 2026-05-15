@@ -21,12 +21,12 @@ import testBase.BaseClass;
                 logger.info("Login successful.");
 
                 //Navigate to My Account page
-                HomePage home = new HomePage(driver);
+                HomePage home = new HomePage(getDriver());
                 home.clickMyAccount(); // open dropdown
                 home.clickMyAccountFromDropdown(); // click My Account link
 
                 //Create MyAccountPage object
-                MyAccountPage myAccountPage = new MyAccountPage(driver);
+                MyAccountPage myAccountPage = new MyAccountPage(getDriver());
 
                 //Validate Page Title
                 String actualTitle = myAccountPage.getPageTitle();

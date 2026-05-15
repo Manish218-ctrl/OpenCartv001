@@ -13,35 +13,35 @@ public class TC_PC_007_ValidateProductCompareFromFeaturedTest extends BaseClass 
         logger.info("***** Starting TC_PC_007_ValidateProductCompareFromFeaturedTest *****");
 
         try {
-            FeaturedSectionPage featured = new FeaturedSectionPage(driver);
+            FeaturedSectionPage featured = new FeaturedSectionPage(getDriver());
 
-            // Step 1: Get featured product name
+            //Get featured product name
             String productName = featured.getFirstFeaturedProductName();
             logger.info("Featured product selected: " + productName);
 
-            // Step 2: Hover on Compare button and validate tooltip
+            //Hover on Compare button and validate tooltip
             featured.hoverOnCompareButton();
             Assert.assertTrue(featured.isCompareTooltipDisplayed(),
-                    "ERROR: Tooltip 'Compare this Product' not displayed.");
+                    "ERROR: Tooltip Compare this Product not displayed.");
 
-            // Step 3: Click Compare button
+            //Click Compare button
             featured.clickCompareButton();
 
-            // Step 4: Validate success message
+            //Validate success message
             String successMsg = featured.getSuccessMessage();
             String expectedMsg = "Success: You have added " + productName + " to your product comparison!";
             Assert.assertTrue(successMsg.contains(expectedMsg),
                     "ERROR: Success message mismatch. Expected: " + expectedMsg + " | Actual: " + successMsg);
 
-            // Step 5: Click Product Comparison link
+            //Click Product Comparison link
             featured.clickProductComparisonLink();
 
-            // Step 6: Verify Product Comparison page
-            ProductComparisonPage cmp = new ProductComparisonPage(driver);
+            //Verify Product Comparison page
+            ProductComparisonPage cmp = new ProductComparisonPage(getDriver());
             Assert.assertTrue(cmp.isOnComparisonPage(),
                     "ERROR: Not navigated to Product Comparison page.");
             Assert.assertTrue(cmp.isProductPresent(productName),
-                    "ERROR: Product '" + productName + "' not found in comparison table.");
+                    "ERROR: Product " + productName + " not found in comparison table.");
 
             logger.info("Product Comparison page successfully shows featured product: " + productName);
 

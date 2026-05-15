@@ -13,23 +13,23 @@ import testBase.BaseClass;
         public void validateAccountDownloadsBreadcrumb() {
             logger.info("=== Starting TC_DL_010: Validate Breadcrumb on Account Downloads page ===");
 
-            // Step 1: Perform login
+            //Perform login
             performLogin();
             logger.info("User logged in successfully.");
 
-            // Step 2: Navigate to My Account -> Downloads (Right Column)
-            MyAccountPage myAccountPage = new MyAccountPage(driver);
+            //Navigate to My Account -> Downloads (Right Column)
+            MyAccountPage myAccountPage = new MyAccountPage(getDriver());
             myAccountPage.clickDownloadsFromRightColumn();
-            logger.info("Clicked on 'Downloads' link from Right Column in My Account page.");
+            logger.info("Clicked on Downloads link from Right Column in My Account page.");
 
-            // Step 3: Initialize DownloadsPage
-            DownloadsPage downloadsPage = new DownloadsPage(driver);
+            //Initialize DownloadsPage
+            DownloadsPage downloadsPage = new DownloadsPage(getDriver());
 
-            // Step 4: Validate breadcrumb
+            //Validate breadcrumb
             String breadcrumbText = downloadsPage.getBreadcrumbText();
             logger.info("Breadcrumb displayed: " + breadcrumbText);
 
-            // Step 5: Assertion (expected breadcrumb text may vary; update as per your app)
+            //Assertion (expected breadcrumb text may vary; update as per your app)
             String expectedBreadcrumb = "Downloads";
             Assert.assertEquals(breadcrumbText, expectedBreadcrumb, "Breadcrumb text validation failed!");
 

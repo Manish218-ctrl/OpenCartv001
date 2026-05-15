@@ -1,50 +1,63 @@
 package testCases.TS_017_OrderHistory;
 
-
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.MyAccountPage;
 import pageObjects.OrderHistoryPage;
 import testBase.BaseClass;
 
-    public class TC_OH_007_ValidateContinueButtononOrderHistoryPageTest extends BaseClass {
+public class TC_OH_007_ValidateContinueButtononOrderHistoryPageTest extends BaseClass {
 
-        @Test(groups = {"Regression", "OrderHistory"})
-        public void validateContinueButtonFromOrderHistory() {
-            logger.info("***** Starting TC_OH_007_ValidateContinueButtononOrderHistoryPageTest *****");
+    @Test(groups = {"Regression", "OrderHistory"})
+    public void validateContinueButtonFromOrderHistory() {
 
-            try {
-                // Step 1: Perform Login
-                performLogin();
-                logger.info("User logged in successfully.");
+        logger.info("***** Starting TC_OH_007_ValidateContinueButtononOrderHistoryPageTest *****");
 
-                // Step 2: Navigate to My Account -> Order History
-                MyAccountPage myAccountPage = new MyAccountPage(driver);
-                myAccountPage.clickOrderHistory();
-                logger.info("Navigated to 'Order History' page.");
+        try {
 
-                // Step 3: Create Page Object for Order History Page
-                OrderHistoryPage orderHistoryPage = new OrderHistoryPage(driver);
+            // Perform Login
+            performLogin();
 
-                // Click on Continue button
-                driver.findElement(org.openqa.selenium.By.xpath("//a[text()='Continue']")).click();
-                logger.info("Clicked 'Continue' button on Order History page.");
+            logger.info("User logged in successfully.");
 
-                // Step 4: Validate user is redirected to My Account page
-                boolean myAccountExists = myAccountPage.isMyAccountPageExists();
-                Assert.assertTrue(myAccountExists, "User is NOT redirected to My Account page after clicking Continue!");
+            // Navigate to Order History
+            MyAccountPage myAccountPage = new MyAccountPage(getDriver());
 
-                logger.info("User successfully redirected to My Account page after clicking Continue.");
-                logger.info("***** Finished TC_OH_007_ValidateContinueButtonTest *****");
+            myAccountPage.clickOrderHistory();
 
-            } catch (Exception e) {
-                logger.error("Test Case Failed due to exception: " + e.getMessage());
-                Assert.fail("Test Case Failed due to exception: " + e.getMessage());
-            }
+            logger.info("Navigated to Order History page.");
+
+            // Initialize OrderHistoryPage
+            OrderHistoryPage orderHistoryPage =
+                    new OrderHistoryPage(getDriver());
+
+            // Click Continue button
+            orderHistoryPage.clickContinueButton();
+
+            logger.info("Clicked Continue button on Order History page.");
+
+            // Validate navigation back to My Account page
+            Assert.assertTrue(
+                    myAccountPage.isMyAccountPageExists(),
+                    "User is NOT redirected to My Account page after clicking Continue!"
+            );
+
+            logger.info("User successfully redirected to My Account page after clicking Continue.");
+
+            logger.info("***** Finished TC_OH_007_ValidateContinueButtonTest *****");
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Test Case Failed due to exception: {}",
+                    e.getMessage(),
+                    e
+            );
+
+            Assert.fail(
+                    "Test Case Failed due to exception: "
+                            + e.getMessage()
+            );
         }
     }
-
-
-
-
+}

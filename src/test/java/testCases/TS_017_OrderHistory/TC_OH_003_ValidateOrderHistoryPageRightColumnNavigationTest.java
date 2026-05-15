@@ -21,9 +21,9 @@ public class TC_OH_003_ValidateOrderHistoryPageRightColumnNavigationTest extends
     @BeforeClass
     public void setup() {
         // Initialize Page Objects
-        homepage = new HomePage(driver);
-        myAccountPage = new MyAccountPage(driver);
-        orderHistoryPage = new OrderHistoryPage(driver);
+        homepage = new HomePage(getDriver());
+        myAccountPage = new MyAccountPage(getDriver());
+        orderHistoryPage = new OrderHistoryPage(getDriver());
 
         // Login to the application
         performLogin();
@@ -32,11 +32,11 @@ public class TC_OH_003_ValidateOrderHistoryPageRightColumnNavigationTest extends
 
     @Test(priority = 1)
     public void verifyNavigationToOrderHistoryPageFromRightColumn() {
-        // Step 1: Click on 'Order History' link from My Account right column
+        //Click on Order History link from My Account right column
         myAccountPage.clickOrderHistory();
-        logger.info("Clicked on 'Order History' link from My Account right column.");
+        logger.info("Clicked on Order History link from My Account right column.");
 
-        // Step 2: Validate navigation to Order History Page
+        //Validate navigation to Order History Page
         String pageTitle = orderHistoryPage.getTitle();
         Assert.assertEquals(pageTitle, "Order History", "User is not navigated to Order History page.");
         logger.info("Navigation to Order History page validated successfully.");

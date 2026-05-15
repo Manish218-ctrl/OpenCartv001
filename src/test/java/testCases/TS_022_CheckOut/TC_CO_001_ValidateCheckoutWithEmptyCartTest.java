@@ -13,9 +13,9 @@ import testBase.BaseClass;
         public void verifyCheckoutWithEmptyCart() throws InterruptedException {
             logger.info("***** Starting TC_CO_001_CheckoutEmptyCart *****");
             performLogin();
-            HomePage home = new HomePage(driver);
+            HomePage home = new HomePage(getDriver());
 
-            // Step 1: Navigate directly to Shopping Cart
+            //Navigate directly to Shopping Cart
             home.clickdircartbtn();
 
 
@@ -27,7 +27,7 @@ import testBase.BaseClass;
             Assert.assertTrue(breadcrumb.contains("Shopping Cart"),
                     "User is not on Shopping Cart page as expected.");
 
-            // Step 2: Try to navigate to Checkout
+            //Try to navigate to Checkout
             home.clickCheckoutemptycart();
 
             // Validate user is still on "Shopping Cart" (not actual checkout)

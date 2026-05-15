@@ -17,30 +17,30 @@ import testBase.BaseClass;
             logger.info("=== Starting TC_DL_005: Navigate to Account Downloads ===");
 
             // Initialize Page Objects
-            HomePage home = new HomePage(driver);
-            MyAccountPage myAccount = new MyAccountPage(driver);
-            LoginPage loginPage = new LoginPage(driver);
+            HomePage home = new HomePage(getDriver());
+            MyAccountPage myAccount = new MyAccountPage(getDriver());
+            LoginPage loginPage = new LoginPage(getDriver());
 
-            // Step 1: Click 'My Account' dropdown
+            //Click My Account dropdown
             home.clickMyAccount();
-            logger.info("Clicked on 'My Account' dropdown");
+            logger.info("Clicked on My Account dropdown");
 
-            // Step 2: Click 'Register' option
+            //Click Register option
             home.clickRegister();
-            logger.info("Clicked on 'Register' link");
+            logger.info("Clicked on Register link");
 
-            // Step 3: Click 'Downloads' from Right Column (before login)
+            //Click Downloads from Right Column (before login)
             myAccount.clickDownloadsFromRightColumn();
-            logger.info("Clicked on 'Downloads' link from Right Column");
+            logger.info("Clicked on Downloads link from Right Column");
 
-            // Step 4: Enter credentials & click login
+            //Enter credentials & click login
             loginPage.login(username, password);
             logger.info("Entered credentials and clicked login");
 
             // Validation 1: User should be logged in
             Assert.assertTrue(myAccount.isUserLoggedIn(), "User login failed");
 
-            // Validation 2: Verify user is navigated to 'Account Downloads' page
+            // Validation 2: Verify user is navigated to Account Downloads page
             String expectedTitle = "Account Downloads";  // Replace with actual page title
             Assert.assertTrue(myAccount.getPageTitle().contains(expectedTitle),
                     "Failed to navigate to Account Downloads page");

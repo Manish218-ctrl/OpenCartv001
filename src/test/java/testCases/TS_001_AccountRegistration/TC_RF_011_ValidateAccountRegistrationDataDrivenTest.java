@@ -11,37 +11,65 @@ import pageObjects.AccountRegistrationPage;
 import pageObjects.HomePage;
 import testBase.BaseClass;
 import utilities.ExcelUtility;
-import java.time.Duration;
 
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TC_RF_011_ValidateAccountRegistrationDataDrivenTest extends BaseClass {
 
-    @DataProvider(name="RegistrationDataFromExcel")
+    @DataProvider(name = "RegistrationDataFromExcel")
     public Object[][] getRegistrationData() {
-        Object[][] rawData = ExcelUtility.getTestData("RegistrationData.xlsx", "Sheet1");
 
-        int startIndex = 0;
-        if (rawData.length > 0) {
-            String firstCell = String.valueOf(rawData[0][0]);
-            if (firstCell.contains("H0") || firstCell.equals("Data Set ID") ||
-                    firstCell.equals("Column A")) {
-                startIndex = 1;
+        Object[][] rawData =
+                ExcelUtility.getTestData(
+                        "RegistrationData.xlsx",
+                        "Sheet1"
+                );
+
+        List<Object[]> filteredData =
+                new ArrayList<>();
+
+        for (Object[] row : rawData) {
+
+            String dataSetId =
+                    row[0].toString().trim();
+
+            if (dataSetId.equalsIgnoreCase("H01") ||
+                    dataSetId.equalsIgnoreCase("Data Set ID")) {
+
+                logger.info(
+                        "Skipping Header Dataset: {}",
+                        dataSetId
+                );
+
+                continue;
             }
+
+            filteredData.add(row);
         }
 
-        if (startIndex > 0 && rawData.length > startIndex) {
-            Object[][] cleanData = new Object[rawData.length - startIndex][];
-            System.arraycopy(rawData, startIndex, cleanData, 0, rawData.length - startIndex);
-            System.out.println("Loaded " + cleanData.length + " test data sets.");
-            return cleanData;
+        logger.info(
+                "Loaded {} valid test data sets.",
+                filteredData.size()
+        );
+
+        for (Object[] row : filteredData) {
+
+            logger.info(
+                    "FINAL DATASET => {}",
+                    row[0]
+            );
         }
 
-        return rawData;
+        return filteredData.toArray(new Object[0][]);
     }
 
-    @Test(dataProvider = "RegistrationDataFromExcel",
+    @Test(
+            dataProvider = "RegistrationDataFromExcel",
             groups = {"Sanity", "Regression", "DataDriven"},
-            description = "Data-driven test for account registration with various scenarios")
+            description = "Data-driven test for account registration with various scenarios"
+    )
     public void verify_account_registration(
             String dataSetId,
             String testObjective,
@@ -49,108 +77,262 @@ public class TC_RF_011_ValidateAccountRegistrationDataDrivenTest extends BaseCla
             String lname,
             String telephone,
             String password,
-            String expMsg)
-    {
-        logger.info("Data Set: {} | Objective: {}", dataSetId, testObjective);
-        logger.info("User: {} {} | Tel: {} | Pwd: {}",
-                fname, lname, telephone, password.replaceAll(".", "*"));
+            String expMsg
+    ) {
+
+        logger.info(
+                "Data Set: {} | Objective: {}",
+                dataSetId,
+                testObjective
+        );
+
+        logger.info(
+                "User: {} {} | Tel: {} | Pwd: {}",
+                fname,
+                lname,
+                telephone,
+                password.replaceAll(".", "*")
+        );
 
         boolean registrationSuccessful = false;
 
         try {
-            HomePage homePage = new HomePage(driver);
+
+            HomePage homePage =
+                    new HomePage(getDriver());
+
             homePage.clickMyAccount();
             homePage.clickRegister();
-            logger.info("Navigated to Registration Page");
 
-            AccountRegistrationPage regPage = new AccountRegistrationPage(driver);
+            logger.info(
+                    "Navigated to Registration Page"
+            );
+
+            AccountRegistrationPage regPage =
+                    new AccountRegistrationPage(getDriver());
 
             regPage.setFirstName(fname);
             regPage.setLastName(lname);
 
-            String uniqueEmail = randomString().toLowerCase() + "@test.com";
+            String uniqueEmail =
+                    randomString().toLowerCase() + "@test.com";
+
             regPage.setEmail(uniqueEmail);
-            logger.debug("Generated email: {}", uniqueEmail);
+
+            logger.debug(
+                    "Generated email: {}",
+                    uniqueEmail
+            );
 
             regPage.setTelephone(telephone);
 
             regPage.setPassword(password);
 
             if (testObjective.contains("Password Mismatch") ||
-                    testObjective.contains("Mismatch") ||
-                    dataSetId.equals("2")) {
-                String differentPassword = password + "X"; // Append "X" to make it different
-                regPage.setConfirmPassword(differentPassword);
-                logger.debug("Set Password: {} | Confirm Password: {} (MISMATCH)",
+                    testObjective.contains("Mismatch")) {
+
+                String differentPassword =
+                        password + "X";
+
+                regPage.setConfirmPassword(
+                        differentPassword
+                );
+
+                logger.debug(
+                        "Set Password: {} | Confirm Password: {} (MISMATCH)",
                         password.replaceAll(".", "*"),
-                        differentPassword.replaceAll(".", "*"));
+                        differentPassword.replaceAll(".", "*")
+                );
+
             } else {
+
                 regPage.setConfirmPassword(password);
-                logger.debug("Set Password: {} | Confirm Password: {} (MATCH)",
+
+                logger.debug(
+                        "Set Password: {} | Confirm Password: {} (MATCH)",
                         password.replaceAll(".", "*"),
-                        password.replaceAll(".", "*"));
+                        password.replaceAll(".", "*")
+                );
             }
 
             regPage.setPrivacyPolicy();
+
             regPage.clickContinue();
 
-            logger.info("Registration form submitted");
+            logger.info(
+                    "Registration form submitted"
+            );
 
-            Thread.sleep(1500);
+            WebDriverWait wait =
+                    new WebDriverWait(
+                            getDriver(),
+                            Duration.ofSeconds(10)
+                    );
 
-            String actualMsg = regPage.getConfirmationMsg();
-            logger.info("Expected: '{}'", expMsg);
-            logger.info("Actual:   '{}'", actualMsg);
+            wait.until(
+                    ExpectedConditions.or(
+
+                            ExpectedConditions.visibilityOfElementLocated(
+                                    By.xpath(
+                                            "//div[contains(@class,'alert-success')]"
+                                    )
+                            ),
+
+                            ExpectedConditions.visibilityOfElementLocated(
+                                    By.xpath(
+                                            "//div[contains(@class,'alert-danger')]"
+                                    )
+                            ),
+
+                            ExpectedConditions.visibilityOfElementLocated(
+                                    By.xpath(
+                                            "//div[@id='content']//h1"
+                                    )
+                            )
+                    )
+            );
+
+            String actualMsg;
+
+            if (testObjective.contains("Invalid Phone")) {
+
+                actualMsg =
+                        regPage.getTelephoneWarning();
+
+            } else {
+
+                actualMsg =
+                        regPage.getConfirmationMsg();
+            }
+
+            logger.info(
+                    "Expected: {}",
+                    expMsg
+            );
+
+            logger.info(
+                    "Actual: {}",
+                    actualMsg
+            );
 
             if (actualMsg.contains("Been Created") ||
                     actualMsg.contains("Your Account Has Been Created")) {
+
                 registrationSuccessful = true;
-                logger.info("Account created successfully");
+
+                logger.info(
+                        "Account created successfully"
+                );
             }
 
-            Assert.assertEquals(actualMsg, expMsg,
-                    String.format("Message mismatch for '%s %s' (Data Set: %s)",
-                            fname, lname, dataSetId));
+            Assert.assertEquals(
+                    actualMsg,
+                    expMsg,
+                    String.format(
+                            "Message mismatch for %s %s (Data Set: %s)",
+                            fname,
+                            lname,
+                            dataSetId
+                    )
+            );
 
-            logger.info("TEST PASSED - Data Set: {} | {}", dataSetId, testObjective);
+            logger.info(
+                    "TEST PASSED - Data Set: {} | {}",
+                    dataSetId,
+                    testObjective
+            );
 
         } catch (AssertionError ae) {
-            logger.error("ASSERTION FAILED - Data Set: {} | {}", dataSetId, testObjective);
-            logger.error("Error: {}", ae.getMessage());
+
+            logger.error(
+                    "ASSERTION FAILED - Data Set: {} | {}",
+                    dataSetId,
+                    testObjective
+            );
+
+            logger.error(
+                    "Error: {}",
+                    ae.getMessage()
+            );
+
             throw ae;
+
         } catch (Exception e) {
-            logger.error("TEST FAILED - Data Set: {} | {}", dataSetId, testObjective);
-            logger.error("Exception: {}", e.getMessage());
-            Assert.fail("Test failed with exception: " + e.getMessage());
+
+            logger.error(
+                    "TEST FAILED - Data Set: {} | {}",
+                    dataSetId,
+                    testObjective
+            );
+
+            logger.error(
+                    "Exception: {}",
+                    e.getMessage()
+            );
+
+            Assert.fail(
+                    "Test failed with exception: " + e.getMessage()
+            );
+
         } finally {
+
             if (registrationSuccessful) {
+
                 logoutUser();
             }
         }
     }
 
-
     private void logoutUser() {
-        try {
-            logger.info("Logging out user for next test iteration...");
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
-            WebElement myAccountDropdown = wait.until(
-                    ExpectedConditions.elementToBeClickable(
-                            By.xpath("//span[text()='My Account']")));
+        try {
+
+            logger.info(
+                    "Logging out user for next test iteration..."
+            );
+
+            WebDriverWait wait =
+                    new WebDriverWait(
+                            getDriver(),
+                            Duration.ofSeconds(5)
+                    );
+
+            WebElement myAccountDropdown =
+                    wait.until(
+                            ExpectedConditions.elementToBeClickable(
+                                    By.xpath(
+                                            "//span[normalize-space()='My Account']"
+                                    )
+                            )
+                    );
+
             myAccountDropdown.click();
 
-            WebElement logoutLink = wait.until(
-                    ExpectedConditions.elementToBeClickable(
-                            By.linkText("Logout")));
+            WebElement logoutLink =
+                    wait.until(
+                            ExpectedConditions.elementToBeClickable(
+                                    By.linkText("Logout")
+                            )
+                    );
+
             logoutLink.click();
 
-            Thread.sleep(1000);
+            wait.until(
+                    ExpectedConditions.urlContains(
+                            "route=account/logout"
+                    )
+            );
 
-            logger.info("Successfully logged out");
+            logger.info(
+                    "Successfully logged out"
+            );
 
         } catch (Exception e) {
-            logger.warn("Logout failed (may not be logged in): {}", e.getMessage());
+
+            logger.warn(
+                    "Logout failed (may not be logged in): {}",
+                    e.getMessage()
+            );
         }
     }
 }

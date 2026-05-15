@@ -12,18 +12,18 @@ import testBase.BaseClass;
 
         @Test(description = "Validate navigating to Home page from an empty Category page (PC(0))")
         public void testNavigateToHomePageFromEmptyCategory() {
-            HomePage home = new HomePage(driver);
+            HomePage home = new HomePage(getDriver());
 
-            // Step 1: Hover on 'Desktops' and select 'PC(0)'
+            // Hover on Desktops and select PC
             home.navigateToEmptyPCCategory();
 
-            CategoryPage category = new CategoryPage(driver);
+            CategoryPage category = new CategoryPage(getDriver());
 
-            // Step 2: Click on "Continue" button in empty category page
+            //Click on "Continue" button in empty category page
             category.clickContinue();
 
-            // Step 3: Validate navigation back to Home page
-            String actualTitle = driver.getTitle();
+            //Validate navigation back to Home page
+            String actualTitle = getDriver().getTitle();
             String expectedTitle = "Your Store"; // homepage title
 
             Assert.assertEquals(actualTitle, expectedTitle,

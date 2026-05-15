@@ -13,15 +13,15 @@ public class TC_WL_001_ValidateAddProductFromRelatedProductsToWishListTest exten
 
         try {
             // 1. Login
-            HomePage hp = new HomePage(driver);
+            HomePage hp = new HomePage(getDriver());
             hp.clickMyAccount();
             hp.clickLogin();
 
-            LoginPage lp = new LoginPage(driver);
-            lp.login(rb.getString("email"), rb.getString("password"));
+            LoginPage lp = new LoginPage(getDriver());
+            lp.login(p.getProperty("email"), p.getProperty("password"));
 
             // 2. Search Product (iMac)
-            SearchPage sp = new SearchPage(driver);
+            SearchPage sp = new SearchPage(getDriver());
             sp.enterSearchKeyword("iMac");
             sp.clickSearchButton();
             Assert.assertTrue(sp.isProductDisplayed("iMac"), "iMac not displayed in results");
@@ -30,7 +30,7 @@ public class TC_WL_001_ValidateAddProductFromRelatedProductsToWishListTest exten
             sp.clickFirstProductName();
 
             // 4. Add first related product to Wish List (dynamic)
-            ProductDisplayPage pdp = new ProductDisplayPage(driver);
+            ProductDisplayPage pdp = new ProductDisplayPage(getDriver());
             String relatedProduct = pdp.getFirstRelatedProductName();
             logger.info("First Related Product found: " + relatedProduct);
 
@@ -44,9 +44,9 @@ public class TC_WL_001_ValidateAddProductFromRelatedProductsToWishListTest exten
             pdp.clickWishListLink();
 
             // 6. Verify in My Wish List page
-            WishListPage wlp = new WishListPage(driver);
+            WishListPage wlp = new WishListPage(getDriver());
             Assert.assertTrue(wlp.isProductInWishList(relatedProduct), "Product not found in wishlist");
-            logger.info("Validation Passed: Product '" + relatedProduct + "' is in wishlist");
+            logger.info("Validation Passed: Product " + relatedProduct + " is in wishlist");
 
         } catch (Exception e) {
             logger.error("Test Failed: " + e.getMessage());

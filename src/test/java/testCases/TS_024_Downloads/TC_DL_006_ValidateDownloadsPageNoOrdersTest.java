@@ -1,35 +1,43 @@
 package testCases.TS_024_Downloads;
 
-
-
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pageObjects.DownloadsPage;
 import pageObjects.MyAccountPage;
 import testBase.BaseClass;
 
-    public class TC_DL_006_ValidateDownloadsPageNoOrdersTest extends BaseClass {
+public class TC_DL_006_ValidateDownloadsPageNoOrdersTest extends BaseClass {
 
-        @Test
-        public void validateDownloadsPageNoOrders() {
-            // Step 1: Login
-            performLogin();
+    @Test
+    public void validateDownloadsPageNoOrders() {
 
-            // Step 2: Navigate to My Account page
-            MyAccountPage myAccount = new MyAccountPage(driver);
+        // Login
+        performLogin();
 
-            Assert.assertTrue(myAccount.isMyAccountPageExists(), "My Account page is not displayed.");
+        // Navigate to My Account page
+        MyAccountPage myAccount = new MyAccountPage(getDriver());
 
-            // Step 3: Click on 'Downloads' from Right Column
-            myAccount.clickDownloadsFromRightColumn();
+        DownloadsPage downloadsPage = new DownloadsPage(getDriver());
 
-            // Step 4: Verify the message when no downloadable orders exist
-            String expectedMessage = "You have not made any previous downloadable orders!";
-            String actualText = driver.findElement(
-                    By.xpath("//div[@id='content']//p[contains(text(),'You have not made any previous downloadable orders!')]")
-            ).getText();
+        Assert.assertTrue(
+                myAccount.isMyAccountPageExists(),
+                "My Account page is not displayed."
+        );
 
-            Assert.assertEquals(actualText, expectedMessage, "Downloads page message mismatch.");
-        }
+        // Click Downloads
+        myAccount.clickDownloadsFromRightColumn();
+
+        // Validate no downloadable orders message
+        String expectedMessage =
+                "You have not made any previous downloadable orders!";
+
+        String actualText =
+                downloadsPage.getNoDownloadsMessage();
+
+        Assert.assertEquals(
+                actualText,
+                expectedMessage,
+                "Downloads page message mismatch."
+        );
     }
-
+}

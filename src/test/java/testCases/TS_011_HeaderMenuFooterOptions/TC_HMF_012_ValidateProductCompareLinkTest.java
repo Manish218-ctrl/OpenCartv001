@@ -1,62 +1,53 @@
 package testCases.TS_011_HeaderMenuFooterOptions;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 import testBase.BaseClass;
 
-import java.time.Duration;
-
 public class TC_HMF_012_ValidateProductCompareLinkTest extends BaseClass {
 
-        private static final Logger logger = LogManager.getLogger(TC_HMF_012_ValidateProductCompareLinkTest.class);
+    private static final Logger logger =
+            LogManager.getLogger(TC_HMF_012_ValidateProductCompareLinkTest.class);
 
-        @Test
-        public void validateProductCompareLink() {
-            logger.info("Test Case TC_HMF_012 - Validate 'Product Compare' link in the 'Brand' page Started");
+    @Test
+    public void validateProductCompareLink() {
 
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Timeout of 20 seconds
-            try {
+        logger.info("Test Case TC_HMF_012 - Validate Product Compare link in the Brand page Started");
 
-                logger.info("Opening the application URL: " + rb.getString("appURL"));
-                driver.get(rb.getString("appURL"));
+        try {
 
-                HomePage homepage = new HomePage(driver);
+            HomePage homepage = new HomePage(getDriver());
 
-                // Step 1: Click on the 'Brands' footer link
-                logger.info("Clicking on the 'Brands' footer link");
-                homepage.clickBrandsFooterLink();
+            logger.info("Opening the application URL: {}", p.getProperty("appURL"));
 
-                // Step 2: Click on a brand (e.g., 'Apple')
-                logger.info("Clicking on the 'Apple' brand");
-                homepage.clickBrandByName("Apple");
+            homepage.clickBrandsFooterLink();
 
-                // Step 3: Click on the 'Product Compare' link in the brand page
-                logger.info("Clicking on 'Product Compare' link");
-                WebElement productCompareLink = driver.findElement(By.xpath("//*[@id=\"compare-total\"]"));
-                wait.until(ExpectedConditions.elementToBeClickable(productCompareLink));
-                productCompareLink.click();
+            logger.info("Clicking on the Apple brand");
 
-                // Step 4: Validate that user is redirected to the 'Product Comparison' page
-                logger.info("Validating that the user is redirected to 'Product Comparison' page");
-                String currentUrl = driver.getCurrentUrl();
-                Assert.assertTrue(currentUrl.contains("product/compare"), "User was not redirected to the 'Product Comparison' page.");
+            homepage.clickBrandByName("Apple");
 
-                logger.info("Test Case TC_HMF_012 - Validate 'Product Compare' link in the 'Brand' page Completed Successfully");
+            logger.info("Clicking on Product Compare link");
 
-            } catch (Exception e) {
-                logger.error("Test Case TC_HMF_012 - Error occurred during 'Product Compare' link validation: " + e.getMessage());
-                Assert.fail("Test failed due to an error: " + e.getMessage());
-            }
+            homepage.clickProductCompareLink();
+
+            logger.info("Validating that the user is redirected to Product Comparison page");
+
+            String currentUrl = homepage.getCurrentPageURL();
+
+            Assert.assertTrue(currentUrl.contains("product/compare"),
+                    "User was not redirected to the Product Comparison page.");
+
+            logger.info("Test Case TC_HMF_012 - Validate Product Compare link in the Brand page Completed Successfully");
+
+        } catch (Exception e) {
+
+            logger.error("Test Case TC_HMF_012 - Error occurred during Product Compare link validation: {}",
+                    e.getMessage(), e);
+
+            Assert.fail("Test failed due to an error: " + e.getMessage());
         }
     }
-
-
-
+}

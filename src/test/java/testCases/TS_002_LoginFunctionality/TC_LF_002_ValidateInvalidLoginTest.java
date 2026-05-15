@@ -15,12 +15,12 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_LF_002_ValidateInvalidLoginTest *****");
 
             try {
-                driver.get("https://tutorialsninja.com/demo/index.php?route=common/home");
-                HomePage hp = new HomePage(driver);
+                getDriver().get("https://tutorialsninja.com/demo/index.php?route=common/home");
+                HomePage hp = new HomePage(getDriver());
                 hp.clickMyAccount();
                 hp.clickLogin();
 
-                LoginPage lp = new LoginPage(driver);
+                LoginPage lp = new LoginPage(getDriver());
                 lp.setEmail("xyzabc123@gmail.com");   // Invalid email
                 lp.setPassword("xyzabc123");          // Invalid password
                 lp.clickLogin();

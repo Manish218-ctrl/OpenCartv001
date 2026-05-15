@@ -1,33 +1,44 @@
 package pageObjects;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.List;
 
 public class TransactionsPage extends BasePage {
 
-    private WebDriver driver;
-    private WebDriverWait wait;
-
     public TransactionsPage(WebDriver driver) {
         super(driver);
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        PageFactory.initElements(driver, this);
+        
     }
 
-    // Breadcrumb element (last breadcrumb item = current page name)
-    @FindBy(xpath = "/html/body/div[2]/div/div/h1")
+    //Locators
+
+    @FindBy(xpath = "//div[@id='content']/h1")
     public WebElement breadcrumbElementT;
 
+    @FindBy(xpath = "//div[@id='content']/h1")
+    public WebElement headingYourTransactions;
 
+    @FindBy(xpath = "//div[@id='content']/p[contains(.,'balance')]")
+    private WebElement txtBalance;
 
-    // Method to get breadcrumb text safely
+    @FindBy(xpath = "//table[contains(@class,'table-bordered') and contains(@class,'table-hover')]//thead/tr/td")
+    private List<WebElement> tableHeaders;
+
+    @FindBy(xpath = "//table[contains(@class,'table-bordered') and contains(@class,'table-hover')]//tbody/tr")
+    private List<WebElement> tableRows;
+
+    @FindBy(xpath = "//div[@class='buttons clearfix']//a[contains(@class,'btn-primary')]")
+    public WebElement btnContinue;
+
+    //Action Methods
+
     public String getBreadcrumbTextt() {
         try {
             wait.until(ExpectedConditions.visibilityOf(breadcrumbElementT));
@@ -37,29 +48,9 @@ public class TransactionsPage extends BasePage {
         }
     }
 
-
-
-
-    @FindBy(xpath = "/html/body/div[2]/div/div/h1")
-    public WebElement headingYourTransactions;
-
-
-    // Balance text
-    @FindBy(xpath = "/html/body/div[2]/div/div/p")
-    private WebElement txtBalance;
-
-    // Table Headers
-    @FindBy(xpath = "//table[@class='table table-bordered table-hover']//thead/tr/td")
-    private List<WebElement> tableHeaders;
-
-    // Table Rows
-    @FindBy(xpath = "//table[@class='table table-bordered table-hover']//tbody/tr")
-    private List<WebElement> tableRows;
-
-    //METHODS
-
     public boolean isTransactionsHeadingDisplayed() {
-        return wait.until(ExpectedConditions.visibilityOf(headingYourTransactions)).isDisplayed();
+        return wait.until(
+                ExpectedConditions.visibilityOf(headingYourTransactions)).isDisplayed();
     }
 
     public String getBalanceText() {
@@ -69,24 +60,22 @@ public class TransactionsPage extends BasePage {
 
     public String[] getTableHeaders() {
         wait.until(ExpectedConditions.visibilityOfAllElements(tableHeaders));
-        return tableHeaders.stream().map(WebElement::getText).map(String::trim).toArray(String[]::new);
+        return tableHeaders.stream()
+                .map(WebElement::getText)
+                .map(String::trim)
+                .toArray(String[]::new);
     }
 
     public int getTableRowCount() {
-        wait.until(ExpectedConditions.visibilityOfAllElements(tableHeaders)); // ensure table loaded
+        wait.until(ExpectedConditions.visibilityOfAllElements(tableHeaders));
         return tableRows.size();
     }
-
-    @FindBy(xpath = "/html/body/div[2]/div/div/div[3]/div/a")
-    public WebElement btnContinue;
 
     public void clickContinueButton() {
         wait.until(ExpectedConditions.elementToBeClickable(btnContinue)).click();
     }
 
-
     public String getBreadcrumbText() {
-        return driver.findElement(By.cssSelector(".breadcrumb")).getText();
+        return driver.findElement(By.cssSelector("ul.breadcrumb")).getText();
     }
-
 }

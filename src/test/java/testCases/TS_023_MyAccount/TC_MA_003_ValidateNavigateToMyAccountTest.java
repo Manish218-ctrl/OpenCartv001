@@ -1,34 +1,39 @@
 package testCases.TS_023_MyAccount;
 
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 import pageObjects.MyAccountPage;
 import testBase.BaseClass;
 
-    public class TC_MA_003_ValidateNavigateToMyAccountTest extends BaseClass {
+import java.time.Duration;
 
-        @Test(description = "Validate navigating to 'My Account' page using 'My Account' option")
+public class TC_MA_003_ValidateNavigateToMyAccountTest extends BaseClass {
 
+    @Test(description = "Validate navigating to My Account page using My Account option")
+    public void verifyNavigateToMyAccount() {
+        performLogin();
 
-        public void verifyNavigateToMyAccount() throws InterruptedException {
+        HomePage home = new HomePage(getDriver());
 
-            performLogin();
+        home.clickMyAccount();
+        logger.info("Clicked My Account menu");
 
-            HomePage home = new HomePage(driver);
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']")));
 
-            home.clickMyAccount();
-            logger.info("Clicked My Account menu");
-            Thread.sleep(3000); // Short wait for dropdown animation
-            home.clickMyAccountFromDropdown();
-            logger.info("Clicked 'My Account' from dropdown");
-            MyAccountPage myAccount = new MyAccountPage(driver);
+        home.clickMyAccountFromDropdown();
+        logger.info("Clicked My Account from dropdown");
 
-            MyAccountPage myAcc = new MyAccountPage(driver);
-            boolean atMyAccount = myAcc.isAt();
+        MyAccountPage myAcc = new MyAccountPage(getDriver());
+        boolean atMyAccount = myAcc.isAt();
 
-            Assert.assertTrue(atMyAccount, "User should be navigated to My Account page but was not. Breadcrumb: " + myAcc.getBreadcrumbText());
-        }
+        Assert.assertTrue(atMyAccount,
+                "User should be navigated to My Account page but was not. Breadcrumb: "
+                        + myAcc.getBreadcrumbText());
     }
-
+}

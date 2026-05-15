@@ -1,0 +1,10 @@
+target/
+*.class
+reports/
+screenshots/
+logs/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+.mvn/wrapper/maven-wrapper.jar

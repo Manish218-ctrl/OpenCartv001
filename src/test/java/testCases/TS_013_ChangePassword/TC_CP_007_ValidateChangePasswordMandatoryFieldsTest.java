@@ -1,51 +1,70 @@
 package testCases.TS_013_ChangePassword;
 
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.ChangePasswordPage;
 import testBase.BaseClass;
 
-    public class TC_CP_007_ValidateChangePasswordMandatoryFieldsTest extends BaseClass {
+public class TC_CP_007_ValidateChangePasswordMandatoryFieldsTest extends BaseClass {
 
-        @Test
-        public void validateMandatoryPasswordFields() {
-            logger.info("===== Starting Test: TC_CP_007 – Change Password Mandatory Fields =====");
+    @Test
+    public void validateMandatoryPasswordFields() {
 
-            // Step 1: Login
-            performLogin();
-            logger.info("User logged in successfully.");
+        logger.info(
+                "===== Starting Test: TC_CP_007 – Change Password Mandatory Fields ====="
+        );
 
-            // Step 2: Navigate to 'Change Password' page
-            ChangePasswordPage cpPage = new ChangePasswordPage(driver);
-            driver.get(appURL + "/index.php?route=account/password"); // Adjust if your URL pattern differs
-            logger.info("Navigated to Change Password page.");
+        // Login
+        performLogin();
 
-            cpPage.clickContinue();
+        logger.info(
+                "User logged in successfully."
+        );
 
+        // Navigate to Change Password page
+        getDriver().get(
+                appURL + "/index.php?route=account/password"
+        );
 
-            WebElement newPasswordLabel = driver.findElement(By.xpath("/html/body/div[2]/div/div/form/fieldset/div[1]/div/div"));
+        ChangePasswordPage cpPage =
+                new ChangePasswordPage(getDriver());
 
-            boolean isNewPasswordMandatory = newPasswordLabel.getText().contains("!");
+        logger.info(
+                "Navigated to Change Password page."
+        );
 
-            logger.info("New Password field mandatory (using asterisk): " + isNewPasswordMandatory);
-            Assert.assertTrue(isNewPasswordMandatory, "New Password field is not marked as mandatory!");
+        cpPage.clickContinue();
 
+        // Validate Password field mandatory
+        boolean isNewPasswordMandatory =
+                cpPage.isNewPasswordFieldMandatory();
 
-            logger.info("New Password field mandatory: " + isNewPasswordMandatory);
-            Assert.assertTrue(isNewPasswordMandatory, "New Password field is not marked as mandatory!");
+        logger.info(
+                "New Password field mandatory: "
+                        + isNewPasswordMandatory
+        );
 
-            // Step 4: Validate Confirm Password field is mandatory using label/asterisk
-            WebElement confirmPasswordLabel = driver.findElement(By.xpath(""));
+        Assert.assertTrue(
+                isNewPasswordMandatory,
+                "New Password field is not marked as mandatory!"
+        );
 
-            boolean isConfirmPasswordMandatory = confirmPasswordLabel.getText().contains("!");
+        // Validate Confirm Password field mandatory
+        boolean isConfirmPasswordMandatory =
+                cpPage.isConfirmPasswordFieldMandatory();
 
-            logger.info("Confirm Password field mandatory (using asterisk): " + isConfirmPasswordMandatory);
-            Assert.assertTrue(isConfirmPasswordMandatory, "Confirm Password field is not marked as mandatory!");
+        logger.info(
+                "Confirm Password field mandatory: "
+                        + isConfirmPasswordMandatory
+        );
 
-            logger.info("===== Test Completed Successfully =====");
-        }
+        Assert.assertTrue(
+                isConfirmPasswordMandatory,
+                "Confirm Password field is not marked as mandatory!"
+        );
+
+        logger.info(
+                "===== Test Completed Successfully ====="
+        );
     }
-
+}

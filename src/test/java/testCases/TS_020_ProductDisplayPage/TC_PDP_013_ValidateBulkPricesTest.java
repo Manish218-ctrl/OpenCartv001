@@ -22,13 +22,13 @@ public class TC_PDP_013_ValidateBulkPricesTest extends BaseClass {
         logger.info("User logged in successfully.");
 
         // 2. Go to HomePage and search product
-        HomePage home = new HomePage(driver);
+        HomePage home = new HomePage(getDriver());
         home.enterSearchText(productName);
         home.clickSearchButton();
         logger.info("Searched for product: " + productName);
 
         // 3. Click product from search results (instead of success message link)
-        ProductDisplayPage pdp = new ProductDisplayPage(driver);
+        ProductDisplayPage pdp = new ProductDisplayPage(getDriver());
         pdp.clickProductFromSearchResults(productName);
         logger.info("Navigated to Product Display Page: " + productName);
 

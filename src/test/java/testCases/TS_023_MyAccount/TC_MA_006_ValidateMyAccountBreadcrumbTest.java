@@ -11,16 +11,16 @@ import testBase.BaseClass;
 
         @Test
         public void validateMyAccountBreadcrumb() {
-            logger.info("***** Starting TC_MA_006 – Validate Breadcrumb in 'My Account' page *****");
+            logger.info("***** Starting TC_MA_006 – Validate Breadcrumb in My Account page *****");
 
             try {
                 performLogin();
                 logger.info("User logged in successfully.");
 
-                HomePage home = new HomePage(driver);
+                HomePage home = new HomePage(getDriver());
                 home.clickMyAccount();               // Open dropdown
-                home.clickMyAccountFromDropdown();   // Click on 'My Account'
-                logger.info("Navigated to 'My Account' page.");
+                home.clickMyAccountFromDropdown();   // Click on My Account
+                logger.info("Navigated to My Account page.");
 
                 logger.info("***** TC_MA_006 passed successfully *****");
 

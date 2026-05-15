@@ -10,17 +10,17 @@ public class TC_RP_001_ValidateRewardPointsNavigationTest extends BaseClass {
 
         @Test
         public void validateRewardPointsNavigation() {
-            // Step 1: Login
+            //Login
             performLogin();
 
-            // Step 2: Click "Your Reward Points"
-            HomePage home = new HomePage(driver);
+            //Click "Your Reward Points"
+            HomePage home = new HomePage(getDriver());
             home.clickRewardPoints();
 
-            // Step 3: Validate navigation
+            //Validate navigation
             String expectedTitle = "Your Reward Points";  // Adjust based on actual page title
-            String actualTitle = driver.getTitle();
-            Assert.assertEquals(actualTitle, expectedTitle, "Navigation to 'Your Reward Points' page failed");
+            String actualTitle = getDriver().getTitle();
+            Assert.assertEquals(actualTitle, expectedTitle, "Navigation to Your Reward Points page failed");
         }
     }
 

@@ -17,33 +17,29 @@ import testBase.BaseClass;
             logger.info("***** Starting TC_LF_008_ValidatePasswordCopyTest *****");
 
             try {
-                // Step 1: Open application (already handled by BaseClass)
-                HomePage hp = new HomePage(driver);
+                HomePage hp = new HomePage(getDriver());
                 hp.clickMyAccount();
                 hp.clickLogin();
                 logger.info("Navigated to Login page");
 
-                // Step 2: Enter some password text
-                LoginPage lp = new LoginPage(driver);
+                LoginPage lp = new LoginPage(getDriver());
                 WebElement passwordField = lp.getPasswordField();
                 String samplePassword = "MySecret123";
                 passwordField.sendKeys(samplePassword);
 
-                // Step 3:Right-Click Copy (context menu should not allow copy)
-                passwordField.sendKeys(Keys.chord(Keys.CONTROL, "a")); // select all
-                passwordField.sendKeys(Keys.chord(Keys.SHIFT, Keys.F10)); // open context menu
+                passwordField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+                passwordField.sendKeys(Keys.chord(Keys.SHIFT, Keys.F10));
                 String fieldType = passwordField.getAttribute("type");
                 Assert.assertEquals(fieldType, "password", "Password field should remain masked.");
 
-                // Step 4:Ctrl+C and paste into another field
                 passwordField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
                 passwordField.sendKeys(Keys.chord(Keys.CONTROL, "c"));
 
-                WebElement tempInput = (WebElement) ((org.openqa.selenium.JavascriptExecutor) driver)
+                WebElement tempInput = (WebElement) ((org.openqa.selenium.JavascriptExecutor) getDriver())
                         .executeScript("let input=document.createElement('input');"
-                                + "input.type='text'; document.body.appendChild(input); return input;");
+                                + "input.type=text; document.body.appendChild('input'); return input;");
 
-                tempInput.sendKeys(Keys.chord(Keys.CONTROL, "v"));  // try paste
+                tempInput.sendKeys(Keys.chord(Keys.CONTROL, "v"));
 
                 String pastedValue = tempInput.getAttribute("value");
                 Assert.assertNotEquals(pastedValue, samplePassword,
