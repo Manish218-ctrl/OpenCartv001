@@ -92,13 +92,19 @@ jobs:
       - name: Prepare output directories
         run: mkdir -p reports screenshots
 
+
+
+
       - name: Run UI Tests — Chrome
         timeout-minutes: 30
         run: |
           mvn clean test -B --no-transfer-progress \
             -DsuiteXmlFile=testng-chrome.xml \
-            -Dexecution_env=remote
+            -Dexecution_env=remote \
+            -Djava.awt.headless=true
         continue-on-error: true
+
+
 
       - name: Stop Selenium Grid
         if: always()
@@ -201,7 +207,8 @@ jobs:
         run: |
           mvn clean test -B --no-transfer-progress \
             -DsuiteXmlFile=testng-firefox.xml \
-            -Dexecution_env=remote
+            -Dexecution_env=remote \
+            -Djava.awt.headless=true
         continue-on-error: true
 
       - name: Stop Selenium Grid
