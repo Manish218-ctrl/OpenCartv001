@@ -2,18 +2,17 @@ name: OpenCart UI Automation CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, ci-testing ]
   pull_request:
     branches: [ master ]
   workflow_dispatch:
-
 env:
   JAVA_VERSION: '17'
   APP_URL: 'https://tutorialsninja.com/demo/'
 
 jobs:
 
-  # ── JOB 1: BUILD ──────────────────────────────────────────
+  # JOB 1: BUILD
   build:
     name: Build & Compile
     runs-on: ubuntu-latest
@@ -38,7 +37,7 @@ jobs:
       - name: Compile project
         run: mvn clean compile test-compile -B --no-transfer-progress
 
-  # ── JOB 2: CHROME TESTS ───────────────────────────────────
+  #  JOB 2: CHROME TESTS
   test-chrome:
     name: Tests — Chrome
     runs-on: ubuntu-latest
@@ -143,7 +142,7 @@ jobs:
         if: failure()
         run: exit 1
 
-  # ── JOB 3: FIREFOX TESTS ──────────────────────────────────
+  # JOB 3: FIREFOX TESTS
   test-firefox:
     name: Tests — Firefox
     runs-on: ubuntu-latest
