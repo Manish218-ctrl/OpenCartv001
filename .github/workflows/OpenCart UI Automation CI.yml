@@ -101,7 +101,6 @@ jobs:
           mvn clean test -B --no-transfer-progress \
             -DsuiteXmlFile=testng-chrome.xml \
             -Dexecution_env=remote \
-            -Djava.awt.headless=true
         continue-on-error: true
 
 
@@ -208,7 +207,6 @@ jobs:
           mvn clean test -B --no-transfer-progress \
             -DsuiteXmlFile=testng-firefox.xml \
             -Dexecution_env=remote \
-            -Djava.awt.headless=true
         continue-on-error: true
 
       - name: Stop Selenium Grid

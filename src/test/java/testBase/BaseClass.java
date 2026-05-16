@@ -57,7 +57,7 @@ public class BaseClass {
     protected String multiProductSearchKeyword;
     protected String singleProductSearchKeyword;
 
-    // ================= THREAD SAFE REPORT =================
+    // ================= REPORT =================
     private static final ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
 
     public static ExtentTest getTest() {
@@ -157,17 +157,6 @@ public class BaseClass {
                             "--height=1080"
                     );
                     driverThread.set(new RemoteWebDriver(gridUrl, firefox));
-                    break;
-
-                case "edge":
-                    EdgeOptions edge = new EdgeOptions();
-                    edge.addArguments(
-                            "--headless=new",
-                            "--no-sandbox",
-                            "--disable-dev-shm-usage",
-                            "--window-size=1920,1080"
-                    );
-                    driverThread.set(new RemoteWebDriver(gridUrl, edge));
                     break;
 
                 default:
