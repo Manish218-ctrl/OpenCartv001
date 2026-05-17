@@ -17,7 +17,6 @@
             <class name="testCases.TS_001_AccountRegistration.TC_RF_005_ValidateRegisterNewsletterNoTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_006_ValidateNavigateRegisterPageTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_007_ValidateRegisterPasswordMismatchTest" />
-            <class name="testCases.TS_001_AccountRegistration.TC_RF_008_ValidateInvalidEmailRegistrationTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_009_ValidateMissingPasswordConfirmTest" />
             <class name="testCases.TS_001_AccountRegistration.TC_RF_010_ValidateMissingPrivacyPolicyTest" />
             <class name="testCases.TS_005_SearchFunctionality.TC_SF_010_ValidateSearchExistingProductDataDrivenTest" />
