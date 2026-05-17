@@ -54,7 +54,8 @@ This project implements a Hybrid Driven Automation Framework tailored for the Op
 
 ### **Performance & Scalability**
 
-•	Cross-browser and parallel execution implemented via Selenium Grid and Docker, achieving 60% reduction in execution time on Chrome, Firefox, and Edge across multiple operating systems.
+•	Cross-browser and parallel execution implemented via Selenium Grid and Docker, achieving 60% reduction in execution time on Chrome, Firefox, and Edge across
+  multiple operating systems.
 
 ### **Reporting & Diagnostics**
 
@@ -67,6 +68,9 @@ This project implements a Hybrid Driven Automation Framework tailored for the Op
 ### **CI/CD Integration**
 
 •	Full Jenkins and Docker integration to automate Maven builds upon commits, publish test results, and enable continuous regression testing.
+
+• Full GitHub Actions and Docker integration to automate Maven builds upon commits, run Chrome and Firefox tests in parallel on Dockerized Selenium Grid,
+  publish test results, and enable continuous regression testing.
 
 ### **Technologies Used**
 
